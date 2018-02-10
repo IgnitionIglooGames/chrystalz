@@ -8,8 +8,6 @@ package studio.ignitionigloogames.chrystalz.battle;
 import javax.swing.JFrame;
 
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
-import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 
 public abstract class AbstractBattle {
     // Constructors
@@ -60,15 +58,7 @@ public abstract class AbstractBattle {
 
     public abstract void maintainEffects(final boolean player);
 
-    // Methods specific to map battles
     public abstract boolean updatePosition(int x, int y);
-
-    public abstract void fireArrow(int x, int y);
-
-    public abstract void arrowDone(BattleCharacter hit);
-
-    public abstract void redrawOneBattleSquare(int x, int y,
-            AbstractGameObject obj3);
 
     public abstract boolean isWaitingForAI();
 }

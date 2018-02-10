@@ -314,22 +314,14 @@ class MapTurnBattleGUI {
         @Override
         public void keyPressed(final KeyEvent e) {
             if (!PreferencesManager.oneMove()) {
-                if (e.isShiftDown()) {
-                    this.handleArrows(e);
-                } else {
-                    this.handleMovement(e);
-                }
+                this.handleMovement(e);
             }
         }
 
         @Override
         public void keyReleased(final KeyEvent e) {
             if (PreferencesManager.oneMove()) {
-                if (e.isShiftDown()) {
-                    this.handleArrows(e);
-                } else {
-                    this.handleMovement(e);
-                }
+                this.handleMovement(e);
             }
         }
 
@@ -400,79 +392,6 @@ class MapTurnBattleGUI {
                                 "Battle");
                         if (res == JOptionPane.YES_OPTION) {
                             bl.updatePosition(0, 0);
-                        }
-                        break;
-                    default:
-                        break;
-                    }
-                }
-            } catch (final Exception ex) {
-                Chrystalz.getErrorLogger().logError(ex);
-            }
-        }
-
-        private void handleArrows(final KeyEvent e) {
-            try {
-                if (System.getProperty("os.name")
-                        .equalsIgnoreCase("Mac OS X")) {
-                    if (e.isMetaDown()) {
-                        return;
-                    }
-                } else {
-                    if (e.isControlDown()) {
-                        return;
-                    }
-                }
-                final AbstractBattle bl = Chrystalz.getApplication()
-                        .getBattle();
-                final MapTurnBattleGUI bg = MapTurnBattleGUI.this;
-                if (bg.eventHandlersOn) {
-                    final int keyCode = e.getKeyCode();
-                    switch (keyCode) {
-                    case KeyEvent.VK_NUMPAD4:
-                    case KeyEvent.VK_LEFT:
-                    case KeyEvent.VK_A:
-                        bl.fireArrow(-1, 0);
-                        break;
-                    case KeyEvent.VK_NUMPAD2:
-                    case KeyEvent.VK_DOWN:
-                    case KeyEvent.VK_X:
-                        bl.fireArrow(0, 1);
-                        break;
-                    case KeyEvent.VK_NUMPAD6:
-                    case KeyEvent.VK_RIGHT:
-                    case KeyEvent.VK_D:
-                        bl.fireArrow(1, 0);
-                        break;
-                    case KeyEvent.VK_NUMPAD8:
-                    case KeyEvent.VK_UP:
-                    case KeyEvent.VK_W:
-                        bl.fireArrow(0, -1);
-                        break;
-                    case KeyEvent.VK_NUMPAD7:
-                    case KeyEvent.VK_Q:
-                        bl.fireArrow(-1, -1);
-                        break;
-                    case KeyEvent.VK_NUMPAD9:
-                    case KeyEvent.VK_E:
-                        bl.fireArrow(1, -1);
-                        break;
-                    case KeyEvent.VK_NUMPAD3:
-                    case KeyEvent.VK_C:
-                        bl.fireArrow(1, 1);
-                        break;
-                    case KeyEvent.VK_NUMPAD1:
-                    case KeyEvent.VK_Z:
-                        bl.fireArrow(-1, 1);
-                        break;
-                    case KeyEvent.VK_NUMPAD5:
-                    case KeyEvent.VK_S:
-                        // Confirm before attacking self
-                        final int res = CommonDialogs.showConfirmDialog(
-                                "Are you sure you want to attack yourself?",
-                                "Battle");
-                        if (res == JOptionPane.YES_OPTION) {
-                            bl.fireArrow(0, 0);
                         }
                         break;
                     default:

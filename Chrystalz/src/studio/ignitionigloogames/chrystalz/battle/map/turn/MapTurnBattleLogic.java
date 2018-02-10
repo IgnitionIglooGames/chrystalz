@@ -20,7 +20,6 @@ import studio.ignitionigloogames.chrystalz.battle.BattleResults;
 import studio.ignitionigloogames.chrystalz.battle.BossRewards;
 import studio.ignitionigloogames.chrystalz.battle.damageengines.AbstractDamageEngine;
 import studio.ignitionigloogames.chrystalz.battle.map.MapBattle;
-import studio.ignitionigloogames.chrystalz.battle.map.MapBattleArrowTask;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.creatures.monsters.BossMonster;
@@ -594,50 +593,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
         }
         return this.updatePositionInternal(x, y, true,
                 this.bd.getActiveCharacter(), theEnemy, activeDE);
-    }
-
-    @Override
-    public void fireArrow(final int x, final int y) {
-        if (this.bd.getActiveCharacter().getCurrentAP() > 0) {
-            // Has actions left
-            this.bd.getActiveCharacter().modifyAP(1);
-            this.updateStatsAndEffects();
-            this.battleGUI.turnEventHandlersOff();
-            final MapBattleArrowTask at = new MapBattleArrowTask(x, y,
-                    this.bd.getBattleDungeon(), this.bd.getActiveCharacter());
-            at.start();
-        } else {
-            // Deny arrow - out of actions
-            if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
-                this.setStatusMessage("Out of actions!");
-            }
-        }
-    }
-
-    @Override
-    public void arrowDone(final BattleCharacter hit) {
-        this.battleGUI.turnEventHandlersOn();
-        // Handle death
-        if (hit != null && !hit.getTemplate().isAlive()) {
-            if (hit.getTeamID() != AbstractCreature.TEAM_PARTY) {
-                // Update victory spoils
-                this.battleExp = hit.getTemplate().getExperience();
-            }
-            // Remove effects from dead character
-            hit.getTemplate().stripAllEffects();
-            // Set dead character to inactive
-            hit.deactivate();
-            // Remove character from battle
-            this.bd.getBattleDungeon().setCell(new Empty(), hit.getX(),
-                    hit.getY(), 0, DungeonConstants.LAYER_OBJECT);
-        }
-        // Check result
-        final int currResult = this.getResult();
-        if (currResult != BattleResults.IN_PROGRESS) {
-            // Battle Done
-            this.result = currResult;
-            this.doResult();
-        }
     }
 
     private boolean updatePositionInternal(final int x, final int y,
@@ -1276,12 +1231,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
 
     private void redrawBattle() {
         this.battleGUI.redrawBattle(this.bd);
-    }
-
-    @Override
-    public void redrawOneBattleSquare(final int x, final int y,
-            final AbstractGameObject obj3) {
-        this.battleGUI.redrawOneBattleSquare(this.bd, x, y, obj3);
     }
 
     private void updateStatsAndEffects() {
