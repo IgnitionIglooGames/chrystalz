@@ -31,7 +31,7 @@ public class MenuManager {
             fileExit;
     private JMenuItem gameNewGame, gameEquipment, gameRegisterCharacter,
             gameUnregisterCharacter, gameRemoveCharacter, gameViewStats;
-    private JMenuItem helpAbout, helpObjectHelp;
+    private JMenuItem helpAbout;
     private KeyStroke fileOpenGameAccel, fileCloseAccel, fileSaveGameAccel,
             filePreferencesAccel;
     private KeyStroke gameNewGameAccel;
@@ -168,7 +168,6 @@ public class MenuManager {
         this.gameEquipment = new JMenuItem("Show Equipment...");
         this.gameViewStats = new JMenuItem("View Statistics...");
         this.helpAbout = new JMenuItem("About TallerTower...");
-        this.helpObjectHelp = new JMenuItem("TallerTower Object Help");
         this.fileOpenGame.addActionListener(this.handler);
         this.fileClose.addActionListener(this.handler);
         this.fileSaveGame.addActionListener(this.handler);
@@ -181,7 +180,6 @@ public class MenuManager {
         this.gameEquipment.addActionListener(this.handler);
         this.gameViewStats.addActionListener(this.handler);
         this.helpAbout.addActionListener(this.handler);
-        this.helpObjectHelp.addActionListener(this.handler);
         fileMenu.add(this.fileOpenGame);
         fileMenu.add(this.fileClose);
         fileMenu.add(this.fileSaveGame);
@@ -198,10 +196,11 @@ public class MenuManager {
         if (!System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
             helpMenu.add(this.helpAbout);
         }
-        helpMenu.add(this.helpObjectHelp);
         this.mainMenuBar.add(fileMenu);
         this.mainMenuBar.add(gameMenu);
-        this.mainMenuBar.add(helpMenu);
+        if (!System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
+            this.mainMenuBar.add(helpMenu);
+        }
     }
 
     private void setInitialMenuState() {
@@ -216,7 +215,6 @@ public class MenuManager {
         this.gameUnregisterCharacter.setEnabled(true);
         this.gameRemoveCharacter.setEnabled(true);
         this.helpAbout.setEnabled(true);
-        this.helpObjectHelp.setEnabled(true);
     }
 
     private class EventHandler implements ActionListener {
@@ -297,8 +295,6 @@ public class MenuManager {
                     StatisticsViewer.viewStatistics();
                 } else if (cmd.equals("About TallerTower...")) {
                     app.getAboutDialog().showAboutDialog();
-                } else if (cmd.equals("TallerTower Object Help")) {
-                    app.getObjectHelpManager().showHelp();
                 }
                 MenuManager.this.checkFlags();
             } catch (final Throwable t) {

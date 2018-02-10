@@ -29,7 +29,6 @@ public final class Application {
     private GameLogicManager gameMgr;
     private DungeonManager mazeMgr;
     private MenuManager menuMgr;
-    private ObjectHelpManager oHelpMgr;
     private GUIManager guiMgr;
     private final GameObjectList objects;
     private Shop weapons, armor, healer, regenerator, spells;
@@ -58,7 +57,6 @@ public final class Application {
         this.about = new AboutDialog(Application.getVersionString());
         this.guiMgr = new GUIManager();
         this.menuMgr = new MenuManager();
-        this.oHelpMgr = new ObjectHelpManager();
         this.mapTurnBattle = new MapTurnBattleLogic();
         this.weapons = new Shop(ShopTypes.SHOP_TYPE_WEAPONS);
         this.armor = new Shop(ShopTypes.SHOP_TYPE_ARMOR);
@@ -124,10 +122,6 @@ public final class Application {
             this.mazeMgr = new DungeonManager();
         }
         return this.mazeMgr;
-    }
-
-    public ObjectHelpManager getObjectHelpManager() {
-        return this.oHelpMgr;
     }
 
     public AboutDialog getAboutDialog() {
