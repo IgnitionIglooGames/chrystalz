@@ -18,7 +18,6 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
     private final AbstractCreature template;
     private int actionCounter;
     private int attackCounter;
-    private int spellCounter;
     private boolean isActive;
 
     // Constructors
@@ -26,10 +25,8 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
         super(true, false);
         this.template = newTemplate;
         this.actionCounter = newTemplate.getMapBattleActionsPerRound();
-        this.attackCounter = (int) newTemplate
-                .getEffectedStat(StatConstants.STAT_ATTACKS_PER_ROUND);
-        this.spellCounter = (int) newTemplate
-                .getEffectedStat(StatConstants.STAT_SPELLS_PER_ROUND);
+        this.attackCounter = newTemplate
+                .getStat(StatConstants.STAT_ATTACKS_PER_ROUND);
         this.isActive = true;
         this.setSavedObject(new Empty());
     }
@@ -113,7 +110,6 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
     public final void resetAll() {
         this.resetAP();
         this.resetAttacks();
-        this.resetSpells();
     }
 
     public final void resetAP() {
@@ -129,8 +125,8 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
     }
 
     public final void resetAttacks() {
-        this.attackCounter = (int) this.template
-                .getEffectedStat(StatConstants.STAT_ATTACKS_PER_ROUND);
+        this.attackCounter = this.template
+                .getStat(StatConstants.STAT_ATTACKS_PER_ROUND);
     }
 
     public final void modifyAttacks(final int mod) {
@@ -141,19 +137,6 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
         return this.attackCounter;
     }
 
-    public final void resetSpells() {
-        this.spellCounter = (int) this.template
-                .getEffectedStat(StatConstants.STAT_SPELLS_PER_ROUND);
-    }
-
-    public final void modifySpells(final int mod) {
-        this.spellCounter -= mod;
-    }
-
-    public final int getCurrentSP() {
-        return this.spellCounter;
-    }
-
     public final String getAPString() {
         return "Moves Left: "
                 + (this.actionCounter >= 0 ? this.actionCounter : 0);
@@ -162,11 +145,6 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
     public final String getAttackString() {
         return "Attacks Left: "
                 + (this.attackCounter >= 0 ? this.attackCounter : 0);
-    }
-
-    public final String getSpellString() {
-        return "Spells Left: "
-                + (this.spellCounter >= 0 ? this.spellCounter : 0);
     }
 
     @Override
@@ -239,7 +217,6 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
         result = prime * result + this.actionCounter;
         result = prime * result + this.attackCounter;
         result = prime * result + (this.isActive ? 1231 : 1237);
-        result = prime * result + this.spellCounter;
         return prime * result
                 + (this.template == null ? 0 : this.template.hashCode());
     }
@@ -263,9 +240,6 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
             return false;
         }
         if (this.isActive != other.isActive) {
-            return false;
-        }
-        if (this.spellCounter != other.spellCounter) {
             return false;
         }
         if (this.template == null) {

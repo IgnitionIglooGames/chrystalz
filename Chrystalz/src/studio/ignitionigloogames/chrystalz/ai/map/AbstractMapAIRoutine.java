@@ -5,11 +5,8 @@ Any questions should be directed to the author via email at: products@puttysoftw
  */
 package studio.ignitionigloogames.chrystalz.ai.map;
 
-import studio.ignitionigloogames.chrystalz.spells.Spell;
-
 public abstract class AbstractMapAIRoutine {
     // Fields
-    protected Spell spell;
     protected int moveX;
     protected int moveY;
     protected boolean lastResult;
@@ -21,7 +18,6 @@ public abstract class AbstractMapAIRoutine {
 
     // Constructor
     protected AbstractMapAIRoutine() {
-        this.spell = null;
         this.moveX = 0;
         this.moveY = 0;
         this.lastResult = true;
@@ -42,10 +38,6 @@ public abstract class AbstractMapAIRoutine {
         return this.moveY;
     }
 
-    public final Spell getSpellToCast() {
-        return this.spell;
-    }
-
     public final void setLastResult(final boolean res) {
         this.lastResult = res;
     }
@@ -56,9 +48,7 @@ public abstract class AbstractMapAIRoutine {
         int result = 1;
         result = prime * result + (this.lastResult ? 1231 : 1237);
         result = prime * result + this.moveX;
-        result = prime * result + this.moveY;
-        return prime * result
-                + (this.spell == null ? 0 : this.spell.hashCode());
+        return prime * result + this.moveY;
     }
 
     @Override
@@ -80,13 +70,6 @@ public abstract class AbstractMapAIRoutine {
             return false;
         }
         if (this.moveY != other.moveY) {
-            return false;
-        }
-        if (this.spell == null) {
-            if (other.spell != null) {
-                return false;
-            }
-        } else if (!this.spell.equals(other.spell)) {
             return false;
         }
         return true;

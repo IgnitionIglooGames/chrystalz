@@ -30,12 +30,6 @@ public abstract class AbstractBattle {
 
     public abstract boolean getLastAIActionResult();
 
-    public abstract boolean castSpell();
-
-    public abstract boolean steal();
-
-    public abstract boolean drain();
-
     public abstract void endTurn();
 
     public abstract AbstractCreature getEnemy();

@@ -29,10 +29,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
-import studio.ignitionigloogames.chrystalz.effects.Effect;
-import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
-import studio.ignitionigloogames.chrystalz.spells.Spell;
-import studio.ignitionigloogames.chrystalz.spells.SpellCaster;
 import studio.ignitionigloogames.common.random.RandomRange;
 
 public class MapTurnBattleLogic extends AbstractBattle {
@@ -54,8 +50,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
     private final MapTurnBattleAITask ait;
     private MapTurnBattleGUI battleGUI;
     private BattleCharacter enemy;
-    private static final int STEAL_ACTION_POINTS = 3;
-    private static final int DRAIN_ACTION_POINTS = 3;
 
     // Constructors
     public MapTurnBattleLogic() {
@@ -108,7 +102,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
                 .getBattleCharacters();
         // Generate Enemies
         this.enemy = b.getBattlers();
-        this.enemy.getTemplate().healAndRegenerateFully();
+        this.enemy.getTemplate().healFully();
         this.enemy.getTemplate().loadCreature();
         // Merge and Create AI Contexts
         for (int x = 0; x < 2; x++) {
@@ -213,21 +207,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
                     final int x = active.getTemplate().getMapAI().getMoveX();
                     final int y = active.getTemplate().getMapAI().getMoveY();
                     this.lastAIActionResult = this.updatePosition(x, y);
-                    active.getTemplate().getMapAI()
-                            .setLastResult(this.lastAIActionResult);
-                    break;
-                case AbstractMapAIRoutine.ACTION_CAST_SPELL:
-                    this.lastAIActionResult = this.castSpell();
-                    active.getTemplate().getMapAI()
-                            .setLastResult(this.lastAIActionResult);
-                    break;
-                case AbstractMapAIRoutine.ACTION_DRAIN:
-                    this.lastAIActionResult = this.drain();
-                    active.getTemplate().getMapAI()
-                            .setLastResult(this.lastAIActionResult);
-                    break;
-                case AbstractMapAIRoutine.ACTION_STEAL:
-                    this.lastAIActionResult = this.steal();
                     active.getTemplate().getMapAI()
                             .setLastResult(this.lastAIActionResult);
                     break;
@@ -369,9 +348,8 @@ public class MapTurnBattleLogic extends AbstractBattle {
         for (int x = 0; x < this.speedArray.length; x++) {
             if (this.bd.getBattlers()[x] != null
                     && this.bd.getBattlers()[x].getTemplate().isAlive()) {
-                this.speedArray[x] = (int) this.bd.getBattlers()[x]
-                        .getTemplate()
-                        .getEffectedStat(StatConstants.STAT_AGILITY);
+                this.speedArray[x] = this.bd.getBattlers()[x].getTemplate()
+                        .getStat(StatConstants.STAT_AGILITY);
             } else {
                 this.speedArray[x] = Integer.MIN_VALUE;
             }
@@ -809,8 +787,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
                                 this.battleExp = theEnemy.getTemplate()
                                         .getExperience();
                             }
-                            // Remove effects from dead character
-                            bc.getTemplate().stripAllEffects();
                             // Set dead character to inactive
                             bc.deactivate();
                             // Remove character from battle
@@ -820,8 +796,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
                         }
                         // Handle self death
                         if (!active.getTemplate().isAlive()) {
-                            // Remove effects from dead character
-                            active.getTemplate().stripAllEffects();
                             // Set dead character to inactive
                             active.deactivate();
                             // Remove character from battle
@@ -888,248 +862,12 @@ public class MapTurnBattleLogic extends AbstractBattle {
         return this.enemy.getTemplate();
     }
 
-    private BattleCharacter getEnemyBC() {
-        final int px = this.bd.getActiveCharacter().getX();
-        final int py = this.bd.getActiveCharacter().getY();
-        final Dungeon m = this.bd.getBattleDungeon();
-        AbstractGameObject next = null;
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                if (x == 0 && y == 0) {
-                    continue;
-                }
-                try {
-                    next = m.getCell(px + x, py + y, 0,
-                            DungeonConstants.LAYER_OBJECT);
-                } catch (final ArrayIndexOutOfBoundsException aioob) {
-                    // Ignore
-                }
-                if (next != null) {
-                    if (next.isSolidInBattle()) {
-                        if (next instanceof BattleCharacter) {
-                            return (BattleCharacter) next;
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     private void showBattle() {
         this.battleGUI.showBattle();
     }
 
     private void hideBattle() {
         this.battleGUI.hideBattle();
-    }
-
-    @Override
-    public boolean castSpell() {
-        // Check Spell Counter
-        if (this.getActiveSpellCounter() > 0) {
-            if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
-                // Active character has no AI, or AI is turned off
-                final boolean success = SpellCaster.selectAndCastSpell(
-                        this.bd.getActiveCharacter().getTemplate());
-                if (success) {
-                    this.decrementActiveSpellCounter();
-                }
-                final int currResult = this.getResult();
-                if (currResult != BattleResults.IN_PROGRESS) {
-                    // Battle Done
-                    this.result = currResult;
-                    this.doResult();
-                }
-                return success;
-            } else {
-                // Active character has AI, and AI is turned on
-                final Spell sp = this.bd.getActiveCharacter().getTemplate()
-                        .getMapAI().getSpellToCast();
-                final boolean success = SpellCaster.castSpell(sp,
-                        this.bd.getActiveCharacter().getTemplate());
-                if (success) {
-                    this.decrementActiveSpellCounter();
-                }
-                final int currResult = this.getResult();
-                if (currResult != BattleResults.IN_PROGRESS) {
-                    // Battle Done
-                    this.result = currResult;
-                    this.doResult();
-                }
-                return success;
-            }
-        } else {
-            // Deny cast - out of actions
-            if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
-                this.setStatusMessage("Out of actions!");
-            }
-            return false;
-        }
-    }
-
-    @Override
-    public boolean steal() {
-        // Check Action Counter
-        if (this.getActiveActionCounter() > 0) {
-            AbstractCreature activeEnemy = null;
-            try {
-                activeEnemy = this.getEnemyBC().getTemplate();
-            } catch (final NullPointerException npe) {
-                // Ignore
-            }
-            int stealChance;
-            int stealAmount = 0;
-            this.bd.getActiveCharacter()
-                    .modifyAP(MapTurnBattleLogic.STEAL_ACTION_POINTS);
-            stealChance = StatConstants.CHANCE_STEAL;
-            if (activeEnemy == null) {
-                // Failed - nobody to steal from
-                this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                        + " tries to steal, but nobody is there to steal from!");
-                return false;
-            }
-            if (stealChance <= 0) {
-                // Failed
-                this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                        + " tries to steal, but fails!");
-                return false;
-            } else if (stealChance >= 100) {
-                // Succeeded, unless target has 0 Gold
-                final RandomRange stole = new RandomRange(0,
-                        activeEnemy.getGold());
-                stealAmount = stole.generate();
-                if (stealAmount == 0) {
-                    this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                            + " tries to steal, but no Gold is left to steal!");
-                    return false;
-                } else {
-                    this.bd.getActiveCharacter().getTemplate()
-                            .offsetGold(stealAmount);
-                    this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                            + " tries to steal, and successfully steals "
-                            + stealAmount + " gold!");
-                    return true;
-                }
-            } else {
-                final RandomRange chance = new RandomRange(0, 100);
-                final int randomChance = chance.generate();
-                if (randomChance <= stealChance) {
-                    // Succeeded, unless target has 0 Gold
-                    final RandomRange stole = new RandomRange(0,
-                            activeEnemy.getGold());
-                    stealAmount = stole.generate();
-                    if (stealAmount == 0) {
-                        this.setStatusMessage(this.bd.getActiveCharacter()
-                                .getName()
-                                + " tries to steal, but no Gold is left to steal!");
-                        return false;
-                    } else {
-                        this.bd.getActiveCharacter().getTemplate()
-                                .offsetGold(stealAmount);
-                        this.setStatusMessage(this.bd.getActiveCharacter()
-                                .getName()
-                                + " tries to steal, and successfully steals "
-                                + stealAmount + " gold!");
-                        return true;
-                    }
-                } else {
-                    // Failed
-                    this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                            + " tries to steal, but fails!");
-                    return false;
-                }
-            }
-        } else {
-            // Deny steal - out of actions
-            if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
-                this.setStatusMessage("Out of actions!");
-            }
-            return false;
-        }
-    }
-
-    @Override
-    public boolean drain() {
-        // Check Action Counter
-        if (this.getActiveActionCounter() > 0) {
-            AbstractCreature activeEnemy = null;
-            try {
-                activeEnemy = this.getEnemyBC().getTemplate();
-            } catch (final NullPointerException npe) {
-                // Ignore
-            }
-            int drainChance;
-            int drainAmount = 0;
-            this.bd.getActiveCharacter()
-                    .modifyAP(MapTurnBattleLogic.DRAIN_ACTION_POINTS);
-            drainChance = StatConstants.CHANCE_DRAIN;
-            if (activeEnemy == null) {
-                // Failed - nobody to drain from
-                this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                        + " tries to drain, but nobody is there to drain from!");
-                return false;
-            }
-            if (drainChance <= 0) {
-                // Failed
-                this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                        + " tries to drain, but fails!");
-                return false;
-            } else if (drainChance >= 100) {
-                // Succeeded, unless target has 0 MP
-                final RandomRange drained = new RandomRange(0,
-                        activeEnemy.getCurrentMP());
-                drainAmount = drained.generate();
-                if (drainAmount == 0) {
-                    this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                            + " tries to drain, but no MP is left to drain!");
-                    return false;
-                } else {
-                    activeEnemy.offsetCurrentMP(-drainAmount);
-                    this.bd.getActiveCharacter().getTemplate()
-                            .offsetCurrentMP(drainAmount);
-                    this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                            + " tries to drain, and successfully drains "
-                            + drainAmount + " MP!");
-                    return true;
-                }
-            } else {
-                final RandomRange chance = new RandomRange(0, 100);
-                final int randomChance = chance.generate();
-                if (randomChance <= drainChance) {
-                    // Succeeded
-                    final RandomRange drained = new RandomRange(0,
-                            activeEnemy.getCurrentMP());
-                    drainAmount = drained.generate();
-                    if (drainAmount == 0) {
-                        this.setStatusMessage(this.bd.getActiveCharacter()
-                                .getName()
-                                + " tries to drain, but no MP is left to drain!");
-                        return false;
-                    } else {
-                        activeEnemy.offsetCurrentMP(-drainAmount);
-                        this.bd.getActiveCharacter().getTemplate()
-                                .offsetCurrentMP(drainAmount);
-                        this.setStatusMessage(this.bd.getActiveCharacter()
-                                .getName()
-                                + " tries to drain, and successfully drains "
-                                + drainAmount + " MP!");
-                        return true;
-                    }
-                } else {
-                    // Failed
-                    this.setStatusMessage(this.bd.getActiveCharacter().getName()
-                            + " tries to drain, but fails!");
-                    return false;
-                }
-            }
-        } else {
-            // Deny drain - out of actions
-            if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
-                this.setStatusMessage("Out of actions!");
-            }
-            return false;
-        }
     }
 
     @Override
@@ -1169,20 +907,12 @@ public class MapTurnBattleLogic extends AbstractBattle {
         return this.bd.getActiveCharacter().getCurrentAT();
     }
 
-    private int getActiveSpellCounter() {
-        return this.bd.getActiveCharacter().getCurrentSP();
-    }
-
     private void decrementActiveActionCounterBy(final int amount) {
         this.bd.getActiveCharacter().modifyAP(amount);
     }
 
     private void decrementActiveAttackCounter() {
         this.bd.getActiveCharacter().modifyAttacks(1);
-    }
-
-    private void decrementActiveSpellCounter() {
-        this.bd.getActiveCharacter().modifySpells(1);
     }
 
     @Override
@@ -1193,23 +923,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
                     && this.bd.getBattlers()[x].isActive()) {
                 final AbstractCreature active = this.bd.getBattlers()[x]
                         .getTemplate();
-                // Use Effects
-                active.useEffects();
-                // Display all effect messages
-                final String effectMessages = this.bd.getBattlers()[x]
-                        .getTemplate().getAllCurrentEffectMessages();
-                final String[] individualEffectMessages = effectMessages
-                        .split("\n");
-                for (final String message : individualEffectMessages) {
-                    if (!message.equals(Effect.getNullMessage())) {
-                        this.setStatusMessage(message);
-                        try {
-                            Thread.sleep(PreferencesManager.getBattleSpeed());
-                        } catch (final InterruptedException ie) {
-                            // Ignore
-                        }
-                    }
-                }
                 // Handle low health for party members
                 if (active.isAlive()
                         && active.getTeamID() == AbstractCreature.TEAM_PARTY
@@ -1217,9 +930,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
                                 / 10) {
                     SoundManager.playSound(SoundConstants.SOUND_LOW_HEALTH);
                 }
-                // Cull Inactive Effects
-                active.cullInactiveEffects();
-                // Handle death caused by effects
+                // Handle death
                 if (!active.isAlive()) {
                     if (this.bd.getBattlers()[x]
                             .getTeamID() != AbstractCreature.TEAM_PARTY) {
@@ -1229,8 +940,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
                     }
                     // Set dead character to inactive
                     this.bd.getBattlers()[x].deactivate();
-                    // Remove effects from dead character
-                    active.stripAllEffects();
                     // Remove character from battle
                     this.bd.getBattleDungeon().setCell(new Empty(),
                             this.bd.getBattlers()[x].getX(),
@@ -1307,20 +1016,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
 
     @Override
     public boolean doPlayerActions(final int action) {
-        switch (action) {
-        case AbstractMapAIRoutine.ACTION_CAST_SPELL:
-            this.castSpell();
-            break;
-        case AbstractMapAIRoutine.ACTION_DRAIN:
-            this.drain();
-            break;
-        case AbstractMapAIRoutine.ACTION_STEAL:
-            this.steal();
-            break;
-        default:
-            this.endTurn();
-            break;
-        }
+        this.endTurn();
         return true;
     }
 
@@ -1349,8 +1045,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
                     this.setStatusMessage(
                             "The Boss battle was a draw. You are fully healed!");
                     PartyManager.getParty().getLeader().healPercentage(
-                            AbstractCreature.FULL_HEAL_PERCENTAGE);
-                    PartyManager.getParty().getLeader().regeneratePercentage(
                             AbstractCreature.FULL_HEAL_PERCENTAGE);
                 } else if (this.result == BattleResults.FLED) {
                     this.setStatusMessage("You ran away successfully!");
@@ -1381,8 +1075,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
                             "The result of the battle is unknown!");
                 }
             }
-            // Strip effects
-            PartyManager.getParty().getLeader().stripAllEffects();
             // Level Up Check
             PartyManager.getParty().checkPartyLevelUp();
             // Battle Done

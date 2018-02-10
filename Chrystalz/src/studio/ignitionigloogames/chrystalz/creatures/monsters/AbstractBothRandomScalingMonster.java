@@ -6,9 +6,7 @@ Any questions should be directed to the author via email at: products@puttysoftw
 package studio.ignitionigloogames.chrystalz.creatures.monsters;
 
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
-import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
-import studio.ignitionigloogames.chrystalz.shops.Shop;
 import studio.ignitionigloogames.common.random.RandomLongRange;
 import studio.ignitionigloogames.common.random.RandomRange;
 
@@ -20,11 +18,6 @@ abstract class AbstractBothRandomScalingMonster
     private static final int STAT_MULT_NORMAL = 5;
     private static final int STAT_MULT_HARD = 7;
     private static final int STAT_MULT_VERY_HARD = 9;
-    private static final double GOLD_MULT_VERY_EASY = 2.0;
-    private static final double GOLD_MULT_EASY = 1.5;
-    private static final double GOLD_MULT_NORMAL = 1.0;
-    private static final double GOLD_MULT_HARD = 0.75;
-    private static final double GOLD_MULT_VERY_HARD = 0.5;
     private static final double EXP_MULT_VERY_EASY = 1.2;
     private static final double EXP_MULT_EASY = 1.1;
     private static final double EXP_MULT_NORMAL = 1.0;
@@ -42,17 +35,14 @@ abstract class AbstractBothRandomScalingMonster
         this.setLevel(newLevel);
         this.setVitality(this.getInitialVitality());
         this.setCurrentHP(this.getMaximumHP());
-        this.setIntelligence(this.getInitialIntelligence());
-        this.setCurrentMP(this.getMaximumMP());
         this.setStrength(this.getInitialStrength());
         this.setBlock(this.getInitialBlock());
         this.setAgility(this.getInitialAgility());
         this.setLuck(this.getInitialLuck());
-        this.setGold(this.getInitialGold());
+        this.setGold(AbstractBothRandomScalingMonster.getInitialGold());
         this.setExperience((long) (this.getInitialExperience()
                 * this.adjustForLevelDifference()));
         this.setAttacksPerRound(1);
-        this.setSpellsPerRound(1);
         this.image = this.getInitialImage();
     }
 
@@ -85,17 +75,9 @@ abstract class AbstractBothRandomScalingMonster
                                 .getExpMultiplierForDifficulty());
     }
 
-    private int getInitialGold() {
-        final PartyMember playerCharacter = PartyManager.getParty().getLeader();
-        final int needed = Shop.getEquipmentCost(playerCharacter.getLevel() + 1)
-                * 4;
-        final int factor = this.getBattlesToNextLevel();
-        final int min = 0;
-        final int max = needed / factor * 2;
-        final RandomRange r = new RandomRange(min, max);
-        return (int) (r.generate() * this.adjustForLevelDifference()
-                * AbstractBothRandomScalingMonster
-                        .getGoldMultiplierForDifficulty());
+    private static int getInitialGold() {
+        final RandomRange r = new RandomRange(0, 1);
+        return r.generate();
     }
 
     private int getInitialAgility() {
@@ -109,13 +91,6 @@ abstract class AbstractBothRandomScalingMonster
         final RandomRange r = new RandomRange(1,
                 Math.max(this.getLevel() * AbstractBothRandomScalingMonster
                         .getStatMultiplierForDifficulty(), 1));
-        return r.generate();
-    }
-
-    private int getInitialIntelligence() {
-        final RandomRange r = new RandomRange(0,
-                this.getLevel() * AbstractBothRandomScalingMonster
-                        .getStatMultiplierForDifficulty());
         return r.generate();
     }
 
@@ -140,23 +115,6 @@ abstract class AbstractBothRandomScalingMonster
             return AbstractBothRandomScalingMonster.STAT_MULT_VERY_HARD;
         } else {
             return AbstractBothRandomScalingMonster.STAT_MULT_NORMAL;
-        }
-    }
-
-    private static double getGoldMultiplierForDifficulty() {
-        final int difficulty = PreferencesManager.getGameDifficulty();
-        if (difficulty == PreferencesManager.DIFFICULTY_VERY_EASY) {
-            return AbstractBothRandomScalingMonster.GOLD_MULT_VERY_EASY;
-        } else if (difficulty == PreferencesManager.DIFFICULTY_EASY) {
-            return AbstractBothRandomScalingMonster.GOLD_MULT_EASY;
-        } else if (difficulty == PreferencesManager.DIFFICULTY_NORMAL) {
-            return AbstractBothRandomScalingMonster.GOLD_MULT_NORMAL;
-        } else if (difficulty == PreferencesManager.DIFFICULTY_HARD) {
-            return AbstractBothRandomScalingMonster.GOLD_MULT_HARD;
-        } else if (difficulty == PreferencesManager.DIFFICULTY_VERY_HARD) {
-            return AbstractBothRandomScalingMonster.GOLD_MULT_VERY_HARD;
-        } else {
-            return AbstractBothRandomScalingMonster.GOLD_MULT_NORMAL;
         }
     }
 

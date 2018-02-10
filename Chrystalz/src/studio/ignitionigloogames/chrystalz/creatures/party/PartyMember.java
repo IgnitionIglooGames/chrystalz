@@ -13,7 +13,6 @@ import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.FormatConstants;
 import studio.ignitionigloogames.chrystalz.items.ItemInventory;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
-import studio.ignitionigloogames.chrystalz.spells.SpellBook;
 import studio.ignitionigloogames.common.experience.ExperienceEquation;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
@@ -22,11 +21,6 @@ import studio.ignitionigloogames.common.images.BufferedImageIcon;
 public class PartyMember extends AbstractCreature {
     // Fields
     private final String name;
-    private int permanentAttack;
-    private int permanentDefense;
-    private int permanentHP;
-    private int permanentMP;
-    private int kills;
     private static final int START_GOLD = 0;
     private static final double BASE_COEFF = 10.0;
 
@@ -34,21 +28,14 @@ public class PartyMember extends AbstractCreature {
     PartyMember() {
         super(0);
         this.name = "Player";
-        this.permanentAttack = 0;
-        this.permanentDefense = 0;
-        this.permanentHP = 0;
-        this.permanentMP = 0;
-        this.kills = 0;
         this.setLevel(1);
         this.setStrength(StatConstants.GAIN_STRENGTH);
         this.setBlock(StatConstants.GAIN_BLOCK);
         this.setVitality(StatConstants.GAIN_VITALITY);
-        this.setIntelligence(StatConstants.GAIN_INTELLIGENCE);
         this.setAgility(StatConstants.GAIN_AGILITY);
         this.setLuck(StatConstants.GAIN_LUCK);
         this.setAttacksPerRound(1);
-        this.setSpellsPerRound(1);
-        this.healAndRegenerateFully();
+        this.healFully();
         this.setGold(PartyMember.START_GOLD);
         this.setExperience(0L);
         final ExperienceEquation nextLevelEquation = new ExperienceEquation(3,
@@ -58,7 +45,6 @@ public class PartyMember extends AbstractCreature {
         nextLevelEquation.setCoefficient(2, value);
         nextLevelEquation.setCoefficient(3, value);
         this.setToNextLevel(nextLevelEquation);
-        this.setSpellBook(new PartyMemberSpellBook());
     }
 
     // Methods
@@ -72,28 +58,19 @@ public class PartyMember extends AbstractCreature {
         this.offsetStrength(StatConstants.GAIN_STRENGTH);
         this.offsetBlock(StatConstants.GAIN_BLOCK);
         this.offsetVitality(StatConstants.GAIN_VITALITY);
-        this.offsetIntelligence(StatConstants.GAIN_INTELLIGENCE);
         this.offsetAgility(StatConstants.GAIN_AGILITY);
         this.offsetLuck(StatConstants.GAIN_LUCK);
-        this.healAndRegenerateFully();
+        this.healFully();
     }
 
     private void loadPartyMember(final int newLevel, final int chp,
-            final int cmp, final int newGold, final int newLoad,
-            final long newExperience, final boolean[] known) {
+            final int newGold, final int newLoad,
+            final long newExperience) {
         this.setLevel(newLevel);
         this.setCurrentHP(chp);
-        this.setCurrentMP(cmp);
         this.setGold(newGold);
         this.setLoad(newLoad);
         this.setExperience(newExperience);
-        final SpellBook book = new PartyMemberSpellBook();
-        for (int x = 0; x < known.length; x++) {
-            if (known[x]) {
-                book.learnSpellByID(x);
-            }
-        }
-        this.setSpellBook(book);
     }
 
     @Override
@@ -120,65 +97,9 @@ public class PartyMember extends AbstractCreature {
         }
     }
 
-    @Override
-    public int getAttack() {
-        return super.getAttack() + this.getPermanentAttackPoints();
-    }
-
-    @Override
-    public int getDefense() {
-        return super.getDefense() + this.getPermanentDefensePoints();
-    }
-
-    @Override
-    public int getMaximumHP() {
-        return super.getMaximumHP() + this.getPermanentHPPoints();
-    }
-
-    @Override
-    public int getMaximumMP() {
-        return super.getMaximumMP() + this.getPermanentMPPoints();
-    }
-
-    public int getPermanentAttackPoints() {
-        return this.permanentAttack;
-    }
-
-    public int getPermanentDefensePoints() {
-        return this.permanentDefense;
-    }
-
-    public int getPermanentHPPoints() {
-        return this.permanentHP;
-    }
-
-    public int getPermanentMPPoints() {
-        return this.permanentMP;
-    }
-
-    public void spendPointOnAttack() {
-        this.kills++;
-        this.permanentAttack++;
-    }
-
-    public void spendPointOnDefense() {
-        this.kills++;
-        this.permanentDefense++;
-    }
-
-    public void spendPointOnHP() {
-        this.kills++;
-        this.permanentHP++;
-    }
-
-    public void spendPointOnMP() {
-        this.kills++;
-        this.permanentMP++;
-    }
-
     public void onDeath(final int penalty) {
         this.offsetExperiencePercentage(penalty);
-        this.healAndRegenerateFully();
+        this.healFully();
         this.setGold(0);
     }
 
@@ -189,76 +110,42 @@ public class PartyMember extends AbstractCreature {
             throw new VersionException(
                     "Invalid character version found: " + version);
         }
-        final int k = worldFile.readInt();
-        final int pAtk = worldFile.readInt();
-        final int pDef = worldFile.readInt();
-        final int pHP = worldFile.readInt();
-        final int pMP = worldFile.readInt();
         final int strength = worldFile.readInt();
         final int block = worldFile.readInt();
         final int agility = worldFile.readInt();
         final int vitality = worldFile.readInt();
-        final int intelligence = worldFile.readInt();
         final int luck = worldFile.readInt();
         final int lvl = worldFile.readInt();
         final int cHP = worldFile.readInt();
-        final int cMP = worldFile.readInt();
         final int gld = worldFile.readInt();
         final int apr = worldFile.readInt();
-        final int spr = worldFile.readInt();
         final int load = worldFile.readInt();
         final long exp = worldFile.readLong();
-        final int max = worldFile.readInt();
-        final boolean[] known = new boolean[max];
-        for (int x = 0; x < max; x++) {
-            known[x] = worldFile.readBoolean();
-        }
         final PartyMember pm = PartyManager.getNewPCInstance();
         pm.setStrength(strength);
         pm.setBlock(block);
         pm.setAgility(agility);
         pm.setVitality(vitality);
-        pm.setIntelligence(intelligence);
         pm.setLuck(luck);
         pm.setAttacksPerRound(apr);
-        pm.setSpellsPerRound(spr);
         pm.setItems(ItemInventory.readItemInventory(worldFile));
-        pm.kills = k;
-        pm.permanentAttack = pAtk;
-        pm.permanentDefense = pDef;
-        pm.permanentHP = pHP;
-        pm.permanentMP = pMP;
-        pm.loadPartyMember(lvl, cHP, cMP, gld, load, exp, known);
+        pm.loadPartyMember(lvl, cHP, gld, load, exp);
         return pm;
     }
 
     public void write(final FileIOWriter worldFile) throws IOException {
         worldFile.writeByte(FormatConstants.CHARACTER_FORMAT_LATEST);
-        worldFile.writeInt(this.kills);
-        worldFile.writeInt(this.getPermanentAttackPoints());
-        worldFile.writeInt(this.getPermanentDefensePoints());
-        worldFile.writeInt(this.getPermanentHPPoints());
-        worldFile.writeInt(this.getPermanentMPPoints());
         worldFile.writeInt(this.getStrength());
         worldFile.writeInt(this.getBlock());
         worldFile.writeInt(this.getAgility());
         worldFile.writeInt(this.getVitality());
-        worldFile.writeInt(this.getIntelligence());
         worldFile.writeInt(this.getLuck());
         worldFile.writeInt(this.getLevel());
         worldFile.writeInt(this.getCurrentHP());
-        worldFile.writeInt(this.getCurrentMP());
         worldFile.writeInt(this.getGold());
         worldFile.writeInt(this.getAttacksPerRound());
-        worldFile.writeInt(this.getSpellsPerRound());
         worldFile.writeInt(this.getLoad());
         worldFile.writeLong(this.getExperience());
-        final int max = this.getSpellBook().getSpellCount();
-        worldFile.writeInt(max);
-        for (int x = 0; x < max; x++) {
-            worldFile.writeBoolean(this.getSpellBook().isSpellKnown(x));
-        }
-        worldFile.writeString(this.getName());
         this.getItems().writeItemInventory(worldFile);
     }
 

@@ -5,8 +5,6 @@ Any questions should be directed to the author via email at: products@puttysoftw
  */
 package studio.ignitionigloogames.chrystalz.items;
 
-import studio.ignitionigloogames.chrystalz.shops.Shop;
-
 public class EquipmentFactory {
     // Private constructor
     private EquipmentFactory() {
@@ -28,8 +26,7 @@ public class EquipmentFactory {
         e.setPotency(
                 material * WeaponMaterialConstants.MATERIALS_POWER_MULTIPLIER
                         + bonus);
-        e.setBuyPrice(Shop.getEquipmentCost(material));
-        e.setSellPrice(Shop.getEquipmentCost(material) / 2);
+        e.setBuyPrice(1);
         return e;
     }
 
@@ -47,8 +44,7 @@ public class EquipmentFactory {
         e.setPotency(
                 material * WeaponMaterialConstants.MATERIALS_POWER_MULTIPLIER
                         + bonus);
-        e.setBuyPrice(Shop.getEquipmentCost(material) * 2);
-        e.setSellPrice(Shop.getEquipmentCost(material));
+        e.setBuyPrice(1);
         return e;
     }
 
@@ -64,8 +60,7 @@ public class EquipmentFactory {
         e.setPotency(
                 material * ArmorMaterialConstants.MATERIALS_POWER_MULTIPLIER
                         + bonus);
-        e.setBuyPrice(Shop.getEquipmentCost(material));
-        e.setSellPrice(Shop.getEquipmentCost(material) / 2);
+        e.setBuyPrice(1);
         return e;
     }
 
