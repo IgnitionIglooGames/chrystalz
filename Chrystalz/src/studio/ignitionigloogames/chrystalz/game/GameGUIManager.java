@@ -31,7 +31,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
-import studio.ignitionigloogames.chrystalz.dungeon.effects.DungeonEffectManager;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Darkness;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Player;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
@@ -83,9 +82,9 @@ class GameGUIManager {
         }
     }
 
-    void viewingWindowSizeChanged(final DungeonEffectManager em) {
+    void viewingWindowSizeChanged() {
         this.setUpGUI();
-        this.updateGameGUI(em);
+        this.updateGameGUI();
         this.deferredRedraw = true;
     }
 
@@ -121,12 +120,11 @@ class GameGUIManager {
         this.messageLabel.setText(msg);
     }
 
-    private void resetBorderPane(final DungeonEffectManager em) {
+    private void resetBorderPane() {
         this.borderPane.removeAll();
         this.borderPane.add(this.outputPane, BorderLayout.CENTER);
         this.borderPane.add(this.messageLabel, BorderLayout.NORTH);
         this.borderPane.add(this.sg.getStatsPane(), BorderLayout.EAST);
-        this.borderPane.add(em.getEffectMessageContainer(), BorderLayout.SOUTH);
     }
 
     public void redrawDungeon() {
@@ -235,8 +233,8 @@ class GameGUIManager {
         this.knm = true;
     }
 
-    void updateGameGUI(final DungeonEffectManager em) {
-        this.resetBorderPane(em);
+    void updateGameGUI() {
+        this.resetBorderPane();
         this.sg.updateImages();
         this.sg.updateStats();
     }

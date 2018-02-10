@@ -7,7 +7,6 @@ package studio.ignitionigloogames.chrystalz.creatures.party;
 
 import java.io.IOException;
 
-import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.VersionException;
 import studio.ignitionigloogames.chrystalz.assetmanagers.BattleImageManager;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
@@ -242,7 +241,6 @@ public class PartyMember extends AbstractCreature {
         this.setGold(PartyMember.START_GOLD);
         this.setExperience(0L);
         this.getItems().resetInventory();
-        Chrystalz.getApplication().getGameManager().deactivateAllEffects();
         final ExperienceEquation nextLevelEquation = new ExperienceEquation(3,
                 1, 0, true);
         final double value = PartyMember.BASE_COEFF

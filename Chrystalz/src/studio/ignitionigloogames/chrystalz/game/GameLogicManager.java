@@ -17,7 +17,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
-import studio.ignitionigloogames.chrystalz.dungeon.effects.DungeonEffectManager;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
@@ -28,15 +27,13 @@ public final class GameLogicManager {
     private final GameViewingWindowManager vwMgr;
     private boolean stateChanged;
     private final GameGUIManager gui;
-    private final DungeonEffectManager em;
     private final MovementTask mt;
 
     // Constructors
     public GameLogicManager() {
         this.vwMgr = new GameViewingWindowManager();
-        this.em = new DungeonEffectManager();
         this.gui = new GameGUIManager();
-        this.mt = new MovementTask(this.vwMgr, this.em, this.gui);
+        this.mt = new MovementTask(this.vwMgr, this.gui);
         this.mt.start();
         this.savedGameFlag = false;
         this.stateChanged = true;
@@ -45,7 +42,6 @@ public final class GameLogicManager {
     // Methods
     public boolean newGame() {
         final JFrame owner = Chrystalz.getApplication().getOutputFrame();
-        this.em.deactivateAllEffects();
         if (this.savedGameFlag) {
             if (PartyManager.getParty() != null) {
                 return true;
@@ -70,12 +66,8 @@ public final class GameLogicManager {
         this.mt.stopMovement();
     }
 
-    public void deactivateAllEffects() {
-        this.em.deactivateAllEffects();
-    }
-
     public void viewingWindowSizeChanged() {
-        this.gui.viewingWindowSizeChanged(this.em);
+        this.gui.viewingWindowSizeChanged();
         this.resetViewingWindow();
     }
 
@@ -89,10 +81,6 @@ public final class GameLogicManager {
 
     public void setSavedGameFlag(final boolean value) {
         this.savedGameFlag = value;
-    }
-
-    public void activateEffect(final int effectID) {
-        this.em.activateEffect(effectID);
     }
 
     public void setStatusMessage(final String msg) {
@@ -246,7 +234,7 @@ public final class GameLogicManager {
                 this.stateChanged = false;
             }
             // Make sure message area is attached to the border pane
-            this.gui.updateGameGUI(this.em);
+            this.gui.updateGameGUI();
             // Make sure initial area player is in is visible
             final int px = m.getPlayerLocationX();
             final int py = m.getPlayerLocationY();

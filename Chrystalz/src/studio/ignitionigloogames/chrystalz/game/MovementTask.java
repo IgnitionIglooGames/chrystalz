@@ -13,8 +13,6 @@ import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
-import studio.ignitionigloogames.chrystalz.dungeon.effects.DungeonEffectConstants;
-import studio.ignitionigloogames.chrystalz.dungeon.effects.DungeonEffectManager;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.TypeConstants;
@@ -24,7 +22,6 @@ final class MovementTask extends Thread {
     // Fields
     private final GameViewingWindowManager vwMgr;
     private final GameGUIManager gui;
-    private final DungeonEffectManager em;
     private AbstractGameObject saved;
     private boolean proceed;
     private boolean relative;
@@ -32,10 +29,9 @@ final class MovementTask extends Thread {
 
     // Constructors
     public MovementTask(final GameViewingWindowManager view,
-            final DungeonEffectManager effect, final GameGUIManager gameGUI) {
+            final GameGUIManager gameGUI) {
         this.setName("Movement Handler");
         this.vwMgr = view;
-        this.em = effect;
         this.gui = gameGUI;
         this.saved = new Empty();
     }
@@ -121,14 +117,6 @@ final class MovementTask extends Thread {
         MovementTask.checkGameOver();
     }
 
-    private void decayEffects() {
-        this.em.decayEffects();
-    }
-
-    private int[] doEffects(final int x, final int y) {
-        return this.em.doEffects(x, y);
-    }
-
     private static boolean checkSolidAbsolute(final AbstractGameObject inside,
             final AbstractGameObject below, final AbstractGameObject nextBelow,
             final AbstractGameObject nextAbove) {
@@ -150,12 +138,9 @@ final class MovementTask extends Thread {
         int px = m.getPlayerLocationX();
         int py = m.getPlayerLocationY();
         int pz = m.getPlayerLocationZ();
-        int fX;
-        int fY;
+        int fX = dirX;
+        int fY = dirY;
         final int fZ = dirZ;
-        final int[] mod = this.doEffects(dirX, dirY);
-        fX = mod[0];
-        fY = mod[1];
         this.proceed = false;
         AbstractGameObject below = null;
         AbstractGameObject nextBelow = null;
@@ -188,7 +173,6 @@ final class MovementTask extends Thread {
                 }
             } catch (final NullPointerException np) {
                 this.proceed = false;
-                this.decayEffects();
                 nextAbove = new Empty();
             }
             if (this.proceed) {
@@ -207,7 +191,6 @@ final class MovementTask extends Thread {
                         app.getDungeonManager().setDirty(true);
                         app.saveFormerMode();
                         this.fireStepActions();
-                        this.decayEffects();
                         this.redrawDungeon();
                         if (app.modeChanged()) {
                             this.proceed = false;
@@ -232,7 +215,6 @@ final class MovementTask extends Thread {
                         MovementTask.fireMoveFailedActions(px + fX, py + fY,
                                 this.saved, below, nextBelow, nextAbove);
                         this.fireStepActions();
-                        this.decayEffects();
                     }
                 } catch (final ArrayIndexOutOfBoundsException ae) {
                     this.vwMgr.restoreViewingWindow();
@@ -241,7 +223,6 @@ final class MovementTask extends Thread {
                     nextAbove.moveFailedAction(false, px, py);
                     app.showMessage("Can't go that way");
                     nextAbove = new Empty();
-                    this.decayEffects();
                     this.proceed = false;
                 }
                 this.fireStepActions();
@@ -249,7 +230,6 @@ final class MovementTask extends Thread {
                 // Move failed - pre-move check failed
                 nextAbove.moveFailedAction(false, px + fX, py + fY);
                 this.fireStepActions();
-                this.decayEffects();
                 this.proceed = false;
             }
             px = m.getPlayerLocationX();
@@ -261,10 +241,8 @@ final class MovementTask extends Thread {
     private boolean checkLoopCondition(final AbstractGameObject below,
             final AbstractGameObject nextBelow,
             final AbstractGameObject nextAbove) {
-        return this.proceed
-                && !this.em.isEffectActive(DungeonEffectConstants.EFFECT_STICKY)
-                && !nextBelow.hasFriction() && MovementTask
-                        .checkSolid(this.saved, below, nextBelow, nextAbove);
+        return this.proceed && !nextBelow.hasFriction() && MovementTask
+                .checkSolid(this.saved, below, nextBelow, nextAbove);
     }
 
     private static boolean checkSolid(final AbstractGameObject inside,
