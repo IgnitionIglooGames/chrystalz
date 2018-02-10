@@ -13,24 +13,18 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import studio.ignitionigloogames.chrystalz.creatures.characterfiles.CharacterRegistration;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
-import studio.ignitionigloogames.chrystalz.game.InventoryViewer;
-import studio.ignitionigloogames.chrystalz.game.StatisticsViewer;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
-import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public class MenuManager {
     // Fields
     JMenuBar mainMenuBar;
     private JMenuItem fileOpenGame, fileClose, fileSaveGame, filePreferences,
             fileExit;
-    private JMenuItem gameNewGame, gameEquipment, gameRegisterCharacter,
-            gameUnregisterCharacter, gameRemoveCharacter, gameViewStats;
+    private JMenuItem gameNewGame;
     private JMenuItem helpAbout;
     private KeyStroke fileOpenGameAccel, fileCloseAccel, fileSaveGameAccel,
             filePreferencesAccel;
@@ -55,7 +49,6 @@ public class MenuManager {
         this.fileExit.setEnabled(true);
         this.filePreferences.setEnabled(true);
         this.gameNewGame.setEnabled(false);
-        this.enableGameMenus();
         this.checkFlags();
     }
 
@@ -65,7 +58,6 @@ public class MenuManager {
         this.fileExit.setEnabled(true);
         this.filePreferences.setEnabled(false);
         this.gameNewGame.setEnabled(false);
-        this.disableGameMenus();
     }
 
     public void setHelpMenus() {
@@ -74,7 +66,6 @@ public class MenuManager {
         this.fileExit.setEnabled(true);
         this.filePreferences.setEnabled(false);
         this.gameNewGame.setEnabled(false);
-        this.disableGameMenus();
     }
 
     public void setMainMenus() {
@@ -82,18 +73,7 @@ public class MenuManager {
         this.fileExit.setEnabled(true);
         this.filePreferences.setEnabled(true);
         this.gameNewGame.setEnabled(true);
-        this.disableGameMenus();
         this.checkFlags();
-    }
-
-    private void enableGameMenus() {
-        this.gameEquipment.setEnabled(true);
-        this.gameViewStats.setEnabled(true);
-    }
-
-    private void disableGameMenus() {
-        this.gameEquipment.setEnabled(false);
-        this.gameViewStats.setEnabled(false);
     }
 
     public void checkFlags() {
@@ -162,11 +142,6 @@ public class MenuManager {
         this.filePreferences.setAccelerator(this.filePreferencesAccel);
         this.gameNewGame = new JMenuItem("New Game");
         this.gameNewGame.setAccelerator(this.gameNewGameAccel);
-        this.gameRegisterCharacter = new JMenuItem("Register Character...");
-        this.gameUnregisterCharacter = new JMenuItem("Unregister Character...");
-        this.gameRemoveCharacter = new JMenuItem("Remove Character...");
-        this.gameEquipment = new JMenuItem("Show Equipment...");
-        this.gameViewStats = new JMenuItem("View Statistics...");
         this.helpAbout = new JMenuItem("About TallerTower...");
         this.fileOpenGame.addActionListener(this.handler);
         this.fileClose.addActionListener(this.handler);
@@ -174,11 +149,6 @@ public class MenuManager {
         this.fileExit.addActionListener(this.handler);
         this.filePreferences.addActionListener(this.handler);
         this.gameNewGame.addActionListener(this.handler);
-        this.gameRegisterCharacter.addActionListener(this.handler);
-        this.gameUnregisterCharacter.addActionListener(this.handler);
-        this.gameRemoveCharacter.addActionListener(this.handler);
-        this.gameEquipment.addActionListener(this.handler);
-        this.gameViewStats.addActionListener(this.handler);
         this.helpAbout.addActionListener(this.handler);
         fileMenu.add(this.fileOpenGame);
         fileMenu.add(this.fileClose);
@@ -188,11 +158,6 @@ public class MenuManager {
             fileMenu.add(this.fileExit);
         }
         gameMenu.add(this.gameNewGame);
-        gameMenu.add(this.gameEquipment);
-        gameMenu.add(this.gameRegisterCharacter);
-        gameMenu.add(this.gameUnregisterCharacter);
-        gameMenu.add(this.gameRemoveCharacter);
-        gameMenu.add(this.gameViewStats);
         if (!System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
             helpMenu.add(this.helpAbout);
         }
@@ -210,10 +175,6 @@ public class MenuManager {
         this.fileExit.setEnabled(true);
         this.filePreferences.setEnabled(true);
         this.gameNewGame.setEnabled(true);
-        this.disableGameMenus();
-        this.gameRegisterCharacter.setEnabled(true);
-        this.gameUnregisterCharacter.setEnabled(true);
-        this.gameRemoveCharacter.setEnabled(true);
         this.helpAbout.setEnabled(true);
     }
 
@@ -236,18 +197,8 @@ public class MenuManager {
                     // Close the window
                     if (app.getMode() == Application.STATUS_GAME) {
                         boolean saved = true;
-                        int status = 0;
                         if (app.getDungeonManager().getDirty()) {
-                            app.getDungeonManager();
-                            status = DungeonManager.showSaveDialog();
-                            if (status == JOptionPane.YES_OPTION) {
-                                app.getDungeonManager();
-                                saved = DungeonManager.saveGame();
-                            } else if (status == JOptionPane.CANCEL_OPTION) {
-                                saved = false;
-                            } else {
-                                app.getDungeonManager().setDirty(false);
-                            }
+                            saved = DungeonManager.saveGame();
                         }
                         if (saved) {
                             app.getGameManager().exitGame();
@@ -257,8 +208,6 @@ public class MenuManager {
                     if (app.getDungeonManager().getLoaded()) {
                         app.getDungeonManager();
                         DungeonManager.saveGame();
-                    } else {
-                        CommonDialogs.showDialog("No Dungeon Opened");
                     }
                 } else if (cmd.equals("Exit")) {
                     // Exit program
@@ -272,27 +221,6 @@ public class MenuManager {
                     if (proceed) {
                         new GenerateTask(true).start();
                     }
-                } else if (cmd.equals("Register Character...")) {
-                    // Register Character
-                    CharacterRegistration.registerCharacter();
-                } else if (cmd.equals("Unregister Character...")) {
-                    // Unregister Character
-                    CharacterRegistration.unregisterCharacter();
-                } else if (cmd.equals("Remove Character...")) {
-                    // Confirm
-                    final int confirm = CommonDialogs.showConfirmDialog(
-                            "WARNING: This will DELETE the character from disk,\n"
-                                    + "and CANNOT be undone! Proceed anyway?",
-                            "Remove Character");
-                    if (confirm == CommonDialogs.YES_OPTION) {
-                        // Remove Character
-                        CharacterRegistration.removeCharacter();
-                    }
-                } else if (cmd.equals("Show Equipment...")) {
-                    InventoryViewer.showEquipmentDialog();
-                } else if (cmd.equals("View Statistics...")) {
-                    // View Statistics
-                    StatisticsViewer.viewStatistics();
                 } else if (cmd.equals("About TallerTower...")) {
                     app.getAboutDialog().showAboutDialog();
                 }

@@ -18,7 +18,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
@@ -39,7 +38,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Darkness;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
-import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 class MapTurnBattleGUI {
@@ -380,16 +378,6 @@ class MapTurnBattleGUI {
                     case KeyEvent.VK_NUMPAD1:
                     case KeyEvent.VK_Z:
                         bl.updatePosition(-1, 1);
-                        break;
-                    case KeyEvent.VK_NUMPAD5:
-                    case KeyEvent.VK_S:
-                        // Confirm before attacking self
-                        final int res = CommonDialogs.showConfirmDialog(
-                                "Are you sure you want to attack yourself?",
-                                "Battle");
-                        if (res == JOptionPane.YES_OPTION) {
-                            bl.updatePosition(0, 0);
-                        }
                         break;
                     default:
                         break;

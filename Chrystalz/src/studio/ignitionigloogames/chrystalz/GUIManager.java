@@ -15,7 +15,6 @@ import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
@@ -87,16 +86,8 @@ public final class GUIManager implements QuitHandler {
         final DungeonManager mm = Chrystalz.getApplication()
                 .getDungeonManager();
         boolean saved = true;
-        int status = JOptionPane.DEFAULT_OPTION;
         if (mm.getDirty()) {
-            status = DungeonManager.showSaveDialog();
-            if (status == JOptionPane.YES_OPTION) {
-                saved = DungeonManager.saveGame();
-            } else if (status == JOptionPane.CANCEL_OPTION) {
-                saved = false;
-            } else {
-                mm.setDirty(false);
-            }
+            saved = DungeonManager.saveGame();
         }
         if (saved) {
             PreferencesManager.writePrefs();
