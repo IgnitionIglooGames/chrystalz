@@ -14,11 +14,7 @@ import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.items.ArmorConstants;
 import studio.ignitionigloogames.chrystalz.items.Equipment;
 import studio.ignitionigloogames.chrystalz.items.EquipmentFactory;
-import studio.ignitionigloogames.chrystalz.items.EquipmentSlotConstants;
-import studio.ignitionigloogames.chrystalz.items.Item;
-import studio.ignitionigloogames.chrystalz.items.Socks;
 import studio.ignitionigloogames.chrystalz.items.WeaponConstants;
-import studio.ignitionigloogames.chrystalz.items.combat.CombatItemList;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public class Shop {
@@ -34,37 +30,22 @@ public class Shop {
     boolean handIndex;
     String result;
     int cost;
-    final int inflationRate;
-    Item item;
     boolean twoHanded;
-    final CombatItemList itemList;
-    private final ShopDialogGUI dialogGUI;
+    private final ShopDialogGUI ui;
     static final int MAX_ENHANCEMENTS = 9;
 
     // Constructors
     public Shop(final int shopType) {
         super();
-        this.dialogGUI = new ShopDialogGUI();
+        this.ui = new ShopDialogGUI();
         this.type = shopType;
-        this.itemList = new CombatItemList();
         this.index = 0;
-        this.inflationRate = 100;
         this.twoHanded = false;
     }
 
     // Methods
     public static int getEquipmentCost(final int x) {
         return 10 * x * x * x + 10 * x * x + 10 * x + 10;
-    }
-
-    String getGoldTotals() {
-        final PartyMember playerCharacter = PartyManager.getParty().getLeader();
-        if (this.type == ShopTypes.SHOP_TYPE_BANK) {
-            return "Gold on Hand: " + playerCharacter.getGold()
-                    + "\nGold in Bank: " + PartyManager.getGoldInBank() + "\n";
-        } else {
-            return "";
-        }
     }
 
     static int getHealingCost(final int x, final int y, final int z) {
@@ -93,25 +74,12 @@ public class Shop {
         }
     }
 
-    static int getEnhancementCost(final int i, final int x) {
-        if (i > Shop.MAX_ENHANCEMENTS) {
-            return 0;
-        }
-        final int cost = 15 * i * i + 15 * i
-                + (int) Math.sqrt(Shop.getEquipmentCost(x));
-        if (cost < 0) {
-            return 0;
-        } else {
-            return cost;
-        }
-    }
-
     String getShopNameFromType() {
         return ShopTypes.SHOP_NAMES[this.type - 1];
     }
 
     public void showShop() {
-        this.dialogGUI.showShop();
+        this.ui.showShop();
     }
 
     private class ShopDialogGUI {
@@ -159,14 +127,11 @@ public class Shop {
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
                 Shop.this.typeChoices = ArmorConstants.getArmorChoices();
                 Shop.this.typeDefault = 0;
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_FAITH_POWERS) {
-                Shop.this.typeIndex = PartyManager.getParty().getLeader()
-                        .getFaith().getFaithID();
             }
             if (Shop.this.typeChoices != null) {
                 Shop.this.typeResult = CommonDialogs.showInputDialog(
-                        Shop.this.getGoldTotals() + "Select Type",
-                        Shop.this.getShopNameFromType(), Shop.this.typeChoices,
+                        "Select Type", Shop.this.getShopNameFromType(),
+                        Shop.this.typeChoices,
                         Shop.this.typeChoices[Shop.this.typeDefault]);
                 if (Shop.this.typeResult == null) {
                     return false;
@@ -203,9 +168,8 @@ public class Shop {
                             .getHandChoices();
                     final int handDefault = 0;
                     final String handResult = CommonDialogs.showInputDialog(
-                            Shop.this.getGoldTotals() + "Select Hand",
-                            Shop.this.getShopNameFromType(), handChoices,
-                            handChoices[handDefault]);
+                            "Select Hand", Shop.this.getShopNameFromType(),
+                            handChoices, handChoices[handDefault]);
                     if (handResult == null) {
                         return false;
                     }
@@ -230,10 +194,6 @@ public class Shop {
                     Shop.this.choices[x] = Integer.toString((x + 1) * 10) + "%";
                 }
                 Shop.this.defaultChoice = 9;
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_BANK) {
-                Shop.this.choices = new String[2];
-                Shop.this.choices[0] = "Deposit";
-                Shop.this.choices[1] = "Withdraw";
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_SPELLS) {
                 Shop.this.choices = playerCharacter.getSpellBook()
                         .getAllSpellsToLearnNames();
@@ -241,28 +201,6 @@ public class Shop {
                     Shop.this.choices = new String[1];
                     Shop.this.choices[0] = "No Spells Left To Learn";
                 }
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ITEMS) {
-                Shop.this.choices = Shop.this.itemList.getAllNames();
-                if (Shop.this.choices.length == 0) {
-                    Shop.this.choices = new String[1];
-                    Shop.this.choices[0] = "No Items To Buy";
-                    Shop.this.index = -1;
-                }
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_SOCKS) {
-                Shop.this.choices = EquipmentFactory.createSocksNames();
-                if (Shop.this.choices.length == 0) {
-                    Shop.this.choices = new String[1];
-                    Shop.this.choices[0] = "No Socks To Buy";
-                    Shop.this.index = -1;
-                }
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ENHANCEMENTS) {
-                Shop.this.choices = PartyManager.getParty().getLeader()
-                        .getItems().generateEquipmentEnhancementStringArray();
-                Shop.this.index = 0;
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_FAITH_POWERS) {
-                Shop.this.choices = PartyManager.getParty().getLeader()
-                        .getItems().generateEquipmentEnhancementStringArray();
-                Shop.this.index = 0;
             } else {
                 // Invalid shop type
                 return false;
@@ -292,8 +230,7 @@ public class Shop {
                 CommonDialogs.showDialog("There are no more spells to learn.");
                 return false;
             }
-            Shop.this.result = CommonDialogs.showInputDialog(
-                    Shop.this.getGoldTotals() + "Select",
+            Shop.this.result = CommonDialogs.showInputDialog("Select",
                     Shop.this.getShopNameFromType(), Shop.this.choices,
                     Shop.this.choices[Shop.this.defaultChoice]);
             if (Shop.this.result == null) {
@@ -342,104 +279,16 @@ public class Shop {
                         playerCharacter.getLevel(),
                         playerCharacter.getCurrentMP(),
                         playerCharacter.getMaximumMP());
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_BANK) {
-                String stage4Result = "";
-                while (stage4Result.equals("")) {
-                    stage4Result = CommonDialogs.showTextInputDialog(
-                            Shop.this.getGoldTotals() + Shop.this.result
-                                    + " How Much?",
-                            Shop.this.getShopNameFromType());
-                    if (stage4Result == null) {
-                        return false;
-                    }
-                    try {
-                        Shop.this.cost = Integer.parseInt(stage4Result);
-                        if (Shop.this.cost <= 0) {
-                            throw new NumberFormatException();
-                        }
-                    } catch (final NumberFormatException nf) {
-                        CommonDialogs.showErrorDialog(
-                                "Amount must be greater than zero.",
-                                Shop.this.getShopNameFromType());
-                        stage4Result = "";
-                    }
-                }
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_SPELLS) {
                 Shop.this.cost = Shop.getSpellCost(Shop.this.index);
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ITEMS) {
-                Shop.this.item = Shop.this.itemList
-                        .getAllItems()[Shop.this.index];
-                Shop.this.cost = Shop.this.item.getBuyPrice();
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_SOCKS) {
-                Shop.this.item = EquipmentFactory
-                        .createSocks(Shop.this.index + 1, (Shop.this.index + 1)
-                                * 500 * playerCharacter.getLevel());
-                Shop.this.cost = Shop.this.item.getBuyPrice();
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ENHANCEMENTS) {
-                final Equipment old = playerCharacter.getItems()
-                        .getEquipmentInSlot(Shop.this.index);
-                if (old != null) {
-                    if (old.isTwoHanded()) {
-                        Shop.this.twoHanded = true;
-                    }
-                    final int power = old.getPotency();
-                    final int bonus = power % (Shop.MAX_ENHANCEMENTS + 1) + 1;
-                    Shop.this.item = EquipmentFactory
-                            .createEnhancedEquipment(old, bonus);
-                    Shop.this.cost = Shop.getEnhancementCost(bonus, power);
-                    if (Shop.this.cost == 0) {
-                        // Equipment is maxed out on enhancements
-                        CommonDialogs.showErrorDialog(
-                                "That equipment cannot be enhanced any further, sorry!",
-                                Shop.this.getShopNameFromType());
-                        return false;
-                    }
-                } else {
-                    CommonDialogs.showErrorDialog("Nothing is equipped there!",
-                            Shop.this.getShopNameFromType());
-                    return false;
-                }
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_FAITH_POWERS) {
-                final Equipment old = playerCharacter.getItems()
-                        .getEquipmentInSlot(Shop.this.index);
-                if (old != null) {
-                    if (old.isTwoHanded()) {
-                        Shop.this.twoHanded = true;
-                    }
-                    final int power = old.getPotency();
-                    final int bonus = old
-                            .getFaithPowerLevel(Shop.this.typeIndex);
-                    Shop.this.item = EquipmentFactory
-                            .createFaithPoweredEquipment(old,
-                                    Shop.this.typeIndex, bonus);
-                    Shop.this.cost = Shop.getEnhancementCost(bonus, power);
-                    if (Shop.this.cost == 0) {
-                        // Equipment is maxed out on Faith Powers
-                        CommonDialogs.showErrorDialog(
-                                "That equipment cannot be Faith Powered any further, sorry!",
-                                Shop.this.getShopNameFromType());
-                        return false;
-                    }
-                } else {
-                    CommonDialogs.showErrorDialog("Nothing is equipped there!",
-                            Shop.this.getShopNameFromType());
-                    return false;
-                }
             }
-            if (Shop.this.type != ShopTypes.SHOP_TYPE_BANK) {
-                // Handle inflation
-                final double actualInflation = Shop.this.inflationRate / 100.0;
-                final double inflatedCost = Shop.this.cost * actualInflation;
-                Shop.this.cost = (int) inflatedCost;
-                // Confirm
-                final int stage4Confirm = CommonDialogs.showConfirmDialog(
-                        "This will cost " + Shop.this.cost
-                                + " Gold. Are you sure?",
-                        Shop.this.getShopNameFromType());
-                if (stage4Confirm == JOptionPane.NO_OPTION
-                        || stage4Confirm == JOptionPane.CLOSED_OPTION) {
-                    return false;
-                }
+            // Confirm
+            final int stage4Confirm = CommonDialogs.showConfirmDialog(
+                    "This will cost " + Shop.this.cost + " Gold. Are you sure?",
+                    Shop.this.getShopNameFromType());
+            if (stage4Confirm == JOptionPane.NO_OPTION
+                    || stage4Confirm == JOptionPane.CLOSED_OPTION) {
+                return false;
             }
             return true;
         }
@@ -448,26 +297,10 @@ public class Shop {
             // Stage 5
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
-            if (Shop.this.type == ShopTypes.SHOP_TYPE_BANK) {
-                if (Shop.this.index == 0) {
-                    if (playerCharacter.getGold() < Shop.this.cost) {
-                        CommonDialogs.showErrorDialog("Not Enough Gold!",
-                                Shop.this.getShopNameFromType());
-                        return false;
-                    }
-                } else {
-                    if (PartyManager.getGoldInBank() < Shop.this.cost) {
-                        CommonDialogs.showErrorDialog("Not Enough Gold!",
-                                Shop.this.getShopNameFromType());
-                        return false;
-                    }
-                }
-            } else {
-                if (playerCharacter.getGold() < Shop.this.cost) {
-                    CommonDialogs.showErrorDialog("Not Enough Gold!",
-                            Shop.this.getShopNameFromType());
-                    return false;
-                }
+            if (playerCharacter.getGold() < Shop.this.cost) {
+                CommonDialogs.showErrorDialog("Not Enough Gold!",
+                        Shop.this.getShopNameFromType());
+                return false;
             }
             return true;
         }
@@ -506,56 +339,11 @@ public class Shop {
                 playerCharacter.offsetGold(-Shop.this.cost);
                 playerCharacter
                         .regeneratePercentage((Shop.this.index + 1) * 10);
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_BANK) {
-                if (Shop.this.index == 0) {
-                    playerCharacter.offsetGold(-Shop.this.cost);
-                    PartyManager.addGoldToBank(Shop.this.cost);
-                } else {
-                    PartyManager.removeGoldFromBank(Shop.this.cost);
-                    playerCharacter.offsetGold(Shop.this.cost);
-                }
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_SPELLS) {
                 playerCharacter.offsetGold(-Shop.this.cost);
                 if (Shop.this.index != -1) {
                     playerCharacter.getSpellBook()
                             .learnSpellByID(Shop.this.index);
-                }
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ITEMS) {
-                playerCharacter.offsetGold(-Shop.this.cost);
-                playerCharacter.getItems().addItem(Shop.this.item);
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_SOCKS) {
-                playerCharacter.offsetGold(-Shop.this.cost);
-                playerCharacter.getItems().equipArmor(playerCharacter,
-                        (Socks) Shop.this.item, true);
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ENHANCEMENTS) {
-                playerCharacter.offsetGold(-Shop.this.cost);
-                playerCharacter.getItems().setEquipmentInSlot(Shop.this.index,
-                        (Equipment) Shop.this.item);
-                if (Shop.this.twoHanded) {
-                    if (Shop.this.index == EquipmentSlotConstants.SLOT_MAINHAND) {
-                        playerCharacter.getItems().setEquipmentInSlot(
-                                EquipmentSlotConstants.SLOT_OFFHAND,
-                                (Equipment) Shop.this.item);
-                    } else if (Shop.this.index == EquipmentSlotConstants.SLOT_OFFHAND) {
-                        playerCharacter.getItems().setEquipmentInSlot(
-                                EquipmentSlotConstants.SLOT_MAINHAND,
-                                (Equipment) Shop.this.item);
-                    }
-                }
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_FAITH_POWERS) {
-                playerCharacter.offsetGold(-Shop.this.cost);
-                playerCharacter.getItems().setEquipmentInSlot(Shop.this.index,
-                        (Equipment) Shop.this.item);
-                if (Shop.this.twoHanded) {
-                    if (Shop.this.index == EquipmentSlotConstants.SLOT_MAINHAND) {
-                        playerCharacter.getItems().setEquipmentInSlot(
-                                EquipmentSlotConstants.SLOT_OFFHAND,
-                                (Equipment) Shop.this.item);
-                    } else if (Shop.this.index == EquipmentSlotConstants.SLOT_OFFHAND) {
-                        playerCharacter.getItems().setEquipmentInSlot(
-                                EquipmentSlotConstants.SLOT_MAINHAND,
-                                (Equipment) Shop.this.item);
-                    }
                 }
             }
         }

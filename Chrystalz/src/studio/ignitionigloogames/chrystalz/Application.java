@@ -32,8 +32,7 @@ public final class Application {
     private ObjectHelpManager oHelpMgr;
     private GUIManager guiMgr;
     private final GameObjectList objects;
-    private Shop weapons, armor, healer, bank, regenerator, spells, items,
-            socks, enhancements, faiths;
+    private Shop weapons, armor, healer, regenerator, spells;
     private MapTurnBattleLogic mapTurnBattle;
     private int currentMode;
     private int formerMode;
@@ -64,13 +63,8 @@ public final class Application {
         this.weapons = new Shop(ShopTypes.SHOP_TYPE_WEAPONS);
         this.armor = new Shop(ShopTypes.SHOP_TYPE_ARMOR);
         this.healer = new Shop(ShopTypes.SHOP_TYPE_HEALER);
-        this.bank = new Shop(ShopTypes.SHOP_TYPE_BANK);
         this.regenerator = new Shop(ShopTypes.SHOP_TYPE_REGENERATOR);
         this.spells = new Shop(ShopTypes.SHOP_TYPE_SPELLS);
-        this.items = new Shop(ShopTypes.SHOP_TYPE_ITEMS);
-        this.socks = new Shop(ShopTypes.SHOP_TYPE_SOCKS);
-        this.enhancements = new Shop(ShopTypes.SHOP_TYPE_ENHANCEMENTS);
-        this.faiths = new Shop(ShopTypes.SHOP_TYPE_FAITH_POWERS);
         // Cache Logo
         this.guiMgr.updateLogo();
     }
@@ -184,20 +178,10 @@ public final class Application {
         switch (shopType) {
         case ShopTypes.SHOP_TYPE_ARMOR:
             return this.armor;
-        case ShopTypes.SHOP_TYPE_BANK:
-            return this.bank;
-        case ShopTypes.SHOP_TYPE_ENHANCEMENTS:
-            return this.enhancements;
-        case ShopTypes.SHOP_TYPE_FAITH_POWERS:
-            return this.faiths;
         case ShopTypes.SHOP_TYPE_HEALER:
             return this.healer;
-        case ShopTypes.SHOP_TYPE_ITEMS:
-            return this.items;
         case ShopTypes.SHOP_TYPE_REGENERATOR:
             return this.regenerator;
-        case ShopTypes.SHOP_TYPE_SOCKS:
-            return this.socks;
         case ShopTypes.SHOP_TYPE_SPELLS:
             return this.spells;
         case ShopTypes.SHOP_TYPE_WEAPONS:
