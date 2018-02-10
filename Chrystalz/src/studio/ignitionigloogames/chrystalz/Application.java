@@ -13,10 +13,7 @@ import studio.ignitionigloogames.chrystalz.assetmanagers.LogoManager;
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.battle.AbstractBattle;
-import studio.ignitionigloogames.chrystalz.battle.map.time.MapTimeBattleLogic;
 import studio.ignitionigloogames.chrystalz.battle.map.turn.MapTurnBattleLogic;
-import studio.ignitionigloogames.chrystalz.battle.window.time.WindowTimeBattleLogic;
-import studio.ignitionigloogames.chrystalz.battle.window.turn.WindowTurnBattleLogic;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.GameObjectList;
 import studio.ignitionigloogames.chrystalz.game.GameLogicManager;
@@ -37,10 +34,7 @@ public final class Application {
     private final GameObjectList objects;
     private Shop weapons, armor, healer, bank, regenerator, spells, items,
             socks, enhancements, faiths;
-    private WindowTurnBattleLogic windowTurnBattle;
-    private WindowTimeBattleLogic windowTimeBattle;
     private MapTurnBattleLogic mapTurnBattle;
-    private MapTimeBattleLogic mapTimeBattle;
     private int currentMode;
     private int formerMode;
     private static final int VERSION_MAJOR = 1;
@@ -66,10 +60,7 @@ public final class Application {
         this.guiMgr = new GUIManager();
         this.menuMgr = new MenuManager();
         this.oHelpMgr = new ObjectHelpManager();
-        this.windowTurnBattle = new WindowTurnBattleLogic();
-        this.windowTimeBattle = new WindowTimeBattleLogic();
         this.mapTurnBattle = new MapTurnBattleLogic();
-        this.mapTimeBattle = new MapTimeBattleLogic();
         this.weapons = new Shop(ShopTypes.SHOP_TYPE_WEAPONS);
         this.armor = new Shop(ShopTypes.SHOP_TYPE_ARMOR);
         this.healer = new Shop(ShopTypes.SHOP_TYPE_HEALER);
@@ -218,25 +209,10 @@ public final class Application {
     }
 
     public AbstractBattle getBattle() {
-        if (PreferencesManager.useMapBattleEngine()) {
-            if (PreferencesManager.useTimeBattleEngine()) {
-                return this.mapTimeBattle;
-            } else {
-                return this.mapTurnBattle;
-            }
-        } else {
-            if (PreferencesManager.useTimeBattleEngine()) {
-                return this.windowTimeBattle;
-            } else {
-                return this.windowTurnBattle;
-            }
-        }
+        return this.mapTurnBattle;
     }
 
     public void resetBattleGUI() {
-        this.mapTimeBattle.resetGUI();
-        this.windowTimeBattle.resetGUI();
         this.mapTurnBattle.resetGUI();
-        this.windowTurnBattle.resetGUI();
     }
 }

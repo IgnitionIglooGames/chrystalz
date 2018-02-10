@@ -87,20 +87,16 @@ class MapTurnBattleGUI {
     }
 
     void showBattle() {
-        if (PreferencesManager
-                .getMusicEnabled(PreferencesManager.MUSIC_BATTLE)) {
+        if (MusicManager.isMusicPlaying()) {
             MusicManager.stopMusic();
-            MusicManager.playMusic(MusicConstants.MUSIC_BATTLE);
         }
+        MusicManager.playMusic(MusicConstants.MUSIC_BATTLE);
         this.battleFrame.setVisible(true);
         this.battleFrame.setJMenuBar(
                 Chrystalz.getApplication().getMenuManager().getMainMenuBar());
     }
 
     void hideBattle() {
-        if (MusicManager.isMusicPlaying()) {
-            MusicManager.stopMusic();
-        }
         if (this.battleFrame != null) {
             this.battleFrame.setVisible(false);
         }

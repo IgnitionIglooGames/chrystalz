@@ -7,8 +7,6 @@ package studio.ignitionigloogames.chrystalz.creatures.monsters;
 
 import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.ai.map.MapAIRoutinePicker;
-import studio.ignitionigloogames.chrystalz.ai.window.AbstractWindowAIRoutine;
-import studio.ignitionigloogames.chrystalz.ai.window.WindowAIRoutinePicker;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.faiths.Faith;
 import studio.ignitionigloogames.chrystalz.creatures.faiths.FaithManager;
@@ -32,7 +30,6 @@ public abstract class AbstractMonster extends AbstractCreature {
     // Constructors
     AbstractMonster() {
         super(true, 1);
-        this.setWindowAI(AbstractMonster.getInitialWindowAI());
         this.setMapAI(AbstractMonster.getInitialMapAI());
         this.element = new Element(FaithManager.getFaith(0));
         final SpellBook spells = new SystemMonsterSpellBook();
@@ -111,10 +108,6 @@ public abstract class AbstractMonster extends AbstractCreature {
     }
 
     // Helper Methods
-    private static AbstractWindowAIRoutine getInitialWindowAI() {
-        return WindowAIRoutinePicker.getNextRoutine();
-    }
-
     private static AbstractMapAIRoutine getInitialMapAI() {
         return MapAIRoutinePicker.getNextRoutine();
     }

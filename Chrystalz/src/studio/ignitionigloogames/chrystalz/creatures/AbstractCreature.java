@@ -8,7 +8,6 @@ package studio.ignitionigloogames.chrystalz.creatures;
 import java.util.Arrays;
 
 import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
-import studio.ignitionigloogames.chrystalz.ai.window.AbstractWindowAIRoutine;
 import studio.ignitionigloogames.chrystalz.creatures.faiths.Faith;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.effects.Effect;
@@ -26,7 +25,6 @@ public abstract class AbstractCreature {
     private final Effect[] effectList;
     private SpellBook spellsKnown;
     private AbstractMapAIRoutine mapAI;
-    private AbstractWindowAIRoutine windowAI;
     private ItemInventory items;
     private ExperienceEquation toNextLevel;
     private final int teamID;
@@ -70,7 +68,6 @@ public abstract class AbstractCreature {
         this.stats[StatConstants.STAT_AGILITY].setValue(1);
         this.effectList = new Effect[AbstractCreature.MAX_EFFECTS];
         this.spellsKnown = null;
-        this.windowAI = null;
         this.items = new ItemInventory(hasCombatItems);
         this.toNextLevel = null;
         this.perfectBonusGold = this.getInitialPerfectBonusGold();
@@ -228,10 +225,6 @@ public abstract class AbstractCreature {
 
     public final AbstractMapAIRoutine getMapAI() {
         return this.mapAI;
-    }
-
-    public AbstractWindowAIRoutine getWindowAI() {
-        return this.windowAI;
     }
 
     public final String getAllCurrentEffectMessages() {
@@ -807,10 +800,6 @@ public abstract class AbstractCreature {
 
     public final void setAgility(final int value) {
         this.setStat(StatConstants.STAT_AGILITY, value);
-    }
-
-    public final void setWindowAI(final AbstractWindowAIRoutine newAI) {
-        this.windowAI = newAI;
     }
 
     public final void setMapAI(final AbstractMapAIRoutine newAI) {

@@ -52,8 +52,6 @@ class GameGUIManager {
     private boolean knm;
     private boolean deferredRedraw;
     boolean eventFlag;
-    private int lastExploringMusicID;
-    private int currExploringMusicID = 0;
     private static Darkness DARK = new Darkness();
     private static NoteObject NOTE = new NoteObject();
 
@@ -99,20 +97,10 @@ class GameGUIManager {
 
     public void showOutput() {
         final Application app = Chrystalz.getApplication();
-        this.lastExploringMusicID = this.currExploringMusicID;
-        this.currExploringMusicID = MusicConstants
-                .getMusicID(MusicConstants.MUSIC_EXPLORING);
-        if (PreferencesManager
-                .getMusicEnabled(PreferencesManager.MUSIC_EXPLORING)) {
-            if (this.lastExploringMusicID != this.currExploringMusicID) {
-                MusicManager.stopMusic();
-                MusicManager.playMusic(MusicConstants.MUSIC_EXPLORING);
-            } else {
-                if (!MusicManager.isMusicPlaying()) {
-                    MusicManager.playMusic(MusicConstants.MUSIC_EXPLORING);
-                }
-            }
+        if (MusicManager.isMusicPlaying()) {
+            MusicManager.stopMusic();
         }
+        MusicManager.playMusic(MusicConstants.MUSIC_DUNGEON);
         if (!this.outputFrame.isVisible()) {
             app.getMenuManager().setGameMenus();
             this.outputFrame.setVisible(true);
@@ -126,12 +114,6 @@ class GameGUIManager {
     }
 
     public void hideOutput() {
-        if (PreferencesManager
-                .getMusicEnabled(PreferencesManager.MUSIC_EXPLORING)) {
-            if (MusicManager.isMusicPlaying()) {
-                MusicManager.stopMusic();
-            }
-        }
         if (this.outputFrame != null) {
             this.outputFrame.setVisible(false);
         }

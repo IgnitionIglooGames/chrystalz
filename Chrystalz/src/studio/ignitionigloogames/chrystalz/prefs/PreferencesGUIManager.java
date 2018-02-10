@@ -14,8 +14,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -37,12 +35,10 @@ import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 class PreferencesGUIManager {
     // Fields
     private JFrame prefFrame;
-    JCheckBox[] music;
+    JCheckBox music;
     private JCheckBox sound;
     private JCheckBox checkUpdatesStartup;
     private JCheckBox moveOneAtATime;
-    private JCheckBox useMapBattleEngine;
-    private JCheckBox useTimeBattleEngine;
     private ButtonGroup viewingWindowGroup;
     private JRadioButton[] viewingWindowChoices;
     private JComboBox<String> difficultyPicker;
@@ -61,7 +57,6 @@ class PreferencesGUIManager {
 
     // Constructors
     public PreferencesGUIManager() {
-        this.music = new JCheckBox[PreferencesManager.MUSIC_LENGTH];
         this.setUpGUI();
         this.setDefaultPrefs();
     }
@@ -113,9 +108,7 @@ class PreferencesGUIManager {
     }
 
     private void loadPrefs() {
-        for (int x = 0; x < PreferencesManager.MUSIC_LENGTH; x++) {
-            this.music[x].setSelected(PreferencesManager.getMusicEnabled(x));
-        }
+        this.music.setSelected(PreferencesManager.getMusicEnabled());
         this.checkUpdatesStartup
                 .setSelected(PreferencesManager.shouldCheckUpdatesAtStartup());
         this.moveOneAtATime.setSelected(PreferencesManager.oneMove());
@@ -130,18 +123,12 @@ class PreferencesGUIManager {
             PreferencesManager.writePrefs();
         }
         this.sound.setSelected(PreferencesManager.getSoundsEnabled());
-        this.useMapBattleEngine
-                .setSelected(PreferencesManager.useMapBattleEngine());
-        this.useTimeBattleEngine
-                .setSelected(PreferencesManager.useTimeBattleEngine());
         this.difficultyPicker
                 .setSelectedIndex(PreferencesManager.getGameDifficulty());
     }
 
     public void setPrefs() {
-        for (int x = 0; x < PreferencesManager.MUSIC_LENGTH; x++) {
-            PreferencesManager.setMusicEnabled(x, this.music[x].isSelected());
-        }
+        PreferencesManager.setMusicEnabled(this.music.isSelected());
         PreferencesManager.setCheckUpdatesAtStartup(
                 this.checkUpdatesStartup.isSelected());
         PreferencesManager.setOneMove(this.moveOneAtATime.isSelected());
@@ -155,10 +142,6 @@ class PreferencesGUIManager {
             Chrystalz.getApplication().resetBattleGUI();
         }
         PreferencesManager.setSoundsEnabled(this.sound.isSelected());
-        PreferencesManager
-                .setMapBattleEngine(this.useMapBattleEngine.isSelected());
-        PreferencesManager
-                .setTimeBattleEngine(this.useTimeBattleEngine.isSelected());
         PreferencesManager
                 .setGameDifficulty(this.difficultyPicker.getSelectedIndex());
         this.hidePrefs();
@@ -199,19 +182,11 @@ class PreferencesGUIManager {
                 this.viewingWindowChoices[z].setEnabled(false);
             }
         }
-        this.music[PreferencesManager.MUSIC_ALL] = new JCheckBox(
-                "Enable ALL music", true);
-        this.music[PreferencesManager.MUSIC_EXPLORING] = new JCheckBox(
-                "Enable exploring music", true);
-        this.music[PreferencesManager.MUSIC_BATTLE] = new JCheckBox(
-                "Enable battle music", true);
+        this.music = new JCheckBox("Enable music", true);
         this.sound = new JCheckBox("Enable sounds", true);
         this.checkUpdatesStartup = new JCheckBox("Check for Updates at Startup",
                 true);
         this.moveOneAtATime = new JCheckBox("One Move at a Time", true);
-        this.useMapBattleEngine = new JCheckBox("Use Map Battle Engine", false);
-        this.useTimeBattleEngine = new JCheckBox("Use Time Battle Engine",
-                false);
         this.difficultyPicker = new JComboBox<>(
                 PreferencesGUIManager.DIFFICULTY_NAMES);
         this.prefFrame.setContentPane(mainPrefPane);
@@ -222,16 +197,12 @@ class PreferencesGUIManager {
         this.prefFrame.setResizable(false);
         mediaPane.setLayout(
                 new GridLayout(PreferencesGUIManager.GRID_LENGTH, 1));
-        for (int x = 0; x < PreferencesManager.MUSIC_LENGTH; x++) {
-            mediaPane.add(this.music[x]);
-        }
+        mediaPane.add(this.music);
         mediaPane.add(this.sound);
         miscPane.setLayout(
                 new GridLayout(PreferencesGUIManager.GRID_LENGTH, 1));
         miscPane.add(this.checkUpdatesStartup);
         miscPane.add(this.moveOneAtATime);
-        miscPane.add(this.useMapBattleEngine);
-        miscPane.add(this.useTimeBattleEngine);
         miscPane.add(new JLabel("Game Difficulty"));
         miscPane.add(this.difficultyPicker);
         viewPane.setLayout(
@@ -248,14 +219,12 @@ class PreferencesGUIManager {
         prefTabPane.addTab("Misc.", null, miscPane, "Misc.");
         mainPrefPane.add(prefTabPane, BorderLayout.CENTER);
         mainPrefPane.add(buttonPane, BorderLayout.SOUTH);
-        this.music[PreferencesManager.MUSIC_ALL].addItemListener(handler);
         prefsOK.addActionListener(handler);
         prefsCancel.addActionListener(handler);
         this.prefFrame.pack();
     }
 
-    private class EventHandler
-            implements ActionListener, ItemListener, WindowListener {
+    private class EventHandler implements ActionListener, WindowListener {
         EventHandler() {
             // Do nothing
         }
@@ -270,30 +239,6 @@ class PreferencesGUIManager {
                     pm.setPrefs();
                 } else if (cmd.equals("Cancel")) {
                     pm.hidePrefs();
-                }
-            } catch (final Exception ex) {
-                Chrystalz.getErrorLogger().logError(ex);
-            }
-        }
-
-        @Override
-        public void itemStateChanged(final ItemEvent e) {
-            try {
-                final PreferencesGUIManager pm = PreferencesGUIManager.this;
-                final Object o = e.getItem();
-                if (o.getClass().equals(JCheckBox.class)) {
-                    final JCheckBox check = (JCheckBox) o;
-                    if (check.equals(pm.music[PreferencesManager.MUSIC_ALL])) {
-                        if (e.getStateChange() == ItemEvent.SELECTED) {
-                            for (int x = 1; x < PreferencesManager.MUSIC_LENGTH; x++) {
-                                pm.music[x].setEnabled(true);
-                            }
-                        } else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                            for (int x = 1; x < PreferencesManager.MUSIC_LENGTH; x++) {
-                                pm.music[x].setEnabled(false);
-                            }
-                        }
-                    }
                 }
             } catch (final Exception ex) {
                 Chrystalz.getErrorLogger().logError(ex);

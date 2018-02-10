@@ -6,8 +6,6 @@ Any questions should be directed to the author via email at: products@puttysoftw
 package studio.ignitionigloogames.chrystalz.creatures.monsters;
 
 import studio.ignitionigloogames.chrystalz.ai.map.MapAIRoutinePicker;
-import studio.ignitionigloogames.chrystalz.ai.window.AbstractWindowAIRoutine;
-import studio.ignitionigloogames.chrystalz.ai.window.VeryHardWindowAIRoutine;
 import studio.ignitionigloogames.chrystalz.assetmanagers.BossImageManager;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.faiths.Faith;
@@ -34,7 +32,6 @@ public class BossMonster extends AbstractCreature {
     // Constructors
     BossMonster() {
         super(true, 1);
-        this.setWindowAI(BossMonster.getInitialWindowAI());
         this.setMapAI(MapAIRoutinePicker.getNextRoutine());
         final SpellBook spells = new SystemMonsterSpellBook();
         spells.learnAllSpells();
@@ -170,10 +167,6 @@ public class BossMonster extends AbstractCreature {
                                 * BossMonster.getStatMultiplierForDifficulty(),
                         min));
         return r.generate();
-    }
-
-    private static AbstractWindowAIRoutine getInitialWindowAI() {
-        return new VeryHardWindowAIRoutine();
     }
 
     private static int getStatMultiplierForDifficulty() {

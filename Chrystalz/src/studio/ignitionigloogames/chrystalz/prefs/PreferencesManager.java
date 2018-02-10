@@ -19,10 +19,6 @@ public class PreferencesManager {
     // Fields
     private static PreferencesStoreManager storeMgr = new PreferencesStoreManager();
     private static PreferencesGUIManager guiMgr = new PreferencesGUIManager();
-    static final int MUSIC_ALL = 0;
-    public static final int MUSIC_EXPLORING = 1;
-    public static final int MUSIC_BATTLE = 2;
-    static final int MUSIC_LENGTH = 3;
     public static final int DIFFICULTY_VERY_EASY = 0;
     public static final int DIFFICULTY_EASY = 1;
     public static final int DIFFICULTY_NORMAL = 2;
@@ -42,11 +38,8 @@ public class PreferencesManager {
     private static final String WINDOW_SETTING = "ViewingWindowSize";
     private static final String UPDATE_SETTING = "UpdatesStartup";
     private static final String MOVE_SETTING = "OneMove";
-    private static final String BATTLE_SETTING = "UseMapBattleEngine";
-    private static final String TIME_SETTING = "UseTimeBattleEngine";
     private static final String DIFFICULTY_SETTING = "GameDifficulty";
-    private static final String MUSIC_SETTING = "MUSIC_";
-    private static final String MUSIC_ALL_SETTING = "MUSIC_0";
+    private static final String MUSIC_SETTING = "EnableMusic";
     private static final int BATTLE_SPEED = 1000;
 
     // Private constructor
@@ -57,26 +50,6 @@ public class PreferencesManager {
     // Methods
     public static int getBattleSpeed() {
         return PreferencesManager.BATTLE_SPEED;
-    }
-
-    public static boolean useMapBattleEngine() {
-        return PreferencesManager.storeMgr
-                .getBoolean(PreferencesManager.BATTLE_SETTING, false);
-    }
-
-    static void setMapBattleEngine(final boolean value) {
-        PreferencesManager.storeMgr
-                .setBoolean(PreferencesManager.BATTLE_SETTING, value);
-    }
-
-    public static boolean useTimeBattleEngine() {
-        return PreferencesManager.storeMgr
-                .getBoolean(PreferencesManager.TIME_SETTING, false);
-    }
-
-    static void setTimeBattleEngine(final boolean value) {
-        PreferencesManager.storeMgr.setBoolean(PreferencesManager.TIME_SETTING,
-                value);
     }
 
     public static boolean getSoundsEnabled() {
@@ -136,19 +109,14 @@ public class PreferencesManager {
                 .setInteger(PreferencesManager.DIFFICULTY_SETTING, value);
     }
 
-    public static boolean getMusicEnabled(final int mus) {
-        if (!PreferencesManager.storeMgr
-                .getBoolean(PreferencesManager.MUSIC_ALL_SETTING, false)) {
-            return false;
-        } else {
-            return PreferencesManager.storeMgr
-                    .getBoolean(PreferencesManager.MUSIC_SETTING + mus, true);
-        }
+    public static boolean getMusicEnabled() {
+        return PreferencesManager.storeMgr
+                .getBoolean(PreferencesManager.MUSIC_SETTING, true);
     }
 
-    static void setMusicEnabled(final int mus, final boolean status) {
-        PreferencesManager.storeMgr
-                .setBoolean(PreferencesManager.MUSIC_SETTING + mus, status);
+    static void setMusicEnabled(final boolean status) {
+        PreferencesManager.storeMgr.setBoolean(PreferencesManager.MUSIC_SETTING,
+                status);
     }
 
     public static JFrame getPrefFrame() {
@@ -234,19 +202,13 @@ public class PreferencesManager {
                     .setBoolean(PreferencesManager.UPDATE_SETTING, true);
             PreferencesManager.storeMgr
                     .setBoolean(PreferencesManager.MOVE_SETTING, true);
-            for (int x = 0; x < PreferencesManager.MUSIC_LENGTH; x++) {
-                PreferencesManager.storeMgr
-                        .setBoolean(PreferencesManager.MUSIC_SETTING + x, true);
-            }
+            PreferencesManager.storeMgr
+                    .setBoolean(PreferencesManager.MUSIC_SETTING, true);
             PreferencesManager.storeMgr.setInteger(
                     PreferencesManager.WINDOW_SETTING,
                     PreferencesGUIManager.DEFAULT_VIEWING_WINDOW_SIZE);
             PreferencesManager.storeMgr
                     .setBoolean(PreferencesManager.SOUNDS_SETTING, true);
-            PreferencesManager.storeMgr
-                    .setBoolean(PreferencesManager.BATTLE_SETTING, false);
-            PreferencesManager.storeMgr
-                    .setBoolean(PreferencesManager.TIME_SETTING, false);
             PreferencesManager.storeMgr.setInteger(
                     PreferencesManager.DIFFICULTY_SETTING,
                     PreferencesManager.DEFAULT_DIFFICULTY);
