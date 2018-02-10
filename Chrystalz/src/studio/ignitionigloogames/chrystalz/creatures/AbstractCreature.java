@@ -8,7 +8,6 @@ package studio.ignitionigloogames.chrystalz.creatures;
 import java.util.Arrays;
 
 import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
-import studio.ignitionigloogames.chrystalz.creatures.faiths.Faith;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.effects.Effect;
 import studio.ignitionigloogames.chrystalz.items.ItemInventory;
@@ -374,10 +373,6 @@ public abstract class AbstractCreature {
 
     public final long getExperience() {
         return this.experience;
-    }
-
-    public Faith getFaith() {
-        return null;
     }
 
     public final int getGold() {

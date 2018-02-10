@@ -11,7 +11,6 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import studio.ignitionigloogames.chrystalz.creatures.monsters.Element;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class MonsterImageManager {
@@ -20,11 +19,9 @@ public class MonsterImageManager {
     private static Class<?> LOAD_CLASS = MonsterImageManager.class;
     static int MONSTER_IMAGE_SIZE = 64;
 
-    public static BufferedImageIcon getImage(final String name,
-            final Element e) {
+    public static BufferedImageIcon getImage(final String name) {
         // Get it from the cache
-        final BufferedImageIcon bii = MonsterImageCache.getCachedImage(name,
-                e.getFaith().getColor().getRGB());
+        final BufferedImageIcon bii = MonsterImageCache.getCachedImage(name);
         return ImageTransformer.getTransformedImage(bii,
                 MonsterImageManager.MONSTER_IMAGE_SIZE);
     }

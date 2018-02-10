@@ -8,8 +8,6 @@ package studio.ignitionigloogames.chrystalz.creatures.monsters;
 import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.ai.map.MapAIRoutinePicker;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
-import studio.ignitionigloogames.chrystalz.creatures.faiths.Faith;
-import studio.ignitionigloogames.chrystalz.creatures.faiths.FaithManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
 import studio.ignitionigloogames.common.random.RandomRange;
@@ -17,7 +15,6 @@ import studio.ignitionigloogames.common.random.RandomRange;
 public abstract class AbstractMonster extends AbstractCreature {
     // Fields
     private String type;
-    protected Element element;
     protected static final double MINIMUM_EXPERIENCE_RANDOM_VARIANCE = -5.0
             / 2.0;
     protected static final double MAXIMUM_EXPERIENCE_RANDOM_VARIANCE = 5.0
@@ -31,7 +28,6 @@ public abstract class AbstractMonster extends AbstractCreature {
     AbstractMonster() {
         super(1);
         this.setMapAI(AbstractMonster.getInitialMapAI());
-        this.element = new Element(FaithManager.getFaith(0));
         final SpellBook spells = new SystemMonsterSpellBook();
         spells.learnAllSpells();
         this.setSpellBook(spells);
@@ -40,12 +36,7 @@ public abstract class AbstractMonster extends AbstractCreature {
     // Methods
     @Override
     public String getName() {
-        return this.element.getName() + " " + this.type;
-    }
-
-    @Override
-    public Faith getFaith() {
-        return this.element.getFaith();
+        return this.type;
     }
 
     @Override
@@ -95,10 +86,6 @@ public abstract class AbstractMonster extends AbstractCreature {
         return this.type;
     }
 
-    final Element getElement() {
-        return this.element;
-    }
-
     final void setType(final String newType) {
         this.type = newType;
     }
@@ -116,8 +103,6 @@ public abstract class AbstractMonster extends AbstractCreature {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result
-                + (this.element == null ? 0 : this.element.hashCode());
         return prime * result + (this.type == null ? 0 : this.type.hashCode());
     }
 
@@ -133,13 +118,6 @@ public abstract class AbstractMonster extends AbstractCreature {
             return false;
         }
         final AbstractMonster other = (AbstractMonster) obj;
-        if (this.element == null) {
-            if (other.element != null) {
-                return false;
-            }
-        } else if (!this.element.equals(other.element)) {
-            return false;
-        }
         if (this.type == null) {
             if (other.type != null) {
                 return false;

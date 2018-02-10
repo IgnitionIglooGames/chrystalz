@@ -14,12 +14,9 @@ public class MonsterImageCache {
     private static int CACHE_SIZE = 0;
 
     // Methods
-    static BufferedImageIcon getCachedImage(final String name,
-            final int transformColor) {
+    static BufferedImageIcon getCachedImage(final String name) {
         if (!MonsterImageCache.isInCache(name)) {
             BufferedImageIcon bii = MonsterImageManager.getUncachedImage(name);
-            bii = ImageTransformer.templateTransformImage(bii, transformColor,
-                    MonsterImageManager.MONSTER_IMAGE_SIZE);
             MonsterImageCache.addToCache(name, bii);
         }
         for (final CacheEntry element : MonsterImageCache.cache) {

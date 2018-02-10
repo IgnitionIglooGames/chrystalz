@@ -14,14 +14,8 @@ import studio.ignitionigloogames.chrystalz.creatures.castes.Caste;
 import studio.ignitionigloogames.chrystalz.creatures.castes.CasteManager;
 import studio.ignitionigloogames.chrystalz.creatures.characterfiles.CharacterLoader;
 import studio.ignitionigloogames.chrystalz.creatures.characterfiles.CharacterRegistration;
-import studio.ignitionigloogames.chrystalz.creatures.faiths.Faith;
-import studio.ignitionigloogames.chrystalz.creatures.faiths.FaithManager;
 import studio.ignitionigloogames.chrystalz.creatures.genders.Gender;
 import studio.ignitionigloogames.chrystalz.creatures.genders.GenderManager;
-import studio.ignitionigloogames.chrystalz.creatures.personalities.Personality;
-import studio.ignitionigloogames.chrystalz.creatures.personalities.PersonalityManager;
-import studio.ignitionigloogames.chrystalz.creatures.races.Race;
-import studio.ignitionigloogames.chrystalz.creatures.races.RaceManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
@@ -125,42 +119,27 @@ public class PartyManager {
         }
     }
 
-    public static PartyMember getNewPCInstance(final int r, final int c,
-            final int f, final int p, final int g, final String n) {
-        final Race race = RaceManager.getRace(r);
+    public static PartyMember getNewPCInstance(final int c, final int g,
+            final String n) {
         final Caste caste = CasteManager.getCaste(c);
-        final Faith faith = FaithManager.getFaith(f);
-        final Personality personality = PersonalityManager.getPersonality(p);
         final Gender gender = GenderManager.getGender(g);
-        return new PartyMember(race, caste, faith, personality, gender, n);
+        return new PartyMember(caste, gender, n);
     }
 
     public static void updatePostKill() {
         final PartyMember leader = PartyManager.getParty().getLeader();
-        leader.initPostKill(leader.getRace(), leader.getCaste(),
-                leader.getFaith(), leader.getPersonality(), leader.getGender());
+        leader.initPostKill(leader.getCaste(), leader.getGender());
     }
 
     private static PartyMember createNewPC(final JFrame owner) {
         final String name = CommonDialogs.showTextInputDialog("Character Name",
                 "Create Character");
         if (name != null) {
-            final Race race = RaceManager.selectRace(owner);
-            if (race != null) {
-                final Caste caste = CasteManager.selectCaste(owner);
-                if (caste != null) {
-                    final Faith faith = FaithManager.selectFaith(owner);
-                    if (faith != null) {
-                        final Personality personality = PersonalityManager
-                                .selectPersonality(owner);
-                        if (personality != null) {
-                            final Gender gender = GenderManager.selectGender();
-                            if (gender != null) {
-                                return new PartyMember(race, caste, faith,
-                                        personality, gender, name);
-                            }
-                        }
-                    }
+            final Caste caste = CasteManager.selectCaste(owner);
+            if (caste != null) {
+                final Gender gender = GenderManager.selectGender();
+                if (gender != null) {
+                    return new PartyMember(caste, gender, name);
                 }
             }
         }

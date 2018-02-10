@@ -6,9 +6,7 @@ Any questions should be directed to the author via email at: products@puttysoftw
 package studio.ignitionigloogames.chrystalz.items;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-import studio.ignitionigloogames.chrystalz.creatures.faiths.FaithConstants;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
@@ -19,8 +17,6 @@ public class Equipment extends Item {
     private int firstSlotUsed;
     private int secondSlotUsed;
     private boolean conditionalSlot;
-    private int[] faithPowersApplied;
-    private String[] faithPowerName;
 
     // Constructors
     private Equipment(final Item i, final int equipCategory,
@@ -31,7 +27,6 @@ public class Equipment extends Item {
         this.firstSlotUsed = EquipmentSlotConstants.SLOT_NONE;
         this.secondSlotUsed = EquipmentSlotConstants.SLOT_NONE;
         this.conditionalSlot = false;
-        this.initFaithPowers();
     }
 
     protected Equipment(final String itemName, final int cost) {
@@ -42,7 +37,6 @@ public class Equipment extends Item {
         this.secondSlotUsed = EquipmentSlotConstants.SLOT_NONE;
         this.conditionalSlot = false;
         this.setBuyPrice(cost);
-        this.initFaithPowers();
     }
 
     Equipment(final String itemName, final int itemInitialUses,
@@ -54,40 +48,24 @@ public class Equipment extends Item {
         this.firstSlotUsed = EquipmentSlotConstants.SLOT_NONE;
         this.secondSlotUsed = EquipmentSlotConstants.SLOT_NONE;
         this.conditionalSlot = false;
-        this.initFaithPowers();
     }
 
     Equipment(final Equipment e) {
-        super(e.getItemName(), e);
+        super(e.getName(), e);
         this.equipCat = e.equipCat;
         this.materialID = e.materialID;
         this.firstSlotUsed = e.firstSlotUsed;
         this.secondSlotUsed = e.secondSlotUsed;
         this.conditionalSlot = e.conditionalSlot;
-        this.initFaithPowers();
-        System.arraycopy(e.faithPowersApplied, 0, this.faithPowersApplied, 0,
-                e.faithPowersApplied.length);
-        System.arraycopy(e.faithPowerName, 0, this.faithPowerName, 0,
-                e.faithPowerName.length);
     }
 
     // Methods
-    private final void initFaithPowers() {
-        this.faithPowersApplied = new int[FaithConstants.getFaithsCount()];
-        this.faithPowerName = new String[FaithConstants.getFaithsCount()];
-        for (int z = 0; z < this.faithPowerName.length; z++) {
-            this.faithPowerName[z] = "";
-        }
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
         result = prime * result + (this.conditionalSlot ? 1231 : 1237);
         result = prime * result + this.equipCat;
-        result = prime * result + Arrays.hashCode(this.faithPowerName);
-        result = prime * result + Arrays.hashCode(this.faithPowersApplied);
         result = prime * result + this.firstSlotUsed;
         result = prime * result + this.materialID;
         return prime * result + this.secondSlotUsed;
@@ -111,12 +89,6 @@ public class Equipment extends Item {
         if (this.equipCat != other.equipCat) {
             return false;
         }
-        if (!Arrays.equals(this.faithPowerName, other.faithPowerName)) {
-            return false;
-        }
-        if (!Arrays.equals(this.faithPowersApplied, other.faithPowersApplied)) {
-            return false;
-        }
         if (this.firstSlotUsed != other.firstSlotUsed) {
             return false;
         }
@@ -129,22 +101,6 @@ public class Equipment extends Item {
         return true;
     }
 
-    @Override
-    public String getName() {
-        final StringBuilder faithBuilder = new StringBuilder();
-        final int fc = FaithConstants.getFaithsCount();
-        for (int z = 0; z < fc; z++) {
-            if (!this.faithPowerName[z].isEmpty()) {
-                faithBuilder.append(this.faithPowerName[z]);
-            }
-        }
-        return faithBuilder.toString() + super.getName();
-    }
-
-    private String getItemName() {
-        return super.getName();
-    }
-
     public final void enchantName(final int bonus) {
         String oldName = this.getName();
         // Check - is name enchanted already?
@@ -154,11 +110,6 @@ public class Equipment extends Item {
         }
         final String newName = oldName + " +" + bonus;
         this.setName(newName);
-    }
-
-    public final void applyFaithPower(final int fid, final String fpName) {
-        this.faithPowerName[fid] = fpName + " ";
-        this.faithPowersApplied[fid]++;
     }
 
     public final int getFirstSlotUsed() {
@@ -189,10 +140,6 @@ public class Equipment extends Item {
         return this.materialID;
     }
 
-    public final int getFaithPowerLevel(final int fid) {
-        return this.faithPowersApplied[fid];
-    }
-
     public final boolean isTwoHanded() {
         return this.firstSlotUsed == EquipmentSlotConstants.SLOT_MAINHAND
                 && this.secondSlotUsed == EquipmentSlotConstants.SLOT_OFFHAND
@@ -211,11 +158,6 @@ public class Equipment extends Item {
         ei.firstSlotUsed = dr.readInt();
         ei.secondSlotUsed = dr.readInt();
         ei.conditionalSlot = dr.readBoolean();
-        final int fc = FaithConstants.getFaithsCount();
-        for (int z = 0; z < fc; z++) {
-            ei.faithPowerName[z] = dr.readString();
-            ei.faithPowersApplied[z] = dr.readInt();
-        }
         return ei;
     }
 
@@ -226,10 +168,5 @@ public class Equipment extends Item {
         dw.writeInt(this.firstSlotUsed);
         dw.writeInt(this.secondSlotUsed);
         dw.writeBoolean(this.conditionalSlot);
-        final int fc = FaithConstants.getFaithsCount();
-        for (int z = 0; z < fc; z++) {
-            dw.writeString(this.faithPowerName[z]);
-            dw.writeInt(this.faithPowersApplied[z]);
-        }
     }
 }

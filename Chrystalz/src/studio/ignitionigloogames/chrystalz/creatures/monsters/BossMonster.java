@@ -8,8 +8,6 @@ package studio.ignitionigloogames.chrystalz.creatures.monsters;
 import studio.ignitionigloogames.chrystalz.ai.map.MapAIRoutinePicker;
 import studio.ignitionigloogames.chrystalz.assetmanagers.BossImageManager;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
-import studio.ignitionigloogames.chrystalz.creatures.faiths.Faith;
-import studio.ignitionigloogames.chrystalz.creatures.faiths.FaithManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
@@ -48,11 +46,6 @@ public class BossMonster extends AbstractCreature {
     @Override
     public String getName() {
         return "The Boss";
-    }
-
-    @Override
-    public Faith getFaith() {
-        return FaithManager.getFaith(0);
     }
 
     @Override

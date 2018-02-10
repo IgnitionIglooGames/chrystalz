@@ -7,10 +7,6 @@ package studio.ignitionigloogames.chrystalz.battle.damageengines;
 
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
-import studio.ignitionigloogames.chrystalz.creatures.faiths.FaithConstants;
-import studio.ignitionigloogames.chrystalz.items.Equipment;
-import studio.ignitionigloogames.chrystalz.items.EquipmentCategoryConstants;
-import studio.ignitionigloogames.chrystalz.items.EquipmentSlotConstants;
 import studio.ignitionigloogames.common.random.RandomRange;
 
 class NormalDamageEngine extends AbstractDamageEngine {
@@ -21,9 +17,6 @@ class NormalDamageEngine extends AbstractDamageEngine {
     private static final int FUMBLE_CHANCE = 500;
     private static final int PIERCE_CHANCE = 1000;
     private static final int CRIT_CHANCE = 1000;
-    private static final double FAITH_INCREMENT = 0.1;
-    private static final double FAITH_INCREMENT_2H = 0.15;
-    private static final double FAITH_DR_INCREMENT = 0.05;
     private boolean dodged = false;
     private boolean missed = false;
     private boolean crit = false;
@@ -88,62 +81,8 @@ class NormalDamageEngine extends AbstractDamageEngine {
                                 NormalDamageEngine.MULTIPLIER_MAX);
                     }
                     final int multiplier = rDamage.generate();
-                    // Weapon Faith Power Boost
-                    double faithMultiplier = CommonDamageEngineParts.FAITH_MULT_START;
-                    final int fc = FaithConstants.getFaithsCount();
-                    final Equipment mainHand = acting.getItems()
-                            .getEquipmentInSlot(
-                                    EquipmentSlotConstants.SLOT_MAINHAND);
-                    final Equipment offHand = acting.getItems()
-                            .getEquipmentInSlot(
-                                    EquipmentSlotConstants.SLOT_OFFHAND);
-                    if (mainHand != null && mainHand.equals(offHand)) {
-                        for (int z = 0; z < fc; z++) {
-                            final int fpl = mainHand.getFaithPowerLevel(z);
-                            faithMultiplier += NormalDamageEngine.FAITH_INCREMENT_2H
-                                    * fpl;
-                        }
-                    } else {
-                        if (mainHand != null) {
-                            for (int z = 0; z < fc; z++) {
-                                final int fpl = mainHand.getFaithPowerLevel(z);
-                                faithMultiplier += NormalDamageEngine.FAITH_INCREMENT
-                                        * fpl;
-                            }
-                        }
-                        if (offHand != null && offHand
-                                .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ONE_HANDED_WEAPON) {
-                            for (int z = 0; z < fc; z++) {
-                                final int fpl = offHand.getFaithPowerLevel(z);
-                                faithMultiplier += NormalDamageEngine.FAITH_INCREMENT
-                                        * fpl;
-                            }
-                        }
-                    }
-                    // Armor Faith Power Boost
-                    double faithDR = CommonDamageEngineParts.FAITH_MULT_START;
-                    final Equipment armor = acting.getItems()
-                            .getEquipmentInSlot(
-                                    EquipmentSlotConstants.SLOT_BODY);
-                    if (armor != null) {
-                        for (int z = 0; z < fc; z++) {
-                            final int fpl = armor.getFaithPowerLevel(z);
-                            faithDR -= fpl
-                                    * NormalDamageEngine.FAITH_DR_INCREMENT;
-                        }
-                    }
-                    if (offHand != null && offHand
-                            .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ARMOR) {
-                        for (int z = 0; z < fc; z++) {
-                            final int fpl = offHand.getFaithPowerLevel(z);
-                            faithDR -= fpl
-                                    * NormalDamageEngine.FAITH_DR_INCREMENT;
-                        }
-                    }
-                    final int unadjustedDamage = (int) (rawDamage * multiplier
-                            * faithMultiplier
+                    return (int) (rawDamage * multiplier
                             / CommonDamageEngineParts.MULTIPLIER_DIVIDE);
-                    return (int) (unadjustedDamage * faithDR);
                 }
             }
         }

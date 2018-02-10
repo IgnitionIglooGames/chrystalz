@@ -5,7 +5,6 @@ Any questions should be directed to the author via email at: products@puttysoftw
  */
 package studio.ignitionigloogames.chrystalz.items;
 
-import studio.ignitionigloogames.chrystalz.creatures.faiths.FaithConstants;
 import studio.ignitionigloogames.chrystalz.shops.Shop;
 
 public class EquipmentFactory {
@@ -76,14 +75,6 @@ public class EquipmentFactory {
         e.setPotency(oldE.getMaterial()
                 * ArmorMaterialConstants.MATERIALS_POWER_MULTIPLIER + bonus);
         e.enchantName(bonus);
-        return e;
-    }
-
-    public static Equipment createFaithPoweredEquipment(final Equipment oldE,
-            final int faithID, final int bonus) {
-        final Equipment e = new Equipment(oldE);
-        final String fpName = FaithConstants.getFaithPowerName(faithID, bonus);
-        e.applyFaithPower(faithID, fpName);
         return e;
     }
 
