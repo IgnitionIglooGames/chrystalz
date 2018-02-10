@@ -16,8 +16,6 @@ import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public class SpellCaster {
     // Fields
-    private static boolean NO_SPELLS_FLAG = false;
-
     // Private Constructor
     private SpellCaster() {
         // Do nothing
@@ -25,15 +23,9 @@ public class SpellCaster {
 
     public static boolean selectAndCastSpell(final AbstractCreature caster) {
         boolean result = false;
-        SpellCaster.NO_SPELLS_FLAG = false;
         final Spell s = SpellCaster.selectSpell(caster);
         if (s != null) {
-            result = SpellCaster.castSpell(s, caster);
-            if (!result && !SpellCaster.NO_SPELLS_FLAG) {
-                CommonDialogs.showErrorDialog(
-                        "You try to cast a spell, but realize you don't have enough MP!",
-                        "Select Spell");
-            }
+            SpellCaster.castSpell(s, caster);
         }
         return result;
     }
@@ -93,17 +85,9 @@ public class SpellCaster {
                     return null;
                 }
             } else {
-                SpellCaster.NO_SPELLS_FLAG = true;
-                CommonDialogs.showErrorDialog(
-                        "You try to cast a spell, but realize you don't know any!",
-                        "Select Spell");
                 return null;
             }
         } else {
-            SpellCaster.NO_SPELLS_FLAG = true;
-            CommonDialogs.showErrorDialog(
-                    "You try to cast a spell, but realize you don't know any!",
-                    "Select Spell");
             return null;
         }
     }

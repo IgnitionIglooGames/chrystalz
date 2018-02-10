@@ -16,7 +16,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.TypeConstants;
-import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 final class MovementTask extends Thread {
     // Fields
@@ -326,8 +325,9 @@ final class MovementTask extends Thread {
 
     private static void checkGameOver() {
         if (!PartyManager.getParty().isAlive()) {
+            final Application app = Chrystalz.getApplication();
             SoundManager.playSound(SoundConstants.SOUND_GAME_OVER);
-            CommonDialogs.showDialog(
+            app.showMessage(
                     "You have died! You lose 10% of your experience and all your Gold, but you are healed fully.");
             PartyManager.getParty().getLeader().onDeath(-10);
         }

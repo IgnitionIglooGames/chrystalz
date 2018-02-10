@@ -23,7 +23,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.PrefixHandler;
 import studio.ignitionigloogames.chrystalz.dungeon.SuffixHandler;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.ImageColorConstants;
-import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.ZipUtilities;
 
 public class GameLoadTask extends Thread {
@@ -49,7 +48,6 @@ public class GameLoadTask extends Thread {
     // Methods
     @Override
     public void run() {
-        final String sg = "Game";
         final File mazeFile = new File(this.filename);
         try {
             this.loadFrame.setVisible(true);
@@ -89,22 +87,15 @@ public class GameLoadTask extends Thread {
             AbstractGameObject.setTemplateColor(ImageColorConstants
                     .getColorForLevel(PartyManager.getParty().getTowerLevel()));
             app.getDungeonManager().setLoaded(true);
-            CommonDialogs.showDialog(sg + " loaded.");
             app.getGameManager().playDungeon();
             app.getDungeonManager().handleDeferredSuccess(true, false, null);
         } catch (final VersionException ve) {
-            CommonDialogs.showDialog("Loading the " + sg.toLowerCase()
-                    + " failed, due to the format version being unsupported.");
             Chrystalz.getApplication().getDungeonManager()
                     .handleDeferredSuccess(false, true, mazeFile);
         } catch (final FileNotFoundException fnfe) {
-            CommonDialogs.showDialog("Loading the " + sg.toLowerCase()
-                    + " failed, probably due to illegal characters in the file name.");
             Chrystalz.getApplication().getDungeonManager()
                     .handleDeferredSuccess(false, false, null);
         } catch (final IOException ie) {
-            CommonDialogs.showDialog("Loading the " + sg.toLowerCase()
-                    + " failed, due to some other type of I/O error.");
             Chrystalz.getApplication().getDungeonManager()
                     .handleDeferredSuccess(false, false, null);
         } catch (final Exception ex) {

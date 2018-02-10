@@ -30,7 +30,6 @@ import javax.swing.WindowConstants;
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.assetmanagers.LogoManager;
-import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 class PreferencesGUIManager {
     // Fields
@@ -72,12 +71,7 @@ class PreferencesGUIManager {
 
     public void showPrefs() {
         final Application app = Chrystalz.getApplication();
-        if (app.getMode() == Application.STATUS_BATTLE) {
-            // Deny
-            CommonDialogs.showTitledDialog(
-                    "Preferences may NOT be changed in the middle of battle!",
-                    "Battle");
-        } else {
+        if (app.getMode() != Application.STATUS_BATTLE) {
             app.setMode(Application.STATUS_PREFS);
             if (System.getProperty("os.name").startsWith("Mac OS X")) {
                 this.prefFrame
