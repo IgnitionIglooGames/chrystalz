@@ -14,8 +14,6 @@ import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
-import studio.ignitionigloogames.chrystalz.dungeon.FormatConstants;
-import studio.ignitionigloogames.chrystalz.items.combat.CombatItemList;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
@@ -23,32 +21,16 @@ public class ItemInventory {
     // Properties
     private ItemUseQuantity[] entries;
     private Equipment[] equipment;
-    private Socks socks;
-    private static final int COMBAT_ITEM_COUNT_V2 = 2;
 
     // Constructors
-    public ItemInventory(final boolean hasCombatItems) {
-        this.resetInventory(hasCombatItems);
+    public ItemInventory() {
+        this.resetInventory();
     }
 
     // Methods
     public void resetInventory() {
-        this.resetInventory(true);
-    }
-
-    private void resetInventory(final boolean hasCombatItems) {
-        if (hasCombatItems) {
-            final CombatItemList cil = new CombatItemList();
-            final Item[] items = cil.getAllItems();
-            this.entries = new ItemUseQuantity[items.length];
-            for (int x = 0; x < items.length; x++) {
-                this.entries[x] = new ItemUseQuantity(items[x], 0, 0);
-            }
-        } else {
-            this.entries = null;
-        }
+        this.entries = null;
         this.equipment = new Equipment[EquipmentSlotConstants.MAX_SLOTS];
-        this.socks = null;
     }
 
     public void addItem(final Item i) {
@@ -126,42 +108,37 @@ public class ItemInventory {
 
     public void equipArmor(final AbstractCreature pc, final Equipment ei,
             final boolean playSound) {
-        // Check for socks
-        if (ei instanceof Socks) {
-            this.socks = (Socks) ei;
-        } else {
-            // Fix character load, changing armor
-            if (ei.getFirstSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
-                // Check for two-handed weapon
-                if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
-                    if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
-                            .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_TWO_HANDED_WEAPON) {
-                        pc.offsetLoad(
-                                -this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
-                                        .getEffectiveWeight());
-                    }
+        // Fix character load, changing armor
+        if (ei.getFirstSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
+            // Check for two-handed weapon
+            if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
+                if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
+                        .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_TWO_HANDED_WEAPON) {
+                    pc.offsetLoad(
+                            -this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
+                                    .getEffectiveWeight());
                 }
             }
-            if (this.equipment[ei.getFirstSlotUsed()] != null) {
-                pc.offsetLoad(-this.equipment[ei.getFirstSlotUsed()]
-                        .getEffectiveWeight());
-            }
-            pc.offsetLoad(ei.getEffectiveWeight());
-            // Check for shield
-            if (ei.getFirstSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
-                // Check for two-handed weapon
-                if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
-                    if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
-                            .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_TWO_HANDED_WEAPON) {
-                        // Two-handed weapon currently equipped, unequip it
-                        this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] = null;
-                        this.equipment[EquipmentSlotConstants.SLOT_OFFHAND] = null;
-                    }
-                }
-            }
-            // Equip it in first slot
-            this.equipment[ei.getFirstSlotUsed()] = ei;
         }
+        if (this.equipment[ei.getFirstSlotUsed()] != null) {
+            pc.offsetLoad(-this.equipment[ei.getFirstSlotUsed()]
+                    .getEffectiveWeight());
+        }
+        pc.offsetLoad(ei.getEffectiveWeight());
+        // Check for shield
+        if (ei.getFirstSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
+            // Check for two-handed weapon
+            if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
+                if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
+                        .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_TWO_HANDED_WEAPON) {
+                    // Two-handed weapon currently equipped, unequip it
+                    this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] = null;
+                    this.equipment[EquipmentSlotConstants.SLOT_OFFHAND] = null;
+                }
+            }
+        }
+        // Equip it in first slot
+        this.equipment[ei.getFirstSlotUsed()] = ei;
         if (playSound) {
             SoundManager.playSound(SoundConstants.SOUND_EQUIP);
         }
@@ -251,7 +228,7 @@ public class ItemInventory {
     }
 
     public String[] generateEquipmentStringArray() {
-        final String[] result = new String[this.equipment.length + 1];
+        final String[] result = new String[this.equipment.length];
         StringBuilder sb;
         for (int x = 0; x < result.length - 1; x++) {
             sb = new StringBuilder();
@@ -267,22 +244,7 @@ public class ItemInventory {
             }
             result[x] = sb.toString();
         }
-        // Append Socks
-        sb = new StringBuilder();
-        sb.append("Socks: ");
-        if (this.socks == null) {
-            sb.append("None");
-        } else {
-            sb.append(this.socks.getName());
-        }
-        result[result.length - 1] = sb.toString();
         return result;
-    }
-
-    public void fireStepActions(final AbstractCreature wearer) {
-        if (this.socks != null) {
-            this.socks.stepAction(wearer);
-        }
     }
 
     public int getTotalPower() {
@@ -340,18 +302,11 @@ public class ItemInventory {
         return total;
     }
 
-    public static ItemInventory readItemInventory(final FileIOReader dr,
-            final int formatVersion) throws IOException {
-        final ItemInventory ii = new ItemInventory(true);
-        int counter = 0;
+    public static ItemInventory readItemInventory(final FileIOReader dr) throws IOException {
+        final ItemInventory ii = new ItemInventory();
         for (final ItemUseQuantity iqu : ii.entries) {
             iqu.setQuantity(dr.readInt());
             iqu.setUses(dr.readInt());
-            counter++;
-            if (formatVersion == FormatConstants.CHARACTER_FORMAT_2
-                    && counter >= ItemInventory.COMBAT_ITEM_COUNT_V2) {
-                break;
-            }
         }
         for (int x = 0; x < ii.equipment.length; x++) {
             final Equipment ei = Equipment.readEquipment(dr);
@@ -381,9 +336,7 @@ public class ItemInventory {
         final int prime = 31;
         int result = 1;
         result = prime * result + Arrays.hashCode(this.equipment);
-        result = prime * result + Arrays.hashCode(this.entries);
-        return prime * result
-                + (this.socks == null ? 0 : this.socks.hashCode());
+        return prime * result + Arrays.hashCode(this.entries);
     }
 
     @Override
@@ -399,13 +352,6 @@ public class ItemInventory {
         }
         final ItemInventory other = (ItemInventory) obj;
         if (!Arrays.equals(this.equipment, other.equipment)) {
-            return false;
-        }
-        if (this.socks == null) {
-            if (other.socks != null) {
-                return false;
-            }
-        } else if (!this.socks.equals(other.socks)) {
             return false;
         }
         if (this.entries == null) {

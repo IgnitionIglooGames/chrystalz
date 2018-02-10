@@ -32,8 +32,6 @@ public abstract class AbstractBattle {
 
     public abstract boolean castSpell();
 
-    public abstract boolean useItem();
-
     public abstract boolean steal();
 
     public abstract boolean drain();

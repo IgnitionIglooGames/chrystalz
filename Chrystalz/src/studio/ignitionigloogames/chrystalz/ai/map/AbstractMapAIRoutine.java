@@ -5,13 +5,11 @@ Any questions should be directed to the author via email at: products@puttysoftw
  */
 package studio.ignitionigloogames.chrystalz.ai.map;
 
-import studio.ignitionigloogames.chrystalz.items.combat.CombatItem;
 import studio.ignitionigloogames.chrystalz.spells.Spell;
 
 public abstract class AbstractMapAIRoutine {
     // Fields
     protected Spell spell;
-    private final CombatItem item;
     protected int moveX;
     protected int moveY;
     protected boolean lastResult;
@@ -19,13 +17,11 @@ public abstract class AbstractMapAIRoutine {
     public static final int ACTION_CAST_SPELL = 1;
     public static final int ACTION_STEAL = 2;
     public static final int ACTION_DRAIN = 3;
-    public static final int ACTION_USE_ITEM = 4;
-    static final int ACTION_END_TURN = 5;
+    static final int ACTION_END_TURN = 4;
 
     // Constructor
     protected AbstractMapAIRoutine() {
         this.spell = null;
-        this.item = null;
         this.moveX = 0;
         this.moveY = 0;
         this.lastResult = true;
@@ -50,10 +46,6 @@ public abstract class AbstractMapAIRoutine {
         return this.spell;
     }
 
-    public final CombatItem getItemToUse() {
-        return this.item;
-    }
-
     public final void setLastResult(final boolean res) {
         this.lastResult = res;
     }
@@ -62,8 +54,6 @@ public abstract class AbstractMapAIRoutine {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result
-                + (this.item == null ? 0 : this.item.hashCode());
         result = prime * result + (this.lastResult ? 1231 : 1237);
         result = prime * result + this.moveX;
         result = prime * result + this.moveY;
@@ -83,13 +73,6 @@ public abstract class AbstractMapAIRoutine {
             return false;
         }
         final AbstractMapAIRoutine other = (AbstractMapAIRoutine) obj;
-        if (this.item == null) {
-            if (other.item != null) {
-                return false;
-            }
-        } else if (!this.item.equals(other.item)) {
-            return false;
-        }
         if (this.lastResult != other.lastResult) {
             return false;
         }

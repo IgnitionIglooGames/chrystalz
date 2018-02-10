@@ -31,7 +31,7 @@ public class BossMonster extends AbstractCreature {
 
     // Constructors
     BossMonster() {
-        super(true, 1);
+        super(1);
         this.setMapAI(MapAIRoutinePicker.getNextRoutine());
         final SpellBook spells = new SystemMonsterSpellBook();
         spells.learnAllSpells();

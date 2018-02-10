@@ -88,10 +88,6 @@ public class Party {
         return this.members.isAlive();
     }
 
-    public void fireStepActions() {
-        this.members.getItems().fireStepActions(this.members);
-    }
-
     boolean addPartyMember(final PartyMember member) {
         this.members = member;
         return true;

@@ -32,8 +32,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.effects.Effect;
-import studio.ignitionigloogames.chrystalz.items.combat.CombatItem;
-import studio.ignitionigloogames.chrystalz.items.combat.CombatItemChucker;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.Spell;
 import studio.ignitionigloogames.chrystalz.spells.SpellCaster;
@@ -59,7 +57,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
     private final MapTurnBattleAITask ait;
     private MapTurnBattleGUI battleGUI;
     private BattleCharacter enemy;
-    private static final int ITEM_ACTION_POINTS = 6;
     private static final int STEAL_ACTION_POINTS = 3;
     private static final int DRAIN_ACTION_POINTS = 3;
 
@@ -999,52 +996,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
     }
 
     @Override
-    public boolean useItem() {
-        // Check Action Counter
-        if (this.getActiveActionCounter() > 0) {
-            if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
-                // Active character has no AI, or AI is turned off
-                final boolean success = CombatItemChucker.selectAndUseItem(
-                        this.bd.getActiveCharacter().getTemplate());
-                if (success) {
-                    this.bd.getActiveCharacter()
-                            .modifyAP(MapTurnBattleLogic.ITEM_ACTION_POINTS);
-                }
-                final int currResult = this.getResult();
-                if (currResult != BattleResults.IN_PROGRESS) {
-                    // Battle Done
-                    this.result = currResult;
-                    this.doResult();
-                }
-                return success;
-            } else {
-                // Active character has AI, and AI is turned on
-                final CombatItem cui = this.bd.getActiveCharacter()
-                        .getTemplate().getMapAI().getItemToUse();
-                final boolean success = CombatItemChucker.useItem(cui,
-                        this.bd.getActiveCharacter().getTemplate());
-                if (success) {
-                    this.bd.getActiveCharacter()
-                            .modifyAP(MapTurnBattleLogic.ITEM_ACTION_POINTS);
-                }
-                final int currResult = this.getResult();
-                if (currResult != BattleResults.IN_PROGRESS) {
-                    // Battle Done
-                    this.result = currResult;
-                    this.doResult();
-                }
-                return success;
-            }
-        } else {
-            // Deny use - out of actions
-            if (!this.bd.getActiveCharacter().getTemplate().hasMapAI()) {
-                this.setStatusMessage("Out of actions!");
-            }
-            return false;
-        }
-    }
-
-    @Override
     public boolean steal() {
         // Check Action Counter
         if (this.getActiveActionCounter() > 0) {
@@ -1392,9 +1343,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
             break;
         case AbstractMapAIRoutine.ACTION_STEAL:
             this.steal();
-            break;
-        case AbstractMapAIRoutine.ACTION_USE_ITEM:
-            this.useItem();
             break;
         default:
             this.endTurn();

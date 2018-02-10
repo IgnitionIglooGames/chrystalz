@@ -29,7 +29,7 @@ public abstract class AbstractMonster extends AbstractCreature {
 
     // Constructors
     AbstractMonster() {
-        super(true, 1);
+        super(1);
         this.setMapAI(AbstractMonster.getInitialMapAI());
         this.element = new Element(FaithManager.getFaith(0));
         final SpellBook spells = new SystemMonsterSpellBook();

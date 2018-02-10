@@ -112,7 +112,6 @@ final class MovementTask extends Thread {
         final int pz = m.getPlayerLocationZ();
         m.updateVisibleSquares(px, py, pz);
         m.tickTimers(pz);
-        PartyManager.getParty().fireStepActions();
         this.gui.updateStats();
         MovementTask.checkGameOver();
     }

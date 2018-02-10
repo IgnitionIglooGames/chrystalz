@@ -87,11 +87,6 @@ public class EquipmentFactory {
         return e;
     }
 
-    public static Socks createSocks(final int actionType, final int price) {
-        final String[] names = EquipmentFactory.createSocksNames();
-        return new Socks(names[actionType - 1], price, actionType, 1);
-    }
-
     public static String[] createOneHandedWeaponNames(final int weaponType) {
         final String[] res = new String[WeaponMaterialConstants.MATERIALS_COUNT];
         for (int x = 0; x < res.length; x++) {

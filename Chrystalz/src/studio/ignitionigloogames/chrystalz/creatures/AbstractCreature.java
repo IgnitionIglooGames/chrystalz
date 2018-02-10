@@ -44,7 +44,7 @@ public abstract class AbstractCreature {
     public static final double SPEED_ADJUST_FASTEST = 2.0;
 
     // Constructor
-    protected AbstractCreature(final boolean hasCombatItems, final int tid) {
+    protected AbstractCreature(final int tid) {
         this.teamID = tid;
         this.stats = new Statistic[StatConstants.MAX_STORED_STATS];
         for (int x = 0; x < StatConstants.MAX_STORED_STATS; x++) {
@@ -68,7 +68,7 @@ public abstract class AbstractCreature {
         this.stats[StatConstants.STAT_AGILITY].setValue(1);
         this.effectList = new Effect[AbstractCreature.MAX_EFFECTS];
         this.spellsKnown = null;
-        this.items = new ItemInventory(hasCombatItems);
+        this.items = new ItemInventory();
         this.toNextLevel = null;
         this.perfectBonusGold = this.getInitialPerfectBonusGold();
         this.xLoc = -1;

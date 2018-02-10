@@ -50,7 +50,7 @@ public class PartyMember extends AbstractCreature {
     // Constructors
     PartyMember(final Race r, final Caste c, final Faith f, final Personality p,
             final Gender g, final String n) {
-        super(true, 0);
+        super(0);
         this.name = n;
         this.race = r;
         this.caste = c;
@@ -364,7 +364,7 @@ public class PartyMember extends AbstractCreature {
         pm.setLuck(luck);
         pm.setAttacksPerRound(apr);
         pm.setSpellsPerRound(spr);
-        pm.setItems(ItemInventory.readItemInventory(worldFile, version));
+        pm.setItems(ItemInventory.readItemInventory(worldFile));
         pm.kills = k;
         pm.permanentAttack = pAtk;
         pm.permanentDefense = pDef;

@@ -299,9 +299,6 @@ class MapTurnBattleGUI {
                 } else if (cmd.equals("Drain") || cmd.equals("d")) {
                     // Drain Enemy
                     b.doPlayerActions(AbstractMapAIRoutine.ACTION_DRAIN);
-                } else if (cmd.equals("Use Item") || cmd.equals("i")) {
-                    // Use Item
-                    b.doPlayerActions(AbstractMapAIRoutine.ACTION_USE_ITEM);
                 } else if (cmd.equals("End Turn") || cmd.equals("e")) {
                     // End Turn
                     b.endTurn();
