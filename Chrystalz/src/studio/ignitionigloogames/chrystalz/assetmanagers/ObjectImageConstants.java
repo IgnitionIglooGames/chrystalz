@@ -18,6 +18,7 @@ public class ObjectImageConstants {
     public static final int OBJECT_IMAGE_TILE = 10;
     public static final int OBJECT_IMAGE_WALL = 12;
     public static final int OBJECT_IMAGE_WEAPONS_SHOP = 13;
+    public static final int OBJECT_IMAGE_PLAYER = 14;
     private static final String[] OBJECT_IMAGE_NAMES = ImageDataManager
             .getObjectGraphicsData();
 
