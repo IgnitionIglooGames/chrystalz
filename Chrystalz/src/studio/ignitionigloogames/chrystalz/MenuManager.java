@@ -17,10 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import studio.ignitionigloogames.chrystalz.creatures.characterfiles.CharacterRegistration;
-import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonManager;
+import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.game.InventoryViewer;
-import studio.ignitionigloogames.chrystalz.game.NoteManager;
 import studio.ignitionigloogames.chrystalz.game.StatisticsViewer;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
@@ -30,9 +29,8 @@ public class MenuManager {
     JMenuBar mainMenuBar;
     private JMenuItem fileOpenGame, fileClose, fileSaveGame, filePreferences,
             fileExit;
-    private JMenuItem gameNewGame, gameEquipment, gameInventory,
-            gameRegisterCharacter, gameUnregisterCharacter, gameRemoveCharacter,
-            gameEditNote, gameViewStats;
+    private JMenuItem gameNewGame, gameEquipment, gameRegisterCharacter,
+            gameUnregisterCharacter, gameRemoveCharacter, gameViewStats;
     private JMenuItem helpAbout, helpObjectHelp;
     private KeyStroke fileOpenGameAccel, fileCloseAccel, fileSaveGameAccel,
             filePreferencesAccel;
@@ -90,15 +88,11 @@ public class MenuManager {
 
     private void enableGameMenus() {
         this.gameEquipment.setEnabled(true);
-        this.gameInventory.setEnabled(true);
-        this.gameEditNote.setEnabled(true);
         this.gameViewStats.setEnabled(true);
     }
 
     private void disableGameMenus() {
         this.gameEquipment.setEnabled(false);
-        this.gameInventory.setEnabled(false);
-        this.gameEditNote.setEnabled(false);
         this.gameViewStats.setEnabled(false);
     }
 
@@ -172,8 +166,6 @@ public class MenuManager {
         this.gameUnregisterCharacter = new JMenuItem("Unregister Character...");
         this.gameRemoveCharacter = new JMenuItem("Remove Character...");
         this.gameEquipment = new JMenuItem("Show Equipment...");
-        this.gameInventory = new JMenuItem("Show Inventory...");
-        this.gameEditNote = new JMenuItem("Edit Note...");
         this.gameViewStats = new JMenuItem("View Statistics...");
         this.helpAbout = new JMenuItem("About TallerTower...");
         this.helpObjectHelp = new JMenuItem("TallerTower Object Help");
@@ -187,8 +179,6 @@ public class MenuManager {
         this.gameUnregisterCharacter.addActionListener(this.handler);
         this.gameRemoveCharacter.addActionListener(this.handler);
         this.gameEquipment.addActionListener(this.handler);
-        this.gameInventory.addActionListener(this.handler);
-        this.gameEditNote.addActionListener(this.handler);
         this.gameViewStats.addActionListener(this.handler);
         this.helpAbout.addActionListener(this.handler);
         this.helpObjectHelp.addActionListener(this.handler);
@@ -201,11 +191,9 @@ public class MenuManager {
         }
         gameMenu.add(this.gameNewGame);
         gameMenu.add(this.gameEquipment);
-        gameMenu.add(this.gameInventory);
         gameMenu.add(this.gameRegisterCharacter);
         gameMenu.add(this.gameUnregisterCharacter);
         gameMenu.add(this.gameRemoveCharacter);
-        gameMenu.add(this.gameEditNote);
         gameMenu.add(this.gameViewStats);
         if (!System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
             helpMenu.add(this.helpAbout);
@@ -304,11 +292,6 @@ public class MenuManager {
                     }
                 } else if (cmd.equals("Show Equipment...")) {
                     InventoryViewer.showEquipmentDialog();
-                } else if (cmd.equals("Show Inventory...")) {
-                    InventoryViewer.showItemInventoryDialog();
-                } else if (cmd.equals("Edit Note...")) {
-                    // Edit Note
-                    NoteManager.editNote();
                 } else if (cmd.equals("View Statistics...")) {
                     // View Statistics
                     StatisticsViewer.viewStatistics();

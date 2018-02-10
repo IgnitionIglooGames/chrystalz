@@ -7,7 +7,6 @@ Any questions should be directed to the author via email at: products@puttysoftw
 package studio.ignitionigloogames.chrystalz.items;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
@@ -19,7 +18,6 @@ import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
 public class ItemInventory {
     // Properties
-    private ItemUseQuantity[] entries;
     private Equipment[] equipment;
 
     // Constructors
@@ -29,29 +27,7 @@ public class ItemInventory {
 
     // Methods
     public void resetInventory() {
-        this.entries = null;
         this.equipment = new Equipment[EquipmentSlotConstants.MAX_SLOTS];
-    }
-
-    public void addItem(final Item i) {
-        for (final ItemUseQuantity iqu : this.entries) {
-            final Item item = iqu.getItem();
-            if (i.getName().equals(item.getName())) {
-                iqu.incrementQuantity();
-                iqu.setUses(item.getInitialUses());
-                return;
-            }
-        }
-    }
-
-    public int getUses(final Item i) {
-        for (final ItemUseQuantity iqu : this.entries) {
-            final Item item = iqu.getItem();
-            if (i.getName().equals(item.getName())) {
-                return iqu.getUses();
-            }
-        }
-        return 0;
     }
 
     public void equipOneHandedWeapon(final AbstractCreature pc,
@@ -152,63 +128,6 @@ public class ItemInventory {
         this.equipment[slot] = e;
     }
 
-    public String[] generateInventoryStringArray() {
-        final ArrayList<String> result = new ArrayList<>();
-        StringBuilder sb;
-        int counter = 0;
-        for (final ItemUseQuantity iqu : this.entries) {
-            sb = new StringBuilder();
-            sb.append("Slot ");
-            sb.append(counter + 1);
-            sb.append(": ");
-            sb.append(iqu.getItem().getName());
-            sb.append(" (Qty: ");
-            sb.append(iqu.getQuantity());
-            sb.append(", Uses: ");
-            sb.append(iqu.getUses());
-            sb.append(")");
-            result.add(sb.toString());
-            counter++;
-        }
-        return result.toArray(new String[result.size()]);
-    }
-
-    public String[] generateCombatUsableStringArray() {
-        final ArrayList<String> result = new ArrayList<>();
-        StringBuilder sb;
-        for (final ItemUseQuantity iqu : this.entries) {
-            if (iqu.getItem().isCombatUsable()) {
-                sb = new StringBuilder();
-                sb.append(iqu.getItem().getName());
-                result.add(sb.toString());
-            }
-        }
-        return result.toArray(new String[result.size()]);
-    }
-
-    public String[] generateCombatUsableDisplayStringArray() {
-        final ArrayList<String> result = new ArrayList<>();
-        StringBuilder sb;
-        int counter = 0;
-        for (final ItemUseQuantity iqu : this.entries) {
-            if (iqu.getItem().isCombatUsable()) {
-                sb = new StringBuilder();
-                sb.append("Slot ");
-                sb.append(counter + 1);
-                sb.append(": ");
-                sb.append(iqu.getItem().getName());
-                sb.append(" (Qty: ");
-                sb.append(iqu.getQuantity());
-                sb.append(", Uses: ");
-                sb.append(iqu.getUses());
-                sb.append(")");
-                result.add(sb.toString());
-                counter++;
-            }
-        }
-        return result.toArray(new String[result.size()]);
-    }
-
     public String[] generateEquipmentEnhancementStringArray() {
         final String[] result = new String[this.equipment.length];
         StringBuilder sb;
@@ -294,20 +213,9 @@ public class ItemInventory {
         return total;
     }
 
-    public int getTotalInventoryWeight() {
-        int total = 0;
-        for (final ItemUseQuantity iqu : this.entries) {
-            total += iqu.getItem().getEffectiveWeight();
-        }
-        return total;
-    }
-
-    public static ItemInventory readItemInventory(final FileIOReader dr) throws IOException {
+    public static ItemInventory readItemInventory(final FileIOReader dr)
+            throws IOException {
         final ItemInventory ii = new ItemInventory();
-        for (final ItemUseQuantity iqu : ii.entries) {
-            iqu.setQuantity(dr.readInt());
-            iqu.setUses(dr.readInt());
-        }
         for (int x = 0; x < ii.equipment.length; x++) {
             final Equipment ei = Equipment.readEquipment(dr);
             if (ei != null) {
@@ -318,10 +226,6 @@ public class ItemInventory {
     }
 
     public void writeItemInventory(final FileIOWriter dw) throws IOException {
-        for (final ItemUseQuantity iqu : this.entries) {
-            dw.writeInt(iqu.getQuantity());
-            dw.writeInt(iqu.getUses());
-        }
         for (final Equipment ei : this.equipment) {
             if (ei != null) {
                 ei.writeEquipment(dw);
@@ -335,8 +239,7 @@ public class ItemInventory {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Arrays.hashCode(this.equipment);
-        return prime * result + Arrays.hashCode(this.entries);
+        return prime * result + Arrays.hashCode(this.equipment);
     }
 
     @Override
@@ -352,13 +255,6 @@ public class ItemInventory {
         }
         final ItemInventory other = (ItemInventory) obj;
         if (!Arrays.equals(this.equipment, other.equipment)) {
-            return false;
-        }
-        if (this.entries == null) {
-            if (other.entries != null) {
-                return false;
-            }
-        } else if (!Arrays.deepEquals(this.entries, other.entries)) {
             return false;
         }
         return true;

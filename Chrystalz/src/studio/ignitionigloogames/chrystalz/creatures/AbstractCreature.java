@@ -478,8 +478,7 @@ public abstract class AbstractCreature {
     protected final int getBaseSpeed() {
         return (int) (this.getEffectedStat(StatConstants.STAT_AGILITY)
                 * StatConstants.FACTOR_AGILITY_SPEED
-                - (this.items.getTotalEquipmentWeight()
-                        + this.items.getTotalInventoryWeight())
+                - this.items.getTotalEquipmentWeight()
                         * StatConstants.FACTOR_LOAD_SPEED);
     }
 

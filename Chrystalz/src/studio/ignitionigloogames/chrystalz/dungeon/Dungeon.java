@@ -176,18 +176,6 @@ public class Dungeon {
         }
     }
 
-    public boolean hasNote(final int x, final int y, final int z) {
-        return this.mazeData.hasNote(x, y, z);
-    }
-
-    public void createNote(final int x, final int y, final int z) {
-        this.mazeData.createNote(x, y, z);
-    }
-
-    public Note getNote(final int x, final int y, final int z) {
-        return this.mazeData.getNote(x, y, z);
-    }
-
     public AbstractGameObject getCell(final int row, final int col,
             final int floor, final int extra) {
         return this.mazeData.getCell(row, col, floor, extra);

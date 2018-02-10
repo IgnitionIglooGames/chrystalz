@@ -27,7 +27,6 @@ final class LayeredTower implements Cloneable {
     private LowLevelGameObjectDataStore data;
     private LowLevelGameObjectDataStore savedTowerState;
     private LowLevelFlagDataStore visionData;
-    private final LowLevelNoteDataStore noteData;
     private final int[] playerStartData;
     private final int[] playerLocationData;
     private final int[] savedPlayerLocationData;
@@ -51,7 +50,6 @@ final class LayeredTower implements Cloneable {
         this.savedTowerState = new LowLevelGameObjectDataStore(cols, rows,
                 floors, DungeonConstants.LAYER_COUNT);
         this.visionData = new LowLevelFlagDataStore(cols, rows, floors);
-        this.noteData = new LowLevelNoteDataStore(cols, rows, floors);
         this.playerStartData = new int[3];
         Arrays.fill(this.playerStartData, -1);
         this.playerLocationData = new int[3];
@@ -175,18 +173,6 @@ final class LayeredTower implements Cloneable {
             this.setCell(m, randomRow, randomColumn, zLoc,
                     DungeonConstants.LAYER_OBJECT);
         }
-    }
-
-    public boolean hasNote(final int x, final int y, final int z) {
-        return this.noteData.getNote(y, x, z) != null;
-    }
-
-    public void createNote(final int x, final int y, final int z) {
-        this.noteData.setNote(new Note(), y, x, z);
-    }
-
-    public Note getNote(final int x, final int y, final int z) {
-        return this.noteData.getNote(y, x, z);
     }
 
     public AbstractGameObject getCell(final int row, final int col,
@@ -691,12 +677,6 @@ final class LayeredTower implements Cloneable {
                         this.getCell(y, x, z, e).writeGameObject(writer);
                     }
                     writer.writeBoolean(this.visionData.getCell(y, x, z));
-                    final boolean hasNote = this.noteData.getNote(y, x,
-                            z) != null;
-                    writer.writeBoolean(hasNote);
-                    if (hasNote) {
-                        this.noteData.getNote(y, x, z).writeNote(writer);
-                    }
                 }
             }
         }
@@ -738,11 +718,6 @@ final class LayeredTower implements Cloneable {
                         }
                     }
                     lt.visionData.setCell(reader.readBoolean(), y, x, z);
-                    final boolean hasNote = reader.readBoolean();
-                    if (hasNote) {
-                        final Note mn = Note.readNote(reader);
-                        lt.noteData.setNote(mn, y, x, z);
-                    }
                 }
             }
         }
