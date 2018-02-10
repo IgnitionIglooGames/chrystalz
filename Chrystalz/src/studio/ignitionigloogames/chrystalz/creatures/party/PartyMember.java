@@ -10,11 +10,7 @@ import java.io.IOException;
 import studio.ignitionigloogames.chrystalz.VersionException;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
-import studio.ignitionigloogames.chrystalz.creatures.castes.Caste;
-import studio.ignitionigloogames.chrystalz.creatures.castes.CasteManager;
-import studio.ignitionigloogames.chrystalz.creatures.genders.Gender;
 import studio.ignitionigloogames.chrystalz.dungeon.FormatConstants;
-import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.items.ItemInventory;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
@@ -25,8 +21,6 @@ import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class PartyMember extends AbstractCreature {
     // Fields
-    private Caste caste;
-    private Gender gender;
     private final String name;
     private int permanentAttack;
     private int permanentDefense;
@@ -37,11 +31,9 @@ public class PartyMember extends AbstractCreature {
     private static final double BASE_COEFF = 10.0;
 
     // Constructors
-    PartyMember(final Caste c, final Gender g, final String n) {
+    PartyMember() {
         super(0);
-        this.name = n;
-        this.caste = c;
-        this.gender = g;
+        this.name = "Player";
         this.permanentAttack = 0;
         this.permanentDefense = 0;
         this.permanentHP = 0;
@@ -66,8 +58,7 @@ public class PartyMember extends AbstractCreature {
         nextLevelEquation.setCoefficient(2, value);
         nextLevelEquation.setCoefficient(3, value);
         this.setToNextLevel(nextLevelEquation);
-        this.setSpellBook(
-                CasteManager.getSpellBookByID(this.caste.getCasteID()));
+        this.setSpellBook(new PartyMemberSpellBook());
     }
 
     // Methods
@@ -89,14 +80,14 @@ public class PartyMember extends AbstractCreature {
 
     private void loadPartyMember(final int newLevel, final int chp,
             final int cmp, final int newGold, final int newLoad,
-            final long newExperience, final int bookID, final boolean[] known) {
+            final long newExperience, final boolean[] known) {
         this.setLevel(newLevel);
         this.setCurrentHP(chp);
         this.setCurrentMP(cmp);
         this.setGold(newGold);
         this.setLoad(newLoad);
         this.setExperience(newExperience);
-        final SpellBook book = CasteManager.getSpellBookByID(bookID);
+        final SpellBook book = new PartyMemberSpellBook();
         for (int x = 0; x < known.length; x++) {
             if (known[x]) {
                 book.learnSpellByID(x);
@@ -108,14 +99,6 @@ public class PartyMember extends AbstractCreature {
     @Override
     public String getName() {
         return this.name;
-    }
-
-    public Caste getCaste() {
-        return this.caste;
-    }
-
-    protected Gender getGender() {
-        return this.gender;
     }
 
     @Override
@@ -135,35 +118,6 @@ public class PartyMember extends AbstractCreature {
         } else {
             return (int) (base * AbstractCreature.SPEED_ADJUST_NORMAL);
         }
-    }
-
-    public void initPostKill(final Caste c, final Gender g) {
-        this.caste = c;
-        this.gender = g;
-        this.setLevel(1);
-        this.setStrength(StatConstants.GAIN_STRENGTH);
-        this.setBlock(StatConstants.GAIN_BLOCK);
-        this.setVitality(StatConstants.GAIN_VITALITY);
-        this.setIntelligence(StatConstants.GAIN_INTELLIGENCE);
-        this.setAgility(StatConstants.GAIN_AGILITY);
-        this.setLuck(StatConstants.GAIN_LUCK);
-        this.setAttacksPerRound(1);
-        this.setSpellsPerRound(1);
-        this.healAndRegenerateFully();
-        this.setGold(PartyMember.START_GOLD);
-        this.setExperience(0L);
-        this.getItems().resetInventory();
-        final ExperienceEquation nextLevelEquation = new ExperienceEquation(3,
-                1, 0, true);
-        final double value = PartyMember.BASE_COEFF;
-        nextLevelEquation.setCoefficient(1, value);
-        nextLevelEquation.setCoefficient(2, value);
-        nextLevelEquation.setCoefficient(3, value);
-        this.setToNextLevel(nextLevelEquation);
-        this.setSpellBook(
-                CasteManager.getSpellBookByID(this.caste.getCasteID()));
-        PartyManager.getParty().resetTowerLevel();
-        new GenerateTask(true).start();
     }
 
     @Override
@@ -254,15 +208,12 @@ public class PartyMember extends AbstractCreature {
         final int spr = worldFile.readInt();
         final int load = worldFile.readInt();
         final long exp = worldFile.readLong();
-        final int c = worldFile.readInt();
-        final int g = worldFile.readInt();
         final int max = worldFile.readInt();
         final boolean[] known = new boolean[max];
         for (int x = 0; x < max; x++) {
             known[x] = worldFile.readBoolean();
         }
-        final String n = worldFile.readString();
-        final PartyMember pm = PartyManager.getNewPCInstance(c, g, n);
+        final PartyMember pm = PartyManager.getNewPCInstance();
         pm.setStrength(strength);
         pm.setBlock(block);
         pm.setAgility(agility);
@@ -277,7 +228,7 @@ public class PartyMember extends AbstractCreature {
         pm.permanentDefense = pDef;
         pm.permanentHP = pHP;
         pm.permanentMP = pMP;
-        pm.loadPartyMember(lvl, cHP, cMP, gld, load, exp, c, known);
+        pm.loadPartyMember(lvl, cHP, cMP, gld, load, exp, known);
         return pm;
     }
 
@@ -302,8 +253,6 @@ public class PartyMember extends AbstractCreature {
         worldFile.writeInt(this.getSpellsPerRound());
         worldFile.writeInt(this.getLoad());
         worldFile.writeLong(this.getExperience());
-        worldFile.writeInt(this.getCaste().getCasteID());
-        worldFile.writeInt(this.getGender().getGenderID());
         final int max = this.getSpellBook().getSpellCount();
         worldFile.writeInt(max);
         for (int x = 0; x < max; x++) {

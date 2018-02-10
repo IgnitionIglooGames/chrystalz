@@ -5,8 +5,6 @@ Any questions should be directed to the author via email at: products@puttysoftw
  */
 package studio.ignitionigloogames.chrystalz.shops;
 
-import javax.swing.JOptionPane;
-
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
@@ -161,8 +159,7 @@ public class Shop {
             if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
                 if (Shop.this.typeResult.equals(Shop.this.typeChoices[0])) {
                     Shop.this.choices = EquipmentFactory
-                            .createOneHandedWeaponNames(
-                                    playerCharacter.getCaste().getCasteID());
+                            .createOneHandedWeaponNames(0);
                     // Choose Hand
                     final String[] handChoices = WeaponConstants
                             .getHandChoices();
@@ -180,8 +177,7 @@ public class Shop {
                     }
                 } else {
                     Shop.this.choices = EquipmentFactory
-                            .createTwoHandedWeaponNames(
-                                    playerCharacter.getCaste().getCasteID());
+                            .createTwoHandedWeaponNames(0);
                 }
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
                 Shop.this.choices = EquipmentFactory
@@ -286,8 +282,7 @@ public class Shop {
             final int stage4Confirm = CommonDialogs.showConfirmDialog(
                     "This will cost " + Shop.this.cost + " Gold. Are you sure?",
                     Shop.this.getShopNameFromType());
-            if (stage4Confirm == JOptionPane.NO_OPTION
-                    || stage4Confirm == JOptionPane.CLOSED_OPTION) {
+            if (stage4Confirm == CommonDialogs.NO_OPTION) {
                 return false;
             }
             return true;
@@ -315,14 +310,12 @@ public class Shop {
                 playerCharacter.offsetGold(-Shop.this.cost);
                 if (Shop.this.typeResult.equals(Shop.this.typeChoices[0])) {
                     final Equipment bought = EquipmentFactory
-                            .createOneHandedWeapon(Shop.this.index,
-                                    playerCharacter.getCaste().getCasteID(), 0);
+                            .createOneHandedWeapon(Shop.this.index, 0, 0);
                     playerCharacter.getItems().equipOneHandedWeapon(
                             playerCharacter, bought, Shop.this.handIndex, true);
                 } else {
                     final Equipment bought = EquipmentFactory
-                            .createTwoHandedWeapon(Shop.this.index,
-                                    playerCharacter.getCaste().getCasteID(), 0);
+                            .createTwoHandedWeapon(Shop.this.index, 0, 0);
                     playerCharacter.getItems().equipTwoHandedWeapon(
                             playerCharacter, bought, true);
                 }

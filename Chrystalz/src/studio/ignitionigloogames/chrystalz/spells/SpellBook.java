@@ -31,10 +31,6 @@ public class SpellBook {
         // Do nothing
     }
 
-    public int getLegacyID() {
-        return -1;
-    }
-
     public final int getSpellCount() {
         return this.spells.length;
     }

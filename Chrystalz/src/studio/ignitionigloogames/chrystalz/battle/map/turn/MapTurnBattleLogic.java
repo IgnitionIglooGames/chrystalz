@@ -16,7 +16,6 @@ import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.battle.AbstractBattle;
 import studio.ignitionigloogames.chrystalz.battle.BattleResults;
-import studio.ignitionigloogames.chrystalz.battle.BossRewards;
 import studio.ignitionigloogames.chrystalz.battle.damageengines.AbstractDamageEngine;
 import studio.ignitionigloogames.chrystalz.battle.map.MapBattle;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
@@ -1331,13 +1330,12 @@ public class MapTurnBattleLogic extends AbstractBattle {
         if (!this.resultDoneAlready) {
             // Handle Results
             this.resultDoneAlready = true;
-            boolean rewardsFlag = false;
             if (this.getEnemy() instanceof BossMonster) {
                 if (this.result == BattleResults.WON
                         || this.result == BattleResults.PERFECT) {
                     this.setStatusMessage("You defeated the Boss!");
                     SoundManager.playSound(SoundConstants.SOUND_VICTORY);
-                    rewardsFlag = true;
+                    // TODO: Handle beating the game!
                 } else if (this.result == BattleResults.LOST) {
                     this.setStatusMessage("The Boss defeated you...");
                     SoundManager.playSound(SoundConstants.SOUND_GAME_OVER);
@@ -1389,9 +1387,6 @@ public class MapTurnBattleLogic extends AbstractBattle {
             PartyManager.getParty().checkPartyLevelUp();
             // Battle Done
             this.battleDone();
-            if (rewardsFlag) {
-                BossRewards.doRewards();
-            }
         }
     }
 

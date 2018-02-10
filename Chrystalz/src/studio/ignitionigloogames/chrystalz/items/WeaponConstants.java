@@ -5,7 +5,6 @@ Any questions should be directed to the author via email at: products@puttysoftw
  */
 package studio.ignitionigloogames.chrystalz.items;
 
-import studio.ignitionigloogames.chrystalz.creatures.castes.CasteConstants;
 import studio.ignitionigloogames.chrystalz.names.NamesConstants;
 import studio.ignitionigloogames.chrystalz.names.NamesManager;
 
@@ -40,7 +39,7 @@ public class WeaponConstants {
 
     public static synchronized String[] get1HWeapons() {
         if (WeaponConstants.WEAPON_1H == null) {
-            final String[] temp = new String[CasteConstants.CASTES_COUNT];
+            final String[] temp = new String[4];
             for (int x = 0; x < temp.length; x++) {
                 temp[x] = NamesManager.getName(
                         NamesConstants.SECTION_EQUIP_WEAPONS_1H,
@@ -53,7 +52,7 @@ public class WeaponConstants {
 
     public static synchronized String[] get2HWeapons() {
         if (WeaponConstants.WEAPON_2H == null) {
-            final String[] temp = new String[CasteConstants.CASTES_COUNT];
+            final String[] temp = new String[4];
             for (int x = 0; x < temp.length; x++) {
                 temp[x] = NamesManager.getName(
                         NamesConstants.SECTION_EQUIP_WEAPONS_2H,

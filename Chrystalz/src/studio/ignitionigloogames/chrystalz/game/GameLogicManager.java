@@ -40,15 +40,14 @@ public final class GameLogicManager {
 
     // Methods
     public boolean newGame() {
-        final JFrame owner = Chrystalz.getApplication().getOutputFrame();
         if (this.savedGameFlag) {
             if (PartyManager.getParty() != null) {
                 return true;
             } else {
-                return PartyManager.createParty(owner);
+                return PartyManager.createParty();
             }
         } else {
-            return PartyManager.createParty(owner);
+            return PartyManager.createParty();
         }
     }
 
