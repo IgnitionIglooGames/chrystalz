@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.common.fileio.ResourceStreamReader;
 
-public class GraphicsDataManager {
+public class ImageDataManager {
     public static String[] getObjectGraphicsData() {
         try (final ResourceStreamReader rsr = new ResourceStreamReader(
-                GraphicsDataManager.class.getResourceAsStream(
-                        "/assets/data/graphics/objects.txt"))) {
+                ImageDataManager.class.getResourceAsStream(
+                        "/assets/data/images/objects.txt"))) {
             // Fetch data
             final ArrayList<String> rawData = new ArrayList<>();
             String line = "";
@@ -35,8 +35,8 @@ public class GraphicsDataManager {
 
     public static String[] getStatGraphicsData() {
         try (final ResourceStreamReader rsr = new ResourceStreamReader(
-                GraphicsDataManager.class.getResourceAsStream(
-                        "/assets/data/graphics/stats.txt"))) {
+                ImageDataManager.class.getResourceAsStream(
+                        "/assets/data/images/stats.txt"))) {
             // Fetch data
             final ArrayList<String> rawData = new ArrayList<>();
             String line = "";

@@ -14,8 +14,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Monster;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.WallOff;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.WallOn;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.DirectionResolver;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.GameObjectList;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.RandomGenerationRule;
@@ -678,22 +676,6 @@ final class LayeredTower implements Cloneable {
     public static boolean radialScan(final int cx, final int cy, final int r,
             final int tx, final int ty) {
         return Math.abs(tx - cx) <= r && Math.abs(ty - cy) <= r;
-    }
-
-    public void fullScanButton(final int l) {
-        int u, v, z;
-        z = LayeredTower.MAX_FLOORS - 1;
-        // Perform the scan
-        for (u = 0; u < this.getColumns(); u++) {
-            for (v = 0; v < this.getRows(); v++) {
-                final AbstractGameObject testObj = this.getCell(v, u, z, l);
-                if (testObj instanceof WallOff) {
-                    this.setCell(new WallOn(), v, u, z, l);
-                } else if (testObj instanceof WallOn) {
-                    this.setCell(new WallOff(), v, u, z, l);
-                }
-            }
-        }
     }
 
     public void writeLayeredTower(final FileIOWriter writer)

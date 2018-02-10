@@ -37,7 +37,7 @@ import studio.ignitionigloogames.chrystalz.battle.map.MapBattleViewingWindowMana
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Darkness;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.EmptyVoid;
+import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
@@ -127,13 +127,13 @@ class MapTurnBattleGUI {
                                         BattleImageManager.getGraphicSize()),
                                 xFix, yFix);
                     } catch (final ArrayIndexOutOfBoundsException ae) {
-                        final EmptyVoid ev = new EmptyVoid();
-                        this.drawGrid.setImageCell(ev.battleRenderHook(), xFix,
-                                yFix);
+                        final Wall wall = new Wall();
+                        this.drawGrid.setImageCell(wall.battleRenderHook(),
+                                xFix, yFix);
                     } catch (final NullPointerException np) {
-                        final EmptyVoid ev = new EmptyVoid();
-                        this.drawGrid.setImageCell(ev.battleRenderHook(), xFix,
-                                yFix);
+                        final Wall wall = new Wall();
+                        this.drawGrid.setImageCell(wall.battleRenderHook(),
+                                xFix, yFix);
                     }
                 }
             }

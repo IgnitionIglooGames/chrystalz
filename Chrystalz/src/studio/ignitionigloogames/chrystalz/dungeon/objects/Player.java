@@ -17,7 +17,7 @@ public class Player extends AbstractCharacter {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_PLAYER;
+        return ObjectImageConstants.OBJECT_IMAGE_NONE;
     }
 
     @Override

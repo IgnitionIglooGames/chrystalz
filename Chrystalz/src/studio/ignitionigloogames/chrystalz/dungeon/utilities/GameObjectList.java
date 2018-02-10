@@ -12,43 +12,19 @@ import studio.ignitionigloogames.chrystalz.assetmanagers.ImageTransformer;
 import studio.ignitionigloogames.chrystalz.assetmanagers.ObjectImageManager;
 import studio.ignitionigloogames.chrystalz.dungeon.FormatConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.Amulet;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.ArmorShop;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.Bank;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.Button;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.ClockwiseRotationTrap;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.ClosedDoor;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.ConfusionTrap;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.CounterclockwiseRotationTrap;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.DarkGem;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.DizzinessTrap;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.DrunkTrap;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.EmptyVoid;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.EnhancementShop;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.FaithPowerShop;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.HealShop;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.HealTrap;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.HurtTrap;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Ice;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.ItemShop;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.LightGem;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Monster;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.OpenDoor;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Regenerator;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.SealingWall;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.SocksShop;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.SpellShop;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.StairsDown;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.StairsUp;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.UTurnTrap;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.VariableHealTrap;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.VariableHurtTrap;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.WallOff;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.WallOn;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.WarpTrap;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.WeaponsShop;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
@@ -59,19 +35,11 @@ public class GameObjectList {
 
     // Constructor
     public GameObjectList() {
-        final AbstractGameObject[] allObjects = { new ArmorShop(), new Bank(),
-                new ClockwiseRotationTrap(), new ClosedDoor(),
-                new ConfusionTrap(), new CounterclockwiseRotationTrap(),
-                new DarkGem(), new DizzinessTrap(), new DrunkTrap(),
-                new Empty(), new EmptyVoid(), new EnhancementShop(),
-                new FaithPowerShop(), new HealShop(), new HealTrap(),
-                new HurtTrap(), new Ice(), new ItemShop(), new LightGem(),
+        final AbstractGameObject[] allObjects = { new ArmorShop(),
+                new ClosedDoor(), new Empty(), new HealShop(), new Ice(),
                 new Monster(), new OpenDoor(), new Regenerator(),
-                new SealingWall(), new SocksShop(), new SpellShop(), new Tile(),
-                new UTurnTrap(), new VariableHealTrap(), new VariableHurtTrap(),
-                new Wall(), new WarpTrap(), new WeaponsShop(), new StairsUp(),
-                new StairsDown(), new WallOff(), new WallOn(), new Button(),
-                new Amulet() };
+                new SpellShop(), new Tile(), new Wall(), new WeaponsShop(),
+                new StairsUp(), new StairsDown() };
         this.allObjectList = new ArrayList<>();
         // Add all predefined objects to the list
         for (final AbstractGameObject allObject : allObjects) {

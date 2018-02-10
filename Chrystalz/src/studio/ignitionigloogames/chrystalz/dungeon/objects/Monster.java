@@ -36,7 +36,7 @@ public class Monster extends AbstractMovingObject {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_MONSTER;
+        return ObjectImageConstants.OBJECT_IMAGE_NONE;
     }
 
     @Override

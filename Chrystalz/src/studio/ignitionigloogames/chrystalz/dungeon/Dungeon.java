@@ -289,10 +289,6 @@ public class Dungeon {
         this.mazeData.fillRandomly(this, this.activeLevel);
     }
 
-    public void fullScanButton(final int l) {
-        this.mazeData.fullScanButton(l);
-    }
-
     public void save() {
         this.mazeData.save();
     }

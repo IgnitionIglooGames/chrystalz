@@ -13,13 +13,13 @@ import studio.ignitionigloogames.chrystalz.assetmanagers.ImageTransformer;
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
-import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
+import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.effects.DungeonEffectManager;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.EmptyVoid;
+import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public final class GameLogicManager {
@@ -226,9 +226,9 @@ public final class GameLogicManager {
                     .showMessage(gameName2 + " on " + gameName1);
             SoundManager.playSound(SoundConstants.SOUND_IDENTIFY);
         } catch (final ArrayIndexOutOfBoundsException ae) {
-            final EmptyVoid ev = new EmptyVoid();
-            ev.determineCurrentAppearance(destX, destY, destZ);
-            Chrystalz.getApplication().showMessage(ev.getGameName());
+            final Wall wall = new Wall();
+            wall.determineCurrentAppearance(destX, destY, destZ);
+            Chrystalz.getApplication().showMessage(wall.getGameName());
             SoundManager.playSound(SoundConstants.SOUND_IDENTIFY);
         }
     }

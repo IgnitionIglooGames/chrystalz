@@ -33,9 +33,8 @@ import studio.ignitionigloogames.chrystalz.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.effects.DungeonEffectManager;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Darkness;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.EmptyVoid;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.NoteObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Player;
+import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.ImageColorConstants;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
@@ -53,7 +52,6 @@ class GameGUIManager {
     private boolean deferredRedraw;
     boolean eventFlag;
     private static Darkness DARK = new Darkness();
-    private static NoteObject NOTE = new NoteObject();
 
     // Constructors
     public GameGUIManager() {
@@ -141,7 +139,7 @@ class GameGUIManager {
             boolean visible;
             u = m.getPlayerLocationX();
             v = m.getPlayerLocationY();
-            final AbstractGameObject ev = new EmptyVoid();
+            final AbstractGameObject wall = new Wall();
             for (x = this.vwMgr.getViewingWindowLocationX(); x <= this.vwMgr
                     .getLowerRightViewingWindowLocationX(); x++) {
                 for (y = this.vwMgr.getViewingWindowLocationY(); y <= this.vwMgr
@@ -187,22 +185,6 @@ class GameGUIManager {
                                                 ImageTransformer
                                                         .getGraphicSize()),
                                         xFix, yFix);
-                            } else if (m.hasNote(x, y,
-                                    m.getPlayerLocationZ())) {
-                                final AbstractGameObject obj3 = GameGUIManager.NOTE
-                                        .gameRenderHook(y, x,
-                                                m.getPlayerLocationZ());
-                                final BufferedImageIcon img3 = ObjectImageManager
-                                        .getImage(obj3.getName(),
-                                                obj3.getGameBaseID(),
-                                                AbstractGameObject
-                                                        .getTemplateColor());
-                                this.drawGrid.setImageCell(ImageTransformer
-                                        .getVirtualCompositeImage(img1, img2,
-                                                img3,
-                                                ImageTransformer
-                                                        .getGraphicSize()),
-                                        xFix, yFix);
                             } else {
                                 this.drawGrid.setImageCell(
                                         ImageTransformer.getCompositeImage(img1,
@@ -220,7 +202,7 @@ class GameGUIManager {
                                     xFix, yFix);
                         }
                     } catch (final ArrayIndexOutOfBoundsException ae) {
-                        final AbstractGameObject obj = ev.gameRenderHook(y, x,
+                        final AbstractGameObject obj = wall.gameRenderHook(y, x,
                                 m.getPlayerLocationZ());
                         this.drawGrid.setImageCell(
                                 ObjectImageManager.getImage(obj.getName(),
@@ -228,7 +210,7 @@ class GameGUIManager {
                                         AbstractGameObject.getTemplateColor()),
                                 xFix, yFix);
                     } catch (final NullPointerException np) {
-                        final AbstractGameObject obj = ev.gameRenderHook(y, x,
+                        final AbstractGameObject obj = wall.gameRenderHook(y, x,
                                 m.getPlayerLocationZ());
                         this.drawGrid.setImageCell(
                                 ObjectImageManager.getImage(obj.getName(),
