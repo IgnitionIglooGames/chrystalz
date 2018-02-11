@@ -5,9 +5,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.ObjectImageConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractWall;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.TypeConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
 
 public class Wall extends AbstractWall {
     // Constructors

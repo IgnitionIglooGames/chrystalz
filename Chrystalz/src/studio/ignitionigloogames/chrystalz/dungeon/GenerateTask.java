@@ -11,10 +11,10 @@ import javax.swing.WindowConstants;
 
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.assetmanagers.LogoManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.ImageColorConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
 import studio.ignitionigloogames.common.random.RandomRange;
 
 public class GenerateTask extends Thread {

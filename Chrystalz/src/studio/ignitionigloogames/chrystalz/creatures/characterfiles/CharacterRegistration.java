@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import studio.ignitionigloogames.chrystalz.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.ResourceStreamReader;
 

@@ -21,7 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.LogoManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
 
 public class AboutDialog implements AboutHandler {
     // Fields

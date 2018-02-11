@@ -12,9 +12,9 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.StatImageConstants;
-import studio.ignitionigloogames.chrystalz.assetmanagers.StatImageManager;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
+import studio.ignitionigloogames.chrystalz.manager.asset.StatImageConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.StatImageManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class MapTurnBattleStats {

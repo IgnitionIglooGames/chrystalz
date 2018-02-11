@@ -20,9 +20,9 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.LogoManager;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
-import studio.ignitionigloogames.chrystalz.dungeon.DungeonManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
+import studio.ignitionigloogames.chrystalz.manager.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.fileio.DirectoryUtilities;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;

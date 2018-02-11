@@ -17,6 +17,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.DirectionResolver;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.GameObjectList;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.RandomGenerationRule;
+import studio.ignitionigloogames.chrystalz.manager.dungeon.FormatConstants;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 import studio.ignitionigloogames.common.llds.LowLevelFlagDataStore;

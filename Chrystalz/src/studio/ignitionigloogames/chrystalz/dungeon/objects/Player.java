@@ -5,9 +5,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.ObjectImageConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractCharacter;
+import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
 
 public class Player extends AbstractCharacter {
     // Constructors

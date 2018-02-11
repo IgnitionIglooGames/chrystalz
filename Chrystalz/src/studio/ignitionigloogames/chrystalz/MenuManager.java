@@ -17,10 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import studio.ignitionigloogames.chrystalz.creatures.characterfiles.CharacterRegistration;
-import studio.ignitionigloogames.chrystalz.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.game.InventoryViewer;
 import studio.ignitionigloogames.chrystalz.game.StatisticsViewer;
+import studio.ignitionigloogames.chrystalz.manager.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 

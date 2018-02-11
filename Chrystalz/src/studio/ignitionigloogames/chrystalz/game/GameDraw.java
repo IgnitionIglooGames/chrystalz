@@ -11,7 +11,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import studio.ignitionigloogames.chrystalz.DrawGrid;
-import studio.ignitionigloogames.chrystalz.assetmanagers.ImageTransformer;
+import studio.ignitionigloogames.chrystalz.manager.asset.ImageTransformer;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 
 class GameDraw extends JPanel {

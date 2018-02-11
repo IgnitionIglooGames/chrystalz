@@ -5,8 +5,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.items;
 
-import studio.ignitionigloogames.chrystalz.names.NamesConstants;
-import studio.ignitionigloogames.chrystalz.names.NamesManager;
+import studio.ignitionigloogames.chrystalz.manager.string.NamesConstants;
+import studio.ignitionigloogames.chrystalz.manager.string.NamesManager;
 
 public class ArmorConstants {
     private static String[] ARMOR = null;

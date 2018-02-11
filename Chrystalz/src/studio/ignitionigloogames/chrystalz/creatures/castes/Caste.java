@@ -5,7 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.creatures.castes;
 
-import studio.ignitionigloogames.chrystalz.descriptionmanagers.CasteDescriptionManager;
+import studio.ignitionigloogames.chrystalz.manager.description.CasteDescriptionManager;
 
 public class Caste {
     private final int casteID;

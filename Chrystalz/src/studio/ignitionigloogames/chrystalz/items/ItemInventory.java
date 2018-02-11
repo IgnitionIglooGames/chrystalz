@@ -9,10 +9,10 @@ package studio.ignitionigloogames.chrystalz.items;
 import java.io.IOException;
 import java.util.Arrays;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
-import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 

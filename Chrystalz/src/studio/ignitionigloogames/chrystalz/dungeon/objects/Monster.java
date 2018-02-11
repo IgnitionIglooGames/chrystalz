@@ -7,8 +7,8 @@ package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.assetmanagers.ObjectImageConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractMovingObject;
+import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
 import studio.ignitionigloogames.common.random.RandomRange;
 
 public class Monster extends AbstractMovingObject {

@@ -11,7 +11,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import studio.ignitionigloogames.chrystalz.DrawGrid;
-import studio.ignitionigloogames.chrystalz.assetmanagers.BattleImageManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.BattleImageManager;
 
 public class MapBattleDraw extends JPanel {
     private static final long serialVersionUID = 35935343464625L;

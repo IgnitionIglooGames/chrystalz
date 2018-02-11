@@ -8,9 +8,6 @@ package studio.ignitionigloogames.chrystalz.dungeon.utilities;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.ImageTransformer;
-import studio.ignitionigloogames.chrystalz.assetmanagers.ObjectImageManager;
-import studio.ignitionigloogames.chrystalz.dungeon.FormatConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.ArmorShop;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.ClosedDoor;
@@ -26,6 +23,9 @@ import studio.ignitionigloogames.chrystalz.dungeon.objects.StairsUp;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.WeaponsShop;
+import studio.ignitionigloogames.chrystalz.manager.asset.ImageTransformer;
+import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageManager;
+import studio.ignitionigloogames.chrystalz.manager.dungeon.FormatConstants;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 

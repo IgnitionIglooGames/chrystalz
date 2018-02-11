@@ -11,11 +11,11 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.StatImageConstants;
-import studio.ignitionigloogames.chrystalz.assetmanagers.StatImageManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.Party;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
+import studio.ignitionigloogames.chrystalz.manager.asset.StatImageConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.StatImageManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 class StatGUI {

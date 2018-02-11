@@ -7,14 +7,14 @@ package studio.ignitionigloogames.chrystalz.shops;
 
 import javax.swing.JOptionPane;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
-import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.items.ArmorConstants;
 import studio.ignitionigloogames.chrystalz.items.Equipment;
 import studio.ignitionigloogames.chrystalz.items.EquipmentFactory;
 import studio.ignitionigloogames.chrystalz.items.WeaponConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public class Shop {

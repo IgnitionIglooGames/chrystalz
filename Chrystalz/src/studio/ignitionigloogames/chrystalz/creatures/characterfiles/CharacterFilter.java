@@ -8,7 +8,7 @@ package studio.ignitionigloogames.chrystalz.creatures.characterfiles;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import studio.ignitionigloogames.chrystalz.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
 
 class CharacterFilter implements FilenameFilter {
     @Override

@@ -6,11 +6,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.assetmanagers.ObjectImageConstants;
-import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
-import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractTrigger;
 import studio.ignitionigloogames.chrystalz.game.GameLogicManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 
 public class ClosedDoor extends AbstractTrigger {
     // Constructors

@@ -6,9 +6,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package studio.ignitionigloogames.chrystalz.creatures.monsters;
 
 import studio.ignitionigloogames.chrystalz.ai.map.MapAIRoutinePicker;
-import studio.ignitionigloogames.chrystalz.assetmanagers.BossImageManager;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.BossImageManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;

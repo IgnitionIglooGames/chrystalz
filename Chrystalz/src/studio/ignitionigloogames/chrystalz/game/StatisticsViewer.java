@@ -15,12 +15,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.LogoManager;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
-import studio.ignitionigloogames.chrystalz.names.NamesConstants;
-import studio.ignitionigloogames.chrystalz.names.NamesManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
+import studio.ignitionigloogames.chrystalz.manager.string.NamesConstants;
+import studio.ignitionigloogames.chrystalz.manager.string.NamesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public class StatisticsViewer {

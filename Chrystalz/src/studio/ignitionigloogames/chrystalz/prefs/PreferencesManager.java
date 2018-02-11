@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import studio.ignitionigloogames.chrystalz.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
 
 public class PreferencesManager {
     // Fields

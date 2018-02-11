@@ -6,11 +6,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.dungeon.abc;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.ObjectImageConstants;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
+import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public abstract class AbstractBattleCharacter extends AbstractGameObject {

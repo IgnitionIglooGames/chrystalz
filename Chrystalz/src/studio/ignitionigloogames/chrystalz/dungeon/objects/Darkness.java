@@ -5,9 +5,9 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
-import studio.ignitionigloogames.chrystalz.assetmanagers.ObjectImageConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractPassThroughObject;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.TypeConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
 
 public class Darkness extends AbstractPassThroughObject {
     // Constructors
