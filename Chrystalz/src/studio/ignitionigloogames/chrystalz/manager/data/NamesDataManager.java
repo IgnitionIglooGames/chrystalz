@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.manager.string.NamesConstants;
+import studio.ignitionigloogames.chrystalz.manager.name.NamesConstants;
 import studio.ignitionigloogames.common.fileio.ResourceStreamReader;
 
 public class NamesDataManager {

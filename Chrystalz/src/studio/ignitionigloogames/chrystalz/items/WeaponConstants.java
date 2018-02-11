@@ -6,8 +6,8 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package studio.ignitionigloogames.chrystalz.items;
 
 import studio.ignitionigloogames.chrystalz.creatures.castes.CasteConstants;
-import studio.ignitionigloogames.chrystalz.manager.string.NamesConstants;
-import studio.ignitionigloogames.chrystalz.manager.string.NamesManager;
+import studio.ignitionigloogames.chrystalz.manager.name.NamesConstants;
+import studio.ignitionigloogames.chrystalz.manager.name.NamesManager;
 
 public class WeaponConstants {
     // Constants

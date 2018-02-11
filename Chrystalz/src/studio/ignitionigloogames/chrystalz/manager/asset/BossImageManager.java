@@ -11,19 +11,22 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import studio.ignitionigloogames.chrystalz.manager.name.MonsterNames;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class BossImageManager {
     private static final String DEFAULT_LOAD_PATH = "/assets/images/bosses/";
     private static String LOAD_PATH = BossImageManager.DEFAULT_LOAD_PATH;
     private static Class<?> LOAD_CLASS = BossImageManager.class;
-    static int BOSS_IMAGE_SIZE = 64;
 
-    public static BufferedImageIcon getBossImage() {
+    public static BufferedImageIcon getBossImage(final int zoneID) {
         // Get it from the cache
-        final BufferedImageIcon bii = BossImageCache.getCachedImage("boss");
-        return ImageTransformer.getTransformedImage(bii,
-                BossImageManager.BOSS_IMAGE_SIZE);
+        return BossImageCache.getCachedImage(MonsterNames.getName(zoneID));
+    }
+
+    public static BufferedImageIcon getFinalBossImage() {
+        // Get it from the cache
+        return BossImageCache.getCachedImage("chrys");
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {

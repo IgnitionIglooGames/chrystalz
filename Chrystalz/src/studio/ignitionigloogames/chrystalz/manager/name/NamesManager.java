@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.manager.string;
+package studio.ignitionigloogames.chrystalz.manager.name;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.manager.data.NamesDataManager;

@@ -8,13 +8,17 @@ package studio.ignitionigloogames.chrystalz.creatures.monsters;
 import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.ai.map.MapAIRoutinePicker;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
+import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
+import studio.ignitionigloogames.chrystalz.manager.name.MonsterNames;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
+import studio.ignitionigloogames.common.random.RandomIntRange;
 import studio.ignitionigloogames.common.random.RandomRange;
 
 public abstract class AbstractMonster extends AbstractCreature {
     // Fields
     private String type;
+    private int monID;
     protected static final double MINIMUM_EXPERIENCE_RANDOM_VARIANCE = -5.0
             / 2.0;
     protected static final double MAXIMUM_EXPERIENCE_RANDOM_VARIANCE = 5.0
@@ -34,6 +38,12 @@ public abstract class AbstractMonster extends AbstractCreature {
     }
 
     // Methods
+    protected void configureDefaults() {
+        this.monID = RandomIntRange.generate(0, 99);
+        int zoneID = PartyManager.getParty().getTowerLevel();
+        this.type = MonsterNames.getType(zoneID, this.monID);
+    }
+
     @Override
     public String getName() {
         return this.type;
@@ -82,12 +92,12 @@ public abstract class AbstractMonster extends AbstractCreature {
                 + this.getVitality() + this.getIntelligence() + this.getLuck();
     }
 
-    final String getType() {
-        return this.type;
+    public final int getMonsterID() {
+        return this.monID;
     }
 
-    final void setType(final String newType) {
-        this.type = newType;
+    final String getType() {
+        return this.type;
     }
 
     protected double adjustForLevelDifference() {

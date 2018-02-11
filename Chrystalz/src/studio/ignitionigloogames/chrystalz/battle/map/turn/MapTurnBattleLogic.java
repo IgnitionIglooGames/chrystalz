@@ -20,7 +20,7 @@ import studio.ignitionigloogames.chrystalz.battle.damageengines.AbstractDamageEn
 import studio.ignitionigloogames.chrystalz.battle.map.MapBattle;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
-import studio.ignitionigloogames.chrystalz.creatures.monsters.BossMonster;
+import studio.ignitionigloogames.chrystalz.creatures.monsters.FinalBossMonster;
 import studio.ignitionigloogames.chrystalz.creatures.monsters.MonsterFactory;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
@@ -1358,7 +1358,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
             // Handle Results
             this.resultDoneAlready = true;
             boolean rewardsFlag = false;
-            if (this.getEnemy() instanceof BossMonster) {
+            if (this.getEnemy() instanceof FinalBossMonster) {
                 if (this.result == BattleResults.WON
                         || this.result == BattleResults.PERFECT) {
                     this.setStatusMessage("You defeated the Boss!");

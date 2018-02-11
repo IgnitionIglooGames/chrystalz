@@ -15,6 +15,7 @@ import studio.ignitionigloogames.chrystalz.creatures.castes.CasteManager;
 import studio.ignitionigloogames.chrystalz.creatures.genders.Gender;
 import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.items.ItemInventory;
+import studio.ignitionigloogames.chrystalz.manager.asset.AvatarImageManager;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.FormatConstants;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
@@ -33,12 +34,16 @@ public class PartyMember extends AbstractCreature {
     private int permanentHP;
     private int permanentMP;
     private int kills;
+    private int hairID;
+    private int skinID;
     private static final int START_GOLD = 0;
     private static final double BASE_COEFF = 10.0;
 
     // Constructors
     PartyMember(final Caste c, final Gender g, final String n) {
         super(0);
+        this.hairID = 0;
+        this.skinID = 0;
         this.name = n;
         this.caste = c;
         this.gender = g;
@@ -315,8 +320,8 @@ public class PartyMember extends AbstractCreature {
 
     @Override
     protected BufferedImageIcon getInitialImage() {
-        // FIXME: This does not work right now
-        return null;
+        return AvatarImageManager.getImage(this.getGender().getGenderID(),
+                this.hairID, this.skinID);
     }
 
     @Override

@@ -17,9 +17,9 @@ public class MonsterFactory {
     public static AbstractCreature getNewMonsterInstance() {
         if (PartyManager.getParty().getTowerLevel() == Dungeon.getMaxLevels()
                 - 1) {
-            return new BossMonster();
+            return new FinalBossMonster();
         } else {
-            return new BothRandomScalingStaticMonster();
+            return new Monster();
         }
     }
 }

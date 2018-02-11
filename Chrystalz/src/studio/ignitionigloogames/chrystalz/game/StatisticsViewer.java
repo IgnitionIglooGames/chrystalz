@@ -19,8 +19,8 @@ import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
-import studio.ignitionigloogames.chrystalz.manager.string.NamesConstants;
-import studio.ignitionigloogames.chrystalz.manager.string.NamesManager;
+import studio.ignitionigloogames.chrystalz.manager.name.NamesConstants;
+import studio.ignitionigloogames.chrystalz.manager.name.NamesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public class StatisticsViewer {
