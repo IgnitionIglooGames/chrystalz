@@ -3,19 +3,21 @@ Copyright (C) 2011-2012 Eric Ahnell
 
 Any questions should be directed to the author via email at: products@puttysoftware.com
  */
-package studio.ignitionigloogames.chrystalz.creatures.party;
+package studio.ignitionigloogames.chrystalz.creatures.castes.predefined;
 
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
 import studio.ignitionigloogames.chrystalz.battle.BattleTarget;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
+import studio.ignitionigloogames.chrystalz.creatures.castes.CasteConstants;
 import studio.ignitionigloogames.chrystalz.effects.Effect;
 import studio.ignitionigloogames.chrystalz.spells.Spell;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
 
-public class PartyMemberSpellBook extends SpellBook {
+public class AnnihilatorSpellBook extends SpellBook {
     // Constructor
-    public PartyMemberSpellBook() {
+    public AnnihilatorSpellBook() {
         super(8, false);
+        this.setName(CasteConstants.CASTE_NAMES[this.getLegacyID()]);
     }
 
     @Override
@@ -109,5 +111,10 @@ public class PartyMemberSpellBook extends SpellBook {
         final Spell spell7 = new Spell(spell7Effect, 17, BattleTarget.ENEMY,
                 SoundConstants.SOUND_DRAIN);
         this.spells[7] = spell7;
+    }
+
+    @Override
+    public int getLegacyID() {
+        return CasteConstants.CASTE_ANNIHILATOR;
     }
 }

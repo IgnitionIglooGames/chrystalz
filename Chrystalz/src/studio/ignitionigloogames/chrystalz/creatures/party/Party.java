@@ -11,6 +11,7 @@ import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
 import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
+import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
@@ -75,6 +76,11 @@ public class Party {
         if (this.members.checkLevelUp()) {
             this.members.levelUp();
             SoundManager.playSound(SoundConstants.SOUND_LEVEL_UP);
+            CommonDialogs
+                    .showTitledDialog(
+                            this.members.getName() + " reached level "
+                                    + this.members.getLevel() + "!",
+                            "Level Up");
         }
     }
 
