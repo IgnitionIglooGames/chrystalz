@@ -11,7 +11,7 @@ public class Extension {
     private static final String PREFERENCES_EXTENSION = "ttpref";
     private static final String CHARACTER_EXTENSION = "ttchar";
     private static final String REGISTRY_EXTENSION = "ttregi";
-    private static final String INTERNAL_DATA_EXTENSION = "dat";
+    private static final String INTERNAL_DATA_EXTENSION = "txt";
     private static final String MUSIC_EXTENSION = "tttune";
 
     // Methods
