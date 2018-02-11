@@ -19,6 +19,8 @@ import studio.ignitionigloogames.chrystalz.dungeon.objects.HealShop;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Ice;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Monster;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.OpenDoor;
+import studio.ignitionigloogames.chrystalz.dungeon.objects.Regenerator;
+import studio.ignitionigloogames.chrystalz.dungeon.objects.SpellShop;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.StairsDown;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.StairsUp;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
@@ -35,8 +37,9 @@ public class GameObjectList {
     public GameObjectList() {
         final AbstractGameObject[] allObjects = { new ArmorShop(),
                 new ClosedDoor(), new Empty(), new HealShop(), new Ice(),
-                new Monster(), new OpenDoor(), new Tile(), new Wall(),
-                new WeaponsShop(), new StairsUp(), new StairsDown() };
+                new Monster(), new OpenDoor(), new Regenerator(),
+                new SpellShop(), new Tile(), new Wall(), new WeaponsShop(),
+                new StairsUp(), new StairsDown() };
         this.allObjectList = new ArrayList<>();
         // Add all predefined objects to the list
         for (final AbstractGameObject allObject : allObjects) {

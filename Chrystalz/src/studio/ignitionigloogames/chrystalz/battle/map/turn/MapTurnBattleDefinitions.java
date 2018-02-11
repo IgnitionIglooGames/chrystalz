@@ -37,6 +37,7 @@ public class MapTurnBattleDefinitions {
                     battler.activate();
                     battler.resetAP();
                     battler.resetAttacks();
+                    battler.resetSpells();
                     battler.resetLocation();
                 }
             }
@@ -49,6 +50,7 @@ public class MapTurnBattleDefinitions {
                 if (battler.getTemplate().isAlive()) {
                     battler.resetAP();
                     battler.resetAttacks();
+                    battler.resetSpells();
                 }
             }
         }

@@ -27,8 +27,9 @@ class NormalDamageEngine extends AbstractDamageEngine {
     public int computeDamage(final AbstractCreature enemy,
             final AbstractCreature acting) {
         // Compute Damage
-        final double attack = acting.getAttack();
-        final double defense = enemy.getStat(StatConstants.STAT_DEFENSE);
+        final double attack = acting.getEffectedAttack();
+        final double defense = enemy
+                .getEffectedStat(StatConstants.STAT_DEFENSE);
         final int power = acting.getItems().getTotalPower();
         this.didFumble();
         if (this.fumble) {

@@ -22,6 +22,7 @@ public class MapTurnBattleStats {
     private Container statsPane;
     private JLabel nameLabel;
     private JLabel hpLabel;
+    private JLabel mpLabel;
     private JLabel attLabel;
     private JLabel defLabel;
 
@@ -39,6 +40,7 @@ public class MapTurnBattleStats {
     public void updateStats(final BattleCharacter bc) {
         this.nameLabel.setText(bc.getName());
         this.hpLabel.setText(bc.getTemplate().getHPString());
+        this.mpLabel.setText(bc.getTemplate().getMPString());
         this.attLabel.setText(Integer.toString(bc.getTemplate().getAttack()));
         this.defLabel.setText(Integer.toString(bc.getTemplate().getDefense()));
     }
@@ -48,10 +50,12 @@ public class MapTurnBattleStats {
         this.statsPane.setLayout(new GridLayout(9, 1));
         this.nameLabel = new JLabel("", null, SwingConstants.LEFT);
         this.hpLabel = new JLabel("", null, SwingConstants.LEFT);
+        this.mpLabel = new JLabel("", null, SwingConstants.LEFT);
         this.attLabel = new JLabel("", null, SwingConstants.LEFT);
         this.defLabel = new JLabel("", null, SwingConstants.LEFT);
         this.statsPane.add(this.nameLabel);
         this.statsPane.add(this.hpLabel);
+        this.statsPane.add(this.mpLabel);
         this.statsPane.add(this.attLabel);
         this.statsPane.add(this.defLabel);
     }
@@ -63,6 +67,9 @@ public class MapTurnBattleStats {
         final BufferedImageIcon hpImage = StatImageManager
                 .getImage(StatImageConstants.STAT_IMAGE_HEALTH);
         this.hpLabel.setIcon(hpImage);
+        final BufferedImageIcon mpImage = StatImageManager
+                .getImage(StatImageConstants.STAT_IMAGE_MAGIC);
+        this.mpLabel.setIcon(mpImage);
         final BufferedImageIcon attImage = StatImageManager
                 .getImage(StatImageConstants.STAT_IMAGE_ATTACK);
         this.attLabel.setIcon(attImage);

@@ -9,6 +9,7 @@ import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.ai.map.MapAIRoutinePicker;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
+import studio.ignitionigloogames.chrystalz.spells.SpellBook;
 import studio.ignitionigloogames.common.random.RandomRange;
 
 public abstract class AbstractMonster extends AbstractCreature {
@@ -27,6 +28,9 @@ public abstract class AbstractMonster extends AbstractCreature {
     AbstractMonster() {
         super(1);
         this.setMapAI(AbstractMonster.getInitialMapAI());
+        final SpellBook spells = new SystemMonsterSpellBook();
+        spells.learnAllSpells();
+        this.setSpellBook(spells);
     }
 
     // Methods
@@ -75,7 +79,7 @@ public abstract class AbstractMonster extends AbstractCreature {
 
     private int getToughness() {
         return this.getStrength() + this.getBlock() + this.getAgility()
-                + this.getVitality() + this.getLuck();
+                + this.getVitality() + this.getIntelligence() + this.getLuck();
     }
 
     final String getType() {

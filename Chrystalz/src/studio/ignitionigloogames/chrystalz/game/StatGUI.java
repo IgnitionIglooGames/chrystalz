@@ -22,6 +22,7 @@ class StatGUI {
     // Fields
     private Container statsPane;
     private JLabel hpLabel;
+    private JLabel mpLabel;
     private JLabel goldLabel;
     private JLabel attackLabel;
     private JLabel defenseLabel;
@@ -44,6 +45,7 @@ class StatGUI {
             final PartyMember pc = party.getLeader();
             if (pc != null) {
                 this.hpLabel.setText(pc.getHPString());
+                this.mpLabel.setText(pc.getMPString());
                 this.goldLabel.setText(Integer.toString(pc.getGold()));
                 this.attackLabel.setText(Integer.toString(pc.getAttack()));
                 this.defenseLabel.setText(Integer.toString(pc.getDefense()));
@@ -57,12 +59,14 @@ class StatGUI {
         this.statsPane = new Container();
         this.statsPane.setLayout(new GridLayout(7, 1));
         this.hpLabel = new JLabel("", null, SwingConstants.LEFT);
+        this.mpLabel = new JLabel("", null, SwingConstants.LEFT);
         this.goldLabel = new JLabel("", null, SwingConstants.LEFT);
         this.attackLabel = new JLabel("", null, SwingConstants.LEFT);
         this.defenseLabel = new JLabel("", null, SwingConstants.LEFT);
         this.xpLabel = new JLabel("", null, SwingConstants.LEFT);
         this.levelLabel = new JLabel("", null, SwingConstants.LEFT);
         this.statsPane.add(this.hpLabel);
+        this.statsPane.add(this.mpLabel);
         this.statsPane.add(this.goldLabel);
         this.statsPane.add(this.attackLabel);
         this.statsPane.add(this.defenseLabel);
@@ -74,6 +78,9 @@ class StatGUI {
         final BufferedImageIcon hpImage = StatImageManager
                 .getImage(StatImageConstants.STAT_IMAGE_HEALTH);
         this.hpLabel.setIcon(hpImage);
+        final BufferedImageIcon mpImage = StatImageManager
+                .getImage(StatImageConstants.STAT_IMAGE_MAGIC);
+        this.mpLabel.setIcon(mpImage);
         final BufferedImageIcon goldImage = StatImageManager
                 .getImage(StatImageConstants.STAT_IMAGE_GOLD);
         this.goldLabel.setIcon(goldImage);

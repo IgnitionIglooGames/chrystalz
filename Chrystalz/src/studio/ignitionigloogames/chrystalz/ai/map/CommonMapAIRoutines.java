@@ -64,6 +64,21 @@ class CommonMapAIRoutines {
         }
     }
 
+    static int getMaxCastIndex(final MapAIContext ac) {
+        final int currMP = ac.getCharacter().getTemplate().getCurrentMP();
+        final int[] allCosts = ac.getCharacter().getTemplate().getSpellBook()
+                .getAllSpellCosts();
+        int result = -1;
+        if (currMP > 0) {
+            for (int x = 0; x < allCosts.length; x++) {
+                if (currMP >= allCosts[x]) {
+                    result = x;
+                }
+            }
+        }
+        return result;
+    }
+
     static boolean check(final MapAIContext ac, final int effChance) {
         final RandomRange random = new RandomRange(1, 100);
         final int chance = random.generate();

@@ -7,7 +7,7 @@ package studio.ignitionigloogames.chrystalz.battle.map.turn;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -23,6 +23,7 @@ import javax.swing.WindowConstants;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.DrawGrid;
+import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.assetmanagers.BattleImageManager;
 import studio.ignitionigloogames.chrystalz.assetmanagers.ImageTransformer;
 import studio.ignitionigloogames.chrystalz.assetmanagers.LogoManager;
@@ -30,6 +31,7 @@ import studio.ignitionigloogames.chrystalz.assetmanagers.MusicConstants;
 import studio.ignitionigloogames.chrystalz.assetmanagers.MusicManager;
 import studio.ignitionigloogames.chrystalz.battle.AbstractBattle;
 import studio.ignitionigloogames.chrystalz.battle.map.MapBattleDraw;
+import studio.ignitionigloogames.chrystalz.battle.map.MapBattleEffects;
 import studio.ignitionigloogames.chrystalz.battle.map.MapBattleViewingWindowManager;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
@@ -45,15 +47,17 @@ class MapTurnBattleGUI {
     private JLabel messageLabel;
     private final MapBattleViewingWindowManager vwMgr;
     private final MapTurnBattleStats bs;
+    private final MapBattleEffects be;
     private DrawGrid drawGrid;
     boolean eventHandlersOn;
-    private JButton end;
+    private JButton spell, steal, drain, item, end;
     private static final int MAX_TEXT = 1000;
 
     // Constructors
     MapTurnBattleGUI() {
         this.vwMgr = new MapBattleViewingWindowManager();
         this.bs = new MapTurnBattleStats();
+        this.be = new MapBattleEffects();
         this.setUpGUI();
         this.eventHandlersOn = true;
     }
@@ -169,6 +173,7 @@ class MapTurnBattleGUI {
 
     void updateStatsAndEffects(final MapTurnBattleDefinitions bd) {
         this.bs.updateStats(bd.getActiveCharacter());
+        this.be.updateEffects(bd.getActiveCharacter());
     }
 
     private void setUpGUI() {
@@ -180,10 +185,26 @@ class MapTurnBattleGUI {
         this.messageLabel.setOpaque(true);
         this.battleFrame = new JFrame("Battle");
         this.battleFrame.setContentPane(borderPane);
+        this.spell = new JButton("Cast Spell");
+        this.steal = new JButton("Steal");
+        this.drain = new JButton("Drain");
+        this.item = new JButton("Use Item");
         this.end = new JButton("End Turn");
-        buttonPane.setLayout(new FlowLayout());
+        buttonPane.setLayout(new GridLayout(5, 1));
+        buttonPane.add(this.spell);
+        buttonPane.add(this.steal);
+        buttonPane.add(this.drain);
+        buttonPane.add(this.item);
         buttonPane.add(this.end);
+        this.spell.setFocusable(false);
+        this.steal.setFocusable(false);
+        this.drain.setFocusable(false);
+        this.item.setFocusable(false);
         this.end.setFocusable(false);
+        this.spell.addActionListener(handler);
+        this.steal.addActionListener(handler);
+        this.drain.addActionListener(handler);
+        this.item.addActionListener(handler);
         this.end.addActionListener(handler);
         int modKey;
         if (System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
@@ -191,6 +212,18 @@ class MapTurnBattleGUI {
         } else {
             modKey = InputEvent.CTRL_DOWN_MASK;
         }
+        this.spell.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_C, modKey), "Cast Spell");
+        this.spell.getActionMap().put("Cast Spell", handler);
+        this.steal.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_T, modKey), "Steal");
+        this.steal.getActionMap().put("Steal", handler);
+        this.drain.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_D, modKey), "Drain");
+        this.drain.getActionMap().put("Drain", handler);
+        this.item.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke(KeyEvent.VK_I, modKey), "Use Item");
+        this.item.getActionMap().put("Use Item", handler);
         this.end.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke(KeyEvent.VK_E, modKey), "End Turn");
         this.end.getActionMap().put("End Turn", handler);
@@ -216,16 +249,25 @@ class MapTurnBattleGUI {
         borderPane.add(buttonPane, BorderLayout.WEST);
         borderPane.add(this.messageLabel, BorderLayout.NORTH);
         borderPane.add(this.bs.getStatsPane(), BorderLayout.EAST);
+        borderPane.add(this.be.getEffectsPane(), BorderLayout.SOUTH);
         this.battleFrame.addKeyListener(handler);
     }
 
     void turnEventHandlersOff() {
         this.eventHandlersOn = false;
+        this.spell.setEnabled(false);
+        this.steal.setEnabled(false);
+        this.drain.setEnabled(false);
+        this.item.setEnabled(false);
         this.end.setEnabled(false);
     }
 
     void turnEventHandlersOn() {
         this.eventHandlersOn = true;
+        this.spell.setEnabled(true);
+        this.steal.setEnabled(true);
+        this.drain.setEnabled(true);
+        this.item.setEnabled(true);
         this.end.setEnabled(true);
     }
 
@@ -243,9 +285,22 @@ class MapTurnBattleGUI {
         @Override
         public void actionPerformed(final ActionEvent e) {
             try {
+                final String cmd = e.getActionCommand();
                 final AbstractBattle b = Chrystalz.getApplication().getBattle();
                 // Do Player Actions
-                b.endTurn();
+                if (cmd.equals("Cast Spell") || cmd.equals("c")) {
+                    // Cast Spell
+                    b.doPlayerActions(AbstractMapAIRoutine.ACTION_CAST_SPELL);
+                } else if (cmd.equals("Steal") || cmd.equals("t")) {
+                    // Steal Money
+                    b.doPlayerActions(AbstractMapAIRoutine.ACTION_STEAL);
+                } else if (cmd.equals("Drain") || cmd.equals("d")) {
+                    // Drain Enemy
+                    b.doPlayerActions(AbstractMapAIRoutine.ACTION_DRAIN);
+                } else if (cmd.equals("End Turn") || cmd.equals("e")) {
+                    // End Turn
+                    b.endTurn();
+                }
             } catch (final Throwable t) {
                 Chrystalz.getErrorLogger().logError(t);
             }

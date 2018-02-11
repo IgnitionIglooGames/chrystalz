@@ -10,6 +10,7 @@ import studio.ignitionigloogames.chrystalz.assetmanagers.BossImageManager;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
+import studio.ignitionigloogames.chrystalz.spells.SpellBook;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 import studio.ignitionigloogames.common.random.RandomRange;
 
@@ -30,6 +31,9 @@ public class BossMonster extends AbstractCreature {
     BossMonster() {
         super(1);
         this.setMapAI(MapAIRoutinePicker.getNextRoutine());
+        final SpellBook spells = new SystemMonsterSpellBook();
+        spells.learnAllSpells();
+        this.setSpellBook(spells);
         this.loadCreature();
     }
 
@@ -85,6 +89,8 @@ public class BossMonster extends AbstractCreature {
         this.setLevel(newLevel);
         this.setVitality(this.getInitialVitality());
         this.setCurrentHP(this.getMaximumHP());
+        this.setIntelligence(this.getInitialIntelligence());
+        this.setCurrentMP(this.getMaximumMP());
         this.setStrength(this.getInitialStrength());
         this.setBlock(this.getInitialBlock());
         this.setAgility(this.getInitialAgility());
@@ -92,6 +98,7 @@ public class BossMonster extends AbstractCreature {
         this.setGold(0);
         this.setExperience(0);
         this.setAttacksPerRound(1);
+        this.setSpellsPerRound(1);
         this.image = this.getInitialImage();
     }
 
@@ -126,6 +133,16 @@ public class BossMonster extends AbstractCreature {
     }
 
     private int getInitialVitality() {
+        final int min = BossMonster.getMinimumStatForDifficulty();
+        final RandomRange r = new RandomRange(min,
+                Math.max(
+                        this.getLevel()
+                                * BossMonster.getStatMultiplierForDifficulty(),
+                        min));
+        return r.generate();
+    }
+
+    private int getInitialIntelligence() {
         final int min = BossMonster.getMinimumStatForDifficulty();
         final RandomRange r = new RandomRange(min,
                 Math.max(

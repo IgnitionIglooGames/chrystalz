@@ -30,7 +30,7 @@ public final class Application {
     private MenuManager menuMgr;
     private GUIManager guiMgr;
     private final GameObjectList objects;
-    private Shop weapons, armor, healer;
+    private Shop weapons, armor, healer, regenerator, spells;
     private MapTurnBattleLogic mapTurnBattle;
     private int currentMode;
     private int formerMode;
@@ -60,6 +60,8 @@ public final class Application {
         this.weapons = new Shop(ShopTypes.SHOP_TYPE_WEAPONS);
         this.armor = new Shop(ShopTypes.SHOP_TYPE_ARMOR);
         this.healer = new Shop(ShopTypes.SHOP_TYPE_HEALER);
+        this.regenerator = new Shop(ShopTypes.SHOP_TYPE_REGENERATOR);
+        this.spells = new Shop(ShopTypes.SHOP_TYPE_SPELLS);
         // Cache Logo
         this.guiMgr.updateLogo();
     }
@@ -169,6 +171,10 @@ public final class Application {
             return this.armor;
         case ShopTypes.SHOP_TYPE_HEALER:
             return this.healer;
+        case ShopTypes.SHOP_TYPE_REGENERATOR:
+            return this.regenerator;
+        case ShopTypes.SHOP_TYPE_SPELLS:
+            return this.spells;
         case ShopTypes.SHOP_TYPE_WEAPONS:
             return this.weapons;
         default:
