@@ -11,10 +11,11 @@ import java.io.IOException;
 
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.PrefixHandler;
 import studio.ignitionigloogames.chrystalz.dungeon.SuffixHandler;
+import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.ZipUtilities;
 
 public class GameSaveTask extends Thread {
@@ -30,6 +31,7 @@ public class GameSaveTask extends Thread {
     @Override
     public void run() {
         boolean success = true;
+        final String sg = "Game";
         try {
             final Application app = Chrystalz.getApplication();
             // filename check
@@ -58,7 +60,10 @@ public class GameSaveTask extends Thread {
             if (!delSuccess) {
                 throw new IOException("Failed to delete temporary file!");
             }
+            app.showMessage(sg + " saved.");
         } catch (final FileNotFoundException fnfe) {
+            CommonDialogs.showDialog("Writing the " + sg.toLowerCase()
+                    + " failed, probably due to illegal characters in the file name.");
             success = false;
         } catch (final Exception ex) {
             Chrystalz.getErrorLogger().logError(ex);
