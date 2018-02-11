@@ -7,8 +7,8 @@ package studio.ignitionigloogames.chrystalz.assetmanagers;
 
 import java.net.URL;
 
+import studio.ignitionigloogames.chrystalz.dungeon.Extension;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
-import studio.ignitionigloogames.common.random.RandomRange;
 import studio.ignitionigloogames.common.wavplayer.WAVFactory;
 
 public class SoundManager {
@@ -18,8 +18,9 @@ public class SoundManager {
 
     private static WAVFactory getSound(final String filename) {
         try {
-            final URL url = SoundManager.LOAD_CLASS.getResource(
-                    SoundManager.LOAD_PATH + filename.toLowerCase() + ".wav");
+            final URL url = SoundManager.LOAD_CLASS
+                    .getResource(SoundManager.LOAD_PATH + filename.toLowerCase()
+                            + Extension.getSoundExtensionWithPeriod());
             return WAVFactory.getNonLoopingResource(url);
         } catch (final NullPointerException np) {
             return null;
@@ -29,13 +30,7 @@ public class SoundManager {
     public static void playSound(final int soundID) {
         try {
             if (PreferencesManager.getSoundsEnabled()) {
-                int offset = 0;
-                if (soundID == SoundConstants.SOUND_WALK) {
-                    final RandomRange rSound = new RandomRange(0, 2);
-                    offset = rSound.generate();
-                }
-                final String soundName = SoundConstants
-                        .getSoundName(soundID + offset);
+                final String soundName = SoundConstants.getSoundName(soundID);
                 final WAVFactory snd = SoundManager.getSound(soundName);
                 snd.start();
             }

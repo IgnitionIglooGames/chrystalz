@@ -7,12 +7,13 @@ package studio.ignitionigloogames.chrystalz.dungeon;
 
 public class Extension {
     // Constants
-    private static final String GAME_EXTENSION = "ttgame";
-    private static final String PREFERENCES_EXTENSION = "ttpref";
-    private static final String CHARACTER_EXTENSION = "ttchar";
-    private static final String REGISTRY_EXTENSION = "ttregi";
+    private static final String GAME_EXTENSION = "savzip";
+    private static final String PREFERENCES_EXTENSION = "xml";
+    private static final String CHARACTER_EXTENSION = "chrxml";
+    private static final String REGISTRY_EXTENSION = "regtxt";
     private static final String INTERNAL_DATA_EXTENSION = "txt";
-    private static final String MUSIC_EXTENSION = "tttune";
+    private static final String MUSIC_EXTENSION = "ogg";
+    private static final String SOUND_EXTENSION = "wav";
 
     // Methods
     public static String getPreferencesExtension() {
@@ -45,5 +46,9 @@ public class Extension {
 
     public static String getMusicExtensionWithPeriod() {
         return "." + Extension.MUSIC_EXTENSION;
+    }
+    
+    public static String getSoundExtensionWithPeriod() {
+        return "." + Extension.SOUND_EXTENSION;
     }
 }
