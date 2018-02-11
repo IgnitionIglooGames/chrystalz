@@ -1,8 +1,8 @@
 /*  DungeonRunnerII: An RPG
-Copyright (C) 2011-2012 Eric Ahnell
+Licensed under MIT. See the LICENSE file for details.
 
 
-Any questions should be directed to the author via email at: products@puttysoftware.com
+All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
 package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
