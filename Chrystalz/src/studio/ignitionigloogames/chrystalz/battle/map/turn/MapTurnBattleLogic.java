@@ -6,6 +6,7 @@ Any questions should be directed to the author via email at: products@puttysoftw
 package studio.ignitionigloogames.chrystalz.battle.map.turn;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
@@ -34,6 +35,7 @@ import studio.ignitionigloogames.chrystalz.effects.Effect;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.Spell;
 import studio.ignitionigloogames.chrystalz.spells.SpellCaster;
+import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.random.RandomRange;
 
 public class MapTurnBattleLogic extends AbstractBattle {
@@ -786,6 +788,19 @@ public class MapTurnBattleLogic extends AbstractBattle {
                     if (useAP && this.getActiveAttackCounter() > 0 || !useAP) {
                         // Attack
                         final BattleCharacter bc = (BattleCharacter) next;
+                        if (bc.getTeamID() == active.getTeamID()) {
+                            // Attack Friend?
+                            if (!active.getTemplate().hasMapAI()) {
+                                final int confirm = CommonDialogs
+                                        .showConfirmDialog("Attack Friend?",
+                                                "Battle");
+                                if (confirm != JOptionPane.YES_OPTION) {
+                                    return false;
+                                }
+                            } else {
+                                return false;
+                            }
+                        }
                         if (useAP) {
                             this.decrementActiveAttackCounter();
                         }
@@ -849,6 +864,17 @@ public class MapTurnBattleLogic extends AbstractBattle {
                 }
             }
         } else {
+            // Confirm Flee
+            if (!active.getTemplate().hasMapAI()) {
+                SoundManager.playSound(SoundConstants.SOUND_SPECIAL);
+                final int confirm = CommonDialogs
+                        .showConfirmDialog("Embrace Cowardice?", "Battle");
+                if (confirm != JOptionPane.YES_OPTION) {
+                    this.battleGUI.getViewManager().restoreViewingWindow();
+                    active.restoreLocation();
+                    return false;
+                }
+            }
             // Flee
             this.battleGUI.getViewManager().restoreViewingWindow();
             active.restoreLocation();
@@ -1362,25 +1388,31 @@ public class MapTurnBattleLogic extends AbstractBattle {
             } else {
                 if (this.result == BattleResults.WON) {
                     SoundManager.playSound(SoundConstants.SOUND_VICTORY);
-                    this.setStatusMessage("The party is victorious!");
+                    CommonDialogs.showTitledDialog("The party is victorious!",
+                            "Victory!");
                     PartyManager.getParty().getLeader()
                             .offsetGold(this.getGold());
                     PartyManager.getParty().getLeader()
                             .offsetExperience(this.battleExp);
                 } else if (this.result == BattleResults.LOST) {
-                    this.setStatusMessage("The party has been defeated!");
+                    CommonDialogs.showTitledDialog(
+                            "The party has been defeated!", "Defeat...");
                 } else if (this.result == BattleResults.DRAW) {
-                    this.setStatusMessage("The battle was a draw.");
+                    CommonDialogs.showTitledDialog("The battle was a draw.",
+                            "Draw");
                 } else if (this.result == BattleResults.FLED) {
-                    this.setStatusMessage("The party fled!");
+                    CommonDialogs.showTitledDialog("The party fled!",
+                            "Party Fled");
                 } else if (this.result == BattleResults.ENEMY_FLED) {
-                    this.setStatusMessage("The enemies fled!");
+                    CommonDialogs.showTitledDialog("The enemies fled!",
+                            "Enemies Fled");
                 } else if (this.result == BattleResults.IN_PROGRESS) {
-                    this.setStatusMessage(
-                            "Uh-oh! The battle isn't over, but somehow the game thinks it is.");
+                    CommonDialogs.showTitledDialog(
+                            "The battle isn't over, but somehow the game thinks it is.",
+                            "Uh-Oh!");
                 } else {
-                    this.setStatusMessage(
-                            "The result of the battle is unknown!");
+                    CommonDialogs.showTitledDialog(
+                            "The result of the battle is unknown!", "Uh-Oh!");
                 }
             }
             // Strip effects

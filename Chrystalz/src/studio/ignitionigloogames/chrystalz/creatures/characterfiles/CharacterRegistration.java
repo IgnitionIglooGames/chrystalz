@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import studio.ignitionigloogames.chrystalz.dungeon.Extension;
+import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.ResourceStreamReader;
 
 public class CharacterRegistration {
@@ -26,6 +27,170 @@ public class CharacterRegistration {
     private static final String UNIX_DIR = "/.puttysoftware/tallertower/characters";
 
     // Methods
+    public static void registerCharacter() {
+        // Load character list
+        final String[] characterNameList = CharacterRegistration
+                .getCharacterNameList();
+        final String[] characterNames = new File(
+                CharacterRegistration.getBasePath())
+                        .list(new CharacterFilter());
+        if (characterNames != null && characterNames.length > 0) {
+            // Strip extension
+            final int stripCount = Extension.getCharacterExtensionWithPeriod()
+                    .length();
+            for (int x = 0; x < characterNames.length; x++) {
+                final String temp = characterNames[x];
+                characterNames[x] = temp.substring(0,
+                        temp.length() - stripCount);
+            }
+            // Pick character to register
+            final String res = CommonDialogs.showInputDialog(
+                    "Register Which Character?", "Register Character",
+                    characterNames, characterNames[0]);
+            if (res != null) {
+                // Verify that character is not already registered
+                boolean alreadyRegistered = false;
+                if (characterNameList != null) {
+                    for (final String element : characterNameList) {
+                        if (element.equalsIgnoreCase(res)) {
+                            alreadyRegistered = true;
+                            break;
+                        }
+                    }
+                }
+                if (!alreadyRegistered) {
+                    // Verify that character file exists
+                    if (new File(CharacterRegistration.getBasePath()
+                            + File.separator + res
+                            + Extension.getCharacterExtensionWithPeriod())
+                                    .exists()) {
+                        // Register it
+                        if (CharacterRegistration.ANY_FOUND
+                                && characterNameList != null) {
+                            final String[] newCharacterList = new String[characterNameList.length
+                                    + 1];
+                            for (int x = 0; x < newCharacterList.length; x++) {
+                                if (x < characterNameList.length) {
+                                    newCharacterList[x] = characterNameList[x];
+                                } else {
+                                    newCharacterList[x] = res;
+                                }
+                            }
+                            CharacterRegistration
+                                    .writeCharacterRegistry(newCharacterList);
+                        } else {
+                            CharacterRegistration.writeCharacterRegistry(
+                                    new String[] { res });
+                        }
+                    } else {
+                        CommonDialogs.showDialog(
+                                "The character to register is not a valid character.");
+                    }
+                } else {
+                    CommonDialogs.showDialog(
+                            "The character to register has been registered already.");
+                }
+            }
+        } else {
+            CommonDialogs.showDialog("No characters found to register!");
+        }
+    }
+
+    public static void unregisterCharacter() {
+        // Load character list
+        final String[] characterNameList = CharacterRegistration
+                .getCharacterNameList();
+        // Check for null list
+        if (characterNameList == null) {
+            CommonDialogs.showTitledDialog("No Characters Registered!",
+                    "Unregister Character");
+            return;
+        }
+        // Pick character to unregister
+        final String res = CommonDialogs.showInputDialog(
+                "Unregister Which Character?", "Unregister Character",
+                characterNameList, characterNameList[0]);
+        if (res != null) {
+            // Find character index
+            int index = -1;
+            for (int x = 0; x < characterNameList.length; x++) {
+                if (characterNameList[x].equals(res)) {
+                    index = x;
+                    break;
+                }
+            }
+            if (index != -1) {
+                // Unregister it
+                if (characterNameList.length > 1) {
+                    characterNameList[index] = null;
+                    final String[] newCharacterList = new String[characterNameList.length
+                            - 1];
+                    int offset = 0;
+                    for (int x = 0; x < characterNameList.length; x++) {
+                        if (characterNameList[x] != null) {
+                            newCharacterList[x - offset] = characterNameList[x];
+                        } else {
+                            offset++;
+                        }
+                    }
+                    CharacterRegistration
+                            .writeCharacterRegistry(newCharacterList);
+                } else {
+                    CharacterRegistration
+                            .writeCharacterRegistry((String[]) null);
+                }
+            }
+        }
+    }
+
+    public static void removeCharacter() {
+        // Load character list
+        final String[] characterNameList = CharacterRegistration
+                .getCharacterNameList();
+        // Check for null list
+        if (characterNameList == null) {
+            CommonDialogs.showTitledDialog("No Characters Registered!",
+                    "Remove Character");
+            return;
+        }
+        // Pick character to unregister
+        final String res = CommonDialogs.showInputDialog(
+                "Remove Which Character?", "Remove Character",
+                characterNameList, characterNameList[0]);
+        if (res != null) {
+            // Find character index
+            int index = -1;
+            for (int x = 0; x < characterNameList.length; x++) {
+                if (characterNameList[x].equals(res)) {
+                    index = x;
+                    break;
+                }
+            }
+            if (index != -1) {
+                // Unregister it
+                if (characterNameList.length > 1) {
+                    characterNameList[index] = null;
+                    final String[] newCharacterList = new String[characterNameList.length
+                            - 1];
+                    int offset = 0;
+                    for (int x = 0; x < characterNameList.length; x++) {
+                        if (characterNameList[x] != null) {
+                            newCharacterList[x - offset] = characterNameList[x];
+                        } else {
+                            offset++;
+                        }
+                    }
+                    CharacterRegistration
+                            .writeCharacterRegistry(newCharacterList);
+                } else {
+                    CharacterRegistration
+                            .writeCharacterRegistry((String[]) null);
+                }
+                CharacterLoader.deleteCharacter(res, true);
+            }
+        }
+    }
+
     public static void autoremoveCharacter(final String res) {
         // Load character list
         final String[] characterNameList = CharacterRegistration
@@ -64,7 +229,7 @@ public class CharacterRegistration {
                     CharacterRegistration
                             .writeCharacterRegistry((String[]) null);
                 }
-                CharacterLoader.deleteCharacter(res);
+                CharacterLoader.deleteCharacter(res, false);
             }
         }
     }

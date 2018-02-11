@@ -12,9 +12,10 @@ import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.VersionException;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.dungeon.Extension;
+import studio.ignitionigloogames.common.dialogs.CommonDialogs;
+import studio.ignitionigloogames.common.fileio.UnexpectedTagException;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
-import studio.ignitionigloogames.common.fileio.UnexpectedTagException;
 
 public class CharacterLoader {
     private static PartyMember loadCharacter(final String name) {
@@ -67,13 +68,36 @@ public class CharacterLoader {
         }
     }
 
-    static void deleteCharacter(final String name) {
+    static void deleteCharacter(final String name, final boolean showResults) {
         final String basePath = CharacterRegistration.getBasePath();
         final String characterFile = basePath + File.separator + name
                 + Extension.getCharacterExtensionWithPeriod();
         final File toDelete = new File(characterFile);
         if (toDelete.exists()) {
-            toDelete.delete();
+            final boolean success = toDelete.delete();
+            if (success) {
+                if (showResults) {
+                    CommonDialogs.showDialog("Character removed.");
+                } else {
+                    CommonDialogs.showDialog("Character " + name
+                            + " autoremoved due to version change.");
+                }
+            } else {
+                if (showResults) {
+                    CommonDialogs.showDialog("Character removal failed!");
+                } else {
+                    CommonDialogs.showDialog(
+                            "Character " + name + " failed to autoremove!");
+                }
+            }
+        } else {
+            if (showResults) {
+                CommonDialogs.showDialog(
+                        "The character to be removed does not have a corresponding file.");
+            } else {
+                CommonDialogs.showDialog(
+                        "The character to be autoremoved does not have a corresponding file.");
+            }
         }
     }
 }

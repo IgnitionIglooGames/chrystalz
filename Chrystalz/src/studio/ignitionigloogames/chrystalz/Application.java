@@ -20,6 +20,7 @@ import studio.ignitionigloogames.chrystalz.game.GameLogicManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.shops.Shop;
 import studio.ignitionigloogames.chrystalz.shops.ShopTypes;
+import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public final class Application {
@@ -96,6 +97,8 @@ public final class Application {
             this.getGameManager().setStatusMessage(msg);
         } else if (this.currentMode == Application.STATUS_BATTLE) {
             this.getBattle().setStatusMessage(msg);
+        } else {
+            CommonDialogs.showDialog(msg);
         }
     }
 

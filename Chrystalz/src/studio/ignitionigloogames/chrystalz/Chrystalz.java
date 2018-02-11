@@ -7,12 +7,18 @@ package studio.ignitionigloogames.chrystalz;
 
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.prefs.PrefsRequestHandler;
+import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.errorlogger.ErrorLogger;
 
 public class Chrystalz {
     // Constants
     private static Application application;
     private static final String PROGRAM_NAME = "TallerTower";
+    private static final String ERROR_MESSAGE = "Perhaps a bug is to blame for this error message.\n"
+            + "Include the error log with your bug report.\n"
+            + "Email bug reports to: products@puttysoftware.com\n"
+            + "Subject: TallerTower Bug Report";
+    private static final String ERROR_TITLE = "TallerTower Error";
     private static final ErrorLogger elog = new ErrorLogger(
             Chrystalz.PROGRAM_NAME);
     private static final int BATTLE_MAZE_SIZE = 16;
@@ -27,6 +33,9 @@ public class Chrystalz {
     }
 
     public static ErrorLogger getErrorLogger() {
+        // Display error message
+        CommonDialogs.showErrorDialog(Chrystalz.ERROR_MESSAGE,
+                Chrystalz.ERROR_TITLE);
         return Chrystalz.elog;
     }
 
@@ -50,6 +59,9 @@ public class Chrystalz {
             NativeIntegration.hookAbout(Chrystalz.application.getAboutDialog());
             NativeIntegration.hookPreferences(new PrefsRequestHandler());
             NativeIntegration.hookQuit(Chrystalz.application.getGUIManager());
+            // Set up Common Dialogs
+            CommonDialogs.setDefaultTitle(Chrystalz.PROGRAM_NAME);
+            CommonDialogs.setIcon(Application.getMicroLogo());
         } catch (final Throwable t) {
             Chrystalz.getErrorLogger().logError(t);
         }

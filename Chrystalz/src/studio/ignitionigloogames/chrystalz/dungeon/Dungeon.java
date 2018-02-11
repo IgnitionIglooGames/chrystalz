@@ -14,6 +14,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Monster;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
+import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 import studio.ignitionigloogames.common.random.RandomLongRange;
@@ -47,7 +48,11 @@ public class Dungeon {
         this.basePath = System.getProperty("java.io.tmpdir") + File.separator
                 + "TallerTower" + File.separator + randomID + ".maze";
         final File base = new File(this.basePath);
-        base.mkdirs();
+        final boolean success = base.mkdirs();
+        if (!success) {
+            CommonDialogs.showErrorDialog(
+                    "Dungeon temporary folder creation failed!", "TallerTower");
+        }
     }
 
     // Static methods

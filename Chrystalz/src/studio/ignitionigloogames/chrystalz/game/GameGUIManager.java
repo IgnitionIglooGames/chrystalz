@@ -17,6 +17,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import studio.ignitionigloogames.chrystalz.Application;
@@ -386,9 +387,17 @@ class GameGUIManager {
             try {
                 final Application app = Chrystalz.getApplication();
                 boolean success = false;
+                int status = 0;
                 if (app.getDungeonManager().getDirty()) {
-                    success = DungeonManager.saveGame();
-                    if (success) {
+                    app.getDungeonManager();
+                    status = DungeonManager.showSaveDialog();
+                    if (status == JOptionPane.YES_OPTION) {
+                        app.getDungeonManager();
+                        success = DungeonManager.saveGame();
+                        if (success) {
+                            app.getGameManager().exitGame();
+                        }
+                    } else if (status == JOptionPane.NO_OPTION) {
                         app.getGameManager().exitGame();
                     }
                 } else {
