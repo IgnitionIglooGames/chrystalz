@@ -24,4 +24,15 @@ public class MonsterNames {
         }
         return StringManager.getLocalizedString(LocalizedFile.MONSTERS, monID);
     }
+
+    public static final String getZoneName(final int ID) {
+        String tempZoneID = Integer.toString(ID);
+        String zoneID;
+        if (tempZoneID.length() == 1) {
+            zoneID = "0" + tempZoneID;
+        } else {
+            zoneID = tempZoneID;
+        }
+        return "zone" + zoneID + "/";
+    }
 }

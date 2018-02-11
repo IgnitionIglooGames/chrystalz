@@ -13,27 +13,29 @@ import javax.imageio.ImageIO;
 
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
-public class MonsterImageManager {
-    private static final String DEFAULT_LOAD_PATH = "/assets/images/monsters/";
-    private static String LOAD_PATH = MonsterImageManager.DEFAULT_LOAD_PATH;
-    private static Class<?> LOAD_CLASS = MonsterImageManager.class;
+public class AvatarImageManager {
+    private static final String DEFAULT_LOAD_PATH = "/assets/images/avatars/";
+    private static String LOAD_PATH = AvatarImageManager.DEFAULT_LOAD_PATH;
+    private static Class<?> LOAD_CLASS = AvatarImageManager.class;
     static int MONSTER_IMAGE_SIZE = 64;
+    private static final String[] INTERNAL_GENDER_NAMES = { "male/",
+            "female/" };
 
-    public static BufferedImageIcon getImage(final int zoneID,
-            final int monID) {
+    public static BufferedImageIcon getImage(final int genderID,
+            final int hairID, final int skinID) {
         // Get it from the cache
-        final String name = MonsterNames.getZoneName(zoneID)
-                + MonsterNames.getName(monID);
-        final BufferedImageIcon bii = MonsterImageCache.getCachedImage(name);
+        final String name = AvatarImageManager.INTERNAL_GENDER_NAMES[genderID]
+                + Integer.toString(hairID) + Integer.toString(skinID);
+        final BufferedImageIcon bii = AvatarImageCache.getCachedImage(name);
         return ImageTransformer.getTransformedImage(bii,
-                MonsterImageManager.MONSTER_IMAGE_SIZE);
+                AvatarImageManager.MONSTER_IMAGE_SIZE);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
         try {
             final String normalName = ImageTransformer.normalizeName(name);
-            final URL url = MonsterImageManager.LOAD_CLASS.getResource(
-                    MonsterImageManager.LOAD_PATH + normalName + ".png");
+            final URL url = AvatarImageManager.LOAD_CLASS.getResource(
+                    AvatarImageManager.LOAD_PATH + normalName + ".png");
             final BufferedImage image = ImageIO.read(url);
             return new BufferedImageIcon(image);
         } catch (final IOException ie) {
