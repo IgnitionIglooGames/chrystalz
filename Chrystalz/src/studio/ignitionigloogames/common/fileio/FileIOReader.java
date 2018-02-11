@@ -136,7 +136,7 @@ public class FileIOReader implements AutoCloseable {
     private static void validateOpeningTag(final String tag,
             final String tagType) throws IOException {
         if (!tag.equals("<" + tagType + ">")) {
-            throw new UnexpectedTagException("Expected opening tag of <"
+            throw new FileIOException("Expected opening tag of <"
                     + tagType + ">, found " + tag + "!");
         }
     }
@@ -144,7 +144,7 @@ public class FileIOReader implements AutoCloseable {
     private static void validateClosingTag(final String tag,
             final String tagType) throws IOException {
         if (!tag.equals("</" + tagType + ">")) {
-            throw new UnexpectedTagException("Expected closing tag of </"
+            throw new FileIOException("Expected closing tag of </"
                     + tagType + ">, found " + tag + "!");
         }
     }
@@ -162,17 +162,17 @@ public class FileIOReader implements AutoCloseable {
     private void readXHeader() throws IOException {
         final String header = this.br.readLine();
         if (header == null) {
-            throw new UnexpectedTagException("Corrupt or invalid header!");
+            throw new FileIOException("Corrupt or invalid header!");
         }
         if (!header.equals(FileIOConstants.X_HEADER)) {
-            throw new UnexpectedTagException("Corrupt or invalid header!");
+            throw new FileIOException("Corrupt or invalid header!");
         }
     }
 
     private void readOpeningDocTag() throws IOException {
         final String line = this.br.readLine();
         if (line != null && !line.equals("<" + this.docTag + ">")) {
-            throw new UnexpectedTagException(
+            throw new FileIOException(
                     "Opening doc tag does not match: expected <" + this.docTag
                             + ">, found " + line + "!");
         }
@@ -181,7 +181,7 @@ public class FileIOReader implements AutoCloseable {
     private void readClosingDocTag() throws IOException {
         final String line = this.br.readLine();
         if (line != null && !line.equals("</" + this.docTag + ">")) {
-            throw new UnexpectedTagException(
+            throw new FileIOException(
                     "Closing doc tag does not match: expected </" + this.docTag
                             + ">, found " + line + "!");
         }

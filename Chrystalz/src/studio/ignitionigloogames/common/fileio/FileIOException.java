@@ -2,7 +2,7 @@ package studio.ignitionigloogames.common.fileio;
 
 import java.io.IOException;
 
-public class UnexpectedTagException extends IOException {
+public class FileIOException extends IOException {
     private static final long serialVersionUID = 23250505322336L;
 
     /**
@@ -12,7 +12,7 @@ public class UnexpectedTagException extends IOException {
      * @param msg
      *            the detail message.
      */
-    public UnexpectedTagException(final String msg) {
+    public FileIOException(final String msg) {
         super(msg);
     }
 }

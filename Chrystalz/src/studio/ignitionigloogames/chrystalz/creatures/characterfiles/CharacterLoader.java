@@ -13,7 +13,7 @@ import studio.ignitionigloogames.chrystalz.VersionException;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.dungeon.Extension;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
-import studio.ignitionigloogames.common.fileio.UnexpectedTagException;
+import studio.ignitionigloogames.common.fileio.FileIOException;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
@@ -24,7 +24,7 @@ public class CharacterLoader {
                 + Extension.getCharacterExtensionWithPeriod();
         try (FileIOReader loader = new FileIOReader(loadPath, "character")) {
             return PartyMember.read(loader);
-        } catch (VersionException | UnexpectedTagException e) {
+        } catch (VersionException | FileIOException e) {
             CharacterRegistration.autoremoveCharacter(name);
             return null;
         } catch (final IOException e) {
