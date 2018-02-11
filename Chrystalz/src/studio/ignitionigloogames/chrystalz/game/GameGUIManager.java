@@ -10,8 +10,6 @@ import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -256,11 +254,10 @@ class GameGUIManager {
         this.outputFrame.setResizable(false);
         this.outputFrame.addKeyListener(handler);
         this.outputFrame.addWindowListener(handler);
-        this.outputPane.addMouseListener(handler);
     }
 
     private class EventHandler
-            implements KeyListener, WindowListener, MouseListener {
+            implements KeyListener, WindowListener {
         EventHandler() {
             // Do nothing
         }
@@ -425,42 +422,6 @@ class GameGUIManager {
 
         @Override
         public void windowOpened(final WindowEvent we) {
-            // Do nothing
-        }
-
-        // handle mouse
-        @Override
-        public void mousePressed(final MouseEvent e) {
-            // Do nothing
-        }
-
-        @Override
-        public void mouseReleased(final MouseEvent e) {
-            // Do nothing
-        }
-
-        @Override
-        public void mouseClicked(final MouseEvent e) {
-            try {
-                final GameLogicManager gm = Chrystalz.getApplication()
-                        .getGameManager();
-                if (e.isShiftDown()) {
-                    final int x = e.getX();
-                    final int y = e.getY();
-                    gm.identifyObject(x, y);
-                }
-            } catch (final Exception ex) {
-                Chrystalz.getErrorLogger().logError(ex);
-            }
-        }
-
-        @Override
-        public void mouseEntered(final MouseEvent e) {
-            // Do nothing
-        }
-
-        @Override
-        public void mouseExited(final MouseEvent e) {
             // Do nothing
         }
     }

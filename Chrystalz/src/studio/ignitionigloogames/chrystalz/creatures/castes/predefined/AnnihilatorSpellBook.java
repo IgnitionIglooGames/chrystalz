@@ -31,7 +31,7 @@ public class AnnihilatorSpellBook extends SpellBook {
         spell0Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,
                 "The enemy recoils, and is hurt!");
         final Spell spell0 = new Spell(spell0Effect, 1, BattleTarget.ENEMY,
-                SoundConstants.SOUND_COLD);
+                SoundConstants.SOUND_COLD_SPELL);
         this.spells[0] = spell0;
         final Effect spell1Effect = new Effect("Super Force Ball", 1);
         spell1Effect.setEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP,
@@ -42,7 +42,7 @@ public class AnnihilatorSpellBook extends SpellBook {
         spell1Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,
                 "The enemy recoils, and is hurt!");
         final Spell spell1 = new Spell(spell1Effect, 2, BattleTarget.ENEMY,
-                SoundConstants.SOUND_COLD);
+                SoundConstants.SOUND_COLD_SPELL);
         this.spells[1] = spell1;
         final Effect spell2Effect = new Effect("Cutter Cloud", 1);
         spell2Effect.setEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP,
@@ -75,7 +75,7 @@ public class AnnihilatorSpellBook extends SpellBook {
         spell4Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,
                 "The enemy is engulfed!");
         final Spell spell4 = new Spell(spell4Effect, 7, BattleTarget.ENEMY,
-                SoundConstants.SOUND_FIREBALL);
+                SoundConstants.SOUND_FIREBALL_SPELL);
         this.spells[4] = spell4;
         final Effect spell5Effect = new Effect("Super Vortex", 1);
         spell5Effect.setEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP,
@@ -86,7 +86,7 @@ public class AnnihilatorSpellBook extends SpellBook {
         spell5Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,
                 "The enemy is engulfed!");
         final Spell spell5 = new Spell(spell5Effect, 11, BattleTarget.ENEMY,
-                SoundConstants.SOUND_FIREBALL);
+                SoundConstants.SOUND_FIREBALL_SPELL);
         this.spells[5] = spell5;
         final Effect spell6Effect = new Effect("Air Tear", 1);
         spell6Effect.setEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP,
@@ -97,7 +97,7 @@ public class AnnihilatorSpellBook extends SpellBook {
         spell6Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,
                 "The enemy is devastated!");
         final Spell spell6 = new Spell(spell6Effect, 13, BattleTarget.ENEMY,
-                SoundConstants.SOUND_WEAKNESS);
+                SoundConstants.SOUND_WEAKNESS_SPELL);
         this.spells[6] = spell6;
         final Effect spell7Effect = new Effect("Power Drain", 1);
         spell7Effect.setEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_MP,
@@ -109,7 +109,7 @@ public class AnnihilatorSpellBook extends SpellBook {
         spell7Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,
                 "The enemy loses some magic!");
         final Spell spell7 = new Spell(spell7Effect, 17, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DRAIN);
+                SoundConstants.SOUND_DRAIN_SPELL);
         this.spells[7] = spell7;
     }
 

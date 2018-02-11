@@ -9,16 +9,12 @@ import javax.swing.JFrame;
 
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.assetmanagers.ImageTransformer;
-import studio.ignitionigloogames.chrystalz.assetmanagers.SoundConstants;
-import studio.ignitionigloogames.chrystalz.assetmanagers.SoundManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.GenerateTask;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public final class GameLogicManager {
@@ -187,38 +183,6 @@ public final class GameLogicManager {
 
     public void keepNextMessage() {
         this.gui.keepNextMessage();
-    }
-
-    public void identifyObject(final int x, final int y) {
-        final Application app = Chrystalz.getApplication();
-        final Dungeon m = app.getDungeonManager().getDungeon();
-        final int xOffset = this.vwMgr.getViewingWindowLocationX()
-                - GameViewingWindowManager.getOffsetFactorX();
-        final int yOffset = this.vwMgr.getViewingWindowLocationY()
-                - GameViewingWindowManager.getOffsetFactorY();
-        final int destX = x / ImageTransformer.getGraphicSize()
-                + this.vwMgr.getViewingWindowLocationX() - xOffset + yOffset;
-        final int destY = y / ImageTransformer.getGraphicSize()
-                + this.vwMgr.getViewingWindowLocationY() + xOffset - yOffset;
-        final int destZ = m.getPlayerLocationZ();
-        try {
-            final AbstractGameObject target1 = m.getCell(destX, destY, destZ,
-                    DungeonConstants.LAYER_GROUND);
-            final AbstractGameObject target2 = m.getCell(destX, destY, destZ,
-                    DungeonConstants.LAYER_OBJECT);
-            target1.determineCurrentAppearance(destX, destY, destZ);
-            target2.determineCurrentAppearance(destX, destY, destZ);
-            final String gameName1 = target1.getGameName();
-            final String gameName2 = target2.getGameName();
-            Chrystalz.getApplication()
-                    .showMessage(gameName2 + " on " + gameName1);
-            SoundManager.playSound(SoundConstants.SOUND_IDENTIFY);
-        } catch (final ArrayIndexOutOfBoundsException ae) {
-            final Wall wall = new Wall();
-            wall.determineCurrentAppearance(destX, destY, destZ);
-            Chrystalz.getApplication().showMessage(wall.getGameName());
-            SoundManager.playSound(SoundConstants.SOUND_IDENTIFY);
-        }
     }
 
     public void playDungeon() {

@@ -76,7 +76,7 @@ public class SpellCaster {
             final String[] displayNames = book.getAllSpellNamesWithCosts();
             if (names != null && displayNames != null) {
                 // Play casting spell sound
-                SoundManager.playSound(SoundConstants.SOUND_SPELL);
+                SoundManager.playSound(SoundConstants.SOUND_SPELL_SELECT);
                 String dialogResult = null;
                 dialogResult = CommonDialogs.showInputDialog(
                         "Select a Spell to Cast", "Select Spell", displayNames,

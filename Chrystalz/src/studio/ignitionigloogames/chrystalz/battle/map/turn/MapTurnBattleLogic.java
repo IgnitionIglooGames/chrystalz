@@ -141,7 +141,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
                 .setViewingWindowCenterX(this.bd.getActiveCharacter().getY());
         this.battleGUI.getViewManager()
                 .setViewingWindowCenterY(this.bd.getActiveCharacter().getX());
-        SoundManager.playSound(SoundConstants.SOUND_BATTLE);
+        SoundManager.playSound(SoundConstants.SOUND_FIGHT);
         this.showBattle();
         this.updateStatsAndEffects();
         this.redrawBattle();
@@ -302,10 +302,10 @@ public class MapTurnBattleLogic extends AbstractBattle {
             if (activeDE.weaponCrit() && activeDE.weaponPierce()) {
                 displayDamagePrefix = "PIERCING CRITICAL HIT! ";
                 SoundManager.playSound(SoundConstants.SOUND_COUNTER);
-                SoundManager.playSound(SoundConstants.SOUND_CRITICAL);
+                SoundManager.playSound(SoundConstants.SOUND_CRITICAL_HIT);
             } else if (activeDE.weaponCrit()) {
                 displayDamagePrefix = "CRITICAL HIT! ";
-                SoundManager.playSound(SoundConstants.SOUND_CRITICAL);
+                SoundManager.playSound(SoundConstants.SOUND_CRITICAL_HIT);
             } else if (activeDE.weaponPierce()) {
                 displayDamagePrefix = "PIERCING HIT! ";
                 SoundManager.playSound(SoundConstants.SOUND_COUNTER);
@@ -325,10 +325,10 @@ public class MapTurnBattleLogic extends AbstractBattle {
                 if (activeDE.weaponCrit() && activeDE.weaponPierce()) {
                     displayDamagePrefix = "PIERCING CRITICAL HIT! ";
                     SoundManager.playSound(SoundConstants.SOUND_COUNTER);
-                    SoundManager.playSound(SoundConstants.SOUND_CRITICAL);
+                    SoundManager.playSound(SoundConstants.SOUND_CRITICAL_HIT);
                 } else if (activeDE.weaponCrit()) {
                     displayDamagePrefix = "CRITICAL HIT! ";
-                    SoundManager.playSound(SoundConstants.SOUND_CRITICAL);
+                    SoundManager.playSound(SoundConstants.SOUND_CRITICAL_HIT);
                 } else if (activeDE.weaponPierce()) {
                     displayDamagePrefix = "PIERCING HIT! ";
                     SoundManager.playSound(SoundConstants.SOUND_COUNTER);
@@ -336,7 +336,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
                 displayDamageString = displayDamagePrefix + activeName
                         + " hits " + enemyName + " for " + damageString
                         + " damage!";
-                SoundManager.playSound(SoundConstants.SOUND_HIT);
+                SoundManager.playSound(SoundConstants.SOUND_ATTACK_HIT);
             }
         }
         this.setStatusMessage(displayDamageString);
@@ -815,7 +815,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
                                                 .getTemplate().getMaximumHP()
                                                 * 3 / 10) {
                             SoundManager
-                                    .playSound(SoundConstants.SOUND_LOW_HEALTH);
+                                    .playSound(SoundConstants.SOUND_DANGER);
                         }
                         // Handle enemy death
                         if (!theEnemy.getTemplate().isAlive()) {
@@ -1242,7 +1242,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
                         && active.getTeamID() == AbstractCreature.TEAM_PARTY
                         && active.getCurrentHP() <= active.getMaximumHP() * 3
                                 / 10) {
-                    SoundManager.playSound(SoundConstants.SOUND_LOW_HEALTH);
+                    SoundManager.playSound(SoundConstants.SOUND_DANGER);
                 }
                 // Cull Inactive Effects
                 active.cullInactiveEffects();
@@ -1366,12 +1366,12 @@ public class MapTurnBattleLogic extends AbstractBattle {
                     rewardsFlag = true;
                 } else if (this.result == BattleResults.LOST) {
                     this.setStatusMessage("The Boss defeated you...");
-                    SoundManager.playSound(SoundConstants.SOUND_GAME_OVER);
+                    SoundManager.playSound(SoundConstants.SOUND_DEFEATED);
                     PartyManager.getParty().getLeader().onDeath(-10);
                 } else if (this.result == BattleResults.ANNIHILATED) {
                     this.setStatusMessage(
                             "The Boss defeated you without suffering damage... you were annihilated!");
-                    SoundManager.playSound(SoundConstants.SOUND_GAME_OVER);
+                    SoundManager.playSound(SoundConstants.SOUND_DEFEATED);
                     PartyManager.getParty().getLeader().onDeath(-20);
                 } else if (this.result == BattleResults.DRAW) {
                     this.setStatusMessage(

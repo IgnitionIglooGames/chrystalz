@@ -18,7 +18,7 @@ import studio.ignitionigloogames.common.random.RandomRange;
 public class StairsUp extends AbstractTeleport {
     // Constructors
     public StairsUp() {
-        super(0, 0, 0);
+        super();
     }
 
     @Override

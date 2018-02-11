@@ -326,7 +326,7 @@ final class MovementTask extends Thread {
 
     private static void checkGameOver() {
         if (!PartyManager.getParty().isAlive()) {
-            SoundManager.playSound(SoundConstants.SOUND_GAME_OVER);
+            SoundManager.playSound(SoundConstants.SOUND_DEFEATED);
             CommonDialogs.showDialog(
                     "You have died! You lose 10% of your experience and all your Gold, but you are healed fully.");
             PartyManager.getParty().getLeader().onDeath(-10);

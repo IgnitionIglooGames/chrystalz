@@ -28,7 +28,7 @@ public abstract class AbstractWall extends AbstractGameObject {
             final int dirY) {
         Chrystalz.getApplication().showMessage("Can't go that way");
         // Play move failed sound, if it's enabled
-        SoundManager.playSound(SoundConstants.SOUND_WALK_FAILED);
+        SoundManager.playSound(SoundConstants.SOUND_FAILED);
     }
 
     @Override

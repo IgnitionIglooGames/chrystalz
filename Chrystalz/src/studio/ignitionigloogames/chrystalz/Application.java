@@ -137,7 +137,7 @@ public final class Application {
     }
 
     public static void playLogoSound() {
-        SoundManager.playSound(SoundConstants.SOUND_LOGO);
+        SoundManager.playSound(SoundConstants.SOUND_INTRO);
     }
 
     private static String getVersionString() {
