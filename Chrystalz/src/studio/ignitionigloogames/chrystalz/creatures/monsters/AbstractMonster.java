@@ -44,6 +44,11 @@ public abstract class AbstractMonster extends AbstractCreature {
         this.type = MonsterNames.getType(zoneID, this.monID);
     }
 
+    protected void overrideDefaults(final int oID, final String oType) {
+        this.monID = oID;
+        this.type = oType;
+    }
+
     @Override
     public String getName() {
         return this.type;

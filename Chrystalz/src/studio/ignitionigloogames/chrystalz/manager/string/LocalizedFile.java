@@ -6,5 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package studio.ignitionigloogames.chrystalz.manager.string;
 
 public enum LocalizedFile {
-    MONSTERS, ZONES;
+    MONSTERS, ZONES, BOSSES, WEAPONS, ARMOR;
 }

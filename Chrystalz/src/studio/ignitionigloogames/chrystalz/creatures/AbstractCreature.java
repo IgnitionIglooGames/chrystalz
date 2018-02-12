@@ -911,7 +911,7 @@ public abstract class AbstractCreature {
         }
     }
 
-    public String getFightingWhatString() {
+    public final String getFightingWhatString() {
         final String enemyName = this.getName();
         final boolean vowel = this.isFirstLetterVowel(enemyName);
         String fightingWhat = null;

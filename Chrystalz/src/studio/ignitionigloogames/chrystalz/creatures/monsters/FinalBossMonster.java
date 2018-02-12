@@ -9,6 +9,7 @@ import studio.ignitionigloogames.chrystalz.ai.map.MapAIRoutinePicker;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.BossImageManager;
+import studio.ignitionigloogames.chrystalz.manager.name.BossNames;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
@@ -38,16 +39,6 @@ public class FinalBossMonster extends AbstractMonster {
     }
 
     // Methods
-    @Override
-    public String getFightingWhatString() {
-        return "You're fighting Chrys, The Final Boss";
-    }
-
-    @Override
-    public String getName() {
-        return "Chrys, The Final Boss";
-    }
-
     @Override
     public boolean checkLevelUp() {
         return false;
@@ -85,6 +76,9 @@ public class FinalBossMonster extends AbstractMonster {
     // Helper Methods
     @Override
     public void loadCreature() {
+        int zoneID = PartyManager.getParty().getTowerLevel();
+        String bossName = BossNames.getName(zoneID);
+        this.overrideDefaults(zoneID, bossName);
         final int newLevel = PartyManager.getParty().getTowerLevel() + 6;
         this.setLevel(newLevel);
         this.setVitality(this.getInitialVitality());
@@ -105,9 +99,8 @@ public class FinalBossMonster extends AbstractMonster {
     private int getInitialStrength() {
         final int min = FinalBossMonster.getMinimumStatForDifficulty();
         final RandomRange r = new RandomRange(min,
-                Math.max(
-                        this.getLevel()
-                                * FinalBossMonster.getStatMultiplierForDifficulty(),
+                Math.max(this.getLevel()
+                        * FinalBossMonster.getStatMultiplierForDifficulty(),
                         min));
         return r.generate();
     }
@@ -115,9 +108,8 @@ public class FinalBossMonster extends AbstractMonster {
     private int getInitialBlock() {
         final int min = FinalBossMonster.getMinimumStatForDifficulty();
         final RandomRange r = new RandomRange(min,
-                Math.max(
-                        this.getLevel()
-                                * FinalBossMonster.getStatMultiplierForDifficulty(),
+                Math.max(this.getLevel()
+                        * FinalBossMonster.getStatMultiplierForDifficulty(),
                         min));
         return r.generate();
     }
@@ -125,9 +117,8 @@ public class FinalBossMonster extends AbstractMonster {
     private int getInitialAgility() {
         final int min = FinalBossMonster.getMinimumStatForDifficulty();
         final RandomRange r = new RandomRange(min,
-                Math.max(
-                        this.getLevel()
-                                * FinalBossMonster.getStatMultiplierForDifficulty(),
+                Math.max(this.getLevel()
+                        * FinalBossMonster.getStatMultiplierForDifficulty(),
                         min));
         return r.generate();
     }
@@ -135,9 +126,8 @@ public class FinalBossMonster extends AbstractMonster {
     private int getInitialVitality() {
         final int min = FinalBossMonster.getMinimumStatForDifficulty();
         final RandomRange r = new RandomRange(min,
-                Math.max(
-                        this.getLevel()
-                                * FinalBossMonster.getStatMultiplierForDifficulty(),
+                Math.max(this.getLevel()
+                        * FinalBossMonster.getStatMultiplierForDifficulty(),
                         min));
         return r.generate();
     }
@@ -145,9 +135,8 @@ public class FinalBossMonster extends AbstractMonster {
     private int getInitialIntelligence() {
         final int min = FinalBossMonster.getMinimumStatForDifficulty();
         final RandomRange r = new RandomRange(min,
-                Math.max(
-                        this.getLevel()
-                                * FinalBossMonster.getStatMultiplierForDifficulty(),
+                Math.max(this.getLevel()
+                        * FinalBossMonster.getStatMultiplierForDifficulty(),
                         min));
         return r.generate();
     }
@@ -155,9 +144,8 @@ public class FinalBossMonster extends AbstractMonster {
     private int getInitialLuck() {
         final int min = FinalBossMonster.getMinimumStatForDifficulty();
         final RandomRange r = new RandomRange(min,
-                Math.max(
-                        this.getLevel()
-                                * FinalBossMonster.getStatMultiplierForDifficulty(),
+                Math.max(this.getLevel()
+                        * FinalBossMonster.getStatMultiplierForDifficulty(),
                         min));
         return r.generate();
     }

@@ -7,6 +7,7 @@ package studio.ignitionigloogames.chrystalz.creatures.monsters;
 
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.BossImageManager;
+import studio.ignitionigloogames.chrystalz.manager.name.BossNames;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 import studio.ignitionigloogames.common.random.RandomLongRange;
@@ -39,7 +40,9 @@ class BossMonster extends AbstractMonster {
 
     @Override
     public void loadCreature() {
-        this.configureDefaults();
+        int zoneID = PartyManager.getParty().getTowerLevel();
+        String bossName = BossNames.getName(zoneID);
+        this.overrideDefaults(zoneID, bossName);
         final int newLevel = PartyManager.getParty().getTowerLevel() + 1;
         this.setLevel(newLevel);
         this.setVitality(this.getInitialVitality());
