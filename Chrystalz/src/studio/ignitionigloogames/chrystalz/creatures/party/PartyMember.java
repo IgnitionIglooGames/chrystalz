@@ -167,7 +167,7 @@ public class PartyMember extends AbstractCreature {
         this.setToNextLevel(nextLevelEquation);
         this.setSpellBook(
                 CasteManager.getSpellBookByID(this.caste.getCasteID()));
-        PartyManager.getParty().resetTowerLevel();
+        PartyManager.getParty().resetZone();
         new GenerateTask(true).start();
     }
 

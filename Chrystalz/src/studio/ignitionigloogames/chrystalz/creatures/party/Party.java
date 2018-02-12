@@ -11,6 +11,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
+import studio.ignitionigloogames.chrystalz.manager.name.ZoneNames;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
@@ -21,14 +22,14 @@ public class Party {
     private BattleCharacter battlers;
     private int leaderID;
     private int activePCs;
-    private int towerLevel;
+    private int zone;
 
     // Constructors
     public Party() {
         this.members = null;
         this.leaderID = 0;
         this.activePCs = 0;
-        this.towerLevel = 0;
+        this.zone = 0;
     }
 
     // Methods
@@ -47,24 +48,24 @@ public class Party {
         return this.members.getToNextLevelValue();
     }
 
-    public int getTowerLevel() {
-        return this.towerLevel;
+    public int getZone() {
+        return this.zone;
     }
 
-    void resetTowerLevel() {
-        this.towerLevel = 0;
+    void resetZone() {
+        this.zone = 0;
     }
 
-    public void offsetTowerLevel(final int offset) {
-        if (this.towerLevel + offset > Dungeon.getMaxLevels()
-                || this.towerLevel + offset < 0) {
+    public void offsetZone(final int offset) {
+        if (this.zone + offset > Dungeon.getMaxLevels()
+                || this.zone + offset < 0) {
             return;
         }
-        this.towerLevel += offset;
+        this.zone += offset;
     }
 
-    public String getTowerLevelString() {
-        return "Tower Level: " + (this.towerLevel + 1);
+    public String getZoneString() {
+        return "Zone Name: " + ZoneNames.getName(this.zone);
     }
 
     public PartyMember getLeader() {
@@ -101,7 +102,7 @@ public class Party {
         final Party pty = new Party();
         pty.leaderID = lid;
         pty.activePCs = apc;
-        pty.towerLevel = lvl;
+        pty.zone = lvl;
         final boolean present = worldFile.readBoolean();
         if (present) {
             pty.members = PartyMember.read(worldFile);
@@ -113,7 +114,7 @@ public class Party {
         worldFile.writeInt(1);
         worldFile.writeInt(this.leaderID);
         worldFile.writeInt(this.activePCs);
-        worldFile.writeInt(this.towerLevel);
+        worldFile.writeInt(this.zone);
         if (this.members == null) {
             worldFile.writeBoolean(false);
         } else {

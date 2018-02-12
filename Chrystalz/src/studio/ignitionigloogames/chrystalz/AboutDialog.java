@@ -48,7 +48,7 @@ public class AboutDialog implements AboutHandler {
 
     private void setUpGUI(final String ver) {
         final EventHandler handler = new EventHandler();
-        this.aboutFrame = new JFrame("About TallerTower");
+        this.aboutFrame = new JFrame("About Chrystalz");
         final Image iconlogo = LogoManager.getIconLogo();
         this.aboutFrame.setIconImage(iconlogo);
         final Container aboutPane = new Container();
@@ -66,12 +66,12 @@ public class AboutDialog implements AboutHandler {
         logoPane.setLayout(new FlowLayout());
         logoPane.add(miniLabel);
         textPane.setLayout(new GridLayout(4, 1));
-        textPane.add(new JLabel("TallerTower Version: " + ver));
+        textPane.add(new JLabel("Chrystalz Version: " + ver));
         textPane.add(new JLabel("Author: Eric Ahnell"));
         textPane.add(new JLabel(
-                "Web Site: http://www.puttysoftware.com/tallertower/"));
+                "Web Site: http://www.ignitionigloogames.studio/games/chrystalz/"));
         textPane.add(new JLabel(
-                "E-mail bug reports to: products@puttysoftware.com  "));
+                "Support: https://github.com/IgnitionIglooGames/chrystalz/"));
         buttonPane.setLayout(new FlowLayout());
         buttonPane.add(aboutOK);
         aboutPane.add(logoPane, BorderLayout.WEST);

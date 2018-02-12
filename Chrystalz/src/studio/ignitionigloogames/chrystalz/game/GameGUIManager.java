@@ -243,7 +243,7 @@ class GameGUIManager {
         this.borderPane.setLayout(new BorderLayout());
         this.messageLabel = new JLabel(" ");
         this.messageLabel.setOpaque(true);
-        this.outputFrame = new JFrame("TallerTower");
+        this.outputFrame = new JFrame("Chrystalz");
         final Image iconlogo = Application.getIconLogo();
         this.outputFrame.setIconImage(iconlogo);
         this.drawGrid = new DrawGrid(PreferencesManager.getViewingWindowSize());

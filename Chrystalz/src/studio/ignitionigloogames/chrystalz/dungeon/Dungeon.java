@@ -49,19 +49,19 @@ public class Dungeon {
         final long random = new RandomLongRange(0, Long.MAX_VALUE).generate();
         final String randomID = Long.toHexString(random);
         this.basePath = System.getProperty("java.io.tmpdir") + File.separator
-                + "TallerTower" + File.separator + randomID + ".maze";
+                + "Chrystalz" + File.separator + randomID + ".maze";
         final File base = new File(this.basePath);
         final boolean success = base.mkdirs();
         if (!success) {
             CommonDialogs.showErrorDialog(
-                    "Dungeon temporary folder creation failed!", "TallerTower");
+                    "Dungeon temporary folder creation failed!", "Chrystalz");
         }
     }
 
     // Static methods
     public static String getDungeonTempFolder() {
         return System.getProperty("java.io.tmpdir") + File.separator
-                + "TallerTower";
+                + "Chrystalz";
     }
 
     public static int getMinLevels() {

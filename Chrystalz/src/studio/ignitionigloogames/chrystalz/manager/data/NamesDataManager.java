@@ -19,9 +19,9 @@ public class NamesDataManager {
     private static final String MAC_PREFIX = "HOME";
     private static final String WIN_PREFIX = "APPDATA";
     private static final String UNIX_PREFIX = "HOME";
-    private static final String MAC_DIR = "/Library/Application Support/Putty Software/TallerTower/";
-    private static final String WIN_DIR = "\\Putty Software\\TallerTower\\";
-    private static final String UNIX_DIR = "/.puttysoftware/tallertower/";
+    private static final String MAC_DIR = "/Library/Application Support/Ignition Igloo Games/Chrystalz/";
+    private static final String WIN_DIR = "\\Ignition Igloo Games\\Chrystalz\\";
+    private static final String UNIX_DIR = "/.ignitionigloogames/chrystalz/";
 
     public static String[] getNamesData() {
         final File overrideData = NamesDataManager.getNamesOverrideFile();

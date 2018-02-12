@@ -40,7 +40,7 @@ public abstract class AbstractMonster extends AbstractCreature {
     // Methods
     protected void configureDefaults() {
         this.monID = RandomIntRange.generate(0, 99);
-        int zoneID = PartyManager.getParty().getTowerLevel();
+        int zoneID = PartyManager.getParty().getZone();
         this.type = MonsterNames.getType(zoneID, this.monID);
     }
 

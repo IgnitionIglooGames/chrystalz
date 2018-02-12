@@ -167,7 +167,7 @@ public class MenuManager {
         this.gameRemoveCharacter = new JMenuItem("Remove Character...");
         this.gameEquipment = new JMenuItem("Show Equipment...");
         this.gameViewStats = new JMenuItem("View Statistics...");
-        this.helpAbout = new JMenuItem("About TallerTower...");
+        this.helpAbout = new JMenuItem("About Chrystalz...");
         this.fileOpenGame.addActionListener(this.handler);
         this.fileClose.addActionListener(this.handler);
         this.fileSaveGame.addActionListener(this.handler);
@@ -293,7 +293,7 @@ public class MenuManager {
                 } else if (cmd.equals("View Statistics...")) {
                     // View Statistics
                     StatisticsViewer.viewStatistics();
-                } else if (cmd.equals("About TallerTower...")) {
+                } else if (cmd.equals("About Chrystalz...")) {
                     app.getAboutDialog().showAboutDialog();
                 }
                 MenuManager.this.checkFlags();

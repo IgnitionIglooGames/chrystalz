@@ -87,7 +87,7 @@ public class GameLoadTask extends Thread {
             // Final cleanup
             app.getGameManager().stateChanged();
             AbstractGameObject.setTemplateColor(ImageColorConstants
-                    .getColorForLevel(PartyManager.getParty().getTowerLevel()));
+                    .getColorForLevel(PartyManager.getParty().getZone()));
             app.getDungeonManager().setLoaded(true);
             CommonDialogs.showDialog(sg + " loaded.");
             app.getGameManager().playDungeon();

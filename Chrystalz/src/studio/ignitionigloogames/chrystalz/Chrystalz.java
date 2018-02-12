@@ -13,12 +13,12 @@ import studio.ignitionigloogames.common.errorlogger.ErrorLogger;
 public class Chrystalz {
     // Constants
     private static Application application;
-    private static final String PROGRAM_NAME = "TallerTower";
+    private static final String PROGRAM_NAME = "Chrystalz";
     private static final String ERROR_MESSAGE = "Perhaps a bug is to blame for this error message.\n"
             + "Include the error log with your bug report.\n"
-            + "Email bug reports to: products@puttysoftware.com\n"
-            + "Subject: TallerTower Bug Report";
-    private static final String ERROR_TITLE = "TallerTower Error";
+            + "Email bug reports to: products@ignitionigloogames.com\n"
+            + "Subject: Chrystalz Bug Report";
+    private static final String ERROR_TITLE = "Chrystalz Error";
     private static final ErrorLogger elog = new ErrorLogger(
             Chrystalz.PROGRAM_NAME);
     private static final int BATTLE_MAZE_SIZE = 16;

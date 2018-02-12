@@ -34,7 +34,7 @@ public final class GUIManager implements QuitHandler {
 
     // Constructors
     public GUIManager() {
-        this.guiFrame = new JFrame("TallerTower");
+        this.guiFrame = new JFrame("Chrystalz");
         final Image iconlogo = LogoManager.getIconLogo();
         this.guiFrame.setIconImage(iconlogo);
         final Container guiPane = this.guiFrame.getContentPane();

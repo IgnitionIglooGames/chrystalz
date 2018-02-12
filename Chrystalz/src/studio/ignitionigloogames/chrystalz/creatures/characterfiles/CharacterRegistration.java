@@ -22,9 +22,9 @@ public class CharacterRegistration {
     private static final String MAC_PREFIX = "HOME";
     private static final String WIN_PREFIX = "APPDATA";
     private static final String UNIX_PREFIX = "HOME";
-    private static final String MAC_DIR = "/Library/Application Support/Putty Software/TallerTower/Characters";
-    private static final String WIN_DIR = "\\Putty Software\\TallerTower\\Characters";
-    private static final String UNIX_DIR = "/.puttysoftware/tallertower/characters";
+    private static final String MAC_DIR = "/Library/Application Support/Ignition Igloo Games/Chrystalz/Characters";
+    private static final String WIN_DIR = "\\Ignition Igloo Games\\Chrystalz\\Characters";
+    private static final String UNIX_DIR = "/.ignitionigloogames/chrystalz/characters";
 
     // Methods
     public static void registerCharacter() {

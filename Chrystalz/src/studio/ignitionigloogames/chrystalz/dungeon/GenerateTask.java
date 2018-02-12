@@ -86,12 +86,12 @@ public class GenerateTask extends Thread {
                 gameDungeon.setPlayerLocationX(startR);
                 gameDungeon.setPlayerLocationY(startC);
                 gameDungeon.setPlayerLocationZ(startF);
-                PartyManager.getParty().offsetTowerLevel(1);
+                PartyManager.getParty().offsetZone(1);
             }
             gameDungeon.save();
             // Final cleanup
             AbstractGameObject.setTemplateColor(ImageColorConstants
-                    .getColorForLevel(PartyManager.getParty().getTowerLevel()));
+                    .getColorForLevel(PartyManager.getParty().getZone()));
             if (this.scratch) {
                 app.getGameManager().stateChanged();
                 app.getGameManager().playDungeon();

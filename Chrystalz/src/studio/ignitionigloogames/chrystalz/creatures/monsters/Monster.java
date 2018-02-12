@@ -40,7 +40,7 @@ class Monster extends AbstractMonster {
 
     @Override
     protected BufferedImageIcon getInitialImage() {
-        int zoneID = PartyManager.getParty().getTowerLevel();
+        int zoneID = PartyManager.getParty().getZone();
         int monID = this.getMonsterID();
         return MonsterImageManager.getImage(zoneID, monID);
     }
@@ -48,7 +48,7 @@ class Monster extends AbstractMonster {
     @Override
     public void loadCreature() {
         this.configureDefaults();
-        final int newLevel = PartyManager.getParty().getTowerLevel() + 1;
+        final int newLevel = PartyManager.getParty().getZone() + 1;
         this.setLevel(newLevel);
         this.setVitality(this.getInitialVitality());
         this.setCurrentHP(this.getMaximumHP());

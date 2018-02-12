@@ -25,7 +25,7 @@ public class NativeIntegration {
         if (System.getProperty("os.name").startsWith("Mac OS X")) {
             // Mac OS X-specific stuff
             System.setProperty(
-                    "com.apple.mrj.application.apple.menu.about.name",
+                    "studio.apple.mrj.application.apple.menu.about.name",
                     programName);
             System.setProperty("apple.laf.useScreenMenuBar", "true");
         } else if (System.getProperty("os.name").startsWith("Windows")) {
@@ -45,7 +45,7 @@ public class NativeIntegration {
             try {
                 // Tell the UIManager to use the Nimbus look and feel
                 UIManager.setLookAndFeel(
-                        "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+                        "studio.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
                 // Hint to the UI that the L&F is decorated
                 JFrame.setDefaultLookAndFeelDecorated(true);
             } catch (final Exception e) {

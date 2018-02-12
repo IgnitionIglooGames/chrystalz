@@ -28,9 +28,9 @@ public final class DungeonManager {
     private static final String MAC_PREFIX = "HOME";
     private static final String WIN_PREFIX = "APPDATA";
     private static final String UNIX_PREFIX = "HOME";
-    private static final String MAC_DIR = "/Library/Application Support/Putty Software/TallerTower/Games/";
-    private static final String WIN_DIR = "\\Putty Software\\TallerTower\\Games\\";
-    private static final String UNIX_DIR = "/.puttysoftware/tallertower/games/";
+    private static final String MAC_DIR = "/Library/Application Support/Ignition Igloo Games/Chrystalz/Games/";
+    private static final String WIN_DIR = "\\Ignition Igloo Games\\Chrystalz\\Games\\";
+    private static final String UNIX_DIR = "/.ignitionigloogames/chrystalz/games/";
 
     // Constructors
     public DungeonManager() {
@@ -76,7 +76,7 @@ public final class DungeonManager {
         final int mode = app.getMode();
         if (mode == Application.STATUS_GAME) {
             type = "game";
-            source = "TallerTower";
+            source = "Chrystalz";
         } else {
             // Not in the game or editor, so abort
             return JOptionPane.NO_OPTION;
