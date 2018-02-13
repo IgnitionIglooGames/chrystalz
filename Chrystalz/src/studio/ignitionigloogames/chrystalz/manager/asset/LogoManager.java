@@ -46,6 +46,6 @@ public class LogoManager {
     }
 
     public static BufferedImageIcon getIconLogo() {
-        return LogoCache.getCachedLogo("logo");
+        return LogoCache.getCachedLogo("iconlogo");
     }
 }
