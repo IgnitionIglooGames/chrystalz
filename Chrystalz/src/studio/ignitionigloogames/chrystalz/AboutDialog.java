@@ -69,7 +69,7 @@ public class AboutDialog implements AboutHandler {
         textPane.add(new JLabel("Chrystalz Version: " + ver));
         textPane.add(new JLabel("Author: Eric Ahnell"));
         textPane.add(new JLabel(
-                "Web Site: http://www.ignitionigloogames.studio/games/chrystalz/"));
+                "Web Site: http://www.ignitionigloogames.studio/chrystalz.html"));
         textPane.add(new JLabel(
                 "Support: https://github.com/IgnitionIglooGames/chrystalz/"));
         buttonPane.setLayout(new FlowLayout());
