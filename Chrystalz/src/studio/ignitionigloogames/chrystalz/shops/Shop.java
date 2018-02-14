@@ -7,13 +7,20 @@ package studio.ignitionigloogames.chrystalz.shops;
 
 import javax.swing.JOptionPane;
 
+import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
+import studio.ignitionigloogames.chrystalz.dialogs.ListWithImageDialog;
+import studio.ignitionigloogames.chrystalz.items.ArmorConstants;
 import studio.ignitionigloogames.chrystalz.items.Equipment;
 import studio.ignitionigloogames.chrystalz.items.EquipmentFactory;
+import studio.ignitionigloogames.chrystalz.items.WeaponConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.ArmorImageManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.WeaponImageManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
+import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class Shop {
     // Fields
@@ -21,24 +28,24 @@ public class Shop {
     int index;
     int defaultChoice;
     String[] choices;
+    String result;
+    int cost;
     String[] typeChoices;
     int typeDefault;
     String typeResult;
     int typeIndex;
-    boolean handIndex;
-    String result;
-    int cost;
-    boolean twoHanded;
-    private final ShopDialogGUI ui;
+    BufferedImageIcon[] imageChoices;
+    private final ShopDialogGUI defaultUI;
+    private final ShopImageDialogGUI imageUI;
     static final int MAX_ENHANCEMENTS = 9;
 
     // Constructors
     public Shop(final int shopType) {
         super();
-        this.ui = new ShopDialogGUI();
+        this.defaultUI = new ShopDialogGUI();
+        this.imageUI = new ShopImageDialogGUI();
         this.type = shopType;
         this.index = 0;
-        this.twoHanded = false;
     }
 
     // Methods
@@ -77,7 +84,12 @@ public class Shop {
     }
 
     public void showShop() {
-        this.ui.showShop();
+        if (this.type == ShopTypes.SHOP_TYPE_ARMOR
+                || this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
+            this.imageUI.showShop();
+        } else {
+            this.defaultUI.showShop();
+        }
     }
 
     private class ShopDialogGUI {
@@ -89,40 +101,30 @@ public class Shop {
             Shop.this.index = 0;
             Shop.this.defaultChoice = 0;
             Shop.this.choices = null;
-            Shop.this.typeChoices = null;
-            Shop.this.typeDefault = 0;
-            Shop.this.typeResult = null;
-            Shop.this.typeIndex = 0;
-            Shop.this.handIndex = false;
             Shop.this.result = null;
             Shop.this.cost = 0;
-            Shop.this.twoHanded = false;
             boolean valid = this.shopStage1();
             if (valid) {
                 valid = this.shopStage2();
-                if (valid) {
-                    valid = this.shopStage3();
-                    if (valid) {
-                        valid = this.shopStage4();
-                        if (valid) {
-                            this.shopStage5();
-                        }
-                    }
-                }
+            }
+            if (valid) {
+                valid = this.shopStage3();
+            }
+            if (valid) {
+                valid = this.shopStage4();
+            }
+            if (valid) {
+                this.shopStage5();
             }
         }
 
         private boolean shopStage1() {
-            // Stage 2
+            // Stage 1
+            // Play enter shop sound
+            SoundManager.playSound(SoundConstants.SOUND_SHOP);
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
-            if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
-                Shop.this.choices = EquipmentFactory.createWeaponNames(
-                        playerCharacter.getCaste().getCasteID());
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
-                Shop.this.choices = EquipmentFactory
-                        .createArmorNames(Shop.this.typeIndex);
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_HEALER
+            if (Shop.this.type == ShopTypes.SHOP_TYPE_HEALER
                     || Shop.this.type == ShopTypes.SHOP_TYPE_REGENERATOR) {
                 Shop.this.choices = new String[10];
                 int x;
@@ -145,7 +147,7 @@ public class Shop {
         }
 
         private boolean shopStage2() {
-            // Stage 3
+            // Stage 2
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             // Check
@@ -191,22 +193,11 @@ public class Shop {
         }
 
         private boolean shopStage3() {
-            // Stage 4
+            // Stage 3
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             Shop.this.cost = 0;
-            if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS
-                    || Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
-                Shop.this.cost = Shop.getEquipmentCost(Shop.this.index);
-                if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
-                    if (Shop.this.typeResult != null) {
-                        if (Shop.this.typeIndex == 1) {
-                            // Two-Handed Weapon, price doubled
-                            Shop.this.cost *= 2;
-                        }
-                    }
-                }
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_HEALER) {
+            if (Shop.this.type == ShopTypes.SHOP_TYPE_HEALER) {
                 Shop.this.cost = Shop.getHealingCost(playerCharacter.getLevel(),
                         playerCharacter.getCurrentHP(),
                         playerCharacter.getMaximumHP());
@@ -230,7 +221,7 @@ public class Shop {
         }
 
         private boolean shopStage4() {
-            // Stage 5
+            // Stage 4
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             if (playerCharacter.getGold() < Shop.this.cost) {
@@ -242,6 +233,170 @@ public class Shop {
         }
 
         private void shopStage5() {
+            // Stage 5
+            final PartyMember playerCharacter = PartyManager.getParty()
+                    .getLeader();
+            // Play transact sound
+            SoundManager.playSound(SoundConstants.SOUND_TRANSACT);
+            if (Shop.this.type == ShopTypes.SHOP_TYPE_HEALER) {
+                playerCharacter.offsetGold(-Shop.this.cost);
+                playerCharacter.healPercentage((Shop.this.index + 1) * 10);
+            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_REGENERATOR) {
+                playerCharacter.offsetGold(-Shop.this.cost);
+                playerCharacter
+                        .regeneratePercentage((Shop.this.index + 1) * 10);
+            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_SPELLS) {
+                playerCharacter.offsetGold(-Shop.this.cost);
+                if (Shop.this.index != -1) {
+                    playerCharacter.getSpellBook()
+                            .learnSpellByID(Shop.this.index);
+                }
+            }
+        }
+    }
+
+    private class ShopImageDialogGUI {
+        public ShopImageDialogGUI() {
+            // Do nothing
+        }
+
+        public void showShop() {
+            Shop.this.index = 0;
+            Shop.this.defaultChoice = 0;
+            Shop.this.choices = null;
+            Shop.this.result = null;
+            Shop.this.cost = 0;
+            boolean valid = this.shopStage1();
+            if (valid) {
+                valid = this.shopStage2();
+            }
+            if (valid) {
+                valid = this.shopStage3();
+            }
+            if (valid) {
+                valid = this.shopStage4();
+            }
+            if (valid) {
+                valid = this.shopStage5();
+            }
+            if (valid) {
+                this.shopStage6();
+            }
+        }
+
+        private boolean shopStage1() {
+            // Stage 1
+            // Play enter shop sound
+            SoundManager.playSound(SoundConstants.SOUND_SHOP);
+            final int zoneID = PartyManager.getParty().getZone();
+            if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
+                Shop.this.imageChoices = new BufferedImageIcon[WeaponConstants.TYPE_COUNT];
+                for (int i = 0; i < WeaponConstants.TYPE_COUNT; i++) {
+                    Shop.this.imageChoices[i] = WeaponImageManager.getImage(i,
+                            zoneID);
+                }
+                Shop.this.typeChoices = WeaponConstants.getWeaponChoices();
+                Shop.this.typeDefault = 0;
+            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
+                Shop.this.imageChoices = new BufferedImageIcon[ArmorConstants.TYPE_COUNT];
+                for (int i = 0; i < ArmorConstants.TYPE_COUNT; i++) {
+                    Shop.this.imageChoices[i] = ArmorImageManager.getImage(i,
+                            zoneID);
+                }
+                Shop.this.typeChoices = ArmorConstants.getArmorChoices();
+                Shop.this.typeDefault = 0;
+            }
+            if (Shop.this.typeChoices != null) {
+                Shop.this.typeResult = ListWithImageDialog.showDialog(
+                        "Select Type", Shop.this.getShopNameFromType(),
+                        Shop.this.typeChoices[Shop.this.typeDefault],
+                        Shop.this.typeChoices,
+                        Shop.this.imageChoices[Shop.this.typeDefault],
+                        Shop.this.imageChoices);
+                if (Shop.this.typeResult == null) {
+                    return false;
+                }
+                for (Shop.this.typeIndex = 0; Shop.this.typeIndex < Shop.this.typeChoices.length; Shop.this.typeIndex++) {
+                    if (Shop.this.typeResult.equals(
+                            Shop.this.typeChoices[Shop.this.typeIndex])) {
+                        break;
+                    }
+                }
+                if (Shop.this.typeIndex == Shop.this.typeChoices.length) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private boolean shopStage2() {
+            // Stage 2
+            final PartyMember playerCharacter = PartyManager.getParty()
+                    .getLeader();
+            if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
+                Shop.this.choices = EquipmentFactory.createWeaponNames(
+                        playerCharacter.getCaste().getCasteID());
+            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
+                Shop.this.choices = EquipmentFactory
+                        .createArmorNames(Shop.this.typeIndex);
+            } else {
+                // Invalid shop type
+                return false;
+            }
+            return true;
+        }
+
+        private boolean shopStage3() {
+            // Stage 3
+            CommonDialogs.setIcon(Shop.this.imageChoices[Shop.this.typeIndex]);
+            Shop.this.result = CommonDialogs.showInputDialog("Select",
+                    Shop.this.getShopNameFromType(), Shop.this.choices,
+                    Shop.this.choices[Shop.this.defaultChoice]);
+            CommonDialogs.setIcon(Application.getMicroLogo());
+            if (Shop.this.result == null) {
+                return false;
+            }
+            if (Shop.this.index == -1) {
+                return false;
+            }
+            Shop.this.index = 0;
+            for (Shop.this.index = 0; Shop.this.index < Shop.this.choices.length; Shop.this.index++) {
+                if (Shop.this.result
+                        .equals(Shop.this.choices[Shop.this.index])) {
+                    break;
+                }
+            }
+            return true;
+        }
+
+        private boolean shopStage4() {
+            // Stage 4
+            Shop.this.cost = 0;
+            Shop.this.cost = Shop.getEquipmentCost(Shop.this.index);
+            // Confirm
+            final int stage4Confirm = CommonDialogs.showConfirmDialog(
+                    "This will cost " + Shop.this.cost + " Gold. Are you sure?",
+                    Shop.this.getShopNameFromType());
+            if (stage4Confirm == JOptionPane.NO_OPTION
+                    || stage4Confirm == JOptionPane.CLOSED_OPTION) {
+                return false;
+            }
+            return true;
+        }
+
+        private boolean shopStage5() {
+            // Stage 5
+            final PartyMember playerCharacter = PartyManager.getParty()
+                    .getLeader();
+            if (playerCharacter.getGold() < Shop.this.cost) {
+                CommonDialogs.showErrorDialog("Not Enough Gold!",
+                        Shop.this.getShopNameFromType());
+                return false;
+            }
+            return true;
+        }
+
+        private void shopStage6() {
             // Stage 6
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
@@ -260,19 +415,6 @@ public class Shop {
                         .createArmor(Shop.this.index, Shop.this.typeIndex);
                 playerCharacter.getItems().equipArmor(playerCharacter, bought,
                         true);
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_HEALER) {
-                playerCharacter.offsetGold(-Shop.this.cost);
-                playerCharacter.healPercentage((Shop.this.index + 1) * 10);
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_REGENERATOR) {
-                playerCharacter.offsetGold(-Shop.this.cost);
-                playerCharacter
-                        .regeneratePercentage((Shop.this.index + 1) * 10);
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_SPELLS) {
-                playerCharacter.offsetGold(-Shop.this.cost);
-                if (Shop.this.index != -1) {
-                    playerCharacter.getSpellBook()
-                            .learnSpellByID(Shop.this.index);
-                }
             }
         }
     }

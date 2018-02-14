@@ -14,6 +14,13 @@ public class ArmorConstants {
         // Do nothing
     }
 
+    public static final int TYPE_COUNT = 6;
+
+    public static synchronized String[] getArmorChoices() {
+        return StringManager.getAllLocalizedStrings(LocalizedFile.ARMOR_TYPES,
+                6);
+    }
+
     public static synchronized String getArmor(final int index) {
         return StringManager.getLocalizedString(LocalizedFile.ARMOR_TYPES,
                 index);

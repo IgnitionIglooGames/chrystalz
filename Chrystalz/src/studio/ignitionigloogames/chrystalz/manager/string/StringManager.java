@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.manager.name.ZoneNames;
 
 public class StringManager {
     private StringManager() {
@@ -22,6 +23,26 @@ public class StringManager {
     public static String getLocalizedString(final LocalizedFile file,
             final int key) {
         return StringManager.getLocalizedString(file, Integer.toString(key));
+    }
+
+    public static String[] getAllLocalizedStrings(final LocalizedFile file,
+            final int max) {
+        String[] retVal = new String[max];
+        try {
+            StringManager.LOCAL.load(StringManager.class
+                    .getResourceAsStream(FilePaths.BASE + FilePaths.LANG_DEFAULT
+                            + LocalizedFileList.LIST[file.ordinal()]
+                            + Extension.getStringExtensionWithPeriod()));
+            for (int k = 0; k < max; k++) {
+                String key = ZoneNames.getZoneName(k);
+                retVal[k] = StringManager.LOCAL.getProperty(key);
+            }
+        } catch (IOException ioe) {
+            for (int k = 0; k < max; k++) {
+                retVal[k] = StringManager.ERROR;
+            }
+        }
+        return retVal;
     }
 
     public static String getLocalizedString(final LocalizedFile file,

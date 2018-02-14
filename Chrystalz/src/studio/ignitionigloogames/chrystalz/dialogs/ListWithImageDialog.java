@@ -24,7 +24,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -47,16 +46,13 @@ public class ListWithImageDialog extends JDialog implements ActionListener {
      * screen; otherwise, it should be the component on top of which the dialog
      * should appear.
      */
-    public static String showDialog(final Component frameComp,
-            final Component locationComp, final String labelText,
-            final String title, final String[] possibleValues,
-            final String initialValue, final BufferedImageIcon imgValue,
+    public static String showDialog(final String labelText, final String title,
+            final String initialValue, final String[] possibleValues,
+            final BufferedImageIcon imgValue,
             final BufferedImageIcon... possibleImages) {
         ListWithImageDialog.value = null;
-        final Frame frame = JOptionPane.getFrameForComponent(frameComp);
-        ListWithImageDialog.dialog = new ListWithImageDialog(frame,
-                locationComp, labelText, title, possibleValues, initialValue,
-                imgValue, possibleImages);
+        ListWithImageDialog.dialog = new ListWithImageDialog(labelText, title,
+                initialValue, possibleValues, imgValue, possibleImages);
         ListWithImageDialog.dialog.setVisible(true);
         return ListWithImageDialog.value;
     }
@@ -67,12 +63,11 @@ public class ListWithImageDialog extends JDialog implements ActionListener {
                 true);
     }
 
-    private ListWithImageDialog(final Frame frame, final Component locationComp,
-            final String labelText, final String title,
-            final String[] possibleValues, final String initialValue,
+    private ListWithImageDialog(final String labelText, final String title,
+            final String initialValue, final String[] possibleValues,
             final BufferedImageIcon imgValue,
             final BufferedImageIcon... possibleImages) {
-        super(frame, title, true);
+        super((Frame) null, title, true);
         // Initialize the images
         ListWithImageDialog.imgs = possibleImages;
         // Create and initialize the buttons.
@@ -136,7 +131,6 @@ public class ListWithImageDialog extends JDialog implements ActionListener {
         // Initialize values.
         ListWithImageDialog.setValue(initialValue);
         this.pack();
-        this.setLocationRelativeTo(locationComp);
     }
 
     // Handle clicks on the Set and Cancel buttons.

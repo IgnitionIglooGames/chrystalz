@@ -14,6 +14,13 @@ public class WeaponConstants {
         // Do nothing
     }
 
+    public static final int TYPE_COUNT = 6;
+
+    public static synchronized String[] getWeaponChoices() {
+        return StringManager.getAllLocalizedStrings(LocalizedFile.WEAPON_TYPES,
+                6);
+    }
+
     public static synchronized String getWeapon(final int index) {
         return StringManager.getLocalizedString(LocalizedFile.WEAPON_TYPES,
                 index);
