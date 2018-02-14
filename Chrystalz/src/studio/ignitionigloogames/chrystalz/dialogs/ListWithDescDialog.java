@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.creatures.party;
+package studio.ignitionigloogames.chrystalz.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -31,7 +31,7 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
-class ListWithDescDialog extends JDialog implements ActionListener {
+public class ListWithDescDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
     static String[] descs;
     private static ListWithDescDialog dialog;

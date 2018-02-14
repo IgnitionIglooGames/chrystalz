@@ -16,6 +16,7 @@ import studio.ignitionigloogames.chrystalz.creatures.characterfiles.CharacterLoa
 import studio.ignitionigloogames.chrystalz.creatures.characterfiles.CharacterRegistration;
 import studio.ignitionigloogames.chrystalz.creatures.genders.Gender;
 import studio.ignitionigloogames.chrystalz.creatures.genders.GenderManager;
+import studio.ignitionigloogames.chrystalz.dialogs.ListWithDescDialog;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
