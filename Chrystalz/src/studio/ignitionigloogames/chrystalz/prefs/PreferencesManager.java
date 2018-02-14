@@ -35,12 +35,11 @@ public class PreferencesManager {
     private static final String WIN_FILE = "ChrystalzPreferences";
     private static final String UNIX_FILE = "ChrystalzPreferences";
     private static final String SOUNDS_SETTING = "SoundsEnabled";
-    private static final String WINDOW_SETTING = "ViewingWindowSize";
-    private static final String UPDATE_SETTING = "UpdatesStartup";
     private static final String MOVE_SETTING = "OneMove";
     private static final String DIFFICULTY_SETTING = "GameDifficulty";
     private static final String MUSIC_SETTING = "EnableMusic";
     private static final int BATTLE_SPEED = 1000;
+    private static final int VIEWING_WINDOW_SIZE = 11;
 
     // Private constructor
     private PreferencesManager() {
@@ -63,29 +62,7 @@ public class PreferencesManager {
     }
 
     public static int getViewingWindowSize() {
-        return PreferencesGUIManager.VIEWING_WINDOW_SIZES[PreferencesManager
-                .getViewingWindowSizeIndex()];
-    }
-
-    static int getViewingWindowSizeIndex() {
-        return PreferencesManager.storeMgr.getInteger(
-                PreferencesManager.WINDOW_SETTING,
-                PreferencesGUIManager.DEFAULT_SIZE_INDEX);
-    }
-
-    static void setViewingWindowSizeIndex(final int value) {
-        PreferencesManager.storeMgr
-                .setInteger(PreferencesManager.WINDOW_SETTING, value);
-    }
-
-    public static boolean shouldCheckUpdatesAtStartup() {
-        return PreferencesManager.storeMgr
-                .getBoolean(PreferencesManager.UPDATE_SETTING, true);
-    }
-
-    static void setCheckUpdatesAtStartup(final boolean value) {
-        PreferencesManager.storeMgr
-                .setBoolean(PreferencesManager.UPDATE_SETTING, value);
+        return PreferencesManager.VIEWING_WINDOW_SIZE;
     }
 
     public static boolean oneMove() {
@@ -199,14 +176,9 @@ public class PreferencesManager {
         } catch (final IOException io) {
             // Populate store with defaults
             PreferencesManager.storeMgr
-                    .setBoolean(PreferencesManager.UPDATE_SETTING, true);
-            PreferencesManager.storeMgr
                     .setBoolean(PreferencesManager.MOVE_SETTING, true);
             PreferencesManager.storeMgr
                     .setBoolean(PreferencesManager.MUSIC_SETTING, true);
-            PreferencesManager.storeMgr.setInteger(
-                    PreferencesManager.WINDOW_SETTING,
-                    PreferencesGUIManager.DEFAULT_VIEWING_WINDOW_SIZE);
             PreferencesManager.storeMgr
                     .setBoolean(PreferencesManager.SOUNDS_SETTING, true);
             PreferencesManager.storeMgr.setInteger(
