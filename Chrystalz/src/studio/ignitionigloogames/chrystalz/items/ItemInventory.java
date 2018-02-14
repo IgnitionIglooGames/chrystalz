@@ -30,53 +30,16 @@ public class ItemInventory {
         this.equipment = new Equipment[EquipmentSlotConstants.MAX_SLOTS];
     }
 
-    public void equipOneHandedWeapon(final AbstractCreature pc,
-            final Equipment ei, final boolean useFirst,
+    public void equipWeapon(final AbstractCreature pc, final Equipment ei,
             final boolean playSound) {
         // Fix character load, changing weapons
-        if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null
-                && useFirst) {
-            pc.offsetLoad(-this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
-                    .getEffectiveWeight());
-        } else if (this.equipment[EquipmentSlotConstants.SLOT_OFFHAND] != null
-                && !useFirst) {
-            pc.offsetLoad(-this.equipment[EquipmentSlotConstants.SLOT_OFFHAND]
-                    .getEffectiveWeight());
-        }
-        pc.offsetLoad(ei.getEffectiveWeight());
-        // Check for two-handed weapon
-        if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
-            if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
-                    .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_TWO_HANDED_WEAPON) {
-                // Two-handed weapon currently equipped, unequip it
-                this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] = null;
-                this.equipment[EquipmentSlotConstants.SLOT_OFFHAND] = null;
-            }
-        }
-        if (useFirst) {
-            // Equip it in first slot
-            this.equipment[ei.getFirstSlotUsed()] = ei;
-        } else {
-            // Equip it in second slot
-            this.equipment[ei.getSecondSlotUsed()] = ei;
-        }
-        if (playSound) {
-            SoundManager.playSound(SoundConstants.SOUND_EQUIP);
-        }
-    }
-
-    public void equipTwoHandedWeapon(final AbstractCreature pc,
-            final Equipment ei, final boolean playSound) {
-        // Fix character load, changing weapons
         if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
             pc.offsetLoad(-this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
                     .getEffectiveWeight());
         }
         pc.offsetLoad(ei.getEffectiveWeight());
-        // Equip it in first slot
-        this.equipment[ei.getFirstSlotUsed()] = ei;
-        // Equip it in second slot
-        this.equipment[ei.getSecondSlotUsed()] = ei;
+        // Equip it
+        this.equipment[ei.getSlotUsed()] = ei;
         if (playSound) {
             SoundManager.playSound(SoundConstants.SOUND_EQUIP);
         }
@@ -85,24 +48,13 @@ public class ItemInventory {
     public void equipArmor(final AbstractCreature pc, final Equipment ei,
             final boolean playSound) {
         // Fix character load, changing armor
-        if (ei.getFirstSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
-            // Check for two-handed weapon
-            if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
-                if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
-                        .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_TWO_HANDED_WEAPON) {
-                    pc.offsetLoad(
-                            -this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
-                                    .getEffectiveWeight());
-                }
-            }
-        }
-        if (this.equipment[ei.getFirstSlotUsed()] != null) {
-            pc.offsetLoad(-this.equipment[ei.getFirstSlotUsed()]
-                    .getEffectiveWeight());
+        if (this.equipment[ei.getSlotUsed()] != null) {
+            pc.offsetLoad(
+                    -this.equipment[ei.getSlotUsed()].getEffectiveWeight());
         }
         pc.offsetLoad(ei.getEffectiveWeight());
         // Check for shield
-        if (ei.getFirstSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
+        if (ei.getSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
             // Check for two-handed weapon
             if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
                 if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
@@ -114,7 +66,7 @@ public class ItemInventory {
             }
         }
         // Equip it in first slot
-        this.equipment[ei.getFirstSlotUsed()] = ei;
+        this.equipment[ei.getSlotUsed()] = ei;
         if (playSound) {
             SoundManager.playSound(SoundConstants.SOUND_EQUIP);
         }

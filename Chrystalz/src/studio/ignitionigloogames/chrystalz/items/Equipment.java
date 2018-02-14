@@ -11,12 +11,12 @@ import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
 public class Equipment extends Item {
+    // Constants
+    private static final int MATERIAL_NONE = -1;
     // Properties
     private final int equipCat;
     private final int materialID;
-    private int firstSlotUsed;
-    private int secondSlotUsed;
-    private boolean conditionalSlot;
+    private int slotUsed;
 
     // Constructors
     private Equipment(final Item i, final int equipCategory,
@@ -24,18 +24,14 @@ public class Equipment extends Item {
         super(i.getName(), i.getInitialUses(), i.getWeightPerUse());
         this.equipCat = equipCategory;
         this.materialID = newMaterialID;
-        this.firstSlotUsed = EquipmentSlotConstants.SLOT_NONE;
-        this.secondSlotUsed = EquipmentSlotConstants.SLOT_NONE;
-        this.conditionalSlot = false;
+        this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
     }
 
     protected Equipment(final String itemName, final int cost) {
         super(itemName, 0, 0);
         this.equipCat = EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ARMOR;
-        this.materialID = ArmorMaterialConstants.MATERIAL_NONE;
-        this.firstSlotUsed = EquipmentSlotConstants.SLOT_SOCKS;
-        this.secondSlotUsed = EquipmentSlotConstants.SLOT_NONE;
-        this.conditionalSlot = false;
+        this.materialID = Equipment.MATERIAL_NONE;
+        this.slotUsed = EquipmentSlotConstants.SLOT_SOCKS;
         this.setBuyPrice(cost);
     }
 
@@ -45,18 +41,14 @@ public class Equipment extends Item {
         super(itemName, itemInitialUses, itemWeightPerUse);
         this.equipCat = equipCategory;
         this.materialID = newMaterialID;
-        this.firstSlotUsed = EquipmentSlotConstants.SLOT_NONE;
-        this.secondSlotUsed = EquipmentSlotConstants.SLOT_NONE;
-        this.conditionalSlot = false;
+        this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
     }
 
     Equipment(final Equipment e) {
         super(e.getName(), e);
         this.equipCat = e.equipCat;
         this.materialID = e.materialID;
-        this.firstSlotUsed = e.firstSlotUsed;
-        this.secondSlotUsed = e.secondSlotUsed;
-        this.conditionalSlot = e.conditionalSlot;
+        this.slotUsed = e.slotUsed;
     }
 
     // Methods
@@ -64,11 +56,9 @@ public class Equipment extends Item {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + (this.conditionalSlot ? 1231 : 1237);
         result = prime * result + this.equipCat;
-        result = prime * result + this.firstSlotUsed;
-        result = prime * result + this.materialID;
-        return prime * result + this.secondSlotUsed;
+        result = prime * result + this.slotUsed;
+        return prime * result + this.materialID;
     }
 
     @Override
@@ -83,53 +73,24 @@ public class Equipment extends Item {
             return false;
         }
         final Equipment other = (Equipment) obj;
-        if (this.conditionalSlot != other.conditionalSlot) {
-            return false;
-        }
         if (this.equipCat != other.equipCat) {
             return false;
         }
-        if (this.firstSlotUsed != other.firstSlotUsed) {
+        if (this.slotUsed != other.slotUsed) {
             return false;
         }
         if (this.materialID != other.materialID) {
             return false;
         }
-        if (this.secondSlotUsed != other.secondSlotUsed) {
-            return false;
-        }
         return true;
     }
 
-    public final void enchantName(final int bonus) {
-        String oldName = this.getName();
-        // Check - is name enchanted already?
-        if (oldName.charAt(oldName.length() - 2) == '+') {
-            // Yes - remove old enchantment
-            oldName = oldName.substring(0, oldName.length() - 3);
-        }
-        final String newName = oldName + " +" + bonus;
-        this.setName(newName);
+    public final int getSlotUsed() {
+        return this.slotUsed;
     }
 
-    public final int getFirstSlotUsed() {
-        return this.firstSlotUsed;
-    }
-
-    public final void setFirstSlotUsed(final int newFirstSlotUsed) {
-        this.firstSlotUsed = newFirstSlotUsed;
-    }
-
-    public final int getSecondSlotUsed() {
-        return this.secondSlotUsed;
-    }
-
-    public final void setSecondSlotUsed(final int newSecondSlotUsed) {
-        this.secondSlotUsed = newSecondSlotUsed;
-    }
-
-    public final void setConditionalSlot(final boolean newConditionalSlot) {
-        this.conditionalSlot = newConditionalSlot;
+    public final void setSlotUsed(final int newSlotUsed) {
+        this.slotUsed = newSlotUsed;
     }
 
     public final int getEquipCategory() {
@@ -138,12 +99,6 @@ public class Equipment extends Item {
 
     public final int getMaterial() {
         return this.materialID;
-    }
-
-    public final boolean isTwoHanded() {
-        return this.firstSlotUsed == EquipmentSlotConstants.SLOT_MAINHAND
-                && this.secondSlotUsed == EquipmentSlotConstants.SLOT_OFFHAND
-                && !this.conditionalSlot;
     }
 
     static Equipment readEquipment(final FileIOReader dr) throws IOException {
@@ -155,9 +110,7 @@ public class Equipment extends Item {
         final int matID = dr.readInt();
         final int eCat = dr.readInt();
         final Equipment ei = new Equipment(i, eCat, matID);
-        ei.firstSlotUsed = dr.readInt();
-        ei.secondSlotUsed = dr.readInt();
-        ei.conditionalSlot = dr.readBoolean();
+        ei.slotUsed = dr.readInt();
         return ei;
     }
 
@@ -165,8 +118,6 @@ public class Equipment extends Item {
         super.writeItem(dw);
         dw.writeInt(this.materialID);
         dw.writeInt(this.equipCat);
-        dw.writeInt(this.firstSlotUsed);
-        dw.writeInt(this.secondSlotUsed);
-        dw.writeBoolean(this.conditionalSlot);
+        dw.writeInt(this.slotUsed);
     }
 }

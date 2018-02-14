@@ -9,10 +9,8 @@ import javax.swing.JOptionPane;
 
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
-import studio.ignitionigloogames.chrystalz.items.ArmorConstants;
 import studio.ignitionigloogames.chrystalz.items.Equipment;
 import studio.ignitionigloogames.chrystalz.items.EquipmentFactory;
-import studio.ignitionigloogames.chrystalz.items.WeaponConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
@@ -107,10 +105,7 @@ public class Shop {
                     if (valid) {
                         valid = this.shopStage4();
                         if (valid) {
-                            valid = this.shopStage5();
-                            if (valid) {
-                                this.shopStage6();
-                            }
+                            this.shopStage5();
                         }
                     }
                 }
@@ -118,71 +113,12 @@ public class Shop {
         }
 
         private boolean shopStage1() {
-            // Stage 1
-            // Play enter shop sound
-            SoundManager.playSound(SoundConstants.SOUND_SHOP);
-            if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
-                Shop.this.typeChoices = WeaponConstants.getWeaponChoices();
-                Shop.this.typeDefault = 0;
-            } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
-                Shop.this.typeChoices = ArmorConstants.getArmorChoices();
-                Shop.this.typeDefault = 0;
-            }
-            if (Shop.this.typeChoices != null) {
-                Shop.this.typeResult = CommonDialogs.showInputDialog(
-                        "Select Type", Shop.this.getShopNameFromType(),
-                        Shop.this.typeChoices,
-                        Shop.this.typeChoices[Shop.this.typeDefault]);
-                if (Shop.this.typeResult == null) {
-                    return false;
-                }
-                for (Shop.this.typeIndex = 0; Shop.this.typeIndex < Shop.this.typeChoices.length; Shop.this.typeIndex++) {
-                    if (Shop.this.typeResult.equals(
-                            Shop.this.typeChoices[Shop.this.typeIndex])) {
-                        break;
-                    }
-                }
-                if (Shop.this.typeIndex == Shop.this.typeChoices.length) {
-                    return false;
-                }
-                if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR
-                        && Shop.this.typeIndex > 1) {
-                    // Adjust typeIndex, position 2 is blank
-                    Shop.this.typeIndex++;
-                }
-            }
-            return true;
-        }
-
-        private boolean shopStage2() {
             // Stage 2
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
-                if (Shop.this.typeResult.equals(Shop.this.typeChoices[0])) {
-                    Shop.this.choices = EquipmentFactory
-                            .createOneHandedWeaponNames(
-                                    playerCharacter.getCaste().getCasteID());
-                    // Choose Hand
-                    final String[] handChoices = WeaponConstants
-                            .getHandChoices();
-                    final int handDefault = 0;
-                    final String handResult = CommonDialogs.showInputDialog(
-                            "Select Hand", Shop.this.getShopNameFromType(),
-                            handChoices, handChoices[handDefault]);
-                    if (handResult == null) {
-                        return false;
-                    }
-                    if (handResult.equals(handChoices[0])) {
-                        Shop.this.handIndex = true;
-                    } else {
-                        Shop.this.handIndex = false;
-                    }
-                } else {
-                    Shop.this.choices = EquipmentFactory
-                            .createTwoHandedWeaponNames(
-                                    playerCharacter.getCaste().getCasteID());
-                }
+                Shop.this.choices = EquipmentFactory.createWeaponNames(
+                        playerCharacter.getCaste().getCasteID());
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
                 Shop.this.choices = EquipmentFactory
                         .createArmorNames(Shop.this.typeIndex);
@@ -208,7 +144,7 @@ public class Shop {
             return true;
         }
 
-        private boolean shopStage3() {
+        private boolean shopStage2() {
             // Stage 3
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
@@ -254,7 +190,7 @@ public class Shop {
             return true;
         }
 
-        private boolean shopStage4() {
+        private boolean shopStage3() {
             // Stage 4
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
@@ -293,7 +229,7 @@ public class Shop {
             return true;
         }
 
-        private boolean shopStage5() {
+        private boolean shopStage4() {
             // Stage 5
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
@@ -305,7 +241,7 @@ public class Shop {
             return true;
         }
 
-        private void shopStage6() {
+        private void shopStage5() {
             // Stage 6
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
@@ -313,23 +249,15 @@ public class Shop {
             SoundManager.playSound(SoundConstants.SOUND_TRANSACT);
             if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
                 playerCharacter.offsetGold(-Shop.this.cost);
-                if (Shop.this.typeResult.equals(Shop.this.typeChoices[0])) {
-                    final Equipment bought = EquipmentFactory
-                            .createOneHandedWeapon(Shop.this.index,
-                                    playerCharacter.getCaste().getCasteID(), 0);
-                    playerCharacter.getItems().equipOneHandedWeapon(
-                            playerCharacter, bought, Shop.this.handIndex, true);
-                } else {
-                    final Equipment bought = EquipmentFactory
-                            .createTwoHandedWeapon(Shop.this.index,
-                                    playerCharacter.getCaste().getCasteID(), 0);
-                    playerCharacter.getItems().equipTwoHandedWeapon(
-                            playerCharacter, bought, true);
-                }
+                final Equipment bought = EquipmentFactory.createWeapon(
+                        Shop.this.index,
+                        playerCharacter.getCaste().getCasteID());
+                playerCharacter.getItems().equipWeapon(playerCharacter, bought,
+                        true);
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
                 playerCharacter.offsetGold(-Shop.this.cost);
                 final Equipment bought = EquipmentFactory
-                        .createArmor(Shop.this.index, Shop.this.typeIndex, 0);
+                        .createArmor(Shop.this.index, Shop.this.typeIndex);
                 playerCharacter.getItems().equipArmor(playerCharacter, bought,
                         true);
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_HEALER) {
