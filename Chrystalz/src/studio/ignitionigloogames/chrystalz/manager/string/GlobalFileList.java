@@ -6,5 +6,5 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package studio.ignitionigloogames.chrystalz.manager.string;
 
 class GlobalFileList {
-    static final String[] LIST = { "global" };
+    static final String[] LIST = { "armortypes", "weapontypes" };
 }
