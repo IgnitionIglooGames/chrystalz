@@ -244,7 +244,7 @@ public abstract class AbstractGameObject extends CloneableObject
 
     public BufferedImageIcon battleRenderHook() {
         return BattleImageManager.getImage(this.getName(),
-                this.getBattleBaseID(), AbstractGameObject.getTemplateColor());
+                this.getBattleBaseID());
     }
 
     public boolean defersSetProperties() {

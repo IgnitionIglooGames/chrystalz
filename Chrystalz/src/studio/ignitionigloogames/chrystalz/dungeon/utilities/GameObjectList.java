@@ -23,11 +23,8 @@ import studio.ignitionigloogames.chrystalz.dungeon.objects.StairsUp;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.WeaponsShop;
-import studio.ignitionigloogames.chrystalz.manager.asset.ImageTransformer;
-import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageManager;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.FormatConstants;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
-import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class GameObjectList {
     // Fields
@@ -60,19 +57,6 @@ public class GameObjectList {
             allDescriptions[x] = objects[x].getDescription();
         }
         return allDescriptions;
-    }
-
-    public BufferedImageIcon[] getAllEditorAppearances() {
-        final AbstractGameObject[] objects = this.getAllObjects();
-        final BufferedImageIcon[] allEditorAppearances = new BufferedImageIcon[objects.length];
-        for (int x = 0; x < allEditorAppearances.length; x++) {
-            allEditorAppearances[x] = ImageTransformer.getTransformedImage(
-                    ObjectImageManager.getImage(objects[x].getName(),
-                            objects[x].getBaseID(),
-                            AbstractGameObject.getTemplateColor()),
-                    ImageTransformer.getGraphicSize());
-        }
-        return allEditorAppearances;
     }
 
     public final AbstractGameObject[] getAllRequired(final int layer) {

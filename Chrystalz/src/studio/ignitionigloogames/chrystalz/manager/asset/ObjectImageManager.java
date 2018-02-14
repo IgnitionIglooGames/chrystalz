@@ -26,20 +26,16 @@ public class ObjectImageManager {
      * @return
      */
     public static BufferedImageIcon getImage(final String name,
-            final int baseID, final int transformColor) {
+            final int baseID) {
         // Get it from the cache
         final String baseName = ObjectImageConstants.getObjectImageName(baseID);
-        final BufferedImageIcon bii = ObjectImageCache.getCachedImage(name,
-                baseName);
-        return ImageTransformer.templateTransformImage(bii, transformColor,
-                ImageTransformer.getGraphicSize());
+        return ObjectImageCache.getCachedImage(name, baseName);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
         try {
-            final String normalName = ImageTransformer.normalizeName(name);
-            final URL url = ObjectImageManager.LOAD_CLASS.getResource(
-                    ObjectImageManager.LOAD_PATH + normalName + ".png");
+            final URL url = ObjectImageManager.LOAD_CLASS
+                    .getResource(ObjectImageManager.LOAD_PATH + name + ".png");
             final BufferedImage image = ImageIO.read(url);
             return new BufferedImageIcon(image);
         } catch (final IOException ie) {

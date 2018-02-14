@@ -11,27 +11,29 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import studio.ignitionigloogames.chrystalz.manager.name.MonsterNames;
 import studio.ignitionigloogames.chrystalz.manager.name.ZoneNames;
+import studio.ignitionigloogames.chrystalz.manager.string.GlobalFile;
+import studio.ignitionigloogames.chrystalz.manager.string.StringManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
-public class MonsterImageManager {
-    private static final String DEFAULT_LOAD_PATH = "/assets/images/monsters/";
-    private static String LOAD_PATH = MonsterImageManager.DEFAULT_LOAD_PATH;
-    private static Class<?> LOAD_CLASS = MonsterImageManager.class;
+public class ArmorImageManager {
+    private static final String DEFAULT_LOAD_PATH = "/assets/images/items/armor/";
+    private static String LOAD_PATH = ArmorImageManager.DEFAULT_LOAD_PATH;
+    private static Class<?> LOAD_CLASS = ArmorImageManager.class;
 
-    public static BufferedImageIcon getImage(final int zoneID,
-            final int monID) {
+    public static BufferedImageIcon getImage(final int typeID,
+            final int zoneID) {
         // Get it from the cache
-        final String name = ZoneNames.getZoneName(zoneID)
-                + MonsterNames.getName(monID);
-        return MonsterImageCache.getCachedImage(name);
+        final String name = StringManager.getGlobalString(
+                GlobalFile.ARMOR_TYPES, ZoneNames.getZoneName(typeID)) + "/"
+                + ZoneNames.getZoneName(zoneID);
+        return ArmorImageCache.getCachedImage(name);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
         try {
-            final URL url = MonsterImageManager.LOAD_CLASS
-                    .getResource(MonsterImageManager.LOAD_PATH + name + ".png");
+            final URL url = ArmorImageManager.LOAD_CLASS
+                    .getResource(ArmorImageManager.LOAD_PATH + name + ".png");
             final BufferedImage image = ImageIO.read(url);
             return new BufferedImageIcon(image);
         } catch (final IOException ie) {

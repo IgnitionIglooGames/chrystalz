@@ -17,7 +17,6 @@ public class AvatarImageManager {
     private static final String DEFAULT_LOAD_PATH = "/assets/images/avatars/";
     private static String LOAD_PATH = AvatarImageManager.DEFAULT_LOAD_PATH;
     private static Class<?> LOAD_CLASS = AvatarImageManager.class;
-    static int MONSTER_IMAGE_SIZE = 64;
     private static final String[] INTERNAL_GENDER_NAMES = { "male/",
             "female/" };
 
@@ -26,16 +25,13 @@ public class AvatarImageManager {
         // Get it from the cache
         final String name = AvatarImageManager.INTERNAL_GENDER_NAMES[genderID]
                 + Integer.toString(hairID) + Integer.toString(skinID);
-        final BufferedImageIcon bii = AvatarImageCache.getCachedImage(name);
-        return ImageTransformer.getTransformedImage(bii,
-                AvatarImageManager.MONSTER_IMAGE_SIZE);
+        return AvatarImageCache.getCachedImage(name);
     }
 
     static BufferedImageIcon getUncachedImage(final String name) {
         try {
-            final String normalName = ImageTransformer.normalizeName(name);
-            final URL url = AvatarImageManager.LOAD_CLASS.getResource(
-                    AvatarImageManager.LOAD_PATH + normalName + ".png");
+            final URL url = AvatarImageManager.LOAD_CLASS
+                    .getResource(AvatarImageManager.LOAD_PATH + name + ".png");
             final BufferedImage image = ImageIO.read(url);
             return new BufferedImageIcon(image);
         } catch (final IOException ie) {

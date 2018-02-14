@@ -24,4 +24,15 @@ public class ZoneNames {
         }
         return StringManager.getLocalizedString(LocalizedFile.ZONES, zoneID);
     }
+
+    public static final String getZoneName(final int ID) {
+        String tempZoneID = Integer.toString(ID);
+        String zoneID;
+        if (tempZoneID.length() == 1) {
+            zoneID = "0" + tempZoneID;
+        } else {
+            zoneID = tempZoneID;
+        }
+        return "zone" + zoneID + "/";
+    }
 }

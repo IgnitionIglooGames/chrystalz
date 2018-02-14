@@ -34,7 +34,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Darkness;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.manager.asset.BattleImageManager;
-import studio.ignitionigloogames.chrystalz.manager.asset.ImageTransformer;
+import studio.ignitionigloogames.chrystalz.manager.asset.ImageCompositor;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.MusicConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.MusicManager;
@@ -123,7 +123,7 @@ class MapTurnBattleGUI {
                                 .getCell(y, x, 0, DungeonConstants.LAYER_OBJECT)
                                 .battleRenderHook();
                         this.drawGrid.setImageCell(
-                                ImageTransformer.getCompositeImage(icon1, icon2,
+                                ImageCompositor.getCompositeImage(icon1, icon2,
                                         BattleImageManager.getGraphicSize()),
                                 xFix, yFix);
                     } catch (final ArrayIndexOutOfBoundsException ae) {
@@ -160,7 +160,7 @@ class MapTurnBattleGUI {
                         .battleRenderHook();
                 final BufferedImageIcon icon3 = obj3.battleRenderHook();
                 this.drawGrid.setImageCell(
-                        ImageTransformer.getVirtualCompositeImage(icon1, icon2,
+                        ImageCompositor.getVirtualCompositeImage(icon1, icon2,
                                 icon3, BattleImageManager.getGraphicSize()),
                         xFix, yFix);
                 this.battlePane.repaint();
@@ -242,8 +242,7 @@ class MapTurnBattleGUI {
                 final AbstractGameObject dark = new Darkness().gameRenderHook(y,
                         x, 0);
                 this.drawGrid.setImageCell(BattleImageManager.getImage(
-                        dark.getName(), dark.getGameBaseID(),
-                        AbstractGameObject.getTemplateColor()), x, y);
+                        dark.getName(), dark.getGameBaseID()), x, y);
             }
         }
         this.battlePane = new MapBattleDraw(this.drawGrid);

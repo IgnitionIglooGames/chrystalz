@@ -31,9 +31,8 @@ public class BossImageManager {
 
     static BufferedImageIcon getUncachedImage(final String name) {
         try {
-            final String normalName = ImageTransformer.normalizeName(name);
-            final URL url = BossImageManager.LOAD_CLASS.getResource(
-                    BossImageManager.LOAD_PATH + normalName + ".png");
+            final URL url = BossImageManager.LOAD_CLASS
+                    .getResource(BossImageManager.LOAD_PATH + name + ".png");
             final BufferedImage image = ImageIO.read(url);
             return new BufferedImageIcon(image);
         } catch (final IOException ie) {

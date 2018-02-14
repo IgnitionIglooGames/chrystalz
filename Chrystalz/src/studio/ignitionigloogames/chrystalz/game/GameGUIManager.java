@@ -27,8 +27,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Darkness;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Player;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
-import studio.ignitionigloogames.chrystalz.dungeon.utilities.ImageColorConstants;
-import studio.ignitionigloogames.chrystalz.manager.asset.ImageTransformer;
+import studio.ignitionigloogames.chrystalz.manager.asset.ImageCompositor;
 import studio.ignitionigloogames.chrystalz.manager.asset.MusicConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.MusicManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageManager;
@@ -158,34 +157,28 @@ class GameGUIManager {
                                             m.getPlayerLocationZ());
                             final BufferedImageIcon img1 = ObjectImageManager
                                     .getImage(obj1.getName(),
-                                            obj1.getGameBaseID(),
-                                            AbstractGameObject
-                                                    .getTemplateColor());
+                                            obj1.getGameBaseID());
                             final BufferedImageIcon img2 = ObjectImageManager
                                     .getImage(obj2.getName(),
-                                            obj2.getGameBaseID(),
-                                            AbstractGameObject
-                                                    .getTemplateColor());
+                                            obj2.getGameBaseID());
                             if (u == y && v == x) {
                                 final AbstractGameObject obj3 = new Player()
                                         .gameRenderHook(y, x,
                                                 m.getPlayerLocationZ());
                                 final BufferedImageIcon img3 = ObjectImageManager
                                         .getImage(obj3.getName(),
-                                                obj3.getGameBaseID(),
-                                                AbstractGameObject
-                                                        .getTemplateColor());
-                                this.drawGrid.setImageCell(ImageTransformer
+                                                obj3.getGameBaseID());
+                                this.drawGrid.setImageCell(ImageCompositor
                                         .getVirtualCompositeImage(img1, img2,
                                                 img3,
-                                                ImageTransformer
+                                                ImageCompositor
                                                         .getGraphicSize()),
                                         xFix, yFix);
                             } else {
                                 this.drawGrid.setImageCell(
-                                        ImageTransformer.getCompositeImage(img1,
+                                        ImageCompositor.getCompositeImage(img1,
                                                 img2,
-                                                ImageTransformer
+                                                ImageCompositor
                                                         .getGraphicSize()),
                                         xFix, yFix);
                             }
@@ -193,8 +186,7 @@ class GameGUIManager {
                             this.drawGrid.setImageCell(
                                     ObjectImageManager.getImage(
                                             GameGUIManager.DARK.getName(),
-                                            GameGUIManager.DARK.getBaseID(),
-                                            ImageColorConstants.COLOR_NONE),
+                                            GameGUIManager.DARK.getBaseID()),
                                     xFix, yFix);
                         }
                     } catch (final ArrayIndexOutOfBoundsException ae) {
@@ -202,16 +194,14 @@ class GameGUIManager {
                                 m.getPlayerLocationZ());
                         this.drawGrid.setImageCell(
                                 ObjectImageManager.getImage(obj.getName(),
-                                        obj.getGameBaseID(),
-                                        AbstractGameObject.getTemplateColor()),
+                                        obj.getGameBaseID()),
                                 xFix, yFix);
                     } catch (final NullPointerException np) {
                         final AbstractGameObject obj = wall.gameRenderHook(y, x,
                                 m.getPlayerLocationZ());
                         this.drawGrid.setImageCell(
                                 ObjectImageManager.getImage(obj.getName(),
-                                        obj.getGameBaseID(),
-                                        AbstractGameObject.getTemplateColor()),
+                                        obj.getGameBaseID()),
                                 xFix, yFix);
                     }
                 }
