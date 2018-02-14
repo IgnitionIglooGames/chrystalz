@@ -4,7 +4,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.battle.map.turn;
+package studio.ignitionigloogames.chrystalz.battle;
 
 import java.awt.Container;
 import java.awt.GridLayout;

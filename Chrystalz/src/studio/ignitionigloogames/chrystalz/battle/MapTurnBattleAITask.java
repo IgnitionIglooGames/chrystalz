@@ -3,10 +3,9 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.battle.map.turn;
+package studio.ignitionigloogames.chrystalz.battle;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.battle.AbstractBattle;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 
 public class MapTurnBattleAITask extends Thread {

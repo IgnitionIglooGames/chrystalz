@@ -3,21 +3,17 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.battle.map.turn;
+package studio.ignitionigloogames.chrystalz.battle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
-import studio.ignitionigloogames.chrystalz.ai.map.AutoMapAI;
-import studio.ignitionigloogames.chrystalz.ai.map.MapAIContext;
-import studio.ignitionigloogames.chrystalz.battle.AbstractBattle;
-import studio.ignitionigloogames.chrystalz.battle.BattleResults;
-import studio.ignitionigloogames.chrystalz.battle.BossRewards;
+import studio.ignitionigloogames.chrystalz.ai.AbstractMapAIRoutine;
+import studio.ignitionigloogames.chrystalz.ai.AutoMapAI;
+import studio.ignitionigloogames.chrystalz.ai.MapAIContext;
 import studio.ignitionigloogames.chrystalz.battle.damageengines.AbstractDamageEngine;
-import studio.ignitionigloogames.chrystalz.battle.map.MapBattle;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.creatures.monsters.FinalBossMonster;

@@ -7,7 +7,7 @@ package studio.ignitionigloogames.chrystalz.creatures;
 
 import java.util.Arrays;
 
-import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
+import studio.ignitionigloogames.chrystalz.ai.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.effects.Effect;
 import studio.ignitionigloogames.chrystalz.items.ItemInventory;

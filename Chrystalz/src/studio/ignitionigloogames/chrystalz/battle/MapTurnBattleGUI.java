@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.battle.map.turn;
+package studio.ignitionigloogames.chrystalz.battle;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -24,11 +24,7 @@ import javax.swing.WindowConstants;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.DrawGrid;
-import studio.ignitionigloogames.chrystalz.ai.map.AbstractMapAIRoutine;
-import studio.ignitionigloogames.chrystalz.battle.AbstractBattle;
-import studio.ignitionigloogames.chrystalz.battle.map.MapBattleDraw;
-import studio.ignitionigloogames.chrystalz.battle.map.MapBattleEffects;
-import studio.ignitionigloogames.chrystalz.battle.map.MapBattleViewingWindowManager;
+import studio.ignitionigloogames.chrystalz.ai.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Darkness;

@@ -3,26 +3,26 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.ai.map;
+package studio.ignitionigloogames.chrystalz.ai;
 
 import java.awt.Point;
 
 import studio.ignitionigloogames.common.random.RandomRange;
 
-class EasyMapAIRoutine extends AbstractMapAIRoutine {
+class VeryEasyMapAIRoutine extends AbstractMapAIRoutine {
     // Fields
     private final RandomRange randMove;
     private int failedMoveAttempts;
     private int[] roundsRemaining;
-    private static final int CAST_SPELL_CHANCE = 10;
-    private static final int STEAL_CHANCE = 2;
-    private static final int DRAIN_CHANCE = 10;
-    private static final int HEAL_THRESHOLD = 10;
-    private static final int MAX_VISION = 3;
-    private static final int FLEE_CHANCE = 20;
+    private static final int CAST_SPELL_CHANCE = 5;
+    private static final int STEAL_CHANCE = 1;
+    private static final int DRAIN_CHANCE = 5;
+    private static final int HEAL_THRESHOLD = 5;
+    private static final int MAX_VISION = 2;
+    private static final int FLEE_CHANCE = 40;
 
     // Constructor
-    public EasyMapAIRoutine() {
+    public VeryEasyMapAIRoutine() {
         super();
         this.randMove = new RandomRange(-1, 1);
         this.failedMoveAttempts = 0;
@@ -41,11 +41,11 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
             Point there = ac.isEnemyNearby();
             if (there != null) {
                 if (CommonMapAIRoutines.check(ac,
-                        EasyMapAIRoutine.STEAL_CHANCE)) {
+                        VeryEasyMapAIRoutine.STEAL_CHANCE)) {
                     // Steal
                     return AbstractMapAIRoutine.ACTION_STEAL;
                 } else if (CommonMapAIRoutines.check(ac,
-                        EasyMapAIRoutine.DRAIN_CHANCE)) {
+                        VeryEasyMapAIRoutine.DRAIN_CHANCE)) {
                     // Drain MP
                     return AbstractMapAIRoutine.ACTION_DRAIN;
                 } else {
@@ -61,7 +61,7 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
                 }
             } else {
                 if (CommonMapAIRoutines.check(ac,
-                        EasyMapAIRoutine.FLEE_CHANCE)) {
+                        VeryEasyMapAIRoutine.FLEE_CHANCE)) {
                     // Flee
                     final Point awayDir = ac.runAway();
                     if (awayDir == null) {
@@ -81,7 +81,7 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
                 } else {
                     // Look further
                     for (int x = CommonMapAIRoutines.MIN_VISION
-                            + 1; x <= EasyMapAIRoutine.MAX_VISION; x++) {
+                            + 1; x <= VeryEasyMapAIRoutine.MAX_VISION; x++) {
                         there = ac.isEnemyNearby(x, x);
                         if (there != null) {
                             // Found something hostile, move towards it
@@ -136,7 +136,7 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
     private boolean spellCheck(final MapAIContext ac) {
         final RandomRange random = new RandomRange(1, 100);
         final int chance = random.generate();
-        if (chance <= EasyMapAIRoutine.CAST_SPELL_CHANCE) {
+        if (chance <= VeryEasyMapAIRoutine.CAST_SPELL_CHANCE) {
             final int maxIndex = CommonMapAIRoutines.getMaxCastIndex(ac);
             if (maxIndex > -1) {
                 if (ac.getCharacter().getCurrentSP() > 0) {
@@ -149,7 +149,7 @@ class EasyMapAIRoutine extends AbstractMapAIRoutine {
                         if (ac.getCharacter().getTemplate()
                                 .getCurrentHP() > ac.getCharacter()
                                         .getTemplate().getMaximumHP()
-                                        * EasyMapAIRoutine.HEAL_THRESHOLD
+                                        * VeryEasyMapAIRoutine.HEAL_THRESHOLD
                                         / 100) {
                             // Do not need healing
                             return false;
