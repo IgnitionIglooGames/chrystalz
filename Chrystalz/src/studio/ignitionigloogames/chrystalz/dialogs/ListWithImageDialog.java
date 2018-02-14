@@ -51,7 +51,7 @@ public class ListWithImageDialog extends JDialog implements ActionListener {
             final Component locationComp, final String labelText,
             final String title, final String[] possibleValues,
             final String initialValue, final BufferedImageIcon imgValue,
-            final BufferedImageIcon[] possibleImages) {
+            final BufferedImageIcon... possibleImages) {
         ListWithImageDialog.value = null;
         final Frame frame = JOptionPane.getFrameForComponent(frameComp);
         ListWithImageDialog.dialog = new ListWithImageDialog(frame,
@@ -71,7 +71,7 @@ public class ListWithImageDialog extends JDialog implements ActionListener {
             final String labelText, final String title,
             final String[] possibleValues, final String initialValue,
             final BufferedImageIcon imgValue,
-            final BufferedImageIcon[] possibleImages) {
+            final BufferedImageIcon... possibleImages) {
         super(frame, title, true);
         // Initialize the images
         ListWithImageDialog.imgs = possibleImages;
