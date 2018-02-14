@@ -8,7 +8,7 @@ package studio.ignitionigloogames.chrystalz.manager.string;
 import java.io.IOException;
 import java.util.Properties;
 
-import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.manager.file.Extension;
 import studio.ignitionigloogames.chrystalz.manager.name.ZoneNames;
 
 public class StringManager {

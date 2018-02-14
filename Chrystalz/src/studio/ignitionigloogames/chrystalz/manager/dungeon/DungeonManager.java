@@ -15,9 +15,10 @@ import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
-import studio.ignitionigloogames.chrystalz.manager.gamefile.GameFinder;
-import studio.ignitionigloogames.chrystalz.manager.gamefile.GameLoadTask;
-import studio.ignitionigloogames.chrystalz.manager.gamefile.GameSaveTask;
+import studio.ignitionigloogames.chrystalz.manager.file.Extension;
+import studio.ignitionigloogames.chrystalz.manager.file.GameFinder;
+import studio.ignitionigloogames.chrystalz.manager.file.GameLoadTask;
+import studio.ignitionigloogames.chrystalz.manager.file.GameSaveTask;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.FilenameChecker;
 

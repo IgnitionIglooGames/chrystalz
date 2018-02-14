@@ -7,7 +7,7 @@ package studio.ignitionigloogames.chrystalz.manager.asset;
 
 import java.net.URL;
 
-import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.manager.file.Extension;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.wavplayer.WAVFactory;
 

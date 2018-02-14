@@ -9,7 +9,7 @@ import java.net.URL;
 import java.nio.BufferUnderflowException;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
-import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.manager.file.Extension;
 import studio.ignitionigloogames.common.oggplayer.OggPlayer;
 
 public class MusicManager {

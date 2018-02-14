@@ -3,12 +3,10 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.manager.gamefile;
+package studio.ignitionigloogames.chrystalz.manager.file;
 
 import java.io.File;
 import java.io.FilenameFilter;
-
-import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
 
 public class GameFinder implements FilenameFilter {
     @Override

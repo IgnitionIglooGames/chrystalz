@@ -3,7 +3,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.manager.gamefile;
+package studio.ignitionigloogames.chrystalz.manager.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,6 @@ import java.io.IOException;
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
-import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.PrefixHandler;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.SuffixHandler;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;

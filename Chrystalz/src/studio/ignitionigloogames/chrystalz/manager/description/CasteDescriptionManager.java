@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.creatures.castes.CasteConstants;
-import studio.ignitionigloogames.chrystalz.manager.dungeon.Extension;
+import studio.ignitionigloogames.chrystalz.manager.file.Extension;
 import studio.ignitionigloogames.common.fileio.ResourceStreamReader;
 
 public class CasteDescriptionManager {
