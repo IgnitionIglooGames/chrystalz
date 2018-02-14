@@ -17,7 +17,7 @@ import studio.ignitionigloogames.chrystalz.manager.asset.StatImageConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.StatImageManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
-public class MapTurnBattleStats {
+public class MapBattleStats {
     // Fields
     private Container statsPane;
     private JLabel nameLabel;
@@ -27,7 +27,7 @@ public class MapTurnBattleStats {
     private JLabel defLabel;
 
     // Constructors
-    public MapTurnBattleStats() {
+    public MapBattleStats() {
         this.setUpGUI();
         this.updateIcons();
     }

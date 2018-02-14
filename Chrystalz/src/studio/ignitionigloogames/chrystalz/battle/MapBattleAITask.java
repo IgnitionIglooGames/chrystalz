@@ -8,12 +8,12 @@ package studio.ignitionigloogames.chrystalz.battle;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 
-public class MapTurnBattleAITask extends Thread {
+public class MapBattleAITask extends Thread {
     // Fields
     private final AbstractBattle b;
 
     // Constructors
-    public MapTurnBattleAITask(final AbstractBattle battle) {
+    public MapBattleAITask(final AbstractBattle battle) {
         this.setName("Map AI Runner");
         this.b = battle;
     }

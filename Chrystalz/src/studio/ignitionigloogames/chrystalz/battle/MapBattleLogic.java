@@ -34,9 +34,9 @@ import studio.ignitionigloogames.chrystalz.spells.SpellCaster;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.random.RandomRange;
 
-public class MapTurnBattleLogic extends AbstractBattle {
+public class MapBattleLogic extends AbstractBattle {
     // Fields
-    private MapTurnBattleDefinitions bd;
+    private MapBattleDefinitions bd;
     private AbstractDamageEngine pde;
     private AbstractDamageEngine ede;
     private final AutoMapAI auto;
@@ -50,17 +50,17 @@ public class MapTurnBattleLogic extends AbstractBattle {
     private boolean[] speedMarkArray;
     private boolean resultDoneAlready;
     private boolean lastAIActionResult;
-    private final MapTurnBattleAITask ait;
-    private MapTurnBattleGUI battleGUI;
+    private final MapBattleAITask ait;
+    private MapBattleGUI battleGUI;
     private BattleCharacter enemy;
     private static final int STEAL_ACTION_POINTS = 3;
     private static final int DRAIN_ACTION_POINTS = 3;
 
     // Constructors
-    public MapTurnBattleLogic() {
-        this.battleGUI = new MapTurnBattleGUI();
+    public MapBattleLogic() {
+        this.battleGUI = new MapBattleGUI();
         this.auto = new AutoMapAI();
-        this.ait = new MapTurnBattleAITask(this);
+        this.ait = new MapBattleAITask(this);
         this.ait.start();
     }
 
@@ -96,7 +96,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
         // Initialize Battle
         Chrystalz.getApplication().getGameManager().hideOutput();
         Chrystalz.getApplication().setMode(Application.STATUS_BATTLE);
-        this.bd = new MapTurnBattleDefinitions();
+        this.bd = new MapBattleDefinitions();
         this.bd.setBattleDungeon(bMap);
         this.pde = AbstractDamageEngine.getPlayerInstance();
         this.ede = AbstractDamageEngine.getEnemyInstance();
@@ -1004,7 +1004,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
             int stealChance;
             int stealAmount = 0;
             this.bd.getActiveCharacter()
-                    .modifyAP(MapTurnBattleLogic.STEAL_ACTION_POINTS);
+                    .modifyAP(MapBattleLogic.STEAL_ACTION_POINTS);
             stealChance = StatConstants.CHANCE_STEAL;
             if (activeEnemy == null) {
                 // Failed - nobody to steal from
@@ -1085,7 +1085,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
             int drainChance;
             int drainAmount = 0;
             this.bd.getActiveCharacter()
-                    .modifyAP(MapTurnBattleLogic.DRAIN_ACTION_POINTS);
+                    .modifyAP(MapBattleLogic.DRAIN_ACTION_POINTS);
             drainChance = StatConstants.CHANCE_DRAIN;
             if (activeEnemy == null) {
                 // Failed - nobody to drain from
@@ -1302,7 +1302,7 @@ public class MapTurnBattleLogic extends AbstractBattle {
         // Destroy old GUI
         this.battleGUI.getOutputFrame().dispose();
         // Create new GUI
-        this.battleGUI = new MapTurnBattleGUI();
+        this.battleGUI = new MapBattleGUI();
     }
 
     @Override

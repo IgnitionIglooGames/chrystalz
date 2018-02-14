@@ -38,13 +38,13 @@ import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
-class MapTurnBattleGUI {
+class MapBattleGUI {
     // Fields
     private JFrame battleFrame;
     private MapBattleDraw battlePane;
     private JLabel messageLabel;
     private final MapBattleViewingWindowManager vwMgr;
-    private final MapTurnBattleStats bs;
+    private final MapBattleStats bs;
     private final MapBattleEffects be;
     private DrawGrid drawGrid;
     boolean eventHandlersOn;
@@ -52,9 +52,9 @@ class MapTurnBattleGUI {
     private static final int MAX_TEXT = 1000;
 
     // Constructors
-    MapTurnBattleGUI() {
+    MapBattleGUI() {
         this.vwMgr = new MapBattleViewingWindowManager();
-        this.bs = new MapTurnBattleStats();
+        this.bs = new MapBattleStats();
         this.be = new MapBattleEffects();
         this.setUpGUI();
         this.eventHandlersOn = true;
@@ -74,7 +74,7 @@ class MapTurnBattleGUI {
     }
 
     void setStatusMessage(final String msg) {
-        if (this.messageLabel.getText().length() > MapTurnBattleGUI.MAX_TEXT) {
+        if (this.messageLabel.getText().length() > MapBattleGUI.MAX_TEXT) {
             this.clearStatusMessage();
         }
         if (!msg.isEmpty() && !msg.matches("\\s+")) {
@@ -98,7 +98,7 @@ class MapTurnBattleGUI {
         }
     }
 
-    void redrawBattle(final MapTurnBattleDefinitions bd) {
+    void redrawBattle(final MapBattleDefinitions bd) {
         // Draw the battle, if it is visible
         if (this.battleFrame.isVisible()) {
             int x, y;
@@ -138,7 +138,7 @@ class MapTurnBattleGUI {
         }
     }
 
-    void redrawOneBattleSquare(final MapTurnBattleDefinitions bd, final int x,
+    void redrawOneBattleSquare(final MapBattleDefinitions bd, final int x,
             final int y, final AbstractGameObject obj3) {
         // Draw the battle, if it is visible
         if (this.battleFrame.isVisible()) {
@@ -169,7 +169,7 @@ class MapTurnBattleGUI {
         }
     }
 
-    void updateStatsAndEffects(final MapTurnBattleDefinitions bd) {
+    void updateStatsAndEffects(final MapBattleDefinitions bd) {
         this.bs.updateStats(bd.getActiveCharacter());
         this.be.updateEffects(bd.getActiveCharacter());
     }
@@ -336,7 +336,7 @@ class MapTurnBattleGUI {
                 }
                 final AbstractBattle bl = Chrystalz.getApplication()
                         .getBattle();
-                final MapTurnBattleGUI bg = MapTurnBattleGUI.this;
+                final MapBattleGUI bg = MapBattleGUI.this;
                 if (bg.eventHandlersOn) {
                     final int keyCode = e.getKeyCode();
                     switch (keyCode) {

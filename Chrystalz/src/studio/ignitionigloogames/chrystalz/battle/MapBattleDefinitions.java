@@ -9,7 +9,7 @@ import studio.ignitionigloogames.chrystalz.ai.MapAIContext;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 
-public class MapTurnBattleDefinitions {
+public class MapBattleDefinitions {
     // Fields
     private BattleCharacter activeCharacter;
     private final BattleCharacter[] battlers;
@@ -19,9 +19,9 @@ public class MapTurnBattleDefinitions {
     private static final int MAX_BATTLERS = 100;
 
     // Constructors
-    public MapTurnBattleDefinitions() {
-        this.battlers = new BattleCharacter[MapTurnBattleDefinitions.MAX_BATTLERS];
-        this.aiContexts = new MapAIContext[MapTurnBattleDefinitions.MAX_BATTLERS];
+    public MapBattleDefinitions() {
+        this.battlers = new BattleCharacter[MapBattleDefinitions.MAX_BATTLERS];
+        this.aiContexts = new MapAIContext[MapBattleDefinitions.MAX_BATTLERS];
         this.battlerCount = 0;
     }
 
@@ -57,7 +57,7 @@ public class MapTurnBattleDefinitions {
     }
 
     public boolean addBattler(final BattleCharacter battler) {
-        if (this.battlerCount < MapTurnBattleDefinitions.MAX_BATTLERS) {
+        if (this.battlerCount < MapBattleDefinitions.MAX_BATTLERS) {
             this.battlers[this.battlerCount] = battler;
             this.battlerCount++;
             return true;

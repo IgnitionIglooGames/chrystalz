@@ -10,7 +10,7 @@ import java.awt.Image;
 import javax.swing.JFrame;
 
 import studio.ignitionigloogames.chrystalz.battle.AbstractBattle;
-import studio.ignitionigloogames.chrystalz.battle.MapTurnBattleLogic;
+import studio.ignitionigloogames.chrystalz.battle.MapBattleLogic;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.GameObjectList;
 import studio.ignitionigloogames.chrystalz.game.GameLogicManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
@@ -32,7 +32,7 @@ public final class Application {
     private GUIManager guiMgr;
     private final GameObjectList objects;
     private Shop weapons, armor, healer, regenerator, spells;
-    private MapTurnBattleLogic mapTurnBattle;
+    private MapBattleLogic mapTurnBattle;
     private int currentMode;
     private int formerMode;
     private static final int VERSION_MAJOR = 1;
@@ -57,7 +57,7 @@ public final class Application {
         this.about = new AboutDialog(Application.getVersionString());
         this.guiMgr = new GUIManager();
         this.menuMgr = new MenuManager();
-        this.mapTurnBattle = new MapTurnBattleLogic();
+        this.mapTurnBattle = new MapBattleLogic();
         this.weapons = new Shop(ShopTypes.SHOP_TYPE_WEAPONS);
         this.armor = new Shop(ShopTypes.SHOP_TYPE_ARMOR);
         this.healer = new Shop(ShopTypes.SHOP_TYPE_HEALER);
