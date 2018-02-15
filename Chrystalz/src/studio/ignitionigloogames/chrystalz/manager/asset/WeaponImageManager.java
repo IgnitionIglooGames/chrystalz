@@ -11,9 +11,9 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import studio.ignitionigloogames.chrystalz.manager.name.ZoneNames;
 import studio.ignitionigloogames.chrystalz.manager.string.GlobalFile;
 import studio.ignitionigloogames.chrystalz.manager.string.StringManager;
+import studio.ignitionigloogames.chrystalz.names.ZoneNames;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class WeaponImageManager {

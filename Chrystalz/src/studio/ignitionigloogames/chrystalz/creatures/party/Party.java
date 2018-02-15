@@ -11,7 +11,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
-import studio.ignitionigloogames.chrystalz.manager.name.ZoneNames;
+import studio.ignitionigloogames.chrystalz.names.ZoneNames;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;

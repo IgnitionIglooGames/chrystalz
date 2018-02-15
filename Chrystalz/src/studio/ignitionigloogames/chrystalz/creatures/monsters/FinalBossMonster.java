@@ -9,7 +9,7 @@ import studio.ignitionigloogames.chrystalz.ai.MapAIRoutinePicker;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.BossImageManager;
-import studio.ignitionigloogames.chrystalz.manager.name.BossNames;
+import studio.ignitionigloogames.chrystalz.names.BossNames;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.spells.SpellBook;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;

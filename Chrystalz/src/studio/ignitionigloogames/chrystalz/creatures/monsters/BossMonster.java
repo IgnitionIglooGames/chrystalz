@@ -7,7 +7,7 @@ package studio.ignitionigloogames.chrystalz.creatures.monsters;
 
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.BossImageManager;
-import studio.ignitionigloogames.chrystalz.manager.name.BossNames;
+import studio.ignitionigloogames.chrystalz.names.BossNames;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 import studio.ignitionigloogames.common.random.RandomLongRange;

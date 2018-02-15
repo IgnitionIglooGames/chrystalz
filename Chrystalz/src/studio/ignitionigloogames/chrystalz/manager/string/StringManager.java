@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import studio.ignitionigloogames.chrystalz.manager.file.Extension;
-import studio.ignitionigloogames.chrystalz.manager.name.ZoneNames;
+import studio.ignitionigloogames.chrystalz.names.ZoneNames;
 
 public class StringManager {
     private StringManager() {
