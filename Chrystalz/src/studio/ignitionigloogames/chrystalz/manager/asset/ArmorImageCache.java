@@ -44,8 +44,8 @@ public class ArmorImageCache {
         if (ArmorImageCache.CACHE_SIZE == ArmorImageCache.cache.length) {
             ArmorImageCache.expandCache();
         }
-        ArmorImageCache.cache[ArmorImageCache.CACHE_SIZE] = new CacheEntry(
-                bii, name);
+        ArmorImageCache.cache[ArmorImageCache.CACHE_SIZE] = new CacheEntry(bii,
+                name);
         ArmorImageCache.CACHE_SIZE++;
     }
 

@@ -73,8 +73,7 @@ class GameGUI {
 
     void initViewManager() {
         if (this.vwMgr == null) {
-            this.vwMgr = Chrystalz.getApplication().getGame()
-                    .getViewManager();
+            this.vwMgr = Chrystalz.getApplication().getGame().getViewManager();
             this.setUpGUI();
         }
     }
@@ -192,16 +191,14 @@ class GameGUI {
                     } catch (final ArrayIndexOutOfBoundsException ae) {
                         final AbstractGameObject obj = wall.gameRenderHook(y, x,
                                 m.getPlayerLocationZ());
-                        this.drawGrid.setImageCell(
-                                ObjectImageManager.getImage(obj.getName(),
-                                        obj.getGameBaseID()),
+                        this.drawGrid.setImageCell(ObjectImageManager
+                                .getImage(obj.getName(), obj.getGameBaseID()),
                                 xFix, yFix);
                     } catch (final NullPointerException np) {
                         final AbstractGameObject obj = wall.gameRenderHook(y, x,
                                 m.getPlayerLocationZ());
-                        this.drawGrid.setImageCell(
-                                ObjectImageManager.getImage(obj.getName(),
-                                        obj.getGameBaseID()),
+                        this.drawGrid.setImageCell(ObjectImageManager
+                                .getImage(obj.getName(), obj.getGameBaseID()),
                                 xFix, yFix);
                     }
                 }
@@ -246,8 +243,7 @@ class GameGUI {
         this.outputFrame.addWindowListener(handler);
     }
 
-    private class EventHandler
-            implements KeyListener, WindowListener {
+    private class EventHandler implements KeyListener, WindowListener {
         EventHandler() {
             // Do nothing
         }
@@ -277,8 +273,7 @@ class GameGUI {
 
         public void handleMovement(final KeyEvent e) {
             try {
-                final GameLogic glm = Chrystalz.getApplication()
-                        .getGame();
+                final GameLogic glm = Chrystalz.getApplication().getGame();
                 final int keyCode = e.getKeyCode();
                 switch (keyCode) {
                 case KeyEvent.VK_LEFT:

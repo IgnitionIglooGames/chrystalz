@@ -15,8 +15,7 @@ public class MonsterFactory {
     }
 
     public static AbstractCreature getNewMonsterInstance() {
-        if (PartyManager.getParty().getZone() == Dungeon.getMaxLevels()
-                - 1) {
+        if (PartyManager.getParty().getZone() == Dungeon.getMaxLevels() - 1) {
             return new FinalBossMonster();
         } else {
             return new Monster();

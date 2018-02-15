@@ -136,16 +136,16 @@ public class FileIOReader implements AutoCloseable {
     private static void validateOpeningTag(final String tag,
             final String tagType) throws IOException {
         if (!tag.equals("<" + tagType + ">")) {
-            throw new FileIOException("Expected opening tag of <"
-                    + tagType + ">, found " + tag + "!");
+            throw new FileIOException("Expected opening tag of <" + tagType
+                    + ">, found " + tag + "!");
         }
     }
 
     private static void validateClosingTag(final String tag,
             final String tagType) throws IOException {
         if (!tag.equals("</" + tagType + ">")) {
-            throw new FileIOException("Expected closing tag of </"
-                    + tagType + ">, found " + tag + "!");
+            throw new FileIOException("Expected closing tag of </" + tagType
+                    + ">, found " + tag + "!");
         }
     }
 

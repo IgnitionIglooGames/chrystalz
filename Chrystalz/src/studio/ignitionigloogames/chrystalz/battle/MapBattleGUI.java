@@ -237,8 +237,8 @@ class MapBattleGUI {
                     .getViewingWindowSize(); y++) {
                 final AbstractGameObject dark = new Darkness().gameRenderHook(y,
                         x, 0);
-                this.drawGrid.setImageCell(BattleImageManager.getImage(
-                        dark.getName(), dark.getGameBaseID()), x, y);
+                this.drawGrid.setImageCell(BattleImageManager
+                        .getImage(dark.getName(), dark.getGameBaseID()), x, y);
             }
         }
         this.battlePane = new MapBattleDraw(this.drawGrid);

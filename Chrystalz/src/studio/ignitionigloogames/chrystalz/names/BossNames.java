@@ -13,7 +13,7 @@ public class BossNames {
     private BossNames() {
         // Do nothing
     }
-   
+
     public static final String getName(final int ID) {
         String tempBossID = Integer.toString(ID);
         String bossID;
@@ -22,7 +22,6 @@ public class BossNames {
         } else {
             bossID = tempBossID;
         }
-        return StringManager
-                .getLocalizedString(LocalizedFile.BOSSES, bossID);
+        return StringManager.getLocalizedString(LocalizedFile.BOSSES, bossID);
     }
 }

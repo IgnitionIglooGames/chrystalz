@@ -810,8 +810,7 @@ public class MapBattleLogic extends AbstractBattle {
                                         .getCurrentHP() <= theEnemy
                                                 .getTemplate().getMaximumHP()
                                                 * 3 / 10) {
-                            SoundManager
-                                    .playSound(SoundConstants.SOUND_DANGER);
+                            SoundManager.playSound(SoundConstants.SOUND_DANGER);
                         }
                         // Handle enemy death
                         if (!theEnemy.getTemplate().isAlive()) {

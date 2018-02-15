@@ -48,11 +48,11 @@ public class Extension {
     public static String getMusicExtensionWithPeriod() {
         return "." + Extension.MUSIC_EXTENSION;
     }
-    
+
     public static String getSoundExtensionWithPeriod() {
         return "." + Extension.SOUND_EXTENSION;
     }
-    
+
     public static String getStringExtensionWithPeriod() {
         return "." + Extension.STRING_EXTENSION;
     }
