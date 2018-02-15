@@ -86,7 +86,7 @@ public class MapBattleLogic extends AbstractBattle {
         // Level Up Check
         if (playerCharacter.checkLevelUp()) {
             playerCharacter.levelUp();
-            Chrystalz.getApplication().getGameManager().keepNextMessage();
+            Chrystalz.getApplication().getGame().keepNextMessage();
             Chrystalz.getApplication().showMessage(
                     "You reached level " + playerCharacter.getLevel() + ".");
         }
@@ -94,7 +94,7 @@ public class MapBattleLogic extends AbstractBattle {
 
     private void doBattleInternal(final Dungeon bMap, final MapBattle b) {
         // Initialize Battle
-        Chrystalz.getApplication().getGameManager().hideOutput();
+        Chrystalz.getApplication().getGame().hideOutput();
         Chrystalz.getApplication().setMode(Application.STATUS_BATTLE);
         this.bd = new MapBattleDefinitions();
         this.bd.setBattleDungeon(bMap);
@@ -149,8 +149,8 @@ public class MapBattleLogic extends AbstractBattle {
         this.hideBattle();
         Chrystalz.getApplication().setMode(Application.STATUS_GAME);
         // Return to whence we came
-        Chrystalz.getApplication().getGameManager().showOutput();
-        Chrystalz.getApplication().getGameManager().redrawDungeon();
+        Chrystalz.getApplication().getGame().showOutput();
+        Chrystalz.getApplication().getGame().redrawDungeon();
     }
 
     private void clearStatusMessage() {

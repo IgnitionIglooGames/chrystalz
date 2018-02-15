@@ -250,7 +250,7 @@ public class MenuManager {
                             }
                         }
                         if (saved) {
-                            app.getGameManager().exitGame();
+                            app.getGame().exitGame();
                         }
                     }
                 } else if (cmd.equals("Save Game...")) {
@@ -268,7 +268,7 @@ public class MenuManager {
                     PreferencesManager.showPrefs();
                 } else if (cmd.equals("New Game")) {
                     // Start a new game
-                    final boolean proceed = app.getGameManager().newGame();
+                    final boolean proceed = app.getGame().newGame();
                     if (proceed) {
                         new GenerateTask(true).start();
                     }

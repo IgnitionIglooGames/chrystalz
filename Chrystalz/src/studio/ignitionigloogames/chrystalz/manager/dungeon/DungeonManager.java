@@ -58,7 +58,7 @@ public final class DungeonManager {
             triedToLoad.delete();
         }
         this.setDirty(false);
-        Chrystalz.getApplication().getGameManager().stateChanged();
+        Chrystalz.getApplication().getGame().stateChanged();
         Chrystalz.getApplication().getMenuManager().checkFlags();
     }
 

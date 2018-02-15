@@ -113,7 +113,7 @@ final class LayeredTower implements Cloneable {
             if (!there.isSolid() && !there.getName().equals("Monster")) {
                 if (LayeredTower.radialScan(xLoc, yLoc, 0, pLocX, pLocY)) {
                     if (app.getMode() != Application.STATUS_BATTLE) {
-                        app.getGameManager().stopMovement();
+                        app.getGame().stopMovement();
                         app.getBattle().doBattle();
                         this.postBattle(monster, xLoc, yLoc, false);
                     }

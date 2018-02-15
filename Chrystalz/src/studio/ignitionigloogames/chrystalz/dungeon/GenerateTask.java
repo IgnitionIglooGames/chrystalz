@@ -45,7 +45,7 @@ public class GenerateTask extends Thread {
             final Application app = Chrystalz.getApplication();
             Dungeon gameDungeon = app.getDungeonManager().getDungeon();
             if (!this.scratch) {
-                app.getGameManager().disableEvents();
+                app.getGame().disableEvents();
             } else {
                 gameDungeon = new Dungeon();
                 app.getDungeonManager().setDungeon(gameDungeon);
@@ -73,7 +73,7 @@ public class GenerateTask extends Thread {
                 final boolean playerExists = gameDungeon.doesPlayerExist();
                 if (playerExists) {
                     gameDungeon.setPlayerToStart();
-                    app.getGameManager().resetViewingWindow();
+                    app.getGame().resetViewingWindow();
                 }
             } else {
                 int startR, startC, startF;
@@ -93,12 +93,12 @@ public class GenerateTask extends Thread {
             AbstractGameObject.setTemplateColor(ImageColorConstants
                     .getColorForLevel(PartyManager.getParty().getZone()));
             if (this.scratch) {
-                app.getGameManager().stateChanged();
-                app.getGameManager().playDungeon();
+                app.getGame().stateChanged();
+                app.getGame().playDungeon();
             } else {
-                app.getGameManager().resetViewingWindow();
-                app.getGameManager().enableEvents();
-                app.getGameManager().redrawDungeon();
+                app.getGame().resetViewingWindow();
+                app.getGame().enableEvents();
+                app.getGame().redrawDungeon();
             }
         } catch (final Throwable t) {
             Chrystalz.getErrorLogger().logError(t);

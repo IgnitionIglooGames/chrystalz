@@ -73,7 +73,7 @@ class GameGUI {
 
     void initViewManager() {
         if (this.vwMgr == null) {
-            this.vwMgr = Chrystalz.getApplication().getGameManager()
+            this.vwMgr = Chrystalz.getApplication().getGame()
                     .getViewManager();
             this.setUpGUI();
         }
@@ -278,7 +278,7 @@ class GameGUI {
         public void handleMovement(final KeyEvent e) {
             try {
                 final GameLogic glm = Chrystalz.getApplication()
-                        .getGameManager();
+                        .getGame();
                 final int keyCode = e.getKeyCode();
                 switch (keyCode) {
                 case KeyEvent.VK_LEFT:
@@ -382,13 +382,13 @@ class GameGUI {
                         app.getDungeonManager();
                         success = DungeonManager.saveGame();
                         if (success) {
-                            app.getGameManager().exitGame();
+                            app.getGame().exitGame();
                         }
                     } else if (status == JOptionPane.NO_OPTION) {
-                        app.getGameManager().exitGame();
+                        app.getGame().exitGame();
                     }
                 } else {
-                    app.getGameManager().exitGame();
+                    app.getGame().exitGame();
                 }
             } catch (final Exception ex) {
                 Chrystalz.getErrorLogger().logError(ex);

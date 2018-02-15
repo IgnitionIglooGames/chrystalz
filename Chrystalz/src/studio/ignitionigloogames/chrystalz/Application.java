@@ -94,7 +94,7 @@ public final class Application {
 
     public void showMessage(final String msg) {
         if (this.currentMode == Application.STATUS_GAME) {
-            this.getGameManager().setStatusMessage(msg);
+            this.getGame().setStatusMessage(msg);
         } else if (this.currentMode == Application.STATUS_BATTLE) {
             this.getBattle().setStatusMessage(msg);
         } else {
@@ -110,7 +110,7 @@ public final class Application {
         return this.guiMgr;
     }
 
-    public GameLogic getGameManager() {
+    public GameLogic getGame() {
         if (this.gameMgr == null) {
             this.gameMgr = new GameLogic();
         }
@@ -152,7 +152,7 @@ public final class Application {
             } else if (this.getMode() == Application.STATUS_GUI) {
                 return this.getGUIManager().getGUIFrame();
             } else if (this.getMode() == Application.STATUS_GAME) {
-                return this.getGameManager().getOutputFrame();
+                return this.getGame().getOutputFrame();
             } else if (this.getMode() == Application.STATUS_BATTLE) {
                 return this.getBattle().getOutputFrame();
             } else {
@@ -168,7 +168,7 @@ public final class Application {
     }
 
     public Shop getGenericShop(final int shopType) {
-        this.getGameManager().stopMovement();
+        this.getGame().stopMovement();
         switch (shopType) {
         case ShopTypes.SHOP_TYPE_ARMOR:
             return this.armor;

@@ -44,7 +44,7 @@ public class ClosedDoor extends AbstractTrigger {
             final int dirY) {
         SoundManager.playSound(SoundConstants.SOUND_DOOR_OPENS);
         final GameLogic glm = Chrystalz.getApplication()
-                .getGameManager();
+                .getGame();
         GameLogic.morph(new OpenDoor());
         glm.redrawDungeon();
     }

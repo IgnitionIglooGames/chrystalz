@@ -16,13 +16,13 @@ public class SuffixHandler implements SuffixIO {
     @Override
     public void readSuffix(final FileIOReader reader, final int formatVersion)
             throws IOException {
-        Chrystalz.getApplication().getGameManager();
+        Chrystalz.getApplication().getGame();
         FileHooks.loadGameHook(reader);
     }
 
     @Override
     public void writeSuffix(final FileIOWriter writer) throws IOException {
-        Chrystalz.getApplication().getGameManager();
+        Chrystalz.getApplication().getGame();
         FileHooks.saveGameHook(writer);
     }
 }

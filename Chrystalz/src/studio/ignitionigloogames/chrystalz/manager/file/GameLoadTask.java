@@ -55,7 +55,7 @@ public class GameLoadTask extends Thread {
             this.loadFrame.setVisible(true);
             final Application app = Chrystalz.getApplication();
             int startW;
-            app.getGameManager().setSavedGameFlag(false);
+            app.getGame().setSavedGameFlag(false);
             final File tempLock = new File(
                     Dungeon.getDungeonTempFolder() + "lock.tmp");
             Dungeon gameDungeon = new Dungeon();
@@ -81,16 +81,16 @@ public class GameLoadTask extends Thread {
             final boolean playerExists = gameDungeon.doesPlayerExist();
             if (playerExists) {
                 app.getDungeonManager().getDungeon().setPlayerToStart();
-                app.getGameManager().resetViewingWindow();
+                app.getGame().resetViewingWindow();
             }
             gameDungeon.save();
             // Final cleanup
-            app.getGameManager().stateChanged();
+            app.getGame().stateChanged();
             AbstractGameObject.setTemplateColor(ImageColorConstants
                     .getColorForLevel(PartyManager.getParty().getZone()));
             app.getDungeonManager().setLoaded(true);
             CommonDialogs.showDialog(sg + " loaded.");
-            app.getGameManager().playDungeon();
+            app.getGame().playDungeon();
             app.getDungeonManager().handleDeferredSuccess(true, false, null);
         } catch (final VersionException ve) {
             CommonDialogs.showDialog("Loading the " + sg.toLowerCase()

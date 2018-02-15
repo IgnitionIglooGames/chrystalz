@@ -40,7 +40,7 @@ public class StairsDown extends AbstractTeleport {
     public void postMoveAction(final boolean ie, final int dirX,
             final int dirY) {
         final Application app = Chrystalz.getApplication();
-        app.getGameManager().goToLevelOffset(-1);
+        app.getGame().goToLevelOffset(-1);
         SoundManager.playSound(SoundConstants.SOUND_DOWN);
     }
 

@@ -73,7 +73,7 @@ class PreferencesGUIManager {
             if (formerMode == Application.STATUS_GUI) {
                 app.getGUIManager().hideGUITemporarily();
             } else if (formerMode == Application.STATUS_GAME) {
-                app.getGameManager().hideOutput();
+                app.getGame().hideOutput();
             }
         }
     }
@@ -86,7 +86,7 @@ class PreferencesGUIManager {
         if (formerMode == Application.STATUS_GUI) {
             app.getGUIManager().showGUI();
         } else if (formerMode == Application.STATUS_GAME) {
-            app.getGameManager().showOutput();
+            app.getGame().showOutput();
         }
     }
 
