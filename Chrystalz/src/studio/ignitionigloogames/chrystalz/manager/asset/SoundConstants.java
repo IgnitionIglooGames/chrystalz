@@ -5,8 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.manager.asset;
 
-import studio.ignitionigloogames.chrystalz.manager.data.SoundDataManager;
-
 public class SoundConstants {
     // Public Sound Constants
     public static final int SOUND_ATTACK_HIT = 0;

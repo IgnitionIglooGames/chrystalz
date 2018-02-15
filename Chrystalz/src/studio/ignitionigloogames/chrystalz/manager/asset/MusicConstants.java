@@ -5,8 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.manager.asset;
 
-import studio.ignitionigloogames.chrystalz.manager.data.MusicDataManager;
-
 public class MusicConstants {
     // Public Music Constants
     public static final int MUSIC_BATTLE = 0;

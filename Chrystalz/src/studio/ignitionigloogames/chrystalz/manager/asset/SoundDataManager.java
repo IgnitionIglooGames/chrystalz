@@ -4,7 +4,7 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.manager.data;
+package studio.ignitionigloogames.chrystalz.manager.asset;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.common.fileio.ResourceStreamReader;
 
-public class MusicDataManager {
-    public static String[] getMusicData() {
+public class SoundDataManager {
+    public static String[] getSoundData() {
         try (final ResourceStreamReader rsr = new ResourceStreamReader(
-                MusicDataManager.class
-                        .getResourceAsStream("/assets/data/music/music.txt"))) {
+                SoundDataManager.class.getResourceAsStream(
+                        "/assets/data/sound/sounds.txt"))) {
             // Fetch data
             final ArrayList<String> rawData = new ArrayList<>();
             String line = "";

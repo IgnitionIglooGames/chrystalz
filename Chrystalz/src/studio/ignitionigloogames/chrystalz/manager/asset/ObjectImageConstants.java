@@ -5,8 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.manager.asset;
 
-import studio.ignitionigloogames.chrystalz.manager.data.ImageDataManager;
-
 public class ObjectImageConstants {
     public static final int OBJECT_IMAGE_NONE = -1;
     public static final int OBJECT_IMAGE_ARMOR_SHOP = 0;

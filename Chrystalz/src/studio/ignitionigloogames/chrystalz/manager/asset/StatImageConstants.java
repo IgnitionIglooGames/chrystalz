@@ -5,8 +5,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.manager.asset;
 
-import studio.ignitionigloogames.chrystalz.manager.data.ImageDataManager;
-
 public class StatImageConstants {
     public static final int STAT_IMAGE_ATTACK = 0;
     public static final int STAT_IMAGE_DEFENSE = 1;
