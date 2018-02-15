@@ -11,8 +11,6 @@ import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
 public class Equipment extends Item {
-    // Constants
-    private static final int MATERIAL_NONE = -1;
     // Properties
     private final int equipCat;
     private final int materialID;
@@ -25,14 +23,6 @@ public class Equipment extends Item {
         this.equipCat = equipCategory;
         this.materialID = newMaterialID;
         this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
-    }
-
-    protected Equipment(final String itemName, final int cost) {
-        super(itemName, 0, 0);
-        this.equipCat = EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ARMOR;
-        this.materialID = Equipment.MATERIAL_NONE;
-        this.slotUsed = EquipmentSlotConstants.SLOT_SOCKS;
-        this.setBuyPrice(cost);
     }
 
     Equipment(final String itemName, final int itemInitialUses,

@@ -7,5 +7,5 @@ package studio.ignitionigloogames.chrystalz.manager.string;
 
 class LocalizedFileList {
     static final String[] LIST = { "monsters", "zones", "bosses", "weapons",
-            "armor", "weapontypes", "armortypes" };
+            "armor", "weapontypes", "armortypes", "stats", "slots" };
 }

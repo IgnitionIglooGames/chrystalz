@@ -19,8 +19,8 @@ import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
-import studio.ignitionigloogames.chrystalz.manager.name.NamesConstants;
-import studio.ignitionigloogames.chrystalz.manager.name.NamesManager;
+import studio.ignitionigloogames.chrystalz.manager.string.LocalizedFile;
+import studio.ignitionigloogames.chrystalz.manager.string.StringManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
 public class StatisticsViewer {
@@ -49,13 +49,13 @@ public class StatisticsViewer {
                         || x == StatConstants.STAT_EVADE) {
                     final double fmtVal = value / 100.0;
                     StatisticsViewer.statisticsValues[x].setText(" "
-                            + NamesManager.getName(NamesConstants.SECTION_STATS,
-                                    NamesConstants.SECTION_ARRAY_STATS[x])
+                            + StringManager
+                                    .getLocalizedString(LocalizedFile.STATS, x)
                             + ": " + fmtVal + "%  ");
                 } else {
                     StatisticsViewer.statisticsValues[x].setText(" "
-                            + NamesManager.getName(NamesConstants.SECTION_STATS,
-                                    NamesConstants.SECTION_ARRAY_STATS[x])
+                            + StringManager
+                                    .getLocalizedString(LocalizedFile.STATS, x)
                             + ": " + value + "  ");
                 }
             }

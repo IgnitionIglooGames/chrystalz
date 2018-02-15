@@ -7,7 +7,6 @@ package studio.ignitionigloogames.chrystalz.shops;
 
 import javax.swing.JOptionPane;
 
-import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.dialogs.ListWithImageDialog;
@@ -277,10 +276,7 @@ public class Shop {
                 valid = this.shopStage4();
             }
             if (valid) {
-                valid = this.shopStage5();
-            }
-            if (valid) {
-                this.shopStage6();
+                this.shopStage5();
             }
         }
 
@@ -305,6 +301,9 @@ public class Shop {
                 }
                 Shop.this.typeChoices = ArmorConstants.getArmorChoices();
                 Shop.this.typeDefault = 0;
+            } else {
+                // Invalid shop type
+                return false;
             }
             if (Shop.this.typeChoices != null) {
                 Shop.this.typeResult = ListWithImageDialog.showDialog(
@@ -331,46 +330,19 @@ public class Shop {
 
         private boolean shopStage2() {
             // Stage 2
-            final PartyMember playerCharacter = PartyManager.getParty()
-                    .getLeader();
+            Shop.this.index = PartyManager.getParty().getZone();
             if (Shop.this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
-                Shop.this.choices = EquipmentFactory.createWeaponNames(
-                        playerCharacter.getCaste().getCasteID());
+                Shop.this.result = EquipmentFactory
+                        .getWeaponName(Shop.this.index, Shop.this.typeIndex);
             } else if (Shop.this.type == ShopTypes.SHOP_TYPE_ARMOR) {
-                Shop.this.choices = EquipmentFactory
-                        .createArmorNames(Shop.this.typeIndex);
-            } else {
-                // Invalid shop type
-                return false;
+                Shop.this.result = EquipmentFactory
+                        .getArmorName(Shop.this.index, Shop.this.typeIndex);
             }
             return true;
         }
 
         private boolean shopStage3() {
             // Stage 3
-            CommonDialogs.setIcon(Shop.this.imageChoices[Shop.this.typeIndex]);
-            Shop.this.result = CommonDialogs.showInputDialog("Select",
-                    Shop.this.getShopNameFromType(), Shop.this.choices,
-                    Shop.this.choices[Shop.this.defaultChoice]);
-            CommonDialogs.setIcon(Application.getMicroLogo());
-            if (Shop.this.result == null) {
-                return false;
-            }
-            if (Shop.this.index == -1) {
-                return false;
-            }
-            Shop.this.index = 0;
-            for (Shop.this.index = 0; Shop.this.index < Shop.this.choices.length; Shop.this.index++) {
-                if (Shop.this.result
-                        .equals(Shop.this.choices[Shop.this.index])) {
-                    break;
-                }
-            }
-            return true;
-        }
-
-        private boolean shopStage4() {
-            // Stage 4
             Shop.this.cost = 0;
             Shop.this.cost = Shop.getEquipmentCost(Shop.this.index);
             // Confirm
@@ -384,8 +356,8 @@ public class Shop {
             return true;
         }
 
-        private boolean shopStage5() {
-            // Stage 5
+        private boolean shopStage4() {
+            // Stage 4
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             if (playerCharacter.getGold() < Shop.this.cost) {
@@ -396,8 +368,8 @@ public class Shop {
             return true;
         }
 
-        private void shopStage6() {
-            // Stage 6
+        private void shopStage5() {
+            // Stage 5
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             // Play transact sound

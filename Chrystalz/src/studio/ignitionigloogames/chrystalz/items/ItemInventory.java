@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
-import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
@@ -33,8 +32,8 @@ public class ItemInventory {
     public void equipWeapon(final AbstractCreature pc, final Equipment ei,
             final boolean playSound) {
         // Fix character load, changing weapons
-        if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
-            pc.offsetLoad(-this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
+        if (this.equipment[EquipmentSlotConstants.SLOT_WEAPON] != null) {
+            pc.offsetLoad(-this.equipment[EquipmentSlotConstants.SLOT_WEAPON]
                     .getEffectiveWeight());
         }
         pc.offsetLoad(ei.getEffectiveWeight());
@@ -53,18 +52,6 @@ public class ItemInventory {
                     -this.equipment[ei.getSlotUsed()].getEffectiveWeight());
         }
         pc.offsetLoad(ei.getEffectiveWeight());
-        // Check for shield
-        if (ei.getSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
-            // Check for two-handed weapon
-            if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
-                if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
-                        .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_TWO_HANDED_WEAPON) {
-                    // Two-handed weapon currently equipped, unequip it
-                    this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] = null;
-                    this.equipment[EquipmentSlotConstants.SLOT_OFFHAND] = null;
-                }
-            }
-        }
         // Equip it in first slot
         this.equipment[ei.getSlotUsed()] = ei;
         if (playSound) {
@@ -120,36 +107,37 @@ public class ItemInventory {
 
     public int getTotalPower() {
         int total = 0;
-        if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
-            total += this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
+        if (this.equipment[EquipmentSlotConstants.SLOT_WEAPON] != null) {
+            total += this.equipment[EquipmentSlotConstants.SLOT_WEAPON]
                     .getPotency();
-        }
-        if (this.equipment[EquipmentSlotConstants.SLOT_OFFHAND] != null) {
-            if (this.equipment[EquipmentSlotConstants.SLOT_OFFHAND]
-                    .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ONE_HANDED_WEAPON) {
-                total += this.equipment[EquipmentSlotConstants.SLOT_OFFHAND]
-                        .getPotency();
-            } else if (this.equipment[EquipmentSlotConstants.SLOT_OFFHAND]
-                    .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_TWO_HANDED_WEAPON) {
-                total += this.equipment[EquipmentSlotConstants.SLOT_OFFHAND]
-                        .getPotency();
-                total *= StatConstants.FACTOR_TWO_HANDED_BONUS;
-            }
         }
         return total;
     }
 
     public int getTotalAbsorb() {
         int total = 0;
-        if (this.equipment[EquipmentSlotConstants.SLOT_OFFHAND] != null) {
-            if (this.equipment[EquipmentSlotConstants.SLOT_OFFHAND]
-                    .getEquipCategory() == EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ARMOR) {
-                total += this.equipment[EquipmentSlotConstants.SLOT_OFFHAND]
-                        .getPotency();
-            }
+        if (this.equipment[EquipmentSlotConstants.SLOT_HEAD] != null) {
+            total += this.equipment[EquipmentSlotConstants.SLOT_HEAD]
+                    .getPotency();
+        }
+        if (this.equipment[EquipmentSlotConstants.SLOT_NECK] != null) {
+            total += this.equipment[EquipmentSlotConstants.SLOT_NECK]
+                    .getPotency();
+        }
+        if (this.equipment[EquipmentSlotConstants.SLOT_ARMS] != null) {
+            total += this.equipment[EquipmentSlotConstants.SLOT_ARMS]
+                    .getPotency();
+        }
+        if (this.equipment[EquipmentSlotConstants.SLOT_HANDS] != null) {
+            total += this.equipment[EquipmentSlotConstants.SLOT_HANDS]
+                    .getPotency();
         }
         if (this.equipment[EquipmentSlotConstants.SLOT_BODY] != null) {
             total += this.equipment[EquipmentSlotConstants.SLOT_BODY]
+                    .getPotency();
+        }
+        if (this.equipment[EquipmentSlotConstants.SLOT_FEET] != null) {
+            total += this.equipment[EquipmentSlotConstants.SLOT_FEET]
                     .getPotency();
         }
         return total;

@@ -22,7 +22,7 @@ public class EquipmentFactory {
                 0, 0,
                 EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ONE_HANDED_WEAPON,
                 material);
-        e.setSlotUsed(EquipmentSlotConstants.SLOT_MAINHAND);
+        e.setSlotUsed(EquipmentSlotConstants.SLOT_WEAPON);
         e.setPotency(material);
         e.setBuyPrice(Shop.getEquipmentCost(material));
         return e;
@@ -35,27 +35,19 @@ public class EquipmentFactory {
                         + ArmorConstants.getArmor(armorType),
                 0, 0, EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ARMOR,
                 material);
-        e.setSlotUsed(armorType);
+        e.setSlotUsed(EquipmentSlotConstants.getArmorSlotForType(armorType));
         e.setPotency(material);
         e.setBuyPrice(Shop.getEquipmentCost(material));
         return e;
     }
 
-    public static String[] createWeaponNames(final int weaponType) {
-        final String[] res = new String[12];
-        for (int x = 0; x < res.length; x++) {
-            res[x] = WeaponMaterialConstants.getWeaponMaterial(x) + " "
-                    + WeaponConstants.getWeapon(weaponType);
-        }
-        return res;
+    public static String getWeaponName(final int zoneID, final int weaponType) {
+        return WeaponMaterialConstants.getWeaponMaterial(zoneID) + " "
+                + WeaponConstants.getWeapon(weaponType);
     }
 
-    public static String[] createArmorNames(final int armorType) {
-        final String[] res = new String[12];
-        for (int x = 0; x < res.length; x++) {
-            res[x] = ArmorMaterialConstants.getArmorMaterial(x) + " "
-                    + ArmorConstants.getArmor(armorType);
-        }
-        return res;
+    public static String getArmorName(final int zoneID, final int armorType) {
+        return ArmorMaterialConstants.getArmorMaterial(zoneID) + " "
+                + ArmorConstants.getArmor(armorType);
     }
 }

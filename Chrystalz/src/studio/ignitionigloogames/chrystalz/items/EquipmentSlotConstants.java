@@ -5,49 +5,38 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.items;
 
-import studio.ignitionigloogames.chrystalz.manager.name.NamesConstants;
-import studio.ignitionigloogames.chrystalz.manager.name.NamesManager;
+import studio.ignitionigloogames.chrystalz.manager.string.LocalizedFile;
+import studio.ignitionigloogames.chrystalz.manager.string.StringManager;
 
 public class EquipmentSlotConstants {
-    static final int SLOT_SOCKS = -2;
     static final int SLOT_NONE = -1;
-    public static final int SLOT_MAINHAND = 0;
-    public static final int SLOT_OFFHAND = 1;
-    public static final int SLOT_BODY = 2;
-    static final int MAX_SLOTS = 3;
+    public static final int SLOT_HEAD = 0;
+    public static final int SLOT_NECK = 1;
+    public static final int SLOT_ARMS = 2;
+    public static final int SLOT_WEAPON = 3;
+    public static final int SLOT_HANDS = 4;
+    public static final int SLOT_BODY = 5;
+    public static final int SLOT_FEET = 6;
+    static final int MAX_SLOTS = 7;
     private static String[] SLOT_NAMES = null;
-    private static String[] ARMOR_SLOT_NAMES = null;
 
     static synchronized String[] getSlotNames() {
         if (EquipmentSlotConstants.SLOT_NAMES == null) {
             final String[] temp = new String[EquipmentSlotConstants.MAX_SLOTS];
             for (int x = 0; x < temp.length; x++) {
-                temp[x] = NamesManager.getName(
-                        NamesConstants.SECTION_EQUIP_SLOT,
-                        NamesConstants.SECTION_ARRAY_EQUIP_SLOTS[x]);
+                temp[x] = StringManager.getLocalizedString(LocalizedFile.SLOTS,
+                        x);
             }
             EquipmentSlotConstants.SLOT_NAMES = temp;
         }
         return EquipmentSlotConstants.SLOT_NAMES;
     }
 
-    static synchronized String[] getArmorSlotNames() {
-        if (EquipmentSlotConstants.ARMOR_SLOT_NAMES == null) {
-            if (EquipmentSlotConstants.SLOT_NAMES == null) {
-                EquipmentSlotConstants.getSlotNames();
-            }
-            final String[] temp = EquipmentSlotConstants.SLOT_NAMES;
-            final String[] temp2 = new String[temp.length - 1];
-            int offset = 0;
-            for (int x = 0; x < temp.length; x++) {
-                if (x == EquipmentSlotConstants.SLOT_MAINHAND) {
-                    offset++;
-                } else {
-                    temp2[x - offset] = temp[x];
-                }
-            }
-            EquipmentSlotConstants.ARMOR_SLOT_NAMES = temp2;
+    public static int getArmorSlotForType(final int armorType) {
+        if (armorType >= EquipmentSlotConstants.SLOT_WEAPON) {
+            return armorType + 1;
+        } else {
+            return armorType;
         }
-        return EquipmentSlotConstants.ARMOR_SLOT_NAMES;
     }
 }
