@@ -17,18 +17,18 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
-public final class GameLogicManager {
+public final class GameLogic {
     // Fields
     private boolean savedGameFlag;
     private final GameViewingWindowManager vwMgr;
     private boolean stateChanged;
-    private final GameGUIManager gui;
+    private final GameGUI gui;
     private final MovementTask mt;
 
     // Constructors
-    public GameLogicManager() {
+    public GameLogic() {
         this.vwMgr = new GameViewingWindowManager();
-        this.gui = new GameGUIManager();
+        this.gui = new GameGUI();
         this.mt = new MovementTask(this.vwMgr, this.gui);
         this.mt.start();
         this.savedGameFlag = false;
@@ -102,7 +102,7 @@ public final class GameLogicManager {
     }
 
     public void resetViewingWindowAndPlayerLocation() {
-        GameLogicManager.resetPlayerLocation();
+        GameLogic.resetPlayerLocation();
         this.resetViewingWindow();
     }
 
@@ -118,7 +118,7 @@ public final class GameLogicManager {
     }
 
     public static void resetPlayerLocation() {
-        GameLogicManager.resetPlayerLocation(0);
+        GameLogic.resetPlayerLocation(0);
     }
 
     public static void resetPlayerLocation(final int level) {

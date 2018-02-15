@@ -7,7 +7,7 @@ package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractTrigger;
-import studio.ignitionigloogames.chrystalz.game.GameLogicManager;
+import studio.ignitionigloogames.chrystalz.game.GameLogic;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
@@ -43,9 +43,9 @@ public class ClosedDoor extends AbstractTrigger {
     public void postMoveAction(final boolean ie, final int dirX,
             final int dirY) {
         SoundManager.playSound(SoundConstants.SOUND_DOOR_OPENS);
-        final GameLogicManager glm = Chrystalz.getApplication()
+        final GameLogic glm = Chrystalz.getApplication()
                 .getGameManager();
-        GameLogicManager.morph(new OpenDoor());
+        GameLogic.morph(new OpenDoor());
         glm.redrawDungeon();
     }
 }

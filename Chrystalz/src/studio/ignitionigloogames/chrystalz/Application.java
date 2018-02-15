@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import studio.ignitionigloogames.chrystalz.battle.AbstractBattle;
 import studio.ignitionigloogames.chrystalz.battle.MapBattleLogic;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.GameObjectList;
-import studio.ignitionigloogames.chrystalz.game.GameLogicManager;
+import studio.ignitionigloogames.chrystalz.game.GameLogic;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
@@ -26,7 +26,7 @@ import studio.ignitionigloogames.common.images.BufferedImageIcon;
 public final class Application {
     // Fields
     private AboutDialog about;
-    private GameLogicManager gameMgr;
+    private GameLogic gameMgr;
     private DungeonManager mazeMgr;
     private MenuManager menuMgr;
     private GUIManager guiMgr;
@@ -110,9 +110,9 @@ public final class Application {
         return this.guiMgr;
     }
 
-    public GameLogicManager getGameManager() {
+    public GameLogic getGameManager() {
         if (this.gameMgr == null) {
-            this.gameMgr = new GameLogicManager();
+            this.gameMgr = new GameLogic();
         }
         return this.gameMgr;
     }

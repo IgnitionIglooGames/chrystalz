@@ -35,7 +35,7 @@ import studio.ignitionigloogames.chrystalz.manager.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
-class GameGUIManager {
+class GameGUI {
     // Fields
     private JFrame outputFrame;
     private Container borderPane;
@@ -50,7 +50,7 @@ class GameGUIManager {
     private static Darkness DARK = new Darkness();
 
     // Constructors
-    public GameGUIManager() {
+    public GameGUI() {
         this.deferredRedraw = false;
         this.eventFlag = true;
         this.sg = new StatGUI();
@@ -185,8 +185,8 @@ class GameGUIManager {
                         } else {
                             this.drawGrid.setImageCell(
                                     ObjectImageManager.getImage(
-                                            GameGUIManager.DARK.getName(),
-                                            GameGUIManager.DARK.getBaseID()),
+                                            GameGUI.DARK.getName(),
+                                            GameGUI.DARK.getBaseID()),
                                     xFix, yFix);
                         }
                     } catch (final ArrayIndexOutOfBoundsException ae) {
@@ -254,7 +254,7 @@ class GameGUIManager {
 
         @Override
         public void keyPressed(final KeyEvent e) {
-            if (GameGUIManager.this.eventFlag) {
+            if (GameGUI.this.eventFlag) {
                 if (!PreferencesManager.oneMove()) {
                     this.handleMovement(e);
                 }
@@ -263,7 +263,7 @@ class GameGUIManager {
 
         @Override
         public void keyReleased(final KeyEvent e) {
-            if (GameGUIManager.this.eventFlag) {
+            if (GameGUI.this.eventFlag) {
                 if (PreferencesManager.oneMove()) {
                     this.handleMovement(e);
                 }
@@ -277,7 +277,7 @@ class GameGUIManager {
 
         public void handleMovement(final KeyEvent e) {
             try {
-                final GameLogicManager glm = Chrystalz.getApplication()
+                final GameLogic glm = Chrystalz.getApplication()
                         .getGameManager();
                 final int keyCode = e.getKeyCode();
                 switch (keyCode) {

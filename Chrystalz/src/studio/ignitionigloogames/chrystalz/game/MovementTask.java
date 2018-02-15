@@ -21,7 +21,7 @@ import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 final class MovementTask extends Thread {
     // Fields
     private final GameViewingWindowManager vwMgr;
-    private final GameGUIManager gui;
+    private final GameGUI gui;
     private AbstractGameObject saved;
     private boolean proceed;
     private boolean relative;
@@ -29,7 +29,7 @@ final class MovementTask extends Thread {
 
     // Constructors
     public MovementTask(final GameViewingWindowManager view,
-            final GameGUIManager gameGUI) {
+            final GameGUI gameGUI) {
         this.setName("Movement Handler");
         this.vwMgr = view;
         this.gui = gameGUI;
