@@ -724,6 +724,22 @@ public abstract class AbstractCreature {
         this.fixStatValue(StatConstants.STAT_GOLD);
     }
 
+    public final void offsetGoldPercentage(final int percentage) {
+        int fixedPercentage = percentage;
+        if (fixedPercentage > 100) {
+            fixedPercentage = 100;
+        } else if (fixedPercentage < -100) {
+            fixedPercentage = -100;
+        }
+        if (fixedPercentage > 0) {
+            final int adjustment = this.getGold() * fixedPercentage / 100;
+            this.offsetExperience(adjustment);
+        } else if (fixedPercentage < 0) {
+            final int adjustment = this.getGold() * -fixedPercentage / 100;
+            this.offsetGold(-adjustment);
+        }
+    }
+
     public final void offsetIntelligence(final int value) {
         this.stats[StatConstants.STAT_INTELLIGENCE].offsetValue(value);
         this.fixStatValue(StatConstants.STAT_INTELLIGENCE);

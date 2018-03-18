@@ -14,10 +14,10 @@ import studio.ignitionigloogames.chrystalz.ai.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.ai.AutoMapAI;
 import studio.ignitionigloogames.chrystalz.ai.MapAIContext;
 import studio.ignitionigloogames.chrystalz.battle.damageengines.AbstractDamageEngine;
+import studio.ignitionigloogames.chrystalz.battle.rewards.BattleRewards;
 import studio.ignitionigloogames.chrystalz.battle.types.AbstractBattleType;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
-import studio.ignitionigloogames.chrystalz.creatures.monsters.FinalBossMonster;
 import studio.ignitionigloogames.chrystalz.creatures.monsters.MonsterFactory;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
@@ -39,6 +39,7 @@ import studio.ignitionigloogames.common.random.RandomRange;
 
 public class MapBattleLogic extends AbstractBattle {
     // Fields
+    private AbstractBattleType battleType;
     private MapBattleDefinitions bd;
     private AbstractDamageEngine pde;
     private AbstractDamageEngine ede;
@@ -75,35 +76,32 @@ public class MapBattleLogic extends AbstractBattle {
 
     @Override
     public void doBattle() {
-        final Dungeon m = Dungeon.getTemporaryBattleCopy();
-        final AbstractBattleType b = AbstractBattleType.createBattle();
+        this.battleType = AbstractBattleType.createBattle();
         if (MusicManager.isMusicPlaying()) {
             MusicManager.stopMusic();
         }
         MusicManager.playMusic(MusicConstants.MUSIC_BATTLE);
-        this.doBattleInternal(m, b);
+        this.doBattleInternal();
     }
 
     @Override
     public void doBossBattle() {
-        final Dungeon m = Dungeon.getTemporaryBattleCopy();
-        final AbstractBattleType b = AbstractBattleType.createBossBattle();
-        if (MusicManager.isMusicPlaying()) {
-            MusicManager.stopMusic();
-        }
-        MusicManager.playMusic(MusicConstants.MUSIC_BATTLE);
-        this.doBattleInternal(m, b);
-    }
-
-    @Override
-    public void doFinalBossBattle() {
-        final Dungeon m = Dungeon.getTemporaryBattleCopy();
-        final AbstractBattleType b = AbstractBattleType.createFinalBossBattle();
+        this.battleType = AbstractBattleType.createBossBattle();
         if (MusicManager.isMusicPlaying()) {
             MusicManager.stopMusic();
         }
         MusicManager.playMusic(MusicConstants.MUSIC_BOSS);
-        this.doBattleInternal(m, b);
+        this.doBattleInternal();
+    }
+
+    @Override
+    public void doFinalBossBattle() {
+        this.battleType = AbstractBattleType.createFinalBossBattle();
+        if (MusicManager.isMusicPlaying()) {
+            MusicManager.stopMusic();
+        }
+        MusicManager.playMusic(MusicConstants.MUSIC_BOSS);
+        this.doBattleInternal();
     }
 
     @Override
@@ -121,9 +119,9 @@ public class MapBattleLogic extends AbstractBattle {
         }
     }
 
-    private void doBattleInternal(final Dungeon bMap,
-            final AbstractBattleType b) {
+    private void doBattleInternal() {
         // Initialize Battle
+        final Dungeon bMap = Dungeon.getTemporaryBattleCopy();
         Chrystalz.getApplication().getGame().hideOutput();
         Chrystalz.getApplication().setMode(Application.STATUS_BATTLE);
         this.bd = new MapBattleDefinitions();
@@ -136,7 +134,7 @@ public class MapBattleLogic extends AbstractBattle {
         final BattleCharacter friends = PartyManager.getParty()
                 .getBattleCharacters();
         // Generate Enemies
-        this.enemy = b.getBattlers();
+        this.enemy = this.battleType.getBattlers();
         this.enemy.getTemplate().healAndRegenerateFully();
         this.enemy.getTemplate().loadCreature();
         // Merge and Create AI Contexts
@@ -502,18 +500,6 @@ public class MapBattleLogic extends AbstractBattle {
         }
         if (res != -1) {
             this.speedMarkArray[res] = true;
-        }
-        return res;
-    }
-
-    private int getGold() {
-        int res = 0;
-        for (int x = 0; x < this.bd.getBattlers().length; x++) {
-            if (this.bd.getBattlers()[x] != null) {
-                if (this.bd.getBattlers()[x].getTeamID() != 0) {
-                    res += this.bd.getBattlers()[x].getTemplate().getGold();
-                }
-            }
         }
         return res;
     }
@@ -1382,73 +1368,44 @@ public class MapBattleLogic extends AbstractBattle {
         if (!this.resultDoneAlready) {
             // Handle Results
             this.resultDoneAlready = true;
-            boolean rewardsFlag = false;
-            if (this.getEnemy() instanceof FinalBossMonster) {
-                if (this.result == BattleResult.WON
-                        || this.result == BattleResult.PERFECT) {
-                    this.setStatusMessage("You defeated the Boss!");
-                    SoundManager.playSound(SoundConstants.SOUND_VICTORY);
-                    rewardsFlag = true;
-                } else if (this.result == BattleResult.LOST) {
-                    this.setStatusMessage("The Boss defeated you...");
-                    SoundManager.playSound(SoundConstants.SOUND_DEFEATED);
-                    PartyManager.getParty().getLeader().onDeath(-10);
-                } else if (this.result == BattleResult.ANNIHILATED) {
-                    this.setStatusMessage(
-                            "The Boss defeated you without suffering damage... you were annihilated!");
-                    SoundManager.playSound(SoundConstants.SOUND_DEFEATED);
-                    PartyManager.getParty().getLeader().onDeath(-20);
-                } else if (this.result == BattleResult.DRAW) {
-                    this.setStatusMessage(
-                            "The Boss battle was a draw. You are fully healed!");
-                    PartyManager.getParty().getLeader().healPercentage(
-                            AbstractCreature.FULL_HEAL_PERCENTAGE);
-                    PartyManager.getParty().getLeader().regeneratePercentage(
-                            AbstractCreature.FULL_HEAL_PERCENTAGE);
-                } else if (this.result == BattleResult.FLED) {
-                    this.setStatusMessage("You ran away successfully!");
-                } else if (this.result == BattleResult.ENEMY_FLED) {
-                    this.setStatusMessage("The Boss ran away!");
-                }
+            if (this.result == BattleResult.WON) {
+                SoundManager.playSound(SoundConstants.SOUND_VICTORY);
+                CommonDialogs.showTitledDialog("The party is victorious!",
+                        "Victory!");
+            } else if (this.result == BattleResult.PERFECT) {
+                SoundManager.playSound(SoundConstants.SOUND_VICTORY);
+                CommonDialogs.showTitledDialog(
+                        "The party is victorious, and avoided damage!",
+                        "Perfect Victory!");
+            } else if (this.result == BattleResult.LOST) {
+                CommonDialogs.showTitledDialog("The party has been defeated!",
+                        "Defeat!");
+            } else if (this.result == BattleResult.ANNIHILATED) {
+                CommonDialogs.showTitledDialog(
+                        "The party has been defeated without dealing any damage!",
+                        "Annihilated!");
+            } else if (this.result == BattleResult.DRAW) {
+                CommonDialogs.showTitledDialog("The battle was a draw.",
+                        "Draw");
+            } else if (this.result == BattleResult.FLED) {
+                CommonDialogs.showTitledDialog("The party fled!", "Party Fled");
+            } else if (this.result == BattleResult.ENEMY_FLED) {
+                CommonDialogs.showTitledDialog("The enemy fled!", "Enemy Fled");
             } else {
-                if (this.result == BattleResult.WON) {
-                    SoundManager.playSound(SoundConstants.SOUND_VICTORY);
-                    CommonDialogs.showTitledDialog("The party is victorious!",
-                            "Victory!");
-                    PartyManager.getParty().getLeader()
-                            .offsetGold(this.getGold());
-                    PartyManager.getParty().getLeader()
-                            .offsetExperience(this.battleExp);
-                } else if (this.result == BattleResult.LOST) {
-                    CommonDialogs.showTitledDialog(
-                            "The party has been defeated!", "Defeat...");
-                } else if (this.result == BattleResult.DRAW) {
-                    CommonDialogs.showTitledDialog("The battle was a draw.",
-                            "Draw");
-                } else if (this.result == BattleResult.FLED) {
-                    CommonDialogs.showTitledDialog("The party fled!",
-                            "Party Fled");
-                } else if (this.result == BattleResult.ENEMY_FLED) {
-                    CommonDialogs.showTitledDialog("The enemies fled!",
-                            "Enemies Fled");
-                } else if (this.result == BattleResult.IN_PROGRESS) {
-                    CommonDialogs.showTitledDialog(
-                            "The battle isn't over, but somehow the game thinks it is.",
-                            "Uh-Oh!");
-                } else {
-                    CommonDialogs.showTitledDialog(
-                            "The result of the battle is unknown!", "Uh-Oh!");
-                }
+                CommonDialogs.showTitledDialog(
+                        "The battle isn't over, but somehow the game thinks it is.",
+                        "Uh-Oh!");
             }
+            // Rewards
+            long exp = this.battleExp;
+            int gold = this.getEnemy().getGold();
+            BattleRewards.doRewards(this.battleType, this.result, exp, gold);
             // Strip effects
             PartyManager.getParty().getLeader().stripAllEffects();
             // Level Up Check
             PartyManager.getParty().checkPartyLevelUp();
             // Battle Done
             this.battleDone();
-            if (rewardsFlag) {
-                FinalBossRewards.doRewards();
-            }
         }
     }
 
