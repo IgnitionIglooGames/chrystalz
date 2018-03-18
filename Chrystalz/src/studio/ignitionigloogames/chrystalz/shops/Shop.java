@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.dialogs.ListWithImageDialog;
+import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.items.ArmorConstants;
 import studio.ignitionigloogames.chrystalz.items.Equipment;
 import studio.ignitionigloogames.chrystalz.items.EquipmentFactory;
@@ -95,6 +96,13 @@ public class Shop {
         } else {
             MusicManager.playMusic(MusicConstants.MUSIC_SHOP);
             this.defaultUI.showShop();
+        }
+        MusicManager.stopMusic();
+        int zoneID = PartyManager.getParty().getZone();
+        if (zoneID == Dungeon.getMaxLevels() - 1) {
+            MusicManager.playMusic(MusicConstants.MUSIC_LAIR);
+        } else {
+            MusicManager.playMusic(MusicConstants.MUSIC_DUNGEON);
         }
     }
 
