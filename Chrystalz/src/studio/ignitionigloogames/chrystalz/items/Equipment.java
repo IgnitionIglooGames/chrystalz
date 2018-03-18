@@ -12,36 +12,30 @@ import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
 public class Equipment extends Item {
     // Properties
-    private final int equipCat;
     private final int materialID;
     private int slotUsed;
     private final int hitSound;
 
     // Constructors
-    private Equipment(final Item i, final int equipCategory,
-            final int newMaterialID) {
+    private Equipment(final Item i, final int newMaterialID) {
         super(i.getName(), i.getInitialUses(), i.getWeightPerUse());
-        this.equipCat = equipCategory;
         this.materialID = newMaterialID;
         this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
         this.hitSound = -1;
     }
 
     Equipment(final String itemName, final int itemInitialUses,
-            final int itemWeightPerUse, final int equipCategory,
-            final int newMaterialID) {
+            final int itemWeightPerUse, final int newMaterialID) {
         super(itemName, itemInitialUses, itemWeightPerUse);
-        this.equipCat = equipCategory;
         this.materialID = newMaterialID;
         this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
         this.hitSound = -1;
     }
 
     Equipment(final String itemName, final int itemInitialUses,
-            final int itemWeightPerUse, final int equipCategory,
-            final int newMaterialID, final int hitSoundID) {
+            final int itemWeightPerUse, final int newMaterialID,
+            final int hitSoundID) {
         super(itemName, itemInitialUses, itemWeightPerUse);
-        this.equipCat = equipCategory;
         this.materialID = newMaterialID;
         this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
         this.hitSound = hitSoundID;
@@ -49,7 +43,6 @@ public class Equipment extends Item {
 
     Equipment(final Equipment e) {
         super(e.getName(), e);
-        this.equipCat = e.equipCat;
         this.materialID = e.materialID;
         this.slotUsed = e.slotUsed;
         this.hitSound = e.hitSound;
@@ -60,7 +53,6 @@ public class Equipment extends Item {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + this.equipCat;
         result = prime * result + this.slotUsed;
         return prime * result + this.materialID;
     }
@@ -77,9 +69,6 @@ public class Equipment extends Item {
             return false;
         }
         final Equipment other = (Equipment) obj;
-        if (this.equipCat != other.equipCat) {
-            return false;
-        }
         if (this.slotUsed != other.slotUsed) {
             return false;
         }
@@ -101,10 +90,6 @@ public class Equipment extends Item {
         this.slotUsed = newSlotUsed;
     }
 
-    public final int getEquipCategory() {
-        return this.equipCat;
-    }
-
     public final int getMaterial() {
         return this.materialID;
     }
@@ -116,8 +101,7 @@ public class Equipment extends Item {
             return null;
         }
         final int matID = dr.readInt();
-        final int eCat = dr.readInt();
-        final Equipment ei = new Equipment(i, eCat, matID);
+        final Equipment ei = new Equipment(i, matID);
         ei.slotUsed = dr.readInt();
         return ei;
     }
@@ -125,7 +109,6 @@ public class Equipment extends Item {
     final void writeEquipment(final FileIOWriter dw) throws IOException {
         super.writeItem(dw);
         dw.writeInt(this.materialID);
-        dw.writeInt(this.equipCat);
         dw.writeInt(this.slotUsed);
     }
 }

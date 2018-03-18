@@ -19,9 +19,8 @@ public class EquipmentFactory {
         final Equipment e = new Equipment(
                 WeaponMaterialConstants.getWeaponMaterial(material) + " "
                         + WeaponConstants.getWeapon(weaponType),
-                0, 0,
-                EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ONE_HANDED_WEAPON,
-                material, WeaponConstants.getWeaponTypeHitSound(weaponType));
+                0, 0, material,
+                WeaponConstants.getWeaponTypeHitSound(weaponType));
         e.setSlotUsed(EquipmentSlotConstants.SLOT_WEAPON);
         e.setPotency(material);
         e.setBuyPrice(Shop.getEquipmentCost(material));
@@ -33,8 +32,7 @@ public class EquipmentFactory {
         final Equipment e = new Equipment(
                 ArmorMaterialConstants.getArmorMaterial(material) + " "
                         + ArmorConstants.getArmor(armorType),
-                0, 0, EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ARMOR,
-                material);
+                0, 0, material);
         e.setSlotUsed(EquipmentSlotConstants.getArmorSlotForType(armorType));
         e.setPotency(material);
         e.setBuyPrice(Shop.getEquipmentCost(material));
