@@ -17,11 +17,11 @@ import studio.ignitionigloogames.common.random.RandomRange;
 
 public class FinalBossMonster extends AbstractMonster {
     // Fields
-    private static final int MINIMUM_STAT_VALUE_VERY_EASY = 100;
-    private static final int MINIMUM_STAT_VALUE_EASY = 200;
-    private static final int MINIMUM_STAT_VALUE_NORMAL = 400;
-    private static final int MINIMUM_STAT_VALUE_HARD = 600;
-    private static final int MINIMUM_STAT_VALUE_VERY_HARD = 900;
+    private static final int MINIMUM_STAT_VALUE_VERY_EASY = 50;
+    private static final int MINIMUM_STAT_VALUE_EASY = 60;
+    private static final int MINIMUM_STAT_VALUE_NORMAL = 70;
+    private static final int MINIMUM_STAT_VALUE_HARD = 80;
+    private static final int MINIMUM_STAT_VALUE_VERY_HARD = 90;
     private static final int STAT_MULT_VERY_EASY = 5;
     private static final int STAT_MULT_EASY = 6;
     private static final int STAT_MULT_NORMAL = 7;
