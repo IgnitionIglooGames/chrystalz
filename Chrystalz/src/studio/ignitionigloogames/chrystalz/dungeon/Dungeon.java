@@ -193,21 +193,7 @@ public class Dungeon {
 
     private void switchLevelInternal(final int level) {
         if (this.activeLevel != level) {
-            if (this.mazeData != null) {
-                try (FileIOWriter writer = this.getLevelWriter()) {
-                    // Save old level
-                    this.writeDungeonLevel(writer);
-                } catch (final IOException io) {
-                    // Ignore
-                }
-            }
             this.activeLevel = level;
-            try (FileIOReader reader = this.getLevelReader()) {
-                // Load new level
-                this.readDungeonLevel(reader);
-            } catch (final IOException io) {
-                // Ignore
-            }
         }
     }
 
@@ -374,11 +360,6 @@ public class Dungeon {
             this.suffixHandler.readSuffix(reader, ver);
         }
         return ver;
-    }
-
-    private void readDungeonLevel(final FileIOReader reader)
-            throws IOException {
-        this.readDungeonLevel(reader, FormatConstants.MAZE_FORMAT_LATEST);
     }
 
     private void readDungeonLevel(final FileIOReader reader,
