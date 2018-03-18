@@ -221,22 +221,10 @@ public class Dungeon {
     }
 
     public boolean addLevel(final int rows, final int cols) {
-        if (this.levelCount < Dungeon.getMaxLevels()) {
-            if (this.mazeData != null) {
-                try (FileIOWriter writer = this.getLevelWriter()) {
-                    // Save old level
-                    this.writeDungeonLevel(writer);
-                } catch (final IOException io) {
-                    // Ignore
-                }
-            }
-            this.mazeData = new LayeredTower(rows, cols);
-            this.levelCount++;
-            this.activeLevel = this.levelCount - 1;
-            return true;
-        } else {
-            return false;
-        }
+        this.mazeData = new LayeredTower(rows, cols);
+        this.levelCount++;
+        this.activeLevel = this.levelCount - 1;
+        return true;
     }
 
     public AbstractGameObject getCell(final int row, final int col,
