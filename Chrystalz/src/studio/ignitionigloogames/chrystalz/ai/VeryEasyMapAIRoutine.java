@@ -182,9 +182,11 @@ class VeryEasyMapAIRoutine extends AbstractMapAIRoutine {
     @Override
     public void newRoundHook() {
         // Decrement effect counters
-        for (int z = 0; z < this.roundsRemaining.length; z++) {
-            if (this.roundsRemaining[z] > 0) {
-                this.roundsRemaining[z]--;
+        if (this.roundsRemaining != null) {
+            for (int z = 0; z < this.roundsRemaining.length; z++) {
+                if (this.roundsRemaining[z] > 0) {
+                    this.roundsRemaining[z]--;
+                }
             }
         }
     }
