@@ -389,9 +389,8 @@ public class Shop {
             SoundManager.playSound(SoundConstants.TRANSACT);
             if (Shop.this.type == ShopType.WEAPONS) {
                 playerCharacter.offsetGold(-Shop.this.cost);
-                final Equipment bought = EquipmentFactory.createWeapon(
-                        Shop.this.index,
-                        playerCharacter.getCaste().getCasteID());
+                final Equipment bought = EquipmentFactory
+                        .createWeapon(Shop.this.index, Shop.this.typeIndex);
                 playerCharacter.getItems().equipWeapon(playerCharacter, bought,
                         true);
             } else if (Shop.this.type == ShopType.ARMOR) {
