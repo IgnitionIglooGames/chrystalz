@@ -77,7 +77,7 @@ public class MonsterTile extends AbstractMovingObject {
             return RandomGenerationRule.NO_LIMIT;
         } else {
             return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(),
-                    1.0 / 2.0);
+                    1.0 / 2.2);
         }
     }
 
@@ -87,7 +87,7 @@ public class MonsterTile extends AbstractMovingObject {
             return RandomGenerationRule.NO_LIMIT;
         } else {
             return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(),
-                    1.0 / 1.6);
+                    1.0 / 1.8);
         }
     }
 
