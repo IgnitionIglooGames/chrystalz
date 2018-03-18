@@ -35,7 +35,7 @@ public class StatConstants {
     public static final int MAX_STATS = 22;
     // Factors
     static final double FACTOR_STRENGTH_ATTACK = 10.0;
-    static final double FACTOR_POWER_ATTACK = 1.0;
+    static final double FACTOR_POWER_ATTACK = 6.0;
     static final double FACTOR_BLOCK_DEFENSE = 10.0;
     static final double FACTOR_ABSORB_DEFENSE = 1.0;
     static final double FACTOR_SPEED_MAP_ACTIONS_PER_ROUND = 1.0;
@@ -44,7 +44,6 @@ public class StatConstants {
     static final double FACTOR_LOAD_SPEED = 1.0;
     static final double FACTOR_VITALITY_HEALTH = 2.0;
     static final double FACTOR_INTELLIGENCE_MAGIC = 2.0;
-    public static final double FACTOR_TWO_HANDED_BONUS = 1.5;
     static final double FACTOR_STRENGTH_HIT = 0.75;
     static final double FACTOR_LUCK_HIT = 0.25;
     static final double FACTOR_AGILITY_EVADE = 0.75;
@@ -52,12 +51,12 @@ public class StatConstants {
     static final double FACTOR_STRENGTH_CAPACITY = 8.0;
     static final double FACTOR_AGILITY_CAPACITY = 2.0;
     // Base Gains Per Level
-    public static final int GAIN_STRENGTH = 5;
-    public static final int GAIN_BLOCK = 5;
-    public static final int GAIN_AGILITY = 5;
-    public static final int GAIN_VITALITY = 5;
-    public static final int GAIN_INTELLIGENCE = 5;
-    public static final int GAIN_LUCK = 5;
+    public static final int GAIN_STRENGTH = 6;
+    public static final int GAIN_BLOCK = 6;
+    public static final int GAIN_AGILITY = 6;
+    public static final int GAIN_VITALITY = 6;
+    public static final int GAIN_INTELLIGENCE = 6;
+    public static final int GAIN_LUCK = 6;
     // Base Chances
     public static final int CHANCE_STEAL = 50;
     public static final int CHANCE_DRAIN = 50;

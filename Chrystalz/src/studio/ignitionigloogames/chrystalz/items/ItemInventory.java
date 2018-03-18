@@ -21,23 +21,22 @@ public class ItemInventory {
 
     // Constructors
     public ItemInventory() {
-        this.resetInventory();
+        this.equipment = new Equipment[EquipmentSlotConstants.MAX_SLOTS];
     }
 
     // Methods
     public void resetInventory() {
-        this.equipment = new Equipment[EquipmentSlotConstants.MAX_SLOTS];
+        Arrays.fill(this.equipment, null);
     }
 
     public void equip(final AbstractCreature pc, final Equipment ei,
             final boolean playSound) {
         // Fix character load, changing gear
         if (this.equipment[ei.getSlotUsed()] != null) {
-            pc.offsetLoad(
-                    -this.equipment[ei.getSlotUsed()].getEffectiveWeight());
+            pc.offsetLoad(-this.equipment[ei.getSlotUsed()].getWeight());
         }
-        pc.offsetLoad(ei.getEffectiveWeight());
-        // Equip it in first slot
+        pc.offsetLoad(ei.getWeight());
+        // Equip it
         this.equipment[ei.getSlotUsed()] = ei;
         if (playSound) {
             SoundManager.playSound(SoundConstants.EQUIP);
@@ -53,32 +52,6 @@ public class ItemInventory {
             return SoundConstants.ATTACK_HIT;
         }
         return SoundConstants.MONSTER_HIT;
-    }
-
-    public Equipment getEquipmentInSlot(final int slot) {
-        return this.equipment[slot];
-    }
-
-    public void setEquipmentInSlot(final int slot, final Equipment e) {
-        this.equipment[slot] = e;
-    }
-
-    public String[] generateEquipmentEnhancementStringArray() {
-        final String[] result = new String[this.equipment.length];
-        StringBuilder sb;
-        for (int x = 0; x < result.length; x++) {
-            sb = new StringBuilder();
-            if (this.equipment[x] == null) {
-                sb.append("Nothing (0)");
-            } else {
-                sb.append(this.equipment[x].getName());
-                sb.append(" (");
-                sb.append(this.equipment[x].getPotency());
-                sb.append(")");
-            }
-            result[x] = sb.toString();
-        }
-        return result;
     }
 
     public String[] generateEquipmentStringArray() {
@@ -143,7 +116,7 @@ public class ItemInventory {
         int total = 0;
         for (int x = 0; x < EquipmentSlotConstants.MAX_SLOTS; x++) {
             if (this.equipment[x] != null) {
-                total += this.equipment[x].getEffectiveWeight();
+                total += this.equipment[x].getWeight();
             }
         }
         return total;
