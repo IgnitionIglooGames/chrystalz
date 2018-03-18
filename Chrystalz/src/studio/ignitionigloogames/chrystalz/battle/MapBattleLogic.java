@@ -14,6 +14,7 @@ import studio.ignitionigloogames.chrystalz.ai.AbstractMapAIRoutine;
 import studio.ignitionigloogames.chrystalz.ai.AutoMapAI;
 import studio.ignitionigloogames.chrystalz.ai.MapAIContext;
 import studio.ignitionigloogames.chrystalz.battle.damageengines.AbstractDamageEngine;
+import studio.ignitionigloogames.chrystalz.battle.types.AbstractBattleType;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.StatConstants;
 import studio.ignitionigloogames.chrystalz.creatures.monsters.FinalBossMonster;
@@ -75,7 +76,7 @@ public class MapBattleLogic extends AbstractBattle {
     @Override
     public void doBattle() {
         final Dungeon m = Dungeon.getTemporaryBattleCopy();
-        final AbstractMapBattle b = AbstractMapBattle.createBattle();
+        final AbstractBattleType b = AbstractBattleType.createBattle();
         if (MusicManager.isMusicPlaying()) {
             MusicManager.stopMusic();
         }
@@ -86,7 +87,7 @@ public class MapBattleLogic extends AbstractBattle {
     @Override
     public void doBossBattle() {
         final Dungeon m = Dungeon.getTemporaryBattleCopy();
-        final AbstractMapBattle b = AbstractMapBattle.createBossBattle();
+        final AbstractBattleType b = AbstractBattleType.createBossBattle();
         if (MusicManager.isMusicPlaying()) {
             MusicManager.stopMusic();
         }
@@ -97,7 +98,7 @@ public class MapBattleLogic extends AbstractBattle {
     @Override
     public void doFinalBossBattle() {
         final Dungeon m = Dungeon.getTemporaryBattleCopy();
-        final AbstractMapBattle b = AbstractMapBattle.createFinalBossBattle();
+        final AbstractBattleType b = AbstractBattleType.createFinalBossBattle();
         if (MusicManager.isMusicPlaying()) {
             MusicManager.stopMusic();
         }
@@ -121,7 +122,7 @@ public class MapBattleLogic extends AbstractBattle {
     }
 
     private void doBattleInternal(final Dungeon bMap,
-            final AbstractMapBattle b) {
+            final AbstractBattleType b) {
         // Initialize Battle
         Chrystalz.getApplication().getGame().hideOutput();
         Chrystalz.getApplication().setMode(Application.STATUS_BATTLE);

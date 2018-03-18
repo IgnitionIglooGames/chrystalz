@@ -1,8 +1,8 @@
-package studio.ignitionigloogames.chrystalz.battle;
+package studio.ignitionigloogames.chrystalz.battle.types;
 
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 
-public abstract class AbstractMapBattle {
+public abstract class AbstractBattleType {
     protected boolean boss = false;
     protected boolean finalBoss = false;
 
@@ -16,15 +16,15 @@ public abstract class AbstractMapBattle {
         return this.finalBoss;
     }
 
-    public static AbstractMapBattle createBattle() {
-        return new MapBattle();
+    public static AbstractBattleType createBattle() {
+        return new RegularBattle();
     }
 
-    public static AbstractMapBattle createBossBattle() {
-        return new MapBossBattle();
+    public static AbstractBattleType createBossBattle() {
+        return new BossBattle();
     }
 
-    public static AbstractMapBattle createFinalBossBattle() {
-        return new MapFinalBossBattle();
+    public static AbstractBattleType createFinalBossBattle() {
+        return new FinalBossBattle();
     }
 }

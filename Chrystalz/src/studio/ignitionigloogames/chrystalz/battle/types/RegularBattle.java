@@ -3,20 +3,20 @@ Licensed under MIT. See the LICENSE file for details.
 
 All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
  */
-package studio.ignitionigloogames.chrystalz.battle;
+package studio.ignitionigloogames.chrystalz.battle.types;
 
 import studio.ignitionigloogames.chrystalz.creatures.monsters.MonsterFactory;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 
-public class MapBossBattle extends AbstractMapBattle {
+class RegularBattle extends AbstractBattleType {
     // Fields
     final BattleCharacter monster;
 
     // Constructors
-    public MapBossBattle() {
+    public RegularBattle() {
         super();
-        this.boss = true;
-        this.monster = new BattleCharacter(MonsterFactory.getNewBossInstance());
+        this.monster = new BattleCharacter(
+                MonsterFactory.getNewMonsterInstance());
     }
 
     // Methods
