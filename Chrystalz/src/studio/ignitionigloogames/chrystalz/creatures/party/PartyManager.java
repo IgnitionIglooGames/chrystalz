@@ -17,6 +17,8 @@ import studio.ignitionigloogames.chrystalz.creatures.characterfiles.CharacterReg
 import studio.ignitionigloogames.chrystalz.creatures.genders.Gender;
 import studio.ignitionigloogames.chrystalz.creatures.genders.GenderManager;
 import studio.ignitionigloogames.chrystalz.dialogs.ListWithDescDialog;
+import studio.ignitionigloogames.chrystalz.manager.asset.MusicConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.MusicManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.fileio.FileIOReader;
 import studio.ignitionigloogames.common.fileio.FileIOWriter;
@@ -36,6 +38,10 @@ public class PartyManager {
 
     // Methods
     public static boolean createParty(final JFrame owner) {
+        if (MusicManager.isMusicPlaying()) {
+            MusicManager.stopMusic();
+        }
+        MusicManager.playMusic(MusicConstants.MUSIC_CREATE);
         PartyManager.party = new Party();
         int mem = 0;
         final PartyMember[] pickMembers = CharacterLoader

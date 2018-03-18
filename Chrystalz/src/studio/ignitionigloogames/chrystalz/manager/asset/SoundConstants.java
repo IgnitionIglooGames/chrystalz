@@ -27,7 +27,7 @@ public class SoundConstants {
     public static final int SOUND_DEBUFF_2 = 17;
     public static final int SOUND_DEFEATED = 18;
     public static final int SOUND_DISPEL_EFFECT = 19;
-    public static final int SOUND_DOWN = 20;
+    // public static final int SOUND_UNUSED_1 = 20;
     public static final int SOUND_DRAIN_SPELL = 21;
     public static final int SOUND_DUMBFOUND_SPELL = 22;
     public static final int SOUND_ERROR = 23;
@@ -54,7 +54,7 @@ public class SoundConstants {
     public static final int SOUND_STEAM_SPELL = 44;
     public static final int SOUND_SWORD_HIT = 45;
     public static final int SOUND_TRANSACT = 46;
-    public static final int SOUND_UP = 47;
+    // public static final int SOUND_UNUSED_2 = 47;
     public static final int SOUND_VICTORY = 48;
     public static final int SOUND_WALK = 49;
     public static final int SOUND_WAND_HIT = 50;

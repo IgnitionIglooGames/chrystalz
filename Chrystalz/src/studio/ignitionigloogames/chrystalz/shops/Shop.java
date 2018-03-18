@@ -15,6 +15,8 @@ import studio.ignitionigloogames.chrystalz.items.Equipment;
 import studio.ignitionigloogames.chrystalz.items.EquipmentFactory;
 import studio.ignitionigloogames.chrystalz.items.WeaponConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.ArmorImageManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.MusicConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.MusicManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.WeaponImageManager;
@@ -83,10 +85,15 @@ public class Shop {
     }
 
     public void showShop() {
+        if (MusicManager.isMusicPlaying()) {
+            MusicManager.stopMusic();
+        }
         if (this.type == ShopTypes.SHOP_TYPE_ARMOR
                 || this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
+            MusicManager.playMusic(MusicConstants.MUSIC_FORGE);
             this.imageUI.showShop();
         } else {
+            MusicManager.playMusic(MusicConstants.MUSIC_SHOP);
             this.defaultUI.showShop();
         }
     }

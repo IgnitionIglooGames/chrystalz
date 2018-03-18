@@ -5,6 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.battle.rewards;
 
+import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.battle.BattleResult;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
@@ -29,7 +30,8 @@ class BossBattleRewards {
             player.offsetExperiencePercentage(-20);
             player.offsetGoldPercentage(-100);
         } else if (br == BattleResult.WON || br == BattleResult.PERFECT) {
-            // TODO: Send player to next level
+            // Send player to next zone
+            Chrystalz.getApplication().getGame().goToLevelOffset(1);
         }
     }
 }

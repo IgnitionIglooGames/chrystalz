@@ -18,7 +18,7 @@ debuff1
 debuff2
 defeated
 dispel
-down
+UNUSED
 drain
 dumbfounded
 error
@@ -45,7 +45,7 @@ staff
 steam
 sword
 transact
-up
+UNUSED
 victory
 walk
 wand

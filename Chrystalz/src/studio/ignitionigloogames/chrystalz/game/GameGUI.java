@@ -21,6 +21,7 @@ import javax.swing.WindowConstants;
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.DrawGrid;
+import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
@@ -92,7 +93,12 @@ class GameGUI {
         if (MusicManager.isMusicPlaying()) {
             MusicManager.stopMusic();
         }
-        MusicManager.playMusic(MusicConstants.MUSIC_DUNGEON);
+        int zoneID = PartyManager.getParty().getZone();
+        if (zoneID == Dungeon.getMaxLevels() - 1) {
+            MusicManager.playMusic(MusicConstants.MUSIC_LAIR);
+        } else {
+            MusicManager.playMusic(MusicConstants.MUSIC_DUNGEON);
+        }
         this.showOutputCommon();
     }
 

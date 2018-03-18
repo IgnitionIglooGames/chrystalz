@@ -35,7 +35,7 @@ public class Dungeon {
     private SuffixIO suffixHandler;
     private final int[] savedStart;
     private static final int MIN_LEVELS = 1;
-    private static final int MAX_LEVELS = 55;
+    private static final int MAX_LEVELS = 13;
 
     // Constructors
     public Dungeon() {
