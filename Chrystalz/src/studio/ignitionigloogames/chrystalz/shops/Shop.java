@@ -84,7 +84,7 @@ public class Shop {
     }
 
     String getShopNameFromType() {
-        return Shop.SHOP_NAMES[this.type.ordinal() - 1];
+        return Shop.SHOP_NAMES[this.type.ordinal()];
     }
 
     public void showShop() {
@@ -170,9 +170,8 @@ public class Shop {
                     .getCurrentHP() == playerCharacter.getMaximumHP()) {
                 CommonDialogs.showDialog("You don't need healing.");
                 return false;
-            } else if (Shop.this.type == ShopType.REGENERATOR
-                    && playerCharacter.getCurrentMP() == playerCharacter
-                            .getMaximumMP()) {
+            } else if (Shop.this.type == ShopType.REGENERATOR && playerCharacter
+                    .getCurrentMP() == playerCharacter.getMaximumMP()) {
                 CommonDialogs.showDialog("You don't need regeneration.");
                 return false;
             } else if (Shop.this.type == ShopType.SPELLS && playerCharacter
