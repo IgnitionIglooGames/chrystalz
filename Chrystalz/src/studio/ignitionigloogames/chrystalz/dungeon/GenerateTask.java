@@ -43,6 +43,8 @@ public class GenerateTask extends Thread {
         try {
             this.generateFrame.setVisible(true);
             final Application app = Chrystalz.getApplication();
+            int zoneID = PartyManager.getParty().getZone();
+            int dungeonSize = Chrystalz.getDungeonLevelSize(zoneID);
             Dungeon gameDungeon = app.getDungeonManager().getDungeon();
             if (!this.scratch) {
                 app.getGame().disableEvents();
@@ -50,11 +52,10 @@ public class GenerateTask extends Thread {
                 gameDungeon = new Dungeon();
                 app.getDungeonManager().setDungeon(gameDungeon);
             }
-            gameDungeon.addLevel(Dungeon.getMaxRows(), Dungeon.getMaxColumns());
+            gameDungeon.addLevel(dungeonSize, dungeonSize);
             gameDungeon.fillLevelRandomly();
-            final RandomRange rR = new RandomRange(0, Dungeon.getMaxRows() - 1);
-            final RandomRange rC = new RandomRange(0,
-                    Dungeon.getMaxColumns() - 1);
+            final RandomRange rR = new RandomRange(0, dungeonSize - 1);
+            final RandomRange rC = new RandomRange(0, dungeonSize - 1);
             if (this.scratch) {
                 int startR, startC;
                 do {
@@ -85,8 +86,8 @@ public class GenerateTask extends Thread {
             }
             gameDungeon.save();
             // Final cleanup
-            AbstractGameObject.setTemplateColor(ImageColorConstants
-                    .getColorForLevel(PartyManager.getParty().getZone()));
+            AbstractGameObject.setTemplateColor(
+                    ImageColorConstants.getColorForLevel(zoneID));
             if (this.scratch) {
                 app.getGame().stateChanged();
                 app.getGame().playDungeon();
