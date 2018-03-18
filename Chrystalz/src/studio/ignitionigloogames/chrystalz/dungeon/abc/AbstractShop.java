@@ -28,8 +28,7 @@ public abstract class AbstractShop extends AbstractGameObject {
     }
 
     @Override
-    public void postMoveAction(final boolean ie, final int dirX,
-            final int dirY) {
+    public void interactAction() {
         final Shop shop = Chrystalz.getApplication()
                 .getGenericShop(this.shopType);
         if (shop != null) {
