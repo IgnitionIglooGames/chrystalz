@@ -22,8 +22,8 @@ public class Chrystalz {
     private static final ErrorLogger elog = new ErrorLogger(
             Chrystalz.PROGRAM_NAME);
     private static final int BATTLE_MAP_SIZE = 10;
-    private static final int DUNGEON_BASE_SIZE = 25;
-    private static final int DUNGEON_SIZE_INCREMENT = 5;
+    private static final int DUNGEON_BASE_SIZE = 24;
+    private static final int DUNGEON_SIZE_INCREMENT = 2;
 
     // Methods
     public static Application getApplication() {
