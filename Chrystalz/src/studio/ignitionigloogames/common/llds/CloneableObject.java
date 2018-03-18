@@ -8,7 +8,7 @@ public class CloneableObject implements Cloneable {
 
     // Method
     @Override
-    public Object clone() {
-        return new CloneableObject();
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

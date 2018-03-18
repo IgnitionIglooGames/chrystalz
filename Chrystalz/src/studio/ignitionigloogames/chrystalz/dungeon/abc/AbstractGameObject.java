@@ -78,15 +78,20 @@ public abstract class AbstractGameObject extends CloneableObject
     // Methods
     @Override
     public AbstractGameObject clone() {
-        final AbstractGameObject copy = (AbstractGameObject) super.clone();
-        copy.solid = this.solid;
-        copy.friction = this.friction;
-        copy.type = (BitSet) this.type.clone();
-        copy.timerValue = this.timerValue;
-        copy.initialTimerValue = this.initialTimerValue;
-        copy.timerActive = this.timerActive;
-        copy.type = (BitSet) this.type.clone();
-        return copy;
+        try {
+            final AbstractGameObject copy = (AbstractGameObject) super.clone();
+            copy.solid = this.solid;
+            copy.friction = this.friction;
+            copy.type = (BitSet) this.type.clone();
+            copy.timerValue = this.timerValue;
+            copy.initialTimerValue = this.initialTimerValue;
+            copy.timerActive = this.timerActive;
+            copy.type = (BitSet) this.type.clone();
+            return copy;
+        } catch (CloneNotSupportedException cnse) {
+            Chrystalz.getErrorLogger().logError(cnse);
+            return null;
+        }
     }
 
     @Override
