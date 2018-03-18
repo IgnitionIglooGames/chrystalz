@@ -8,6 +8,8 @@ package studio.ignitionigloogames.chrystalz.dungeon.abc;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.TypeConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.chrystalz.shops.Shop;
 import studio.ignitionigloogames.chrystalz.shops.ShopType;
 
@@ -25,6 +27,12 @@ public abstract class AbstractShop extends AbstractGameObject {
     @Override
     protected void setTypes() {
         this.type.set(TypeConstants.TYPE_SHOP);
+    }
+
+    @Override
+    public void postMoveAction(final boolean ie, final int dirX,
+            final int dirY) {
+        SoundManager.playSound(SoundConstants.SOUND_WALK);
     }
 
     @Override
