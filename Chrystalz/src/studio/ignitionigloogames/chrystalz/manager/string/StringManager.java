@@ -34,7 +34,7 @@ public class StringManager {
                             + LocalizedFileList.LIST[file.ordinal()]
                             + Extension.getStringExtensionWithPeriod()));
             for (int k = 0; k < max; k++) {
-                final String key = ZoneNames.getZoneName(k);
+                final String key = ZoneNames.getZoneNumber(k);
                 retVal[k] = StringManager.LOCAL.getProperty(key);
             }
         } catch (final IOException ioe) {
