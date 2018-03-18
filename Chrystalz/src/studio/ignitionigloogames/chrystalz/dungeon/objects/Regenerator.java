@@ -7,12 +7,12 @@ package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractShop;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
-import studio.ignitionigloogames.chrystalz.shops.ShopTypes;
+import studio.ignitionigloogames.chrystalz.shops.ShopType;
 
 public class Regenerator extends AbstractShop {
     // Constructors
     public Regenerator() {
-        super(ShopTypes.SHOP_TYPE_REGENERATOR);
+        super(ShopType.REGENERATOR);
     }
 
     @Override

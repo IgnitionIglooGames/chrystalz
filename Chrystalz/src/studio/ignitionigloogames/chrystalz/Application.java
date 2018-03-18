@@ -17,7 +17,7 @@ import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.shops.Shop;
-import studio.ignitionigloogames.chrystalz.shops.ShopTypes;
+import studio.ignitionigloogames.chrystalz.shops.ShopType;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
@@ -56,11 +56,11 @@ public final class Application {
         this.guiMgr = new GUIManager();
         this.menuMgr = new MenuManager();
         this.mapTurnBattle = new MapBattleLogic();
-        this.weapons = new Shop(ShopTypes.SHOP_TYPE_WEAPONS);
-        this.armor = new Shop(ShopTypes.SHOP_TYPE_ARMOR);
-        this.healer = new Shop(ShopTypes.SHOP_TYPE_HEALER);
-        this.regenerator = new Shop(ShopTypes.SHOP_TYPE_REGENERATOR);
-        this.spells = new Shop(ShopTypes.SHOP_TYPE_SPELLS);
+        this.weapons = new Shop(ShopType.WEAPONS);
+        this.armor = new Shop(ShopType.ARMOR);
+        this.healer = new Shop(ShopType.HEALER);
+        this.regenerator = new Shop(ShopType.REGENERATOR);
+        this.spells = new Shop(ShopType.SPELLS);
         // Cache Logo
         this.guiMgr.updateLogo();
     }
@@ -161,18 +161,18 @@ public final class Application {
         return this.objects;
     }
 
-    public Shop getGenericShop(final int shopType) {
+    public Shop getGenericShop(final ShopType shopType) {
         this.getGame().stopMovement();
         switch (shopType) {
-        case ShopTypes.SHOP_TYPE_ARMOR:
+        case ARMOR:
             return this.armor;
-        case ShopTypes.SHOP_TYPE_HEALER:
+        case HEALER:
             return this.healer;
-        case ShopTypes.SHOP_TYPE_REGENERATOR:
+        case REGENERATOR:
             return this.regenerator;
-        case ShopTypes.SHOP_TYPE_SPELLS:
+        case SPELLS:
             return this.spells;
-        case ShopTypes.SHOP_TYPE_WEAPONS:
+        case WEAPONS:
             return this.weapons;
         default:
             // Invalid shop type

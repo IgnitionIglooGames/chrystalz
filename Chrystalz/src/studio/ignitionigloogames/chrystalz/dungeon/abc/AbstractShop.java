@@ -9,13 +9,14 @@ import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.TypeConstants;
 import studio.ignitionigloogames.chrystalz.shops.Shop;
+import studio.ignitionigloogames.chrystalz.shops.ShopType;
 
 public abstract class AbstractShop extends AbstractGameObject {
     // Fields
-    private final int shopType;
+    private final ShopType shopType;
 
     // Constructors
-    public AbstractShop(final int newShopType) {
+    public AbstractShop(final ShopType newShopType) {
         super(false, false);
         this.shopType = newShopType;
     }

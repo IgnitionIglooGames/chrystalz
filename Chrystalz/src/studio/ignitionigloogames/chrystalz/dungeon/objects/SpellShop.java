@@ -7,12 +7,12 @@ package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractShop;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
-import studio.ignitionigloogames.chrystalz.shops.ShopTypes;
+import studio.ignitionigloogames.chrystalz.shops.ShopType;
 
 public class SpellShop extends AbstractShop {
     // Constructors
     public SpellShop() {
-        super(ShopTypes.SHOP_TYPE_SPELLS);
+        super(ShopType.SPELLS);
     }
 
     @Override

@@ -8,12 +8,12 @@ package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractShop;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
-import studio.ignitionigloogames.chrystalz.shops.ShopTypes;
+import studio.ignitionigloogames.chrystalz.shops.ShopType;
 
 public class ArmorShop extends AbstractShop {
     // Constructors
     public ArmorShop() {
-        super(ShopTypes.SHOP_TYPE_ARMOR);
+        super(ShopType.ARMOR);
     }
 
     @Override
