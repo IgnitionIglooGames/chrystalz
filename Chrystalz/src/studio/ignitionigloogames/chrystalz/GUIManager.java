@@ -8,9 +8,6 @@ package studio.ignitionigloogames.chrystalz;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.desktop.QuitEvent;
-import java.awt.desktop.QuitHandler;
-import java.awt.desktop.QuitResponse;
 import java.io.File;
 
 import javax.swing.JFrame;
@@ -27,7 +24,7 @@ import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.fileio.DirectoryUtilities;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
-public final class GUIManager implements QuitHandler {
+public final class GUIManager {
     // Fields
     private final JFrame guiFrame;
     private final JLabel logoLabel;
@@ -81,9 +78,8 @@ public final class GUIManager implements QuitHandler {
         this.guiFrame.pack();
     }
 
-    @Override
-    public void handleQuitRequestWith(final QuitEvent qe,
-            final QuitResponse qr) {
+    @SuppressWarnings("static-method")
+    public void quitHandler() {
         final DungeonManager mm = Chrystalz.getApplication()
                 .getDungeonManager();
         boolean saved = true;
@@ -108,9 +104,7 @@ public final class GUIManager implements QuitHandler {
             } catch (final Throwable t) {
                 // Ignore
             }
-            qr.performQuit();
-        } else {
-            qr.cancelQuit();
+            System.exit(0);
         }
     }
 }

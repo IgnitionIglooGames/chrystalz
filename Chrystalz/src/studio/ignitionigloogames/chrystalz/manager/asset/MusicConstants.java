@@ -8,9 +8,13 @@ package studio.ignitionigloogames.chrystalz.manager.asset;
 public class MusicConstants {
     // Public Music Constants
     public static final int MUSIC_BATTLE = 0;
-    public static final int MUSIC_CREATE = 1;
-    public static final int MUSIC_DUNGEON = 2;
-    public static final int MUSIC_SHOP = 3;
+    public static final int MUSIC_BOSS = 1;
+    public static final int MUSIC_CREATE = 2;
+    public static final int MUSIC_DUNGEON = 3;
+    public static final int MUSIC_FORGE = 4;
+    public static final int MUSIC_LAIR = 5;
+    public static final int MUSIC_SHOP = 6;
+    public static final int MUSIC_TITLE = 7;
     private static final String[] MUSIC_NAMES = MusicDataManager.getMusicData();
 
     // Private constructor

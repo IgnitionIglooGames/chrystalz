@@ -1,4 +1,8 @@
 battle
+boss
 create
 dungeon
+forge
+lair
 shop
+title

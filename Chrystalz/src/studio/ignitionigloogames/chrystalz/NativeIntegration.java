@@ -5,14 +5,12 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz;
 
-import java.awt.Desktop;
-import java.awt.Desktop.Action;
-import java.awt.desktop.AboutHandler;
-import java.awt.desktop.PreferencesHandler;
-import java.awt.desktop.QuitHandler;
+import java.lang.reflect.Method;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
+import apple.dts.samplecode.osxadapter.OSXAdapter;
 
 public class NativeIntegration {
     // Constructor
@@ -23,6 +21,14 @@ public class NativeIntegration {
     // Methods
     public static void hookLAF(final String programName) {
         if (System.getProperty("os.name").startsWith("Mac OS X")) {
+            // Tell the UIManager to use the platform native look and
+            // feel
+            try {
+                UIManager.setLookAndFeel(
+                        UIManager.getSystemLookAndFeelClassName());
+            } catch (final Exception e) {
+                // Do nothing
+            }
             // Mac OS X-specific stuff
             System.setProperty(
                     "studio.apple.mrj.application.apple.menu.about.name",
@@ -54,30 +60,21 @@ public class NativeIntegration {
         }
     }
 
-    public static void hookQuit(final QuitHandler qh) {
-        if (Desktop.isDesktopSupported()) {
-            Desktop d = Desktop.getDesktop();
-            if (d.isSupported(Action.APP_QUIT_HANDLER)) {
-                d.setQuitHandler(qh);
-            }
+    public static void hookQuit(Object o, Method m) {
+        if (System.getProperty("os.name").startsWith("Mac OS X")) {
+            OSXAdapter.setQuitHandler(o, m);
         }
     }
 
-    public static void hookPreferences(final PreferencesHandler ph) {
-        if (Desktop.isDesktopSupported()) {
-            Desktop d = Desktop.getDesktop();
-            if (d.isSupported(Action.APP_PREFERENCES)) {
-                d.setPreferencesHandler(ph);
-            }
+    public static void hookPreferences(Object o, Method m) {
+        if (System.getProperty("os.name").startsWith("Mac OS X")) {
+            OSXAdapter.setPreferencesHandler(o, m);
         }
     }
 
-    public static void hookAbout(final AboutHandler ah) {
-        if (Desktop.isDesktopSupported()) {
-            Desktop d = Desktop.getDesktop();
-            if (d.isSupported(Action.APP_ABOUT)) {
-                d.setAboutHandler(ah);
-            }
+    public static void hookAbout(Object o, Method m) {
+        if (System.getProperty("os.name").startsWith("Mac OS X")) {
+            OSXAdapter.setAboutHandler(o, m);
         }
     }
 }

@@ -6,7 +6,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package studio.ignitionigloogames.chrystalz;
 
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
-import studio.ignitionigloogames.chrystalz.prefs.PrefsRequestHandler;
+import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.errorlogger.ErrorLogger;
 
@@ -56,9 +56,14 @@ public class Chrystalz {
             Application.playLogoSound();
             Chrystalz.application.getGUIManager().showGUI();
             // Register platform hooks
-            NativeIntegration.hookAbout(Chrystalz.application.getAboutDialog());
-            NativeIntegration.hookPreferences(new PrefsRequestHandler());
-            NativeIntegration.hookQuit(Chrystalz.application.getGUIManager());
+            NativeIntegration.hookAbout(Chrystalz.application.getAboutDialog(),
+                    Chrystalz.application.getAboutDialog().getClass()
+                            .getMethod("showAboutDialog"));
+            NativeIntegration.hookPreferences(PreferencesManager.class,
+                    PreferencesManager.class.getMethod("showPrefs"));
+            NativeIntegration.hookQuit(Chrystalz.application.getGUIManager(),
+                    Chrystalz.application.getGUIManager().getClass()
+                            .getMethod("quitHandler"));
             // Set up Common Dialogs
             CommonDialogs.setDefaultTitle(Chrystalz.PROGRAM_NAME);
             CommonDialogs.setIcon(Application.getMicroLogo());
