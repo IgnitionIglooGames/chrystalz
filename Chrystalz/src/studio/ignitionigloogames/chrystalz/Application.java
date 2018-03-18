@@ -140,19 +140,15 @@ public final class Application {
     }
 
     public JFrame getOutputFrame() {
-        try {
-            if (this.getMode() == Application.STATUS_PREFS) {
-                return PreferencesManager.getPrefFrame();
-            } else if (this.getMode() == Application.STATUS_GUI) {
-                return this.getGUIManager().getGUIFrame();
-            } else if (this.getMode() == Application.STATUS_GAME) {
-                return this.getGame().getOutputFrame();
-            } else if (this.getMode() == Application.STATUS_BATTLE) {
-                return this.getBattle().getOutputFrame();
-            } else {
-                return null;
-            }
-        } catch (final NullPointerException npe) {
+        if (this.getMode() == Application.STATUS_PREFS) {
+            return PreferencesManager.getPrefFrame();
+        } else if (this.getMode() == Application.STATUS_GUI) {
+            return this.getGUIManager().getGUIFrame();
+        } else if (this.getMode() == Application.STATUS_GAME) {
+            return this.getGame().getOutputFrame();
+        } else if (this.getMode() == Application.STATUS_BATTLE) {
+            return this.getBattle().getOutputFrame();
+        } else {
             return null;
         }
     }

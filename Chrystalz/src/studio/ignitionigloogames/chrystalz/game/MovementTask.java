@@ -104,32 +104,26 @@ final class MovementTask extends Thread {
         AbstractGameObject nextAbove = new Wall();
         do {
             try {
-                try {
-                    below = m.getCell(px, py, DungeonConstants.LAYER_GROUND);
-                } catch (final ArrayIndexOutOfBoundsException ae) {
-                    below = new Empty();
-                }
-                try {
-                    nextBelow = m.getCell(px + fX, py + fY,
-                            DungeonConstants.LAYER_GROUND);
-                } catch (final ArrayIndexOutOfBoundsException ae) {
-                    nextBelow = new Empty();
-                }
-                try {
-                    nextAbove = m.getCell(px + fX, py + fY,
-                            DungeonConstants.LAYER_OBJECT);
-                } catch (final ArrayIndexOutOfBoundsException ae) {
-                    nextAbove = new Wall();
-                }
-                try {
-                    this.proceed = nextAbove.preMoveAction(true, px + fX,
-                            py + fY);
-                } catch (final ArrayIndexOutOfBoundsException ae) {
-                    this.proceed = true;
-                }
-            } catch (final NullPointerException np) {
-                this.proceed = false;
-                nextAbove = new Empty();
+                below = m.getCell(px, py, DungeonConstants.LAYER_GROUND);
+            } catch (final ArrayIndexOutOfBoundsException ae) {
+                below = new Empty();
+            }
+            try {
+                nextBelow = m.getCell(px + fX, py + fY,
+                        DungeonConstants.LAYER_GROUND);
+            } catch (final ArrayIndexOutOfBoundsException ae) {
+                nextBelow = new Empty();
+            }
+            try {
+                nextAbove = m.getCell(px + fX, py + fY,
+                        DungeonConstants.LAYER_OBJECT);
+            } catch (final ArrayIndexOutOfBoundsException ae) {
+                nextAbove = new Wall();
+            }
+            try {
+                this.proceed = nextAbove.preMoveAction(true, px + fX, py + fY);
+            } catch (final ArrayIndexOutOfBoundsException ae) {
+                this.proceed = true;
             }
             if (this.proceed) {
                 m.savePlayerLocation();
@@ -244,8 +238,6 @@ final class MovementTask extends Thread {
                     x, y);
         } catch (final ArrayIndexOutOfBoundsException ae) {
             // Ignore
-        } catch (final NullPointerException np) {
-            // Ignore
         }
         m.savePlayerLocation();
         this.vwMgr.saveViewingWindow();
@@ -267,10 +259,6 @@ final class MovementTask extends Thread {
                 this.redrawDungeon();
             }
         } catch (final ArrayIndexOutOfBoundsException ae) {
-            m.restorePlayerLocation();
-            this.vwMgr.restoreViewingWindow();
-            app.showMessage("Can't go outside the maze");
-        } catch (final NullPointerException np) {
             m.restorePlayerLocation();
             this.vwMgr.restoreViewingWindow();
             app.showMessage("Can't go outside the maze");

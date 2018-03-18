@@ -93,8 +93,6 @@ public final class ExperienceViewer {
                         valid = true;
                     } catch (final NumberFormatException nf) {
                         // Ignore exception
-                    } catch (final NullPointerException np) {
-                        // Ignore exception
                     }
                     if (!valid) {
                         CommonDialogs.showErrorDialog(
@@ -138,8 +136,6 @@ public final class ExperienceViewer {
                     }
                     valid = true;
                 } catch (final NumberFormatException nf) {
-                    // Ignore exception
-                } catch (final NullPointerException np) {
                     // Ignore exception
                 }
                 if (!valid) {

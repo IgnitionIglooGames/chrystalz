@@ -17,14 +17,10 @@ public class SoundManager {
     private static Class<?> LOAD_CLASS = SoundManager.class;
 
     private static WAVFactory getSound(final String filename) {
-        try {
-            final URL url = SoundManager.LOAD_CLASS
-                    .getResource(SoundManager.LOAD_PATH + filename.toLowerCase()
-                            + Extension.getSoundExtensionWithPeriod());
-            return WAVFactory.getNonLoopingResource(url);
-        } catch (final NullPointerException np) {
-            return null;
-        }
+        final URL url = SoundManager.LOAD_CLASS
+                .getResource(SoundManager.LOAD_PATH + filename.toLowerCase()
+                        + Extension.getSoundExtensionWithPeriod());
+        return WAVFactory.getNonLoopingResource(url);
     }
 
     public static void playSound(final int soundID) {

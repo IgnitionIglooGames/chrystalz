@@ -92,8 +92,6 @@ public final class ExperienceEditor {
                             inputValid = true;
                         } catch (final NumberFormatException nf) {
                             // Ignore exception
-                        } catch (final NullPointerException np) {
-                            return null;
                         }
                         if (!inputValid) {
                             CommonDialogs.showErrorDialog(

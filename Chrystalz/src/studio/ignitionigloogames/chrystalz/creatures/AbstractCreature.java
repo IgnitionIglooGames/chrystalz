@@ -142,11 +142,9 @@ public abstract class AbstractCreature {
         for (x = 0; x < this.effectList.length; x++) {
             try {
                 final Effect e = this.get(x);
-                if (!e.isActive()) {
+                if (e != null && !e.isActive()) {
                     this.set(x, null);
                 }
-            } catch (final NullPointerException np) {
-                // Do nothing
             } catch (final ArrayIndexOutOfBoundsException aioob) {
                 // Do nothing
             }
@@ -231,10 +229,11 @@ public abstract class AbstractCreature {
         final StringBuilder sb = new StringBuilder(Effect.getNullMessage());
         for (x = 0; x < this.effectList.length; x++) {
             try {
-                sb.append(this.get(x).getCurrentMessage());
-                sb.append("\n");
-            } catch (final NullPointerException np) {
-                // Do nothing
+                Effect e = this.get(x);
+                if (e != null) {
+                    sb.append(e.getCurrentMessage());
+                    sb.append("\n");
+                }
             } catch (final ArrayIndexOutOfBoundsException aioob) {
                 // Do nothing
             }
@@ -272,9 +271,10 @@ public abstract class AbstractCreature {
         String s = "";
         for (x = 0; x < this.effectList.length; x++) {
             try {
-                s += this.get(x).getEffectString() + "\n";
-            } catch (final NullPointerException np) {
-                // Do nothing
+                Effect e = this.get(x);
+                if (e != null) {
+                    s += e.getEffectString() + "\n";
+                }
             } catch (final ArrayIndexOutOfBoundsException aioob) {
                 // Do nothing
             }
@@ -292,11 +292,9 @@ public abstract class AbstractCreature {
         for (x = 0; x < this.effectList.length; x++) {
             try {
                 final Effect e = this.get(x);
-                if (e.isActive()) {
+                if (e != null && e.isActive()) {
                     c++;
                 }
-            } catch (final NullPointerException np) {
-                // Do nothing
             } catch (final ArrayIndexOutOfBoundsException aioob) {
                 // Do nothing
             }
@@ -339,9 +337,9 @@ public abstract class AbstractCreature {
         for (x = 0; x < this.effectList.length; x++) {
             try {
                 final Effect e = this.get(x);
-                p *= e.getEffect(Effect.EFFECT_MULTIPLY, stat);
-            } catch (final NullPointerException np) {
-                // Do nothing
+                if (e != null) {
+                    p *= e.getEffect(Effect.EFFECT_MULTIPLY, stat);
+                }
             } catch (final ArrayIndexOutOfBoundsException aioob) {
                 // Do nothing
             }
@@ -349,9 +347,9 @@ public abstract class AbstractCreature {
         for (x = 0; x < this.effectList.length; x++) {
             try {
                 final Effect e = this.get(x);
-                s += e.getEffect(Effect.EFFECT_ADD, stat);
-            } catch (final NullPointerException np) {
-                // Do nothing
+                if (e != null) {
+                    s += e.getEffect(Effect.EFFECT_ADD, stat);
+                }
             } catch (final ArrayIndexOutOfBoundsException aioob) {
                 // Do nothing
             }
@@ -918,9 +916,10 @@ public abstract class AbstractCreature {
         int x;
         for (x = 0; x < this.effectList.length; x++) {
             try {
-                this.get(x).useEffect(this);
-            } catch (final NullPointerException np) {
-                // Do nothing
+                Effect e = this.get(x);
+                if (e != null) {
+                    e.useEffect(this);
+                }
             } catch (final ArrayIndexOutOfBoundsException aioob) {
                 // Do nothing
             }

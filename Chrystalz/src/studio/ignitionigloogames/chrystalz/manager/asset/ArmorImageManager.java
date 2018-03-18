@@ -38,10 +38,6 @@ public class ArmorImageManager {
             return new BufferedImageIcon(image);
         } catch (final IOException ie) {
             return null;
-        } catch (final NullPointerException np) {
-            return null;
-        } catch (final IllegalArgumentException ia) {
-            return null;
         }
     }
 }

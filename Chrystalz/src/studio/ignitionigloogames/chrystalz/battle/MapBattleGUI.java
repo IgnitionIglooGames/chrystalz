@@ -120,10 +120,6 @@ class MapBattleGUI {
                         final Wall wall = new Wall();
                         this.drawGrid.setImageCell(wall.battleRenderHook(),
                                 xFix, yFix);
-                    } catch (final NullPointerException np) {
-                        final Wall wall = new Wall();
-                        this.drawGrid.setImageCell(wall.battleRenderHook(),
-                                xFix, yFix);
                     }
                 }
             }
@@ -155,8 +151,6 @@ class MapBattleGUI {
                         xFix, yFix);
                 this.battlePane.repaint();
             } catch (final ArrayIndexOutOfBoundsException ae) {
-                // Do nothing
-            } catch (final NullPointerException np) {
                 // Do nothing
             }
             this.battleFrame.pack();

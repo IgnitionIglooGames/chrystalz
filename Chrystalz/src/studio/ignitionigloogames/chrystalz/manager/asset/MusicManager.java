@@ -41,8 +41,6 @@ public class MusicManager {
                 MusicManager.CURRENT_MUSIC.stopLoop();
             } catch (final BufferUnderflowException bue) {
                 // Ignore
-            } catch (final NullPointerException np) {
-                // Ignore
             } catch (final Throwable t) {
                 Chrystalz.getErrorLogger().logError(t);
             }

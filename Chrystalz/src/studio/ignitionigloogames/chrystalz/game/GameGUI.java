@@ -194,9 +194,6 @@ class GameGUI {
                     } catch (final ArrayIndexOutOfBoundsException ae) {
                         this.drawGrid.setImageCell(wall.gameRenderHook(y, x),
                                 xFix, yFix);
-                    } catch (final NullPointerException np) {
-                        this.drawGrid.setImageCell(wall.gameRenderHook(y, x),
-                                xFix, yFix);
                     }
                 }
             }

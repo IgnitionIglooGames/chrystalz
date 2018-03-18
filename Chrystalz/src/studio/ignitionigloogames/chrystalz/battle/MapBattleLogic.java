@@ -23,6 +23,7 @@ import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
+import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractBattleCharacter;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
@@ -1011,10 +1012,9 @@ public class MapBattleLogic extends AbstractBattle {
         // Check Action Counter
         if (this.getActiveActionCounter() > 0) {
             AbstractCreature activeEnemy = null;
-            try {
-                activeEnemy = this.getEnemyBC().getTemplate();
-            } catch (final NullPointerException npe) {
-                // Ignore
+            AbstractBattleCharacter enemyBC = this.getEnemyBC();
+            if (enemyBC != null) {
+                activeEnemy = enemyBC.getTemplate();
             }
             int stealChance;
             int stealAmount = 0;
@@ -1092,10 +1092,9 @@ public class MapBattleLogic extends AbstractBattle {
         // Check Action Counter
         if (this.getActiveActionCounter() > 0) {
             AbstractCreature activeEnemy = null;
-            try {
-                activeEnemy = this.getEnemyBC().getTemplate();
-            } catch (final NullPointerException npe) {
-                // Ignore
+            AbstractBattleCharacter enemyBC = this.getEnemyBC();
+            if (enemyBC != null) {
+                activeEnemy = enemyBC.getTemplate();
             }
             int drainChance;
             int drainAmount = 0;
