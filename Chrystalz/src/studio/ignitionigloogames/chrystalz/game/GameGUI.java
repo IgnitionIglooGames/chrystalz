@@ -221,7 +221,7 @@ class GameGUI {
             }
             this.outputPane.repaint();
             this.outputFrame.pack();
-            this.showOutput();
+            this.showOutputAndKeepMusic();
         }
     }
 
