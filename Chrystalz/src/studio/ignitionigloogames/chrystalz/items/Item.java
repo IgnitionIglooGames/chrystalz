@@ -12,36 +12,25 @@ import studio.ignitionigloogames.common.fileio.FileIOWriter;
 
 public class Item {
     // Properties
-    private String name;
-    private int buyPrice;
-    private int sellPrice;
-    private int weight;
-    private int potency;
+    private final String name;
+    private final int buyPrice;
+    private final int weight;
+    private final int potency;
 
     // Constructors
-    public Item() {
-        super();
-        this.name = "Un-named Item";
-        this.buyPrice = 0;
-        this.sellPrice = 0;
-        this.weight = 0;
-        this.potency = 0;
-    }
-
-    public Item(final String itemName) {
+    public Item(final String itemName, final int buyFor, final int grams,
+            final int power) {
         super();
         this.name = itemName;
-        this.buyPrice = 0;
-        this.sellPrice = 0;
-        this.weight = 0;
-        this.potency = 0;
+        this.buyPrice = buyFor;
+        this.weight = grams;
+        this.potency = power;
     }
 
-    protected Item(final String iName, final Item i) {
+    protected Item(final Item i) {
         super();
-        this.name = iName;
+        this.name = i.getName();
         this.buyPrice = i.buyPrice;
-        this.sellPrice = i.sellPrice;
         this.weight = i.weight;
         this.potency = i.potency;
     }
@@ -60,7 +49,6 @@ public class Item {
         result = prime * result
                 + (this.name == null ? 0 : this.name.hashCode());
         result = prime * result + this.potency;
-        result = prime * result + this.sellPrice;
         return prime * result + this.weight;
     }
 
@@ -89,29 +77,10 @@ public class Item {
         if (this.potency != other.potency) {
             return false;
         }
-        if (this.sellPrice != other.sellPrice) {
-            return false;
-        }
         if (this.weight != other.weight) {
             return false;
         }
         return true;
-    }
-
-    public final void setName(final String newName) {
-        this.name = newName;
-    }
-
-    public final void setPotency(final int newPotency) {
-        this.potency = newPotency;
-    }
-
-    public final void setBuyPrice(final int newBuyPrice) {
-        this.buyPrice = newBuyPrice;
-    }
-
-    public final void setSellPrice(final int newSellPrice) {
-        this.sellPrice = newSellPrice;
     }
 
     public String getName() {
@@ -136,18 +105,15 @@ public class Item {
             // Abort
             return null;
         }
-        final Item i = new Item(itemName);
-        i.buyPrice = dr.readInt();
-        i.sellPrice = dr.readInt();
-        i.weight = dr.readInt();
-        i.potency = dr.readInt();
-        return i;
+        final int buyFor = dr.readInt();
+        final int grams = dr.readInt();
+        final int power = dr.readInt();
+        return new Item(itemName, buyFor, grams, power);
     }
 
     final void writeItem(final FileIOWriter dw) throws IOException {
         dw.writeString(this.name);
         dw.writeInt(this.buyPrice);
-        dw.writeInt(this.sellPrice);
         dw.writeInt(this.weight);
         dw.writeInt(this.potency);
     }

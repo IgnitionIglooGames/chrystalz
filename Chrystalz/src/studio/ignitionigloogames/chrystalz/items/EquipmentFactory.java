@@ -16,26 +16,22 @@ public class EquipmentFactory {
     // Methods
     public static Equipment createWeapon(final int material,
             final int weaponType) {
-        final Equipment e = new Equipment(
+        return new Equipment(
                 WeaponMaterialConstants.getWeaponMaterial(material) + " "
                         + WeaponConstants.getWeapon(weaponType),
-                material, WeaponConstants.getWeaponTypeHitSound(weaponType));
-        e.setSlotUsed(EquipmentSlotConstants.SLOT_WEAPON);
-        e.setPotency(material);
-        e.setBuyPrice(Shop.getEquipmentCost(material));
-        return e;
+                Shop.getEquipmentCost(material), material, material,
+                EquipmentSlotConstants.SLOT_WEAPON, material,
+                WeaponConstants.getWeaponTypeHitSound(weaponType));
     }
 
     public static Equipment createArmor(final int material,
             final int armorType) {
-        final Equipment e = new Equipment(
+        return new Equipment(
                 ArmorMaterialConstants.getArmorMaterial(material) + " "
                         + ArmorConstants.getArmor(armorType),
-                material);
-        e.setSlotUsed(EquipmentSlotConstants.getArmorSlotForType(armorType));
-        e.setPotency(material);
-        e.setBuyPrice(Shop.getEquipmentCost(material));
-        return e;
+                Shop.getEquipmentCost(material), material, material,
+                EquipmentSlotConstants.getArmorSlotForType(armorType), material,
+                -1);
     }
 
     public static String getWeaponName(final int zoneID, final int weaponType) {

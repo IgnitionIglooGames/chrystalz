@@ -13,34 +13,21 @@ import studio.ignitionigloogames.common.fileio.FileIOWriter;
 public class Equipment extends Item {
     // Properties
     private final int materialID;
-    private int slotUsed;
+    private final int slotUsed;
     private final int hitSound;
 
     // Constructors
-    private Equipment(final Item i, final int newMaterialID) {
-        super(i.getName());
-        this.materialID = newMaterialID;
-        this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
-        this.hitSound = -1;
-    }
-
-    Equipment(final String itemName, final int newMaterialID) {
-        super(itemName);
-        this.materialID = newMaterialID;
-        this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
-        this.hitSound = -1;
-    }
-
-    Equipment(final String itemName, final int newMaterialID,
+    Equipment(final String itemName, final int buyFor, final int grams,
+            final int power, final int slot, final int newMaterialID,
             final int hitSoundID) {
-        super(itemName);
+        super(itemName, buyFor, grams, power);
         this.materialID = newMaterialID;
-        this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
+        this.slotUsed = slot;
         this.hitSound = hitSoundID;
     }
 
     Equipment(final Equipment e) {
-        super(e.getName(), e);
+        super(e);
         this.materialID = e.materialID;
         this.slotUsed = e.slotUsed;
         this.hitSound = e.hitSound;
@@ -84,10 +71,6 @@ public class Equipment extends Item {
         return this.slotUsed;
     }
 
-    public final void setSlotUsed(final int newSlotUsed) {
-        this.slotUsed = newSlotUsed;
-    }
-
     public final int getMaterial() {
         return this.materialID;
     }
@@ -99,14 +82,16 @@ public class Equipment extends Item {
             return null;
         }
         final int matID = dr.readInt();
-        final Equipment ei = new Equipment(i, matID);
-        ei.slotUsed = dr.readInt();
-        return ei;
+        final int slot = dr.readInt();
+        final int hs = dr.readInt();
+        return new Equipment(i.getName(), i.getBuyPrice(), i.getWeight(),
+                i.getPotency(), slot, matID, hs);
     }
 
     final void writeEquipment(final FileIOWriter dw) throws IOException {
         super.writeItem(dw);
         dw.writeInt(this.materialID);
         dw.writeInt(this.slotUsed);
+        dw.writeInt(this.hitSound);
     }
 }
