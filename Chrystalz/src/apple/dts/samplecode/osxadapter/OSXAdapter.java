@@ -85,8 +85,8 @@ public class OSXAdapter implements InvocationHandler {
     public static void setAboutHandler(Object target, Method aboutHandler) {
         boolean enableAboutMenu = (target != null && aboutHandler != null);
         if (enableAboutMenu) {
-            OSXAdapter.setHandler(new OSXAdapter("handleAbout", target,
-                    aboutHandler));
+            OSXAdapter.setHandler(
+                    new OSXAdapter("handleAbout", target, aboutHandler));
         }
         // If we're setting a handler, enable the About menu item by calling
         // com.apple.eawt.Application reflectively
@@ -106,11 +106,12 @@ public class OSXAdapter implements InvocationHandler {
     // options
     // They will be called when the Preferences menu item is selected from the
     // application menu
-    public static void setPreferencesHandler(Object target, Method prefsHandler) {
+    public static void setPreferencesHandler(Object target,
+            Method prefsHandler) {
         boolean enablePrefsMenu = (target != null && prefsHandler != null);
         if (enablePrefsMenu) {
-            OSXAdapter.setHandler(new OSXAdapter("handlePreferences", target,
-                    prefsHandler));
+            OSXAdapter.setHandler(
+                    new OSXAdapter("handlePreferences", target, prefsHandler));
         }
         // If we're setting a handler, enable the Preferences menu item by
         // calling
@@ -133,27 +134,27 @@ public class OSXAdapter implements InvocationHandler {
     // dictionary in the
     // application bundle's Info.plist
     public static void setFileHandler(Object target, Method fileHandler) {
-        OSXAdapter.setHandler(new OSXAdapter("handleOpenFile", target,
-                fileHandler) {
-            // Override OSXAdapter.callTarget to send information on the
-            // file to be opened
-            @Override
-            public boolean callTarget(Object appleEvent) {
-                if (appleEvent != null) {
-                    try {
-                        Method getFilenameMethod = appleEvent.getClass()
-                                .getDeclaredMethod("getFilename",
-                                        (Class<?>[]) null);
-                        String filename = (String) getFilenameMethod.invoke(
-                                appleEvent, (Object[]) null);
-                        this.targetMethod.invoke(this.targetObject,
-                                new Object[] { filename });
-                    } catch (Exception ex) {
+        OSXAdapter.setHandler(
+                new OSXAdapter("handleOpenFile", target, fileHandler) {
+                    // Override OSXAdapter.callTarget to send information on the
+                    // file to be opened
+                    @Override
+                    public boolean callTarget(Object appleEvent) {
+                        if (appleEvent != null) {
+                            try {
+                                Method getFilenameMethod = appleEvent.getClass()
+                                        .getDeclaredMethod("getFilename",
+                                                (Class<?>[]) null);
+                                String filename = (String) getFilenameMethod
+                                        .invoke(appleEvent, (Object[]) null);
+                                this.targetMethod.invoke(this.targetObject,
+                                        new Object[] { filename });
+                            } catch (Exception ex) {
+                            }
+                        }
+                        return true;
                     }
-                }
-                return true;
-            }
-        });
+                });
     }
 
     // setHandler creates a Proxy object from the passed OSXAdapter and adds it
@@ -163,8 +164,9 @@ public class OSXAdapter implements InvocationHandler {
             Class<?> applicationClass = Class
                     .forName("com.apple.eawt.Application");
             if (OSXAdapter.macOSXApplication == null) {
-                OSXAdapter.macOSXApplication = applicationClass.getConstructor(
-                        (Class<?>[]) null).newInstance((Object[]) null);
+                OSXAdapter.macOSXApplication = applicationClass
+                        .getConstructor((Class<?>[]) null)
+                        .newInstance((Object[]) null);
             }
             Class<?> applicationListenerClass = Class
                     .forName("com.apple.eawt.ApplicationListener");
@@ -179,8 +181,8 @@ public class OSXAdapter implements InvocationHandler {
             addListenerMethod.invoke(OSXAdapter.macOSXApplication,
                     new Object[] { osxAdapterProxy });
         } catch (ClassNotFoundException cnfe) {
-            System.err
-                    .println("This version of Mac OS X does not support the Apple EAWT.  ApplicationEvent handling has been disabled ("
+            System.err.println(
+                    "This version of Mac OS X does not support the Apple EAWT.  ApplicationEvent handling has been disabled ("
                             + cnfe + ")");
         } catch (Exception ex) { // Likely a NoSuchMethodException or an
             // IllegalAccessException loading/invoking
@@ -239,7 +241,8 @@ public class OSXAdapter implements InvocationHandler {
     // (e.g. handleAbout, handleQuit, handleOpenFile, etc.)
     protected boolean isCorrectMethod(Method method, Object[] args) {
         return (this.targetMethod != null
-                && this.proxySignature.equals(method.getName()) && args.length == 1);
+                && this.proxySignature.equals(method.getName())
+                && args.length == 1);
     }
 
     // It is important to mark the ApplicationEvent as handled and cancel the
@@ -256,8 +259,8 @@ public class OSXAdapter implements InvocationHandler {
                 setHandledMethod.invoke(event,
                         new Object[] { Boolean.valueOf(handled) });
             } catch (Exception ex) {
-                System.err
-                        .println("OSXAdapter was unable to handle an ApplicationEvent: "
+                System.err.println(
+                        "OSXAdapter was unable to handle an ApplicationEvent: "
                                 + event);
                 ex.printStackTrace();
             }
@@ -326,8 +329,8 @@ public class OSXAdapter implements InvocationHandler {
             if (macOSXFullScreenUtilities != null && fullscreenParams == null) {
                 fullscreenParams = new Object[2];
                 fullscreenMethod = macOSXFullScreenUtilities.getMethod(
-                        "setWindowCanFullScreen", new Class[] { Window.class,
-                                Boolean.TYPE });
+                        "setWindowCanFullScreen",
+                        new Class[] { Window.class, Boolean.TYPE });
             }
             if (fullscreenMethod != null) {
                 fullscreenParams[0] = window;
