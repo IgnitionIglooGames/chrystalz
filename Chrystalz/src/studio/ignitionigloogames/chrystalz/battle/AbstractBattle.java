@@ -52,7 +52,7 @@ public abstract class AbstractBattle {
 
     public abstract boolean doPlayerActions(final int actionType);
 
-    public abstract int getResult();
+    public abstract BattleResult getResult();
 
     public abstract void doResult();
 
