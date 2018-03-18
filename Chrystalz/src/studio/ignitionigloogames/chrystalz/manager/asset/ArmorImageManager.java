@@ -24,9 +24,9 @@ public class ArmorImageManager {
     public static BufferedImageIcon getImage(final int typeID,
             final int zoneID) {
         // Get it from the cache
-        final String name = StringManager.getGlobalString(
-                GlobalFile.ARMOR_TYPES, ZoneNames.getZoneName(typeID)) + "/"
-                + ZoneNames.getZoneName(zoneID);
+        final String name = StringManager
+                .getGlobalString(GlobalFile.ARMOR_TYPES, typeID) + "/"
+                + ZoneNames.getZoneNumber(zoneID);
         return ArmorImageCache.getCachedImage(name);
     }
 
