@@ -25,8 +25,8 @@ public class WeaponImageManager {
             final int zoneID) {
         // Get it from the cache
         final String name = StringManager.getGlobalString(
-                GlobalFile.WEAPON_TYPES, ZoneNames.getZoneName(typeID)) + "/"
-                + ZoneNames.getZoneName(zoneID);
+                GlobalFile.WEAPON_TYPES, ZoneNames.getZoneNumber(typeID)) + "/"
+                + ZoneNames.getZoneNumber(zoneID);
         return WeaponImageCache.getCachedImage(name);
     }
 
