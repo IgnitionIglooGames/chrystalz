@@ -16,7 +16,8 @@ public class CrystalImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
         if (!CrystalImageCache.isInCache(name)) {
-            BufferedImageIcon bii = CrystalImageManager.getUncachedImage(name);
+            final BufferedImageIcon bii = CrystalImageManager
+                    .getUncachedImage(name);
             CrystalImageCache.addToCache(name, bii);
         }
         for (final CacheEntry element : CrystalImageCache.cache) {

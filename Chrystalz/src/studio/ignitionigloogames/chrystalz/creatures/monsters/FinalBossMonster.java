@@ -76,8 +76,8 @@ public class FinalBossMonster extends AbstractMonster {
     // Helper Methods
     @Override
     public void loadCreature() {
-        int zoneID = PartyManager.getParty().getZone();
-        String bossName = BossNames.getName(zoneID);
+        final int zoneID = PartyManager.getParty().getZone();
+        final String bossName = BossNames.getName(zoneID);
         this.overrideDefaults(zoneID, bossName);
         final int newLevel = zoneID + 6;
         this.setLevel(newLevel);

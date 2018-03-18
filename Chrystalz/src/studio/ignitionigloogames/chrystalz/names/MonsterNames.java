@@ -15,7 +15,7 @@ public class MonsterNames {
     }
 
     public static final String getName(final int ID) {
-        String tempMonID = Integer.toString(ID);
+        final String tempMonID = Integer.toString(ID);
         String monID;
         if (tempMonID.length() == 1) {
             monID = "0" + tempMonID;
@@ -26,7 +26,7 @@ public class MonsterNames {
     }
 
     public static final String getType(final int zoneID, final int ID) {
-        String tempMonID = Integer.toString(ID);
+        final String tempMonID = Integer.toString(ID);
         String monID;
         if (tempMonID.length() == 1) {
             monID = "0" + tempMonID;

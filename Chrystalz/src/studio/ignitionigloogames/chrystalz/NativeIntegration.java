@@ -60,19 +60,19 @@ public class NativeIntegration {
         }
     }
 
-    public static void hookQuit(Object o, Method m) {
+    public static void hookQuit(final Object o, final Method m) {
         if (System.getProperty("os.name").startsWith("Mac OS X")) {
             OSXAdapter.setQuitHandler(o, m);
         }
     }
 
-    public static void hookPreferences(Object o, Method m) {
+    public static void hookPreferences(final Object o, final Method m) {
         if (System.getProperty("os.name").startsWith("Mac OS X")) {
             OSXAdapter.setPreferencesHandler(o, m);
         }
     }
 
-    public static void hookAbout(Object o, Method m) {
+    public static void hookAbout(final Object o, final Method m) {
         if (System.getProperty("os.name").startsWith("Mac OS X")) {
             OSXAdapter.setAboutHandler(o, m);
         }

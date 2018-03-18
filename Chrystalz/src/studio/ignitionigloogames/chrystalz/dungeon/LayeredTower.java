@@ -488,11 +488,11 @@ final class LayeredTower implements Cloneable {
                         final AbstractGameObject placeObj = objectsWithoutPrerequisites[r
                                 .generate()];
                         final boolean okay = placeObj.shouldGenerateObject(maze,
-                                x, y, 0, w, e);
+                                x, y, w, e);
                         if (okay) {
                             this.setCell(objects.getNewInstanceByName(
                                     placeObj.getName()), y, x, e);
-                            placeObj.editorGenerateHook(y, x, 0);
+                            placeObj.editorGenerateHook(y, x);
                         }
                     }
                 }
@@ -525,15 +525,15 @@ final class LayeredTower implements Cloneable {
                         randomRow = row.generate();
                         randomColumn = column.generate();
                         if (currObj.shouldGenerateObject(maze, randomRow,
-                                randomColumn, 0, w, layer)) {
+                                randomColumn, w, layer)) {
                             this.setCell(
                                     objects.getNewInstanceByName(
                                             currObj.getName()),
                                     randomColumn, randomRow, layer);
-                            currObj.editorGenerateHook(y, x, 0);
+                            currObj.editorGenerateHook(y, x);
                         } else {
                             while (!currObj.shouldGenerateObject(maze,
-                                    randomColumn, randomRow, 0, w, layer)) {
+                                    randomColumn, randomRow, w, layer)) {
                                 randomRow = row.generate();
                                 randomColumn = column.generate();
                             }
@@ -541,7 +541,7 @@ final class LayeredTower implements Cloneable {
                                     objects.getNewInstanceByName(
                                             currObj.getName()),
                                     randomColumn, randomRow, layer);
-                            currObj.editorGenerateHook(y, x, 0);
+                            currObj.editorGenerateHook(y, x);
                         }
                     }
                 }

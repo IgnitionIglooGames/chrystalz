@@ -25,7 +25,7 @@ final class MovementTask extends Thread {
     private AbstractGameObject saved;
     private boolean proceed;
     private boolean relative;
-    private int moveX, moveY, moveZ;
+    private int moveX, moveY;
 
     // Constructors
     public MovementTask(final GameViewingWindowManager view,
@@ -43,12 +43,10 @@ final class MovementTask extends Thread {
             while (true) {
                 this.waitForWork();
                 if (this.relative) {
-                    this.updatePositionRelative(this.moveX, this.moveY,
-                            this.moveZ);
+                    this.updatePositionRelative(this.moveX, this.moveY);
                 }
                 if (!this.relative) {
-                    this.updatePositionAbsolute(this.moveX, this.moveY,
-                            this.moveZ);
+                    this.updatePositionAbsolute(this.moveX, this.moveY);
                 }
             }
         } catch (final Throwable t) {
@@ -64,40 +62,18 @@ final class MovementTask extends Thread {
         }
     }
 
-    public synchronized void moveRelative(final int x, final int y,
-            final int z) {
+    public synchronized void moveRelative(final int x, final int y) {
         this.moveX = x;
         this.moveY = y;
-        this.moveZ = z;
         this.relative = true;
         this.notify();
     }
 
-    public synchronized void moveAbsolute(final int x, final int y,
-            final int z) {
+    public synchronized void moveAbsolute(final int x, final int y) {
         this.moveX = x;
         this.moveY = y;
-        this.moveZ = z;
         this.relative = false;
         this.notify();
-    }
-
-    public boolean tryAbsolute(final int x, final int y, final int z) {
-        try {
-            final Application app = Chrystalz.getApplication();
-            final Dungeon m = app.getDungeonManager().getDungeon();
-            final AbstractGameObject below = m.getCell(m.getPlayerLocationX(),
-                    m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                    DungeonConstants.LAYER_GROUND);
-            final AbstractGameObject nextBelow = m.getCell(x, y, z,
-                    DungeonConstants.LAYER_GROUND);
-            final AbstractGameObject nextAbove = m.getCell(x, y, z,
-                    DungeonConstants.LAYER_OBJECT);
-            return MovementTask.checkSolidAbsolute(this.saved, below, nextBelow,
-                    nextAbove);
-        } catch (final ArrayIndexOutOfBoundsException ae) {
-            return false;
-        }
     }
 
     public void stopMovement() {
@@ -109,37 +85,19 @@ final class MovementTask extends Thread {
                 .getDungeon();
         final int px = m.getPlayerLocationX();
         final int py = m.getPlayerLocationY();
-        final int pz = m.getPlayerLocationZ();
-        m.updateVisibleSquares(px, py, pz);
-        m.tickTimers(pz);
+        m.updateVisibleSquares(px, py);
+        m.tickTimers();
         this.gui.updateStats();
         MovementTask.checkGameOver();
     }
 
-    private static boolean checkSolidAbsolute(final AbstractGameObject inside,
-            final AbstractGameObject below, final AbstractGameObject nextBelow,
-            final AbstractGameObject nextAbove) {
-        final boolean insideSolid = inside.isSolid();
-        final boolean belowSolid = below.isSolid();
-        final boolean nextBelowSolid = nextBelow.isSolid();
-        final boolean nextAboveSolid = nextAbove.isSolid();
-        if (insideSolid || belowSolid || nextBelowSolid || nextAboveSolid) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void updatePositionRelative(final int dirX, final int dirY,
-            final int dirZ) {
+    private void updatePositionRelative(final int dirX, final int dirY) {
         final Application app = Chrystalz.getApplication();
         final Dungeon m = app.getDungeonManager().getDungeon();
         int px = m.getPlayerLocationX();
         int py = m.getPlayerLocationY();
-        int pz = m.getPlayerLocationZ();
-        int fX = dirX;
-        int fY = dirY;
-        final int fZ = dirZ;
+        final int fX = dirX;
+        final int fY = dirY;
         this.proceed = false;
         AbstractGameObject below = null;
         AbstractGameObject nextBelow = null;
@@ -147,19 +105,18 @@ final class MovementTask extends Thread {
         do {
             try {
                 try {
-                    below = m.getCell(px, py, pz,
-                            DungeonConstants.LAYER_GROUND);
+                    below = m.getCell(px, py, DungeonConstants.LAYER_GROUND);
                 } catch (final ArrayIndexOutOfBoundsException ae) {
                     below = new Empty();
                 }
                 try {
-                    nextBelow = m.getCell(px + fX, py + fY, pz + fZ,
+                    nextBelow = m.getCell(px + fX, py + fY,
                             DungeonConstants.LAYER_GROUND);
                 } catch (final ArrayIndexOutOfBoundsException ae) {
                     nextBelow = new Empty();
                 }
                 try {
-                    nextAbove = m.getCell(px + fX, py + fY, pz + fZ,
+                    nextAbove = m.getCell(px + fX, py + fY,
                             DungeonConstants.LAYER_OBJECT);
                 } catch (final ArrayIndexOutOfBoundsException ae) {
                     nextAbove = new Wall();
@@ -195,9 +152,9 @@ final class MovementTask extends Thread {
                             this.proceed = false;
                         }
                         if (this.proceed) {
-                            this.saved = m.getCell(px, py, pz,
+                            this.saved = m.getCell(px, py,
                                     DungeonConstants.LAYER_OBJECT);
-                            groundInto = m.getCell(px, py, pz,
+                            groundInto = m.getCell(px, py,
                                     DungeonConstants.LAYER_GROUND);
                             if (groundInto.overridesDefaultPostMove()) {
                                 groundInto.postMoveAction(false, px, py);
@@ -233,7 +190,6 @@ final class MovementTask extends Thread {
             }
             px = m.getPlayerLocationX();
             py = m.getPlayerLocationY();
-            pz = m.getPlayerLocationZ();
         } while (this.checkLoopCondition(below, nextBelow, nextAbove));
     }
 
@@ -280,12 +236,12 @@ final class MovementTask extends Thread {
         }
     }
 
-    private void updatePositionAbsolute(final int x, final int y, final int z) {
+    private void updatePositionAbsolute(final int x, final int y) {
         final Application app = Chrystalz.getApplication();
         final Dungeon m = app.getDungeonManager().getDungeon();
         try {
-            m.getCell(x, y, z, DungeonConstants.LAYER_OBJECT)
-                    .preMoveAction(true, x, y);
+            m.getCell(x, y, DungeonConstants.LAYER_OBJECT).preMoveAction(true,
+                    x, y);
         } catch (final ArrayIndexOutOfBoundsException ae) {
             // Ignore
         } catch (final NullPointerException np) {
@@ -294,23 +250,20 @@ final class MovementTask extends Thread {
         m.savePlayerLocation();
         this.vwMgr.saveViewingWindow();
         try {
-            if (!m.getCell(x, y, z, DungeonConstants.LAYER_OBJECT).isSolid()) {
+            if (!m.getCell(x, y, DungeonConstants.LAYER_OBJECT).isSolid()) {
                 m.setPlayerLocationX(x);
                 m.setPlayerLocationY(y);
-                m.setPlayerLocationZ(z);
                 this.vwMgr.setViewingWindowLocationX(m.getPlayerLocationY()
                         - GameViewingWindowManager.getOffsetFactorX());
                 this.vwMgr.setViewingWindowLocationY(m.getPlayerLocationX()
                         - GameViewingWindowManager.getOffsetFactorY());
                 this.saved = m.getCell(m.getPlayerLocationX(),
-                        m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                        DungeonConstants.LAYER_OBJECT);
+                        m.getPlayerLocationY(), DungeonConstants.LAYER_OBJECT);
                 app.getDungeonManager().setDirty(true);
                 this.saved.postMoveAction(false, x, y);
                 final int px = m.getPlayerLocationX();
                 final int py = m.getPlayerLocationY();
-                final int pz = m.getPlayerLocationZ();
-                m.updateVisibleSquares(px, py, pz);
+                m.updateVisibleSquares(px, py);
                 this.redrawDungeon();
             }
         } catch (final ArrayIndexOutOfBoundsException ae) {

@@ -34,8 +34,8 @@ public class PartyMember extends AbstractCreature {
     private int permanentHP;
     private int permanentMP;
     private int kills;
-    private int hairID;
-    private int skinID;
+    private final int hairID;
+    private final int skinID;
     private static final int START_GOLD = 0;
     private static final double BASE_COEFF = 10.0;
 

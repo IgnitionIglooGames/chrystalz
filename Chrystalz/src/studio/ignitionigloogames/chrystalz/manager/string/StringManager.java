@@ -27,17 +27,17 @@ public class StringManager {
 
     public static String[] getAllLocalizedStrings(final LocalizedFile file,
             final int max) {
-        String[] retVal = new String[max];
+        final String[] retVal = new String[max];
         try {
             StringManager.LOCAL.load(StringManager.class
                     .getResourceAsStream(FilePaths.BASE + FilePaths.LANG_DEFAULT
                             + LocalizedFileList.LIST[file.ordinal()]
                             + Extension.getStringExtensionWithPeriod()));
             for (int k = 0; k < max; k++) {
-                String key = ZoneNames.getZoneName(k);
+                final String key = ZoneNames.getZoneName(k);
                 retVal[k] = StringManager.LOCAL.getProperty(key);
             }
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             for (int k = 0; k < max; k++) {
                 retVal[k] = StringManager.ERROR;
             }
@@ -53,7 +53,7 @@ public class StringManager {
                             + LocalizedFileList.LIST[file.ordinal()]
                             + Extension.getStringExtensionWithPeriod()));
             return StringManager.LOCAL.getProperty(key);
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             return StringManager.ERROR;
         }
     }
@@ -69,7 +69,7 @@ public class StringManager {
                     FilePaths.BASE + GlobalFileList.LIST[file.ordinal()]
                             + Extension.getStringExtensionWithPeriod()));
             return StringManager.GLOBAL.getProperty(key);
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             return StringManager.ERROR;
         }
     }

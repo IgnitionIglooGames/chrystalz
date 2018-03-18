@@ -40,8 +40,8 @@ class Monster extends AbstractMonster {
 
     @Override
     protected BufferedImageIcon getInitialImage() {
-        int zoneID = PartyManager.getParty().getZone();
-        int monID = this.getMonsterID();
+        final int zoneID = PartyManager.getParty().getZone();
+        final int monID = this.getMonsterID();
         return MonsterImageManager.getImage(zoneID, monID);
     }
 

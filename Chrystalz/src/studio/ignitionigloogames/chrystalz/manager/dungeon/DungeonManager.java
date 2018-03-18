@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
-import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.manager.file.Extension;
 import studio.ignitionigloogames.chrystalz.manager.file.GameFinder;
 import studio.ignitionigloogames.chrystalz.manager.file.GameLoadTask;
@@ -60,15 +59,6 @@ public final class DungeonManager {
         this.setDirty(false);
         Chrystalz.getApplication().getGame().stateChanged();
         Chrystalz.getApplication().getMenuManager().checkFlags();
-    }
-
-    public AbstractGameObject getGameObject(final int x, final int y,
-            final int z, final int e) {
-        try {
-            return this.gameDungeon.getCell(x, y, z, e);
-        } catch (final ArrayIndexOutOfBoundsException ae) {
-            return null;
-        }
     }
 
     public static int showSaveDialog() {

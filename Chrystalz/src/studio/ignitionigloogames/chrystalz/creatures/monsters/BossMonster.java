@@ -34,14 +34,14 @@ class BossMonster extends AbstractMonster {
 
     @Override
     protected BufferedImageIcon getInitialImage() {
-        int zoneID = PartyManager.getParty().getZone();
+        final int zoneID = PartyManager.getParty().getZone();
         return BossImageManager.getBossImage(zoneID);
     }
 
     @Override
     public void loadCreature() {
-        int zoneID = PartyManager.getParty().getZone();
-        String bossName = BossNames.getName(zoneID);
+        final int zoneID = PartyManager.getParty().getZone();
+        final String bossName = BossNames.getName(zoneID);
         this.overrideDefaults(zoneID, bossName);
         final int newLevel = zoneID + 1;
         this.setLevel(newLevel);

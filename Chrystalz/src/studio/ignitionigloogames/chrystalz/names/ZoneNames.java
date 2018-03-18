@@ -15,7 +15,7 @@ public class ZoneNames {
     }
 
     public static final String getName(final int ID) {
-        String tempZoneID = Integer.toString(ID);
+        final String tempZoneID = Integer.toString(ID);
         String zoneID;
         if (tempZoneID.length() == 1) {
             zoneID = "0" + tempZoneID;
@@ -26,7 +26,7 @@ public class ZoneNames {
     }
 
     public static final String getZoneName(final int ID) {
-        String tempZoneID = Integer.toString(ID);
+        final String tempZoneID = Integer.toString(ID);
         String zoneID;
         if (tempZoneID.length() == 1) {
             zoneID = "0" + tempZoneID;

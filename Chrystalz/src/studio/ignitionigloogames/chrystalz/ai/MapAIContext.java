@@ -40,7 +40,7 @@ public class MapAIContext {
     public void updateContext(final Dungeon arena) {
         for (int x = 0; x < this.apCosts.length; x++) {
             for (int y = 0; y < this.apCosts[x].length; y++) {
-                final AbstractGameObject obj = arena.getCell(x, y, 0,
+                final AbstractGameObject obj = arena.getCell(x, y,
                         DungeonConstants.LAYER_OBJECT);
                 if (obj.isSolid()) {
                     this.apCosts[x][y] = MapAIContext.CANNOT_MOVE_THERE;
@@ -51,7 +51,7 @@ public class MapAIContext {
         }
         for (int x = 0; x < this.creatureLocations.length; x++) {
             for (int y = 0; y < this.creatureLocations[x].length; y++) {
-                final AbstractGameObject obj = arena.getCell(x, y, 0,
+                final AbstractGameObject obj = arena.getCell(x, y,
                         DungeonConstants.LAYER_OBJECT);
                 if (obj instanceof BattleCharacter) {
                     final BattleCharacter bc = (BattleCharacter) obj;

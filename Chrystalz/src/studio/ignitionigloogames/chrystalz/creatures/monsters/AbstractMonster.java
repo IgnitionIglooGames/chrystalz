@@ -40,7 +40,7 @@ public abstract class AbstractMonster extends AbstractCreature {
     // Methods
     protected void configureDefaults() {
         this.monID = RandomIntRange.generate(0, 99);
-        int zoneID = PartyManager.getParty().getZone();
+        final int zoneID = PartyManager.getParty().getZone();
         this.type = MonsterNames.getType(zoneID, this.monID);
     }
 
@@ -117,7 +117,7 @@ public abstract class AbstractMonster extends AbstractCreature {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = super.hashCode();
+        final int result = super.hashCode();
         return prime * result + (this.type == null ? 0 : this.type.hashCode());
     }
 

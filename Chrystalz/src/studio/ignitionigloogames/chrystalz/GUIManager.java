@@ -62,11 +62,11 @@ public final class GUIManager {
         MusicManager.playMusic(MusicConstants.MUSIC_TITLE);
         this.showGUICommon();
     }
-    
+
     public void showGUIAndKeepMusic() {
         this.showGUICommon();
     }
-    
+
     private void showGUICommon() {
         final Application app = Chrystalz.getApplication();
         app.setMode(Application.STATUS_GUI);

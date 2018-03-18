@@ -16,7 +16,8 @@ public class AvatarImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
         if (!AvatarImageCache.isInCache(name)) {
-            BufferedImageIcon bii = AvatarImageManager.getUncachedImage(name);
+            final BufferedImageIcon bii = AvatarImageManager
+                    .getUncachedImage(name);
             AvatarImageCache.addToCache(name, bii);
         }
         for (final CacheEntry element : AvatarImageCache.cache) {

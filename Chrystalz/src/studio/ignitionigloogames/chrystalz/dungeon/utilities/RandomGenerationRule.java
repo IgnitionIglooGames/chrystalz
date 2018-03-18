@@ -11,7 +11,7 @@ public interface RandomGenerationRule {
     public static final int NO_LIMIT = 0;
 
     public boolean shouldGenerateObject(Dungeon maze, int row, int col,
-            int floor, int level, int layer);
+            int level, int layer);
 
     public int getMinimumRequiredQuantity(Dungeon maze);
 

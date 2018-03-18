@@ -16,7 +16,8 @@ public class ArmorImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
         if (!ArmorImageCache.isInCache(name)) {
-            BufferedImageIcon bii = ArmorImageManager.getUncachedImage(name);
+            final BufferedImageIcon bii = ArmorImageManager
+                    .getUncachedImage(name);
             ArmorImageCache.addToCache(name, bii);
         }
         for (final CacheEntry element : ArmorImageCache.cache) {

@@ -115,23 +115,11 @@ public class Dungeon {
         this.mazeData.tickTimers();
     }
 
-    @SuppressWarnings("unused")
-    @Deprecated
-    public void tickTimers(final int floor) {
-        this.mazeData.tickTimers();
-    }
-
     public void resetVisibleSquares() {
         this.mazeData.resetVisibleSquares();
     }
 
     public void updateVisibleSquares(final int xp, final int yp) {
-        this.mazeData.updateVisibleSquares(xp, yp);
-    }
-
-    @SuppressWarnings("unused")
-    @Deprecated
-    public void updateVisibleSquares(final int xp, final int yp, final int zp) {
         this.mazeData.updateVisibleSquares(xp, yp);
     }
 
@@ -192,24 +180,12 @@ public class Dungeon {
         return this.mazeData.getCell(row, col, extra);
     }
 
-    @SuppressWarnings("unused")
-    @Deprecated
-    public AbstractGameObject getCell(final int row, final int col,
-            final int floor, final int extra) {
-        return this.mazeData.getCell(row, col, extra);
-    }
-
     public int getPlayerLocationX() {
         return this.mazeData.getPlayerRow();
     }
 
     public int getPlayerLocationY() {
         return this.mazeData.getPlayerColumn();
-    }
-
-    @Deprecated
-    public int getPlayerLocationZ() {
-        return 0;
     }
 
     public int getStartLevel() {
@@ -222,11 +198,6 @@ public class Dungeon {
 
     public int getColumns() {
         return this.mazeData.getColumns();
-    }
-
-    @Deprecated
-    public int getFloors() {
-        return 1;
     }
 
     public boolean doesPlayerExist() {
@@ -243,25 +214,12 @@ public class Dungeon {
         this.mazeData.setCell(mo, row, col, extra);
     }
 
-    @SuppressWarnings("unused")
-    @Deprecated
-    public void setCell(final AbstractGameObject mo, final int row,
-            final int col, final int floor, final int extra) {
-        this.mazeData.setCell(mo, row, col, extra);
-    }
-
     public void setStartRow(final int newStartRow) {
         this.mazeData.setStartRow(newStartRow);
     }
 
     public void setStartColumn(final int newStartColumn) {
         this.mazeData.setStartColumn(newStartColumn);
-    }
-
-    @SuppressWarnings("unused")
-    @Deprecated
-    public void setStartFloor(final int newStartFloor) {
-        // Do nothing
     }
 
     public void savePlayerLocation() {
@@ -284,12 +242,6 @@ public class Dungeon {
 
     public void setPlayerLocationY(final int newPlayerColumn) {
         this.mazeData.setPlayerColumn(newPlayerColumn);
-    }
-
-    @SuppressWarnings("unused")
-    @Deprecated
-    public void setPlayerLocationZ(final int newPlayerFloor) {
-        // Do nothing
     }
 
     public void offsetPlayerLocationX(final int newPlayerRow) {

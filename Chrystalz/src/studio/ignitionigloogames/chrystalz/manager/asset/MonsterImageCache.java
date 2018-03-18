@@ -16,7 +16,8 @@ public class MonsterImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
         if (!MonsterImageCache.isInCache(name)) {
-            BufferedImageIcon bii = MonsterImageManager.getUncachedImage(name);
+            final BufferedImageIcon bii = MonsterImageManager
+                    .getUncachedImage(name);
             MonsterImageCache.addToCache(name, bii);
         }
         for (final CacheEntry element : MonsterImageCache.cache) {

@@ -83,18 +83,12 @@ public final class GameLogic {
         this.gui.setStatusMessage(msg);
     }
 
-    public void updatePositionRelative(final int dirX, final int dirY,
-            final int dirZ) {
-        this.mt.moveRelative(dirX, dirY, dirZ);
+    public void updatePositionRelative(final int dirX, final int dirY) {
+        this.mt.moveRelative(dirX, dirY);
     }
 
-    public boolean tryUpdatePositionAbsolute(final int x, final int y,
-            final int z) {
-        return this.mt.tryAbsolute(x, y, z);
-    }
-
-    public void updatePositionAbsolute(final int x, final int y, final int z) {
-        this.mt.moveAbsolute(x, y, z);
+    public void updatePositionAbsolute(final int x, final int y) {
+        this.mt.moveAbsolute(x, y);
     }
 
     public void redrawDungeon() {
@@ -171,14 +165,14 @@ public final class GameLogic {
         final Application app = Chrystalz.getApplication();
         final Dungeon m = app.getDungeonManager().getDungeon();
         m.setCell(new Empty(), m.getPlayerLocationX(), m.getPlayerLocationY(),
-                m.getPlayerLocationZ(), DungeonConstants.LAYER_OBJECT);
+                DungeonConstants.LAYER_OBJECT);
     }
 
     public static void morph(final AbstractGameObject morphInto) {
         final Application app = Chrystalz.getApplication();
         final Dungeon m = app.getDungeonManager().getDungeon();
         m.setCell(morphInto, m.getPlayerLocationX(), m.getPlayerLocationY(),
-                m.getPlayerLocationZ(), morphInto.getLayer());
+                morphInto.getLayer());
     }
 
     public void keepNextMessage() {
@@ -202,8 +196,7 @@ public final class GameLogic {
             // Make sure initial area player is in is visible
             final int px = m.getPlayerLocationX();
             final int py = m.getPlayerLocationY();
-            final int pz = m.getPlayerLocationZ();
-            m.updateVisibleSquares(px, py, pz);
+            m.updateVisibleSquares(px, py);
             this.showOutput();
             this.redrawDungeon();
         } else {
@@ -215,7 +208,7 @@ public final class GameLogic {
         Chrystalz.getApplication().setMode(Application.STATUS_GAME);
         this.gui.showOutput();
     }
-    
+
     public void showOutputAndKeepMusic() {
         Chrystalz.getApplication().setMode(Application.STATUS_GAME);
         this.gui.showOutputAndKeepMusic();

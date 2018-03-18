@@ -55,7 +55,7 @@ public abstract class AbstractTrap extends AbstractGameObject {
 
     @Override
     public boolean shouldGenerateObject(final Dungeon maze, final int row,
-            final int col, final int floor, final int level, final int layer) {
+            final int col, final int level, final int layer) {
         // Generate all traps at 25% rate
         final RandomRange reject = new RandomRange(1, 100);
         return reject.generate() < 25;

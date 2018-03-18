@@ -56,16 +56,15 @@ public class GenerateTask extends Thread {
             final RandomRange rC = new RandomRange(0,
                     Dungeon.getMaxColumns() - 1);
             if (this.scratch) {
-                int startR, startC, startF;
+                int startR, startC;
                 do {
                     startR = rR.generate();
                     startC = rC.generate();
-                    startF = 0;
-                } while (gameDungeon.getCell(startR, startC, startF,
-                        DungeonConstants.LAYER_OBJECT).isSolid());
+                } while (gameDungeon
+                        .getCell(startR, startC, DungeonConstants.LAYER_OBJECT)
+                        .isSolid());
                 gameDungeon.setStartRow(startR);
                 gameDungeon.setStartColumn(startC);
-                gameDungeon.setStartFloor(startF);
                 app.getDungeonManager().setLoaded(true);
                 final boolean playerExists = gameDungeon.doesPlayerExist();
                 if (playerExists) {
@@ -73,16 +72,15 @@ public class GenerateTask extends Thread {
                     app.getGame().resetViewingWindow();
                 }
             } else {
-                int startR, startC, startF;
+                int startR, startC;
                 do {
                     startR = rR.generate();
                     startC = rC.generate();
-                    startF = 0;
-                } while (gameDungeon.getCell(startR, startC, startF,
-                        DungeonConstants.LAYER_OBJECT).isSolid());
+                } while (gameDungeon
+                        .getCell(startR, startC, DungeonConstants.LAYER_OBJECT)
+                        .isSolid());
                 gameDungeon.setPlayerLocationX(startR);
                 gameDungeon.setPlayerLocationY(startC);
-                gameDungeon.setPlayerLocationZ(startF);
                 PartyManager.getParty().offsetZone(1);
             }
             gameDungeon.save();

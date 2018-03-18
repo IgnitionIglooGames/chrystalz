@@ -50,7 +50,7 @@ public class Ice extends AbstractGround {
 
     @Override
     public boolean shouldGenerateObject(final Dungeon maze, final int row,
-            final int col, final int floor, final int level, final int layer) {
+            final int col, final int level, final int layer) {
         // Generate Ice at 40% rate
         final RandomRange reject = new RandomRange(1, 100);
         return reject.generate() < 40;

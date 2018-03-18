@@ -15,7 +15,7 @@ public class BossNames {
     }
 
     public static final String getName(final int ID) {
-        String tempBossID = Integer.toString(ID);
+        final String tempBossID = Integer.toString(ID);
         String bossID;
         if (tempBossID.length() == 1) {
             bossID = "0" + tempBossID;

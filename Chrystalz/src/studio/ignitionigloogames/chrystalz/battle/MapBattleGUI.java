@@ -107,10 +107,10 @@ class MapBattleGUI {
                     yFix = y - yView;
                     try {
                         final BufferedImageIcon icon1 = bd.getBattleDungeon()
-                                .getCell(y, x, 0, DungeonConstants.LAYER_GROUND)
+                                .getCell(y, x, DungeonConstants.LAYER_GROUND)
                                 .battleRenderHook();
                         final BufferedImageIcon icon2 = bd.getBattleDungeon()
-                                .getCell(y, x, 0, DungeonConstants.LAYER_OBJECT)
+                                .getCell(y, x, DungeonConstants.LAYER_OBJECT)
                                 .battleRenderHook();
                         this.drawGrid.setImageCell(
                                 ImageCompositor.getCompositeImage(icon1, icon2,
@@ -143,10 +143,10 @@ class MapBattleGUI {
                 xFix = y - xView;
                 yFix = x - yView;
                 final BufferedImageIcon icon1 = bd.getBattleDungeon()
-                        .getCell(x, y, 0, DungeonConstants.LAYER_GROUND)
+                        .getCell(x, y, DungeonConstants.LAYER_GROUND)
                         .battleRenderHook();
                 final BufferedImageIcon icon2 = bd.getBattleDungeon()
-                        .getCell(x, y, 0, DungeonConstants.LAYER_OBJECT)
+                        .getCell(x, y, DungeonConstants.LAYER_OBJECT)
                         .battleRenderHook();
                 final BufferedImageIcon icon3 = obj3.battleRenderHook();
                 this.drawGrid.setImageCell(
@@ -230,7 +230,7 @@ class MapBattleGUI {
             for (int y = 0; y < MapBattleViewingWindowManager
                     .getViewingWindowSize(); y++) {
                 final AbstractGameObject dark = new Darkness().gameRenderHook(y,
-                        x, 0);
+                        x);
                 this.drawGrid.setImageCell(BattleImageManager
                         .getImage(dark.getName(), dark.getGameBaseID()), x, y);
             }

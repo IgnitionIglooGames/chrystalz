@@ -16,7 +16,8 @@ public class WeaponImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name) {
         if (!WeaponImageCache.isInCache(name)) {
-            BufferedImageIcon bii = WeaponImageManager.getUncachedImage(name);
+            final BufferedImageIcon bii = WeaponImageManager
+                    .getUncachedImage(name);
             WeaponImageCache.addToCache(name, bii);
         }
         for (final CacheEntry element : WeaponImageCache.cache) {

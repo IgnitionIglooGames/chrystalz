@@ -220,9 +220,8 @@ public abstract class AbstractGameObject extends CloneableObject
      *
      * @param x
      * @param y
-     * @param z
      */
-    public void editorGenerateHook(final int x, final int y, final int z) {
+    public void editorGenerateHook(final int x, final int y) {
         // Do nothing
     }
 
@@ -234,11 +233,9 @@ public abstract class AbstractGameObject extends CloneableObject
      *
      * @param x
      * @param y
-     * @param z
      * @return
      */
-    public AbstractGameObject gameRenderHook(final int x, final int y,
-            final int z) {
+    public AbstractGameObject gameRenderHook(final int x, final int y) {
         return this;
     }
 
@@ -263,10 +260,8 @@ public abstract class AbstractGameObject extends CloneableObject
      *
      * @param x
      * @param y
-     * @param z
      */
-    public void determineCurrentAppearance(final int x, final int y,
-            final int z) {
+    public void determineCurrentAppearance(final int x, final int y) {
         // Do nothing
     }
 
@@ -336,7 +331,7 @@ public abstract class AbstractGameObject extends CloneableObject
 
     @Override
     public boolean shouldGenerateObject(final Dungeon maze, final int row,
-            final int col, final int floor, final int level, final int layer) {
+            final int col, final int level, final int layer) {
         if (layer == DungeonConstants.LAYER_OBJECT) {
             // Handle object layer
             if (!this.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {

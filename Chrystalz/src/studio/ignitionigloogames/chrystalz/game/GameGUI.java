@@ -153,15 +153,13 @@ class GameGUI {
                     try {
                         if (visible) {
                             final AbstractGameObject obj1 = m
-                                    .getCell(y, x, m.getPlayerLocationZ(),
+                                    .getCell(y, x,
                                             DungeonConstants.LAYER_GROUND)
-                                    .gameRenderHook(y, x,
-                                            m.getPlayerLocationZ());
+                                    .gameRenderHook(y, x);
                             final AbstractGameObject obj2 = m
-                                    .getCell(y, x, m.getPlayerLocationZ(),
+                                    .getCell(y, x,
                                             DungeonConstants.LAYER_OBJECT)
-                                    .gameRenderHook(y, x,
-                                            m.getPlayerLocationZ());
+                                    .gameRenderHook(y, x);
                             final BufferedImageIcon img1 = ObjectImageManager
                                     .getImage(obj1.getName(),
                                             obj1.getGameBaseID());
@@ -170,8 +168,7 @@ class GameGUI {
                                             obj2.getGameBaseID());
                             if (u == y && v == x) {
                                 final AbstractGameObject obj3 = new Player()
-                                        .gameRenderHook(y, x,
-                                                m.getPlayerLocationZ());
+                                        .gameRenderHook(y, x);
                                 final BufferedImageIcon img3 = ObjectImageManager
                                         .getImage(obj3.getName(),
                                                 obj3.getGameBaseID());
@@ -197,14 +194,14 @@ class GameGUI {
                                     xFix, yFix);
                         }
                     } catch (final ArrayIndexOutOfBoundsException ae) {
-                        final AbstractGameObject obj = wall.gameRenderHook(y, x,
-                                m.getPlayerLocationZ());
+                        final AbstractGameObject obj = wall.gameRenderHook(y,
+                                x);
                         this.drawGrid.setImageCell(ObjectImageManager
                                 .getImage(obj.getName(), obj.getGameBaseID()),
                                 xFix, yFix);
                     } catch (final NullPointerException np) {
-                        final AbstractGameObject obj = wall.gameRenderHook(y, x,
-                                m.getPlayerLocationZ());
+                        final AbstractGameObject obj = wall.gameRenderHook(y,
+                                x);
                         this.drawGrid.setImageCell(ObjectImageManager
                                 .getImage(obj.getName(), obj.getGameBaseID()),
                                 xFix, yFix);
@@ -286,72 +283,72 @@ class GameGUI {
                 switch (keyCode) {
                 case KeyEvent.VK_LEFT:
                     if (e.isShiftDown()) {
-                        glm.updatePositionRelative(-1, -1, 0);
+                        glm.updatePositionRelative(-1, -1);
                     } else {
-                        glm.updatePositionRelative(-1, 0, 0);
+                        glm.updatePositionRelative(-1, 0);
                     }
                     break;
                 case KeyEvent.VK_DOWN:
                     if (e.isShiftDown()) {
-                        glm.updatePositionRelative(-1, 1, 0);
+                        glm.updatePositionRelative(-1, 1);
                     } else {
-                        glm.updatePositionRelative(0, 1, 0);
+                        glm.updatePositionRelative(0, 1);
                     }
                     break;
                 case KeyEvent.VK_RIGHT:
                     if (e.isShiftDown()) {
-                        glm.updatePositionRelative(1, 1, 0);
+                        glm.updatePositionRelative(1, 1);
                     } else {
-                        glm.updatePositionRelative(1, 0, 0);
+                        glm.updatePositionRelative(1, 0);
                     }
                     break;
                 case KeyEvent.VK_UP:
                     if (e.isShiftDown()) {
-                        glm.updatePositionRelative(1, -1, 0);
+                        glm.updatePositionRelative(1, -1);
                     } else {
-                        glm.updatePositionRelative(0, -1, 0);
+                        glm.updatePositionRelative(0, -1);
                     }
                     break;
                 case KeyEvent.VK_ENTER:
                     if (e.isShiftDown()) {
-                        glm.updatePositionRelative(0, 0, 0);
+                        glm.updatePositionRelative(0, 0);
                     }
                     break;
                 case KeyEvent.VK_NUMPAD7:
                 case KeyEvent.VK_Q:
-                    glm.updatePositionRelative(-1, -1, 0);
+                    glm.updatePositionRelative(-1, -1);
                     break;
                 case KeyEvent.VK_NUMPAD8:
                 case KeyEvent.VK_W:
-                    glm.updatePositionRelative(0, -1, 0);
+                    glm.updatePositionRelative(0, -1);
                     break;
                 case KeyEvent.VK_NUMPAD9:
                 case KeyEvent.VK_E:
-                    glm.updatePositionRelative(1, -1, 0);
+                    glm.updatePositionRelative(1, -1);
                     break;
                 case KeyEvent.VK_NUMPAD4:
                 case KeyEvent.VK_A:
-                    glm.updatePositionRelative(-1, 0, 0);
+                    glm.updatePositionRelative(-1, 0);
                     break;
                 case KeyEvent.VK_NUMPAD5:
                 case KeyEvent.VK_S:
-                    glm.updatePositionRelative(0, 0, 0);
+                    glm.updatePositionRelative(0, 0);
                     break;
                 case KeyEvent.VK_NUMPAD6:
                 case KeyEvent.VK_D:
-                    glm.updatePositionRelative(1, 0, 0);
+                    glm.updatePositionRelative(1, 0);
                     break;
                 case KeyEvent.VK_NUMPAD1:
                 case KeyEvent.VK_Z:
-                    glm.updatePositionRelative(-1, 1, 0);
+                    glm.updatePositionRelative(-1, 1);
                     break;
                 case KeyEvent.VK_NUMPAD2:
                 case KeyEvent.VK_X:
-                    glm.updatePositionRelative(0, 1, 0);
+                    glm.updatePositionRelative(0, 1);
                     break;
                 case KeyEvent.VK_NUMPAD3:
                 case KeyEvent.VK_C:
-                    glm.updatePositionRelative(1, 1, 0);
+                    glm.updatePositionRelative(1, 1);
                     break;
                 default:
                     break;
