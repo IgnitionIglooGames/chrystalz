@@ -7,6 +7,7 @@ package studio.ignitionigloogames.chrystalz.items;
 
 import studio.ignitionigloogames.chrystalz.manager.string.LocalizedFile;
 import studio.ignitionigloogames.chrystalz.manager.string.StringManager;
+import studio.ignitionigloogames.chrystalz.names.ZoneNames;
 
 public class ArmorConstants {
     // Private Constructor
@@ -23,6 +24,6 @@ public class ArmorConstants {
 
     public static synchronized String getArmor(final int index) {
         return StringManager.getLocalizedString(LocalizedFile.ARMOR_TYPES,
-                index);
+                ZoneNames.getZoneNumber(index));
     }
 }

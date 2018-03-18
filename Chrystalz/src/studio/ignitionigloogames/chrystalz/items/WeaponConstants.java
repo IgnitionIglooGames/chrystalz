@@ -8,6 +8,7 @@ package studio.ignitionigloogames.chrystalz.items;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.string.LocalizedFile;
 import studio.ignitionigloogames.chrystalz.manager.string.StringManager;
+import studio.ignitionigloogames.chrystalz.names.ZoneNames;
 
 public class WeaponConstants {
     // Private Constructor
@@ -28,7 +29,7 @@ public class WeaponConstants {
 
     public static synchronized String getWeapon(final int index) {
         return StringManager.getLocalizedString(LocalizedFile.WEAPON_TYPES,
-                index);
+                ZoneNames.getZoneNumber(index));
     }
 
     public static int getWeaponTypeHitSound(final int index) {
