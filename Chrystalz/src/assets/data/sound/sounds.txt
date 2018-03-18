@@ -35,7 +35,7 @@ ice
 levelup
 melt
 missed
-monster
+monsterattack
 next
 player
 run
@@ -53,8 +53,8 @@ weakness
 win
 zap
 heal
-door_closes
-door_opens
+close
+open
 equip
-intro
+monsterspell
 special

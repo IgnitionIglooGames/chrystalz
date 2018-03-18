@@ -215,6 +215,11 @@ public final class GameLogic {
         Chrystalz.getApplication().setMode(Application.STATUS_GAME);
         this.gui.showOutput();
     }
+    
+    public void showOutputAndKeepMusic() {
+        Chrystalz.getApplication().setMode(Application.STATUS_GAME);
+        this.gui.showOutputAndKeepMusic();
+    }
 
     public void hideOutput() {
         this.stopMovement();

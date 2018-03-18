@@ -53,7 +53,7 @@ public class Chrystalz {
             NativeIntegration.hookLAF(Chrystalz.PROGRAM_NAME);
             Chrystalz.application = new Application();
             Chrystalz.application.postConstruct();
-            Application.playLogoSound();
+            Chrystalz.application.getGUIManager();
             Chrystalz.application.getGUIManager().showGUI();
             // Register platform hooks
             NativeIntegration.hookAbout(Chrystalz.application.getAboutDialog(),

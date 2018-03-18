@@ -71,7 +71,7 @@ class PreferencesGUIManager {
             final int formerMode = app.getFormerMode();
             app.restoreFormerMode();
             if (formerMode == Application.STATUS_GUI) {
-                app.getGUIManager().hideGUITemporarily();
+                app.getGUIManager().hideGUI();
             } else if (formerMode == Application.STATUS_GAME) {
                 app.getGame().hideOutput();
             }
@@ -84,9 +84,9 @@ class PreferencesGUIManager {
         PreferencesManager.writePrefs();
         final int formerMode = app.getFormerMode();
         if (formerMode == Application.STATUS_GUI) {
-            app.getGUIManager().showGUI();
+            app.getGUIManager().showGUIAndKeepMusic();
         } else if (formerMode == Application.STATUS_GAME) {
-            app.getGame().showOutput();
+            app.getGame().showOutputAndKeepMusic();
         }
     }
 

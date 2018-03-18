@@ -14,8 +14,6 @@ import studio.ignitionigloogames.chrystalz.battle.MapBattleLogic;
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.GameObjectList;
 import studio.ignitionigloogames.chrystalz.game.GameLogic;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
-import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
-import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.chrystalz.shops.Shop;
@@ -134,10 +132,6 @@ public final class Application {
 
     public static Image getIconLogo() {
         return LogoManager.getIconLogo();
-    }
-
-    public static void playLogoSound() {
-        SoundManager.playSound(SoundConstants.SOUND_INTRO);
     }
 
     private static String getVersionString() {

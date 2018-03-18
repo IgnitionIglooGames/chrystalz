@@ -89,11 +89,19 @@ class GameGUI {
     }
 
     public void showOutput() {
-        final Application app = Chrystalz.getApplication();
         if (MusicManager.isMusicPlaying()) {
             MusicManager.stopMusic();
         }
         MusicManager.playMusic(MusicConstants.MUSIC_DUNGEON);
+        this.showOutputCommon();
+    }
+
+    public void showOutputAndKeepMusic() {
+        this.showOutputCommon();
+    }
+
+    private void showOutputCommon() {
+        final Application app = Chrystalz.getApplication();
         if (!this.outputFrame.isVisible()) {
             app.getMenuManager().setGameMenus();
             this.outputFrame.setVisible(true);

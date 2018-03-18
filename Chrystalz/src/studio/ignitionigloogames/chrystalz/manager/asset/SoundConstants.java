@@ -65,7 +65,7 @@ public class SoundConstants {
     public static final int SOUND_DOOR_CLOSES = 55;
     public static final int SOUND_DOOR_OPENS = 56;
     public static final int SOUND_EQUIP = 57;
-    public static final int SOUND_INTRO = 58;
+    public static final int SOUND_MONSTER_SPELL = 58;
     public static final int SOUND_SPECIAL = 59;
     private static final String[] SOUND_NAMES = SoundDataManager.getSoundData();
 

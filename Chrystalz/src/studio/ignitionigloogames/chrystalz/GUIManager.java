@@ -19,6 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.MusicConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.MusicManager;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.DungeonManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.fileio.DirectoryUtilities;
@@ -54,6 +56,18 @@ public final class GUIManager {
     }
 
     public void showGUI() {
+        if (MusicManager.isMusicPlaying()) {
+            MusicManager.stopMusic();
+        }
+        MusicManager.playMusic(MusicConstants.MUSIC_TITLE);
+        this.showGUICommon();
+    }
+    
+    public void showGUIAndKeepMusic() {
+        this.showGUICommon();
+    }
+    
+    private void showGUICommon() {
         final Application app = Chrystalz.getApplication();
         app.setMode(Application.STATUS_GUI);
         this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
@@ -63,10 +77,6 @@ public final class GUIManager {
     }
 
     public void hideGUI() {
-        this.guiFrame.setVisible(false);
-    }
-
-    public void hideGUITemporarily() {
         this.guiFrame.setVisible(false);
     }
 
