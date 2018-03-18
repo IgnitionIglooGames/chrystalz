@@ -93,10 +93,16 @@ public class Dungeon {
     public int computeFinalBossMoveDirection(final int locX, final int locY) {
         int px = this.getPlayerLocationX();
         int py = this.getPlayerLocationY();
-        int relX = locX - px;
-        int relY = locY - py;
-        int moveX = relX / Math.abs(relX);
-        int moveY = relY / Math.abs(relY);
+        int relX = px - locX;
+        int relY = py - locY;
+        int moveX = 0;
+        int moveY = 0;
+        if (relX != 0) {
+            moveX = relX / Math.abs(relX);
+        }
+        if (relY != 0) {
+            moveY = relY / Math.abs(relY);
+        }
         boolean canMove = !this.getCell(locX + moveX, locY + moveY,
                 DungeonConstants.LAYER_OBJECT).isSolid();
         if (canMove) {

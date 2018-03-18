@@ -119,7 +119,7 @@ public final class DungeonManager {
         if (saved) {
             final String gameDir = DungeonManager.getGameDirectory();
             final String[] rawChoices = new File(gameDir).list(gf);
-            if (rawChoices != null) {
+            if (rawChoices != null && rawChoices.length > 0) {
                 final String[] choices = new String[rawChoices.length];
                 // Strip extension
                 for (int x = 0; x < choices.length; x++) {
