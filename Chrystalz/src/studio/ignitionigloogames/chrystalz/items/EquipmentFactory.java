@@ -19,7 +19,7 @@ public class EquipmentFactory {
         return new Equipment(
                 WeaponMaterialConstants.getWeaponMaterial(material) + " "
                         + WeaponConstants.getWeapon(weaponType),
-                Shop.getEquipmentCost(material), material, material,
+                Shop.getEquipmentCost(material), material + 1, material + 1,
                 EquipmentSlotConstants.SLOT_WEAPON, material,
                 WeaponConstants.getWeaponTypeHitSound(weaponType));
     }
@@ -29,7 +29,7 @@ public class EquipmentFactory {
         return new Equipment(
                 ArmorMaterialConstants.getArmorMaterial(material) + " "
                         + ArmorConstants.getArmor(armorType),
-                Shop.getEquipmentCost(material), material, material,
+                Shop.getEquipmentCost(material), material + 1, material + 1,
                 EquipmentSlotConstants.getArmorSlotForType(armorType), material,
                 -1);
     }
