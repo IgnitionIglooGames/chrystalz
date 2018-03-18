@@ -302,20 +302,21 @@ class GameGUI {
                 case KeyEvent.VK_ENTER:
                     if (e.isShiftDown()) {
                         glm.updatePositionRelative(0, 0);
-                    } else {
-                        final Application app = Chrystalz.getApplication();
-                        final Dungeon m = app.getDungeonManager().getDungeon();
-                        int px = m.getPlayerLocationX();
-                        int py = m.getPlayerLocationY();
-                        AbstractGameObject there = new Empty();
-                        try {
-                            there = m.getCell(px, py,
-                                    DungeonConstants.LAYER_OBJECT);
-                        } catch (final ArrayIndexOutOfBoundsException ae) {
-                            // Ignore
-                        }
-                        there.interactAction();
                     }
+                    break;
+                case KeyEvent.VK_SPACE:
+                    final Application app = Chrystalz.getApplication();
+                    final Dungeon m = app.getDungeonManager().getDungeon();
+                    int px = m.getPlayerLocationX();
+                    int py = m.getPlayerLocationY();
+                    AbstractGameObject there = new Empty();
+                    try {
+                        there = m.getCell(px, py,
+                                DungeonConstants.LAYER_OBJECT);
+                    } catch (final ArrayIndexOutOfBoundsException ae) {
+                        // Ignore
+                    }
+                    there.interactAction();
                     break;
                 case KeyEvent.VK_NUMPAD7:
                 case KeyEvent.VK_Q:
