@@ -15,6 +15,7 @@ public class Equipment extends Item {
     private final int equipCat;
     private final int materialID;
     private int slotUsed;
+    private final int hitSound;
 
     // Constructors
     private Equipment(final Item i, final int equipCategory,
@@ -23,6 +24,7 @@ public class Equipment extends Item {
         this.equipCat = equipCategory;
         this.materialID = newMaterialID;
         this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
+        this.hitSound = -1;
     }
 
     Equipment(final String itemName, final int itemInitialUses,
@@ -32,6 +34,17 @@ public class Equipment extends Item {
         this.equipCat = equipCategory;
         this.materialID = newMaterialID;
         this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
+        this.hitSound = -1;
+    }
+
+    Equipment(final String itemName, final int itemInitialUses,
+            final int itemWeightPerUse, final int equipCategory,
+            final int newMaterialID, final int hitSoundID) {
+        super(itemName, itemInitialUses, itemWeightPerUse);
+        this.equipCat = equipCategory;
+        this.materialID = newMaterialID;
+        this.slotUsed = EquipmentSlotConstants.SLOT_NONE;
+        this.hitSound = hitSoundID;
     }
 
     Equipment(final Equipment e) {
@@ -39,6 +52,7 @@ public class Equipment extends Item {
         this.equipCat = e.equipCat;
         this.materialID = e.materialID;
         this.slotUsed = e.slotUsed;
+        this.hitSound = e.hitSound;
     }
 
     // Methods
@@ -73,6 +87,10 @@ public class Equipment extends Item {
             return false;
         }
         return true;
+    }
+
+    public final int getHitSound() {
+        return this.hitSound;
     }
 
     public final int getSlotUsed() {

@@ -59,6 +59,17 @@ public class ItemInventory {
         }
     }
 
+    public int getWeaponHitSound(final AbstractCreature pc) {
+        Equipment weapon = this.equipment[EquipmentSlotConstants.SLOT_WEAPON];
+        if (weapon != null) {
+            return weapon.getHitSound();
+        }
+        if (pc.getTeamID() == AbstractCreature.TEAM_PARTY) {
+            return SoundConstants.SOUND_ATTACK_HIT;
+        }
+        return SoundConstants.SOUND_MONSTER_HIT;
+    }
+
     public Equipment getEquipmentInSlot(final int slot) {
         return this.equipment[slot];
     }

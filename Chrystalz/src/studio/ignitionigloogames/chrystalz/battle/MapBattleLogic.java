@@ -303,6 +303,7 @@ public class MapBattleLogic extends AbstractBattle {
             final AbstractCreature active,
             final AbstractDamageEngine activeDE) {
         // Display round results
+        int hitSound = active.getItems().getWeaponHitSound(active);
         final String activeName = active.getName();
         final String enemyName = theEnemy.getName();
         String damageString = Integer.toString(this.damage);
@@ -361,7 +362,7 @@ public class MapBattleLogic extends AbstractBattle {
                 displayDamageString = displayDamagePrefix + activeName
                         + " hits " + enemyName + " for " + damageString
                         + " damage!";
-                SoundManager.playSound(SoundConstants.SOUND_ATTACK_HIT);
+                SoundManager.playSound(hitSound);
             }
         }
         this.setStatusMessage(displayDamageString);

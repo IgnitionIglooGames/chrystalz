@@ -21,7 +21,7 @@ public class EquipmentFactory {
                         + WeaponConstants.getWeapon(weaponType),
                 0, 0,
                 EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ONE_HANDED_WEAPON,
-                material);
+                material, WeaponConstants.getWeaponTypeHitSound(weaponType));
         e.setSlotUsed(EquipmentSlotConstants.SLOT_WEAPON);
         e.setPotency(material);
         e.setBuyPrice(Shop.getEquipmentCost(material));

@@ -5,6 +5,7 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.items;
 
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.string.LocalizedFile;
 import studio.ignitionigloogames.chrystalz.manager.string.StringManager;
 
@@ -15,6 +16,10 @@ public class WeaponConstants {
     }
 
     public static final int TYPE_COUNT = 6;
+    private static final int[] HIT_SOUND_LOOKUP = {
+            SoundConstants.SOUND_AXE_HIT, SoundConstants.SOUND_DAGGER_HIT,
+            SoundConstants.SOUND_HAMMER_HIT, SoundConstants.SOUND_STAFF_HIT,
+            SoundConstants.SOUND_SWORD_HIT, SoundConstants.SOUND_WAND_HIT };
 
     public static synchronized String[] getWeaponChoices() {
         return StringManager.getAllLocalizedStrings(LocalizedFile.WEAPON_TYPES,
@@ -24,5 +29,9 @@ public class WeaponConstants {
     public static synchronized String getWeapon(final int index) {
         return StringManager.getLocalizedString(LocalizedFile.WEAPON_TYPES,
                 index);
+    }
+
+    public static int getWeaponTypeHitSound(final int index) {
+        return WeaponConstants.HIT_SOUND_LOOKUP[index];
     }
 }
