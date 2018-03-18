@@ -308,7 +308,7 @@ public abstract class AbstractGameObject extends CloneableObject
         if (this.enabledInBattle()) {
             return this.getGameBaseID();
         } else {
-            return ObjectImageConstants.OBJECT_IMAGE_NONE;
+            return ObjectImageConstants.NONE;
         }
     }
 

@@ -19,7 +19,7 @@ public class Ice extends AbstractGround {
 
     @Override
     public final int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_ICE;
+        return ObjectImageConstants.ICE;
     }
 
     @Override

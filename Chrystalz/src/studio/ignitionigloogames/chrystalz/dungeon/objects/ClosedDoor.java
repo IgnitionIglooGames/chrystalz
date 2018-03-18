@@ -20,7 +20,7 @@ public class ClosedDoor extends AbstractTrigger {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_CLOSED_DOOR;
+        return ObjectImageConstants.CLOSED_DOOR;
     }
 
     // Scriptability

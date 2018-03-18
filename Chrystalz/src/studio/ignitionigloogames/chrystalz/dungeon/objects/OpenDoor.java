@@ -16,7 +16,7 @@ public class OpenDoor extends AbstractPassThroughObject {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_OPEN_DOOR;
+        return ObjectImageConstants.OPEN_DOOR;
     }
 
     // Scriptability

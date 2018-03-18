@@ -32,7 +32,7 @@ public class Wall extends AbstractWall {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_WALL;
+        return ObjectImageConstants.WALL;
     }
 
     @Override

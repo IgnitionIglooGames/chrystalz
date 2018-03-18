@@ -17,7 +17,7 @@ public class Darkness extends AbstractPassThroughObject {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_DARKNESS;
+        return ObjectImageConstants.DARKNESS;
     }
 
     @Override

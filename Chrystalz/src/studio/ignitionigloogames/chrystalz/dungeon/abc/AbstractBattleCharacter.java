@@ -171,7 +171,7 @@ public abstract class AbstractBattleCharacter extends AbstractGameObject {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_NONE;
+        return ObjectImageConstants.NONE;
     }
 
     @Override

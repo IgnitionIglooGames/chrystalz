@@ -17,7 +17,7 @@ public class Empty extends AbstractPassThroughObject {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_EMPTY;
+        return ObjectImageConstants.EMPTY;
     }
 
     @Override

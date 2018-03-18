@@ -11,8 +11,8 @@ import java.io.IOException;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.VersionException;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
+import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractMovingObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
-import studio.ignitionigloogames.chrystalz.dungeon.objects.Monster;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.FormatConstants;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.PrefixIO;
@@ -72,10 +72,6 @@ public class Dungeon {
         return Dungeon.MAX_LEVELS;
     }
 
-    public static int getMaxFloors() {
-        return LayeredTower.getMaxFloors();
-    }
-
     public static int getMaxColumns() {
         return LayeredTower.getMaxColumns();
     }
@@ -88,18 +84,18 @@ public class Dungeon {
     public static Dungeon getTemporaryBattleCopy() {
         final Dungeon temp = new Dungeon();
         temp.addLevel(Chrystalz.getBattleDungeonSize(),
-                Chrystalz.getBattleDungeonSize(), 1);
+                Chrystalz.getBattleDungeonSize());
         temp.fill(new Tile(), new Empty());
         return temp;
     }
 
     public void updateMonsterPosition(final int move, final int xLoc,
-            final int yLoc, final Monster monster) {
+            final int yLoc, final AbstractMovingObject monster) {
         this.mazeData.updateMonsterPosition(move, xLoc, yLoc, monster);
     }
 
-    public void postBattle(final Monster m, final int xLoc, final int yLoc,
-            final boolean player) {
+    public void postBattle(final AbstractMovingObject m, final int xLoc,
+            final int yLoc, final boolean player) {
         this.mazeData.postBattle(m, xLoc, yLoc, player);
     }
 
@@ -115,16 +111,28 @@ public class Dungeon {
         this.suffixHandler = xsh;
     }
 
+    public void tickTimers() {
+        this.mazeData.tickTimers();
+    }
+
+    @SuppressWarnings("unused")
+    @Deprecated
     public void tickTimers(final int floor) {
-        this.mazeData.tickTimers(floor);
+        this.mazeData.tickTimers();
     }
 
     public void resetVisibleSquares() {
         this.mazeData.resetVisibleSquares();
     }
 
+    public void updateVisibleSquares(final int xp, final int yp) {
+        this.mazeData.updateVisibleSquares(xp, yp);
+    }
+
+    @SuppressWarnings("unused")
+    @Deprecated
     public void updateVisibleSquares(final int xp, final int yp, final int zp) {
-        this.mazeData.updateVisibleSquares(xp, yp, zp);
+        this.mazeData.updateVisibleSquares(xp, yp);
     }
 
     public void switchLevel(final int level) {
@@ -160,7 +168,7 @@ public class Dungeon {
                 && this.activeLevel + level >= 0;
     }
 
-    public boolean addLevel(final int rows, final int cols, final int floors) {
+    public boolean addLevel(final int rows, final int cols) {
         if (this.levelCount < Dungeon.getMaxLevels()) {
             if (this.mazeData != null) {
                 try (FileIOWriter writer = this.getLevelWriter()) {
@@ -170,7 +178,7 @@ public class Dungeon {
                     // Ignore
                 }
             }
-            this.mazeData = new LayeredTower(rows, cols, floors);
+            this.mazeData = new LayeredTower(rows, cols);
             this.levelCount++;
             this.activeLevel = this.levelCount - 1;
             return true;
@@ -180,8 +188,15 @@ public class Dungeon {
     }
 
     public AbstractGameObject getCell(final int row, final int col,
+            final int extra) {
+        return this.mazeData.getCell(row, col, extra);
+    }
+
+    @SuppressWarnings("unused")
+    @Deprecated
+    public AbstractGameObject getCell(final int row, final int col,
             final int floor, final int extra) {
-        return this.mazeData.getCell(row, col, floor, extra);
+        return this.mazeData.getCell(row, col, extra);
     }
 
     public int getPlayerLocationX() {
@@ -192,8 +207,9 @@ public class Dungeon {
         return this.mazeData.getPlayerColumn();
     }
 
+    @Deprecated
     public int getPlayerLocationZ() {
-        return this.mazeData.getPlayerFloor();
+        return 0;
     }
 
     public int getStartLevel() {
@@ -208,8 +224,9 @@ public class Dungeon {
         return this.mazeData.getColumns();
     }
 
+    @Deprecated
     public int getFloors() {
-        return this.mazeData.getFloors();
+        return 1;
     }
 
     public boolean doesPlayerExist() {
@@ -222,8 +239,15 @@ public class Dungeon {
     }
 
     public void setCell(final AbstractGameObject mo, final int row,
+            final int col, final int extra) {
+        this.mazeData.setCell(mo, row, col, extra);
+    }
+
+    @SuppressWarnings("unused")
+    @Deprecated
+    public void setCell(final AbstractGameObject mo, final int row,
             final int col, final int floor, final int extra) {
-        this.mazeData.setCell(mo, row, col, floor, extra);
+        this.mazeData.setCell(mo, row, col, extra);
     }
 
     public void setStartRow(final int newStartRow) {
@@ -234,8 +258,10 @@ public class Dungeon {
         this.mazeData.setStartColumn(newStartColumn);
     }
 
+    @SuppressWarnings("unused")
+    @Deprecated
     public void setStartFloor(final int newStartFloor) {
-        this.mazeData.setStartFloor(newStartFloor);
+        // Do nothing
     }
 
     public void savePlayerLocation() {
@@ -260,8 +286,10 @@ public class Dungeon {
         this.mazeData.setPlayerColumn(newPlayerColumn);
     }
 
+    @SuppressWarnings("unused")
+    @Deprecated
     public void setPlayerLocationZ(final int newPlayerFloor) {
-        this.mazeData.setPlayerFloor(newPlayerFloor);
+        // Do nothing
     }
 
     public void offsetPlayerLocationX(final int newPlayerRow) {
@@ -290,7 +318,7 @@ public class Dungeon {
 
     private void fill(final AbstractGameObject bottom,
             final AbstractGameObject top) {
-        this.mazeData.fillFloor(bottom, top, 0);
+        this.mazeData.fill(bottom, top);
     }
 
     public Dungeon readDungeon() throws IOException {

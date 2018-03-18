@@ -11,9 +11,9 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractMovingObject;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
 import studio.ignitionigloogames.common.random.RandomRange;
 
-public class Monster extends AbstractMovingObject {
+public class FinalBossMonsterTile extends AbstractMovingObject {
     // Constructors
-    public Monster() {
+    public FinalBossMonsterTile() {
         super(false);
         this.setSavedObject(new Empty());
         this.activateTimer(1);
@@ -23,9 +23,7 @@ public class Monster extends AbstractMovingObject {
     public void postMoveAction(final boolean ie, final int dirX,
             final int dirY) {
         if (Chrystalz.getApplication().getMode() != Application.STATUS_BATTLE) {
-            Chrystalz.getApplication().getBattle().doBattle();
-            Chrystalz.getApplication().getDungeonManager().getDungeon()
-                    .postBattle(this, dirX, dirY, true);
+            Chrystalz.getApplication().getBattle().doFinalBossBattle();
         }
     }
 
@@ -41,21 +39,21 @@ public class Monster extends AbstractMovingObject {
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_NONE;
+        return ObjectImageConstants.FINAL_BOSS;
     }
 
     @Override
     public String getName() {
-        return "Monster";
+        return "Final Boss Monster";
     }
 
     @Override
     public String getPluralName() {
-        return "Monsters";
+        return "Final Boss Monsters";
     }
 
     @Override
     public String getDescription() {
-        return "Monsters are dangerous. Encountering one starts a battle.";
+        return "Final Boss Monsters are extremely dangerous. Encountering one starts a final boss battle.";
     }
 }

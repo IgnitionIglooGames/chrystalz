@@ -21,7 +21,7 @@ public class Chrystalz {
     private static final String ERROR_TITLE = "Chrystalz Error";
     private static final ErrorLogger elog = new ErrorLogger(
             Chrystalz.PROGRAM_NAME);
-    private static final int BATTLE_MAZE_SIZE = 16;
+    private static final int BATTLE_MAP_SIZE = 16;
 
     // Methods
     public static Application getApplication() {
@@ -29,7 +29,7 @@ public class Chrystalz {
     }
 
     public static int getBattleDungeonSize() {
-        return Chrystalz.BATTLE_MAZE_SIZE;
+        return Chrystalz.BATTLE_MAP_SIZE;
     }
 
     public static ErrorLogger getErrorLogger() {
@@ -41,8 +41,8 @@ public class Chrystalz {
 
     public static void preInit() {
         // Compute action cap
-        AbstractCreature.computeActionCap(Chrystalz.BATTLE_MAZE_SIZE,
-                Chrystalz.BATTLE_MAZE_SIZE);
+        AbstractCreature.computeActionCap(Chrystalz.BATTLE_MAP_SIZE,
+                Chrystalz.BATTLE_MAP_SIZE);
     }
 
     public static void main(final String[] args) {

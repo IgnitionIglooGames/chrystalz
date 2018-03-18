@@ -7,8 +7,8 @@ ice
 open_door
 regenerator
 spells
-down
-up
+boss_monster
+final_boss_monster
 tile
 wall
 weapons

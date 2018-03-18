@@ -50,20 +50,17 @@ public class GenerateTask extends Thread {
                 gameDungeon = new Dungeon();
                 app.getDungeonManager().setDungeon(gameDungeon);
             }
-            gameDungeon.addLevel(Dungeon.getMaxRows(), Dungeon.getMaxColumns(),
-                    Dungeon.getMaxFloors());
+            gameDungeon.addLevel(Dungeon.getMaxRows(), Dungeon.getMaxColumns());
             gameDungeon.fillLevelRandomly();
             final RandomRange rR = new RandomRange(0, Dungeon.getMaxRows() - 1);
             final RandomRange rC = new RandomRange(0,
                     Dungeon.getMaxColumns() - 1);
-            final RandomRange rF = new RandomRange(0,
-                    Dungeon.getMaxFloors() - 1);
             if (this.scratch) {
                 int startR, startC, startF;
                 do {
                     startR = rR.generate();
                     startC = rC.generate();
-                    startF = rF.generate();
+                    startF = 0;
                 } while (gameDungeon.getCell(startR, startC, startF,
                         DungeonConstants.LAYER_OBJECT).isSolid());
                 gameDungeon.setStartRow(startR);
@@ -80,7 +77,7 @@ public class GenerateTask extends Thread {
                 do {
                     startR = rR.generate();
                     startC = rC.generate();
-                    startF = rF.generate();
+                    startF = 0;
                 } while (gameDungeon.getCell(startR, startC, startF,
                         DungeonConstants.LAYER_OBJECT).isSolid());
                 gameDungeon.setPlayerLocationX(startR);
