@@ -32,9 +32,6 @@ public abstract class AbstractCharacter extends AbstractGameObject {
     }
 
     @Override
-    public abstract String getName();
-
-    @Override
     public int getLayer() {
         return DungeonConstants.VIRTUAL_LAYER_CHARACTER;
     }

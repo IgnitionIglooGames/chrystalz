@@ -242,8 +242,7 @@ public abstract class AbstractGameObject extends CloneableObject
      * @return
      */
     public BufferedImageIcon gameRenderHook(final int x, final int y) {
-        return ObjectImageManager.getImage(this.getGameName(),
-                this.getGameBaseID());
+        return ObjectImageManager.getImage(this.getName(), this.getBaseID());
     }
 
     public BufferedImageIcon battleRenderHook() {
@@ -257,10 +256,6 @@ public abstract class AbstractGameObject extends CloneableObject
 
     public boolean overridesDefaultPostMove() {
         return false;
-    }
-
-    public String getGameName() {
-        return this.getName();
     }
 
     /**
@@ -302,13 +297,9 @@ public abstract class AbstractGameObject extends CloneableObject
 
     public abstract int getBaseID();
 
-    public int getGameBaseID() {
-        return this.getBaseID();
-    }
-
     public int getBattleBaseID() {
         if (this.enabledInBattle()) {
-            return this.getGameBaseID();
+            return this.getBaseID();
         } else {
             return ObjectImageConstants.NONE;
         }

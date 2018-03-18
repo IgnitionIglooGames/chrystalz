@@ -23,9 +23,6 @@ public abstract class AbstractPassThroughObject extends AbstractGameObject {
     }
 
     @Override
-    public abstract String getName();
-
-    @Override
     public int getLayer() {
         return DungeonConstants.LAYER_OBJECT;
     }

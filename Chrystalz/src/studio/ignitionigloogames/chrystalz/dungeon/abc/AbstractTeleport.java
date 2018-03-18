@@ -14,10 +14,6 @@ public abstract class AbstractTeleport extends AbstractGameObject {
         super(false, true, false);
     }
 
-    // Scriptability
-    @Override
-    public abstract String getName();
-
     @Override
     public int getLayer() {
         return DungeonConstants.LAYER_OBJECT;

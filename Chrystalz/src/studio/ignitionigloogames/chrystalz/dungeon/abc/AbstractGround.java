@@ -19,9 +19,6 @@ public abstract class AbstractGround extends AbstractGameObject {
     }
 
     @Override
-    public abstract String getName();
-
-    @Override
     public int getLayer() {
         return DungeonConstants.LAYER_GROUND;
     }
