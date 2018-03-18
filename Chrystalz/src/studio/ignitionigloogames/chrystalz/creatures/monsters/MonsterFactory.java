@@ -6,8 +6,6 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package studio.ignitionigloogames.chrystalz.creatures.monsters;
 
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
-import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
-import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 
 public class MonsterFactory {
     private MonsterFactory() {
@@ -15,10 +13,14 @@ public class MonsterFactory {
     }
 
     public static AbstractCreature getNewMonsterInstance() {
-        if (PartyManager.getParty().getZone() == Dungeon.getMaxLevels() - 1) {
-            return new FinalBossMonster();
-        } else {
-            return new Monster();
-        }
+        return new Monster();
+    }
+
+    public static AbstractCreature getNewBossInstance() {
+        return new BossMonster();
+    }
+
+    public static AbstractCreature getNewFinalBossInstance() {
+        return new FinalBossMonster();
     }
 }

@@ -22,6 +22,10 @@ public abstract class AbstractBattle {
 
     public abstract void doBattle();
 
+    public abstract void doBossBattle();
+
+    public abstract void doFinalBossBattle();
+
     public abstract void doBattleByProxy();
 
     public abstract void setStatusMessage(final String msg);

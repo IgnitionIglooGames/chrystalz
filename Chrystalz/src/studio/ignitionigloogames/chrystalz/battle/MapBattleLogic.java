@@ -26,6 +26,8 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.effects.Effect;
+import studio.ignitionigloogames.chrystalz.manager.asset.MusicConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.MusicManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
@@ -73,7 +75,33 @@ public class MapBattleLogic extends AbstractBattle {
     @Override
     public void doBattle() {
         final Dungeon m = Dungeon.getTemporaryBattleCopy();
-        final MapBattle b = new MapBattle();
+        final AbstractMapBattle b = AbstractMapBattle.createBattle();
+        if (MusicManager.isMusicPlaying()) {
+            MusicManager.stopMusic();
+        }
+        MusicManager.playMusic(MusicConstants.MUSIC_BATTLE);
+        this.doBattleInternal(m, b);
+    }
+
+    @Override
+    public void doBossBattle() {
+        final Dungeon m = Dungeon.getTemporaryBattleCopy();
+        final AbstractMapBattle b = AbstractMapBattle.createBossBattle();
+        if (MusicManager.isMusicPlaying()) {
+            MusicManager.stopMusic();
+        }
+        MusicManager.playMusic(MusicConstants.MUSIC_BATTLE);
+        this.doBattleInternal(m, b);
+    }
+
+    @Override
+    public void doFinalBossBattle() {
+        final Dungeon m = Dungeon.getTemporaryBattleCopy();
+        final AbstractMapBattle b = AbstractMapBattle.createFinalBossBattle();
+        if (MusicManager.isMusicPlaying()) {
+            MusicManager.stopMusic();
+        }
+        MusicManager.playMusic(MusicConstants.MUSIC_BOSS);
         this.doBattleInternal(m, b);
     }
 
@@ -92,7 +120,8 @@ public class MapBattleLogic extends AbstractBattle {
         }
     }
 
-    private void doBattleInternal(final Dungeon bMap, final MapBattle b) {
+    private void doBattleInternal(final Dungeon bMap,
+            final AbstractMapBattle b) {
         // Initialize Battle
         Chrystalz.getApplication().getGame().hideOutput();
         Chrystalz.getApplication().setMode(Application.STATUS_BATTLE);
@@ -1417,7 +1446,7 @@ public class MapBattleLogic extends AbstractBattle {
             // Battle Done
             this.battleDone();
             if (rewardsFlag) {
-                BossRewards.doRewards();
+                FinalBossRewards.doRewards();
             }
         }
     }

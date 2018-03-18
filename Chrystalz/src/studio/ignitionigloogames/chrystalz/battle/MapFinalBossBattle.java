@@ -8,15 +8,17 @@ package studio.ignitionigloogames.chrystalz.battle;
 import studio.ignitionigloogames.chrystalz.creatures.monsters.MonsterFactory;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BattleCharacter;
 
-public class MapBattle extends AbstractMapBattle {
+public class MapFinalBossBattle extends AbstractMapBattle {
     // Fields
     final BattleCharacter monster;
 
     // Constructors
-    public MapBattle() {
+    public MapFinalBossBattle() {
         super();
+        this.boss = true;
+        this.finalBoss = true;
         this.monster = new BattleCharacter(
-                MonsterFactory.getNewMonsterInstance());
+                MonsterFactory.getNewFinalBossInstance());
     }
 
     // Methods

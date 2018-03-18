@@ -32,8 +32,6 @@ import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.manager.asset.BattleImageManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.ImageCompositor;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
-import studio.ignitionigloogames.chrystalz.manager.asset.MusicConstants;
-import studio.ignitionigloogames.chrystalz.manager.asset.MusicManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
@@ -83,10 +81,6 @@ class MapBattleGUI {
     }
 
     void showBattle() {
-        if (MusicManager.isMusicPlaying()) {
-            MusicManager.stopMusic();
-        }
-        MusicManager.playMusic(MusicConstants.MUSIC_BATTLE);
         this.battleFrame.setVisible(true);
         this.battleFrame.setJMenuBar(
                 Chrystalz.getApplication().getMenuManager().getMainMenuBar());

@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
 
-public class BossRewards {
+public class FinalBossRewards {
     // Fields
     static final String[] rewardOptions = { "Attack", "Defense", "HP", "MP" };
 
     // Constructor
-    private BossRewards() {
+    private FinalBossRewards() {
         // Do nothing
     }
 
@@ -27,18 +27,18 @@ public class BossRewards {
             dialogResult = (String) JOptionPane.showInputDialog(null,
                     "You get to increase a stat permanently.\nWhich Stat?",
                     "Boss Rewards", JOptionPane.QUESTION_MESSAGE, null,
-                    BossRewards.rewardOptions, BossRewards.rewardOptions[0]);
+                    FinalBossRewards.rewardOptions, FinalBossRewards.rewardOptions[0]);
         }
-        if (dialogResult.equals(BossRewards.rewardOptions[0])) {
+        if (dialogResult.equals(FinalBossRewards.rewardOptions[0])) {
             // Attack
             player.spendPointOnAttack();
-        } else if (dialogResult.equals(BossRewards.rewardOptions[1])) {
+        } else if (dialogResult.equals(FinalBossRewards.rewardOptions[1])) {
             // Defense
             player.spendPointOnDefense();
-        } else if (dialogResult.equals(BossRewards.rewardOptions[2])) {
+        } else if (dialogResult.equals(FinalBossRewards.rewardOptions[2])) {
             // HP
             player.spendPointOnHP();
-        } else if (dialogResult.equals(BossRewards.rewardOptions[3])) {
+        } else if (dialogResult.equals(FinalBossRewards.rewardOptions[3])) {
             // MP
             player.spendPointOnMP();
         }
