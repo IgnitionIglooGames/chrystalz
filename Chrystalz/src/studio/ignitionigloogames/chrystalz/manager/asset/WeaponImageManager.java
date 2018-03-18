@@ -24,8 +24,8 @@ public class WeaponImageManager {
     public static BufferedImageIcon getImage(final int typeID,
             final int zoneID) {
         // Get it from the cache
-        final String name = StringManager.getGlobalString(
-                GlobalFile.WEAPON_TYPES, ZoneNames.getZoneNumber(typeID)) + "/"
+        final String name = StringManager
+                .getGlobalString(GlobalFile.WEAPON_TYPES, typeID) + "/"
                 + ZoneNames.getZoneNumber(zoneID);
         return WeaponImageCache.getCachedImage(name);
     }
