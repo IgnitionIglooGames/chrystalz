@@ -2,6 +2,8 @@ package studio.ignitionigloogames.common.dialogs;
 
 import javax.swing.JOptionPane;
 
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class CommonDialogs {
@@ -51,6 +53,22 @@ public class CommonDialogs {
      *            The dialog title.
      */
     public static void showErrorDialog(final String msg, final String title) {
+        SoundManager.playSound(SoundConstants.ERROR);
+        JOptionPane.showMessageDialog(null, msg, title,
+                JOptionPane.ERROR_MESSAGE, CommonDialogs.ICON);
+    }
+
+    /**
+     * Displays a fatal error dialog with a title.
+     *
+     * @param msg
+     *            The dialog message.
+     * @param title
+     *            The dialog title.
+     */
+    public static void showFatalErrorDialog(final String msg,
+            final String title) {
+        SoundManager.playSound(SoundConstants.FATAL_ERROR);
         JOptionPane.showMessageDialog(null, msg, title,
                 JOptionPane.ERROR_MESSAGE, CommonDialogs.ICON);
     }

@@ -19,7 +19,7 @@ public abstract class AbstractPassThroughObject extends AbstractGameObject {
     @Override
     public void postMoveAction(final boolean ie, final int dirX,
             final int dirY) {
-        SoundManager.playSound(SoundConstants.SOUND_WALK);
+        SoundManager.playSound(SoundConstants.WALK);
     }
 
     @Override

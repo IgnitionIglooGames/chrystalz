@@ -218,7 +218,7 @@ public abstract class AbstractGameObject extends CloneableObject
      */
     public void moveFailedAction(final boolean ie, final int dirX,
             final int dirY) {
-        SoundManager.playSound(SoundConstants.SOUND_FAILED);
+        SoundManager.playSound(SoundConstants.FAILED);
         Chrystalz.getApplication().showMessage("Can't go that way");
     }
     
@@ -230,7 +230,7 @@ public abstract class AbstractGameObject extends CloneableObject
     * @param inv
     */
    public void interactAction() {
-       SoundManager.playSound(SoundConstants.SOUND_FAILED);
+       SoundManager.playSound(SoundConstants.FAILED);
        Chrystalz.getApplication().showMessage("Can't interact with that");
    }
 

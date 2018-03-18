@@ -40,7 +40,7 @@ public class ItemInventory {
         // Equip it
         this.equipment[ei.getSlotUsed()] = ei;
         if (playSound) {
-            SoundManager.playSound(SoundConstants.SOUND_EQUIP);
+            SoundManager.playSound(SoundConstants.EQUIP);
         }
     }
 
@@ -55,7 +55,7 @@ public class ItemInventory {
         // Equip it in first slot
         this.equipment[ei.getSlotUsed()] = ei;
         if (playSound) {
-            SoundManager.playSound(SoundConstants.SOUND_EQUIP);
+            SoundManager.playSound(SoundConstants.EQUIP);
         }
     }
 
@@ -65,9 +65,9 @@ public class ItemInventory {
             return weapon.getHitSound();
         }
         if (pc.getTeamID() == AbstractCreature.TEAM_PARTY) {
-            return SoundConstants.SOUND_ATTACK_HIT;
+            return SoundConstants.ATTACK_HIT;
         }
-        return SoundConstants.SOUND_MONSTER_HIT;
+        return SoundConstants.MONSTER_HIT;
     }
 
     public Equipment getEquipmentInSlot(final int slot) {

@@ -33,7 +33,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell0Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "You are no longer poisoned!");
         final Spell spell0 = new Spell(spell0Effect, 1, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DRAIN_SPELL);
+                SoundConstants.DRAIN_SPELL);
         this.spells[0] = spell0;
         final Effect spell1Effect = new Effect("Recover", 1);
         spell1Effect.setEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP,
@@ -43,7 +43,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell1Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,
                 "The enemy regains some health!");
         final Spell spell1 = new Spell(spell1Effect, 2, BattleTarget.SELF,
-                SoundConstants.SOUND_HEAL_SPELL);
+                SoundConstants.HEAL_SPELL);
         this.spells[1] = spell1;
         final Effect spell2Effect = new Effect("Weapon Drain", 5);
         spell2Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -56,7 +56,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell2Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "Your weapon's power has returned!");
         final Spell spell2 = new Spell(spell2Effect, 3, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_1);
+                SoundConstants.DEBUFF_1);
         this.spells[2] = spell2;
         final Effect spell3Effect = new Effect("Armor Drain", 5);
         spell3Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -69,7 +69,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell3Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "Your armor's power has returned!");
         final Spell spell3 = new Spell(spell3Effect, 5, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_2);
+                SoundConstants.DEBUFF_2);
         this.spells[3] = spell3;
         final Effect spell4Effect = new Effect("Weapon Charge", 5);
         spell4Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -82,7 +82,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell4Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The enemy's weapon returns to normal!");
         final Spell spell4 = new Spell(spell4Effect, 7, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_2);
+                SoundConstants.BUFF_2);
         this.spells[4] = spell4;
         final Effect spell5Effect = new Effect("Armor Charge", 5);
         spell5Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -95,7 +95,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell5Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The enemy's armor returns to normal!");
         final Spell spell5 = new Spell(spell5Effect, 11, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.BUFF_1);
         this.spells[5] = spell5;
     }
 }

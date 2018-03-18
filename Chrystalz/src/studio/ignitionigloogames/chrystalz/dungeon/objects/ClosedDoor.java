@@ -41,7 +41,7 @@ public class ClosedDoor extends AbstractPassThroughObject {
 
     @Override
     public void interactAction() {
-        SoundManager.playSound(SoundConstants.SOUND_DOOR_OPENS);
+        SoundManager.playSound(SoundConstants.DOOR_OPENS);
         final GameLogic glm = Chrystalz.getApplication().getGame();
         GameLogic.morph(new OpenDoor());
         glm.redrawDungeon();

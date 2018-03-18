@@ -41,7 +41,7 @@ public class Chrystalz {
 
     public static ErrorLogger getErrorLogger() {
         // Display error message
-        CommonDialogs.showErrorDialog(Chrystalz.ERROR_MESSAGE,
+        CommonDialogs.showFatalErrorDialog(Chrystalz.ERROR_MESSAGE,
                 Chrystalz.ERROR_TITLE);
         return Chrystalz.elog;
     }

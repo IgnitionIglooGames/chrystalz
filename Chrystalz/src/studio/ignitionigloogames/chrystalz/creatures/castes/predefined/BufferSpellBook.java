@@ -33,7 +33,7 @@ public class BufferSpellBook extends SpellBook {
         spell0Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The potion wears off!");
         final Spell spell0 = new Spell(spell0Effect, 1, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.DISPEL_EFFECT);
         this.spells[0] = spell0;
         final Effect spell1Effect = new Effect("Hide of the Rhino", 5);
         spell1Effect.setEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_BLOCK,
@@ -45,7 +45,7 @@ public class BufferSpellBook extends SpellBook {
         spell1Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The potion wears off!");
         final Spell spell1 = new Spell(spell1Effect, 2, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.DISPEL_EFFECT);
         this.spells[1] = spell1;
         final Effect spell2Effect = new Effect("Stamina of the Elephant", 5);
         spell2Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -58,7 +58,7 @@ public class BufferSpellBook extends SpellBook {
         spell2Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The potion wears off!");
         final Spell spell2 = new Spell(spell2Effect, 3, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.DISPEL_EFFECT);
         this.spells[2] = spell2;
         final Effect spell3Effect = new Effect("Wisdom of the Tortoise", 5);
         spell3Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -71,7 +71,7 @@ public class BufferSpellBook extends SpellBook {
         spell3Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The potion wears off!");
         final Spell spell3 = new Spell(spell3Effect, 5, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.DISPEL_EFFECT);
         this.spells[3] = spell3;
         final Effect spell4Effect = new Effect("Luck of the Leprechaun", 5);
         spell4Effect.setEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_LUCK,
@@ -83,7 +83,7 @@ public class BufferSpellBook extends SpellBook {
         spell4Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The potion wears off!");
         final Spell spell4 = new Spell(spell4Effect, 7, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.DISPEL_EFFECT);
         this.spells[4] = spell4;
         final Effect spell5Effect = new Effect("Twin Mystics", 5);
         spell5Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -96,7 +96,7 @@ public class BufferSpellBook extends SpellBook {
         spell5Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The potion wears off!");
         final Spell spell5 = new Spell(spell5Effect, 11, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.DISPEL_EFFECT);
         this.spells[5] = spell5;
         final Effect spell6Effect = new Effect("Twin Hits", 5);
         spell6Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -109,7 +109,7 @@ public class BufferSpellBook extends SpellBook {
         spell6Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The potion wears off!");
         final Spell spell6 = new Spell(spell6Effect, 13, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.DISPEL_EFFECT);
         this.spells[6] = spell6;
         final Effect spell7Effect = new Effect("Accuracy of the Eagle", 5);
         spell7Effect.setEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_HIT,
@@ -121,7 +121,7 @@ public class BufferSpellBook extends SpellBook {
         spell7Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The potion wears off!");
         final Spell spell7 = new Spell(spell7Effect, 17, BattleTarget.SELF,
-                SoundConstants.SOUND_BUFF_1);
+                SoundConstants.DISPEL_EFFECT);
         this.spells[7] = spell7;
     }
 

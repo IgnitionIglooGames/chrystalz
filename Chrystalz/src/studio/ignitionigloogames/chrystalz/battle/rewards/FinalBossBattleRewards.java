@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import studio.ignitionigloogames.chrystalz.battle.BattleResult;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 
 class FinalBossBattleRewards {
     // Fields
@@ -24,6 +26,7 @@ class FinalBossBattleRewards {
     public static void doRewards(final BattleResult br) {
         final PartyMember player = PartyManager.getParty().getLeader();
         if (br == BattleResult.WON || br == BattleResult.PERFECT) {
+            SoundManager.playSound(SoundConstants.WIN_GAME);
             String dialogResult = null;
             while (dialogResult == null) {
                 dialogResult = (String) JOptionPane.showInputDialog(null,

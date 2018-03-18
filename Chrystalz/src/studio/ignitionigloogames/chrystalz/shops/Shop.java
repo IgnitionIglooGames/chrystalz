@@ -136,7 +136,7 @@ public class Shop {
         private boolean shopStage1() {
             // Stage 1
             // Play enter shop sound
-            SoundManager.playSound(SoundConstants.SOUND_SHOP);
+            SoundManager.playSound(SoundConstants.SHOP);
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             if (Shop.this.type == ShopType.HEALER
@@ -249,7 +249,7 @@ public class Shop {
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             // Play transact sound
-            SoundManager.playSound(SoundConstants.SOUND_TRANSACT);
+            SoundManager.playSound(SoundConstants.TRANSACT);
             if (Shop.this.type == ShopType.HEALER) {
                 playerCharacter.offsetGold(-Shop.this.cost);
                 playerCharacter.healPercentage((Shop.this.index + 1) * 10);
@@ -296,7 +296,7 @@ public class Shop {
         private boolean shopStage1() {
             // Stage 1
             // Play enter shop sound
-            SoundManager.playSound(SoundConstants.SOUND_SHOP);
+            SoundManager.playSound(SoundConstants.SHOP);
             final int zoneID = PartyManager.getParty().getZone();
             if (Shop.this.type == ShopType.WEAPONS) {
                 Shop.this.imageChoices = new BufferedImageIcon[WeaponConstants.TYPE_COUNT];
@@ -386,7 +386,7 @@ public class Shop {
             final PartyMember playerCharacter = PartyManager.getParty()
                     .getLeader();
             // Play transact sound
-            SoundManager.playSound(SoundConstants.SOUND_TRANSACT);
+            SoundManager.playSound(SoundConstants.TRANSACT);
             if (Shop.this.type == ShopType.WEAPONS) {
                 playerCharacter.offsetGold(-Shop.this.cost);
                 final Equipment bought = EquipmentFactory.createWeapon(

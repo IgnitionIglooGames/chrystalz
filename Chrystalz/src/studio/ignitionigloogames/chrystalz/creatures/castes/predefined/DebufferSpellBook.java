@@ -31,7 +31,7 @@ public class DebufferSpellBook extends SpellBook {
                 "The enemy recoils, taking a little damage!");
         spell0Effect.setMessage(Effect.MESSAGE_WEAR_OFF, "The enemy recovers!");
         final Spell spell0 = new Spell(spell0Effect, 1, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_1);
+                SoundConstants.BOLT_SPELL);
         this.spells[0] = spell0;
         final Effect spell1Effect = new Effect("Speed Down", 5);
         spell1Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -44,7 +44,7 @@ public class DebufferSpellBook extends SpellBook {
         spell1Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The enemy breaks free of the tangle!");
         final Spell spell1 = new Spell(spell1Effect, 2, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_2);
+                SoundConstants.CONFUSION_SPELL);
         this.spells[1] = spell1;
         final Effect spell2Effect = new Effect("Power Lock", 5);
         spell2Effect.setEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP,
@@ -55,7 +55,7 @@ public class DebufferSpellBook extends SpellBook {
                 "The enemy recoils, taking damage!");
         spell2Effect.setMessage(Effect.MESSAGE_WEAR_OFF, "The trap vanishes!");
         final Spell spell2 = new Spell(spell2Effect, 3, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_1);
+                SoundConstants.DUMBFOUND_SPELL);
         this.spells[2] = spell2;
         final Effect spell3Effect = new Effect("Attack Lock", 10);
         spell3Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -67,7 +67,7 @@ public class DebufferSpellBook extends SpellBook {
                 "The enemy cannot attack!");
         spell3Effect.setMessage(Effect.MESSAGE_WEAR_OFF, "The lock breaks!");
         final Spell spell3 = new Spell(spell3Effect, 5, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_1);
+                SoundConstants.BUBBLE_SPELL);
         this.spells[3] = spell3;
         final Effect spell4Effect = new Effect("Weapon Steal", 5);
         spell4Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -80,7 +80,7 @@ public class DebufferSpellBook extends SpellBook {
         spell4Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The enemy recovers their weapon!");
         final Spell spell4 = new Spell(spell4Effect, 7, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_2);
+                SoundConstants.DEBUFF_1);
         this.spells[4] = spell4;
         final Effect spell5Effect = new Effect("Armor Bind", 5);
         spell5Effect.setEffect(Effect.EFFECT_MULTIPLY,
@@ -92,7 +92,7 @@ public class DebufferSpellBook extends SpellBook {
                 "The enemy is unable to defend!");
         spell5Effect.setMessage(Effect.MESSAGE_WEAR_OFF, "The binding breaks!");
         final Spell spell5 = new Spell(spell5Effect, 11, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_2);
+                SoundConstants.DEBUFF_2);
         this.spells[5] = spell5;
         final Effect spell6Effect = new Effect("Killer Poison", 10);
         spell6Effect.setEffect(Effect.EFFECT_ADD, StatConstants.STAT_CURRENT_HP,
@@ -103,7 +103,7 @@ public class DebufferSpellBook extends SpellBook {
                 "The enemy is badly hurt by the poison!");
         spell6Effect.setMessage(Effect.MESSAGE_WEAR_OFF, "The poison fades!");
         final Spell spell6 = new Spell(spell6Effect, 13, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_1);
+                SoundConstants.DRAIN_SPELL);
         this.spells[6] = spell6;
         final Effect spell7Effect = new Effect("Blindness", 10);
         spell7Effect.setEffect(Effect.EFFECT_MULTIPLY, StatConstants.STAT_EVADE,
@@ -114,7 +114,7 @@ public class DebufferSpellBook extends SpellBook {
         spell7Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The enemy's vision returns to normal!");
         final Spell spell7 = new Spell(spell7Effect, 17, BattleTarget.ENEMY,
-                SoundConstants.SOUND_DEBUFF_1);
+                SoundConstants.BLINDNESS);
         this.spells[7] = spell7;
     }
 

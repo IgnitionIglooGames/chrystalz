@@ -10,7 +10,6 @@ import studio.ignitionigloogames.chrystalz.battle.BattleTarget;
 import studio.ignitionigloogames.chrystalz.creatures.AbstractCreature;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.effects.Effect;
-import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 
@@ -76,7 +75,6 @@ public class SpellCaster {
             final String[] displayNames = book.getAllSpellNamesWithCosts();
             if (names != null && displayNames != null) {
                 // Play casting spell sound
-                SoundManager.playSound(SoundConstants.SOUND_SPELL_SELECT);
                 String dialogResult = null;
                 dialogResult = CommonDialogs.showInputDialog(
                         "Select a Spell to Cast", "Select Spell", displayNames,

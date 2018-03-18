@@ -9,6 +9,8 @@ import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.battle.BattleResult;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.creatures.party.PartyMember;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 
 class BossBattleRewards {
     // Fields
@@ -30,6 +32,7 @@ class BossBattleRewards {
             player.offsetExperiencePercentage(-20);
             player.offsetGoldPercentage(-100);
         } else if (br == BattleResult.WON || br == BattleResult.PERFECT) {
+            SoundManager.playSound(SoundConstants.BOSS_DIE);
             // Send player to next zone
             Chrystalz.getApplication().getGame().goToLevelOffset(1);
         }

@@ -32,6 +32,8 @@ import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.manager.asset.BattleImageManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.ImageCompositor;
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.chrystalz.prefs.PreferencesManager;
 import studio.ignitionigloogames.common.dialogs.CommonDialogs;
 import studio.ignitionigloogames.common.images.BufferedImageIcon;
@@ -46,7 +48,7 @@ class MapBattleGUI {
     private final MapBattleEffects be;
     private DrawGrid drawGrid;
     boolean eventHandlersOn;
-    private JButton spell, steal, drain, item, end;
+    private JButton spell, steal, drain, end;
     private static final int MAX_TEXT = 1000;
 
     // Constructors
@@ -174,23 +176,19 @@ class MapBattleGUI {
         this.spell = new JButton("Cast Spell");
         this.steal = new JButton("Steal");
         this.drain = new JButton("Drain");
-        this.item = new JButton("Use Item");
         this.end = new JButton("End Turn");
         buttonPane.setLayout(new GridLayout(5, 1));
         buttonPane.add(this.spell);
         buttonPane.add(this.steal);
         buttonPane.add(this.drain);
-        buttonPane.add(this.item);
         buttonPane.add(this.end);
         this.spell.setFocusable(false);
         this.steal.setFocusable(false);
         this.drain.setFocusable(false);
-        this.item.setFocusable(false);
         this.end.setFocusable(false);
         this.spell.addActionListener(handler);
         this.steal.addActionListener(handler);
         this.drain.addActionListener(handler);
-        this.item.addActionListener(handler);
         this.end.addActionListener(handler);
         int modKey;
         if (System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
@@ -207,9 +205,6 @@ class MapBattleGUI {
         this.drain.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke(KeyEvent.VK_D, modKey), "Drain");
         this.drain.getActionMap().put("Drain", handler);
-        this.item.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-                .put(KeyStroke.getKeyStroke(KeyEvent.VK_I, modKey), "Use Item");
-        this.item.getActionMap().put("Use Item", handler);
         this.end.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke(KeyEvent.VK_E, modKey), "End Turn");
         this.end.getActionMap().put("End Turn", handler);
@@ -241,7 +236,6 @@ class MapBattleGUI {
         this.spell.setEnabled(false);
         this.steal.setEnabled(false);
         this.drain.setEnabled(false);
-        this.item.setEnabled(false);
         this.end.setEnabled(false);
     }
 
@@ -250,7 +244,6 @@ class MapBattleGUI {
         this.spell.setEnabled(true);
         this.steal.setEnabled(true);
         this.drain.setEnabled(true);
-        this.item.setEnabled(true);
         this.end.setEnabled(true);
     }
 
@@ -268,6 +261,9 @@ class MapBattleGUI {
         @Override
         public void actionPerformed(final ActionEvent e) {
             try {
+                if (e.getSource() instanceof JButton) {
+                    SoundManager.playSound(SoundConstants.CLICK);
+                }
                 final String cmd = e.getActionCommand();
                 final AbstractBattle b = Chrystalz.getApplication().getBattle();
                 // Do Player Actions
