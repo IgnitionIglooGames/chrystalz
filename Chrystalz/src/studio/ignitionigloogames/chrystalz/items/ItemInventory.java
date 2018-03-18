@@ -29,24 +29,9 @@ public class ItemInventory {
         this.equipment = new Equipment[EquipmentSlotConstants.MAX_SLOTS];
     }
 
-    public void equipWeapon(final AbstractCreature pc, final Equipment ei,
+    public void equip(final AbstractCreature pc, final Equipment ei,
             final boolean playSound) {
-        // Fix character load, changing weapons
-        if (this.equipment[EquipmentSlotConstants.SLOT_WEAPON] != null) {
-            pc.offsetLoad(-this.equipment[EquipmentSlotConstants.SLOT_WEAPON]
-                    .getEffectiveWeight());
-        }
-        pc.offsetLoad(ei.getEffectiveWeight());
-        // Equip it
-        this.equipment[ei.getSlotUsed()] = ei;
-        if (playSound) {
-            SoundManager.playSound(SoundConstants.EQUIP);
-        }
-    }
-
-    public void equipArmor(final AbstractCreature pc, final Equipment ei,
-            final boolean playSound) {
-        // Fix character load, changing armor
+        // Fix character load, changing gear
         if (this.equipment[ei.getSlotUsed()] != null) {
             pc.offsetLoad(
                     -this.equipment[ei.getSlotUsed()].getEffectiveWeight());

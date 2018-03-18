@@ -391,14 +391,12 @@ public class Shop {
                 playerCharacter.offsetGold(-Shop.this.cost);
                 final Equipment bought = EquipmentFactory
                         .createWeapon(Shop.this.index, Shop.this.typeIndex);
-                playerCharacter.getItems().equipWeapon(playerCharacter, bought,
-                        true);
+                playerCharacter.getItems().equip(playerCharacter, bought, true);
             } else if (Shop.this.type == ShopType.ARMOR) {
                 playerCharacter.offsetGold(-Shop.this.cost);
                 final Equipment bought = EquipmentFactory
                         .createArmor(Shop.this.index, Shop.this.typeIndex);
-                playerCharacter.getItems().equipArmor(playerCharacter, bought,
-                        true);
+                playerCharacter.getItems().equip(playerCharacter, bought, true);
             }
         }
     }
