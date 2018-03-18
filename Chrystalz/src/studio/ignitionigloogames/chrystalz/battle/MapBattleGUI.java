@@ -229,10 +229,8 @@ class MapBattleGUI {
                 .getViewingWindowSize(); x++) {
             for (int y = 0; y < MapBattleViewingWindowManager
                     .getViewingWindowSize(); y++) {
-                final AbstractGameObject dark = new Darkness().gameRenderHook(y,
-                        x);
-                this.drawGrid.setImageCell(BattleImageManager
-                        .getImage(dark.getName(), dark.getGameBaseID()), x, y);
+                final AbstractGameObject dark = new Darkness();
+                this.drawGrid.setImageCell(dark.battleRenderHook(), x, y);
             }
         }
         this.battlePane = new MapBattleDraw(this.drawGrid);

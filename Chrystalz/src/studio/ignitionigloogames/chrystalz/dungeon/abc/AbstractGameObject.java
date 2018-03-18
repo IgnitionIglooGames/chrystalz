@@ -16,6 +16,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.utilities.RandomGenerationRul
 import studio.ignitionigloogames.chrystalz.dungeon.utilities.TypeConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.BattleImageManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageManager;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
 import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.FormatConstants;
@@ -240,8 +241,9 @@ public abstract class AbstractGameObject extends CloneableObject
      * @param y
      * @return
      */
-    public AbstractGameObject gameRenderHook(final int x, final int y) {
-        return this;
+    public BufferedImageIcon gameRenderHook(final int x, final int y) {
+        return ObjectImageManager.getImage(this.getGameName(),
+                this.getGameBaseID());
     }
 
     public BufferedImageIcon battleRenderHook() {

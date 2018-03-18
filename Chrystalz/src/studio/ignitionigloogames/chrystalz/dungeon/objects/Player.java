@@ -5,9 +5,11 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
+import studio.ignitionigloogames.chrystalz.creatures.party.PartyManager;
 import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractCharacter;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
+import studio.ignitionigloogames.common.images.BufferedImageIcon;
 
 public class Player extends AbstractCharacter {
     // Constructors
@@ -49,5 +51,10 @@ public class Player extends AbstractCharacter {
     @Override
     public int getMaximumRequiredQuantity(final Dungeon dungeon) {
         return 1;
+    }
+
+    @Override
+    public BufferedImageIcon gameRenderHook(final int x, final int y) {
+        return PartyManager.getParty().getLeader().getImage();
     }
 }

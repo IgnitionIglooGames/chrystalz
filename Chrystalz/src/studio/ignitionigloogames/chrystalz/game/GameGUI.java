@@ -158,26 +158,18 @@ class GameGUI {
                             .isSquareVisible(u, v, y, x);
                     try {
                         if (visible) {
-                            final AbstractGameObject obj1 = m
-                                    .getCell(y, x,
-                                            DungeonConstants.LAYER_GROUND)
+                            final AbstractGameObject obj1 = m.getCell(y, x,
+                                    DungeonConstants.LAYER_GROUND);
+                            final AbstractGameObject obj2 = m.getCell(y, x,
+                                    DungeonConstants.LAYER_OBJECT);
+                            final BufferedImageIcon img1 = obj1
                                     .gameRenderHook(y, x);
-                            final AbstractGameObject obj2 = m
-                                    .getCell(y, x,
-                                            DungeonConstants.LAYER_OBJECT)
+                            final BufferedImageIcon img2 = obj2
                                     .gameRenderHook(y, x);
-                            final BufferedImageIcon img1 = ObjectImageManager
-                                    .getImage(obj1.getName(),
-                                            obj1.getGameBaseID());
-                            final BufferedImageIcon img2 = ObjectImageManager
-                                    .getImage(obj2.getName(),
-                                            obj2.getGameBaseID());
                             if (u == y && v == x) {
-                                final AbstractGameObject obj3 = new Player()
+                                final AbstractGameObject obj3 = new Player();
+                                final BufferedImageIcon img3 = obj3
                                         .gameRenderHook(y, x);
-                                final BufferedImageIcon img3 = ObjectImageManager
-                                        .getImage(obj3.getName(),
-                                                obj3.getGameBaseID());
                                 this.drawGrid.setImageCell(ImageCompositor
                                         .getVirtualCompositeImage(img1, img2,
                                                 img3,
@@ -200,16 +192,10 @@ class GameGUI {
                                     xFix, yFix);
                         }
                     } catch (final ArrayIndexOutOfBoundsException ae) {
-                        final AbstractGameObject obj = wall.gameRenderHook(y,
-                                x);
-                        this.drawGrid.setImageCell(ObjectImageManager
-                                .getImage(obj.getName(), obj.getGameBaseID()),
+                        this.drawGrid.setImageCell(wall.gameRenderHook(y, x),
                                 xFix, yFix);
                     } catch (final NullPointerException np) {
-                        final AbstractGameObject obj = wall.gameRenderHook(y,
-                                x);
-                        this.drawGrid.setImageCell(ObjectImageManager
-                                .getImage(obj.getName(), obj.getGameBaseID()),
+                        this.drawGrid.setImageCell(wall.gameRenderHook(y, x),
                                 xFix, yFix);
                     }
                 }
