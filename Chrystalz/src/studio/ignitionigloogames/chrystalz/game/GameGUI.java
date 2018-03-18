@@ -26,6 +26,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.DungeonConstants;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Darkness;
+import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Player;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Wall;
 import studio.ignitionigloogames.chrystalz.manager.asset.ImageCompositor;
@@ -301,6 +302,19 @@ class GameGUI {
                 case KeyEvent.VK_ENTER:
                     if (e.isShiftDown()) {
                         glm.updatePositionRelative(0, 0);
+                    } else {
+                        final Application app = Chrystalz.getApplication();
+                        final Dungeon m = app.getDungeonManager().getDungeon();
+                        int px = m.getPlayerLocationX();
+                        int py = m.getPlayerLocationY();
+                        AbstractGameObject there = new Empty();
+                        try {
+                            there = m.getCell(px, py,
+                                    DungeonConstants.LAYER_OBJECT);
+                        } catch (final ArrayIndexOutOfBoundsException ae) {
+                            // Ignore
+                        }
+                        there.interactAction();
                     }
                     break;
                 case KeyEvent.VK_NUMPAD7:

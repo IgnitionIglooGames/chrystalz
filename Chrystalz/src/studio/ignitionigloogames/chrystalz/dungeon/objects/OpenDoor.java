@@ -5,8 +5,12 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
  */
 package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
+import studio.ignitionigloogames.chrystalz.Chrystalz;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractPassThroughObject;
+import studio.ignitionigloogames.chrystalz.game.GameLogic;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundConstants;
+import studio.ignitionigloogames.chrystalz.manager.asset.SoundManager;
 
 public class OpenDoor extends AbstractPassThroughObject {
     // Constructors
@@ -32,6 +36,14 @@ public class OpenDoor extends AbstractPassThroughObject {
 
     @Override
     public String getDescription() {
-        return "Open Doors are purely decorative.";
+        return "Open Doors can be closed by interacting with them.";
+    }
+
+    @Override
+    public void interactAction() {
+        SoundManager.playSound(SoundConstants.SOUND_DOOR_CLOSES);
+        final GameLogic glm = Chrystalz.getApplication().getGame();
+        GameLogic.morph(new ClosedDoor());
+        glm.redrawDungeon();
     }
 }

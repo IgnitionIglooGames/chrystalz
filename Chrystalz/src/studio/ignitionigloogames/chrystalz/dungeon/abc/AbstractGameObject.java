@@ -221,6 +221,18 @@ public abstract class AbstractGameObject extends CloneableObject
         SoundManager.playSound(SoundConstants.SOUND_FAILED);
         Chrystalz.getApplication().showMessage("Can't go that way");
     }
+    
+    /**
+    *
+    * @param ie
+    * @param dirX
+    * @param dirY
+    * @param inv
+    */
+   public void interactAction() {
+       SoundManager.playSound(SoundConstants.SOUND_FAILED);
+       Chrystalz.getApplication().showMessage("Can't interact with that");
+   }
 
     /**
      *
