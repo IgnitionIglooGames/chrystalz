@@ -14,6 +14,7 @@ import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractMovingObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Empty;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.Tile;
+import studio.ignitionigloogames.chrystalz.dungeon.utilities.DirectionResolver;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.FormatConstants;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.PrefixIO;
 import studio.ignitionigloogames.chrystalz.manager.dungeon.SuffixIO;
@@ -89,6 +90,65 @@ public class Dungeon {
         return temp;
     }
 
+    public int computeFinalBossMoveDirection(final int locX, final int locY) {
+        int px = this.getPlayerLocationX();
+        int py = this.getPlayerLocationY();
+        int relX = locX - px;
+        int relY = locY - py;
+        int moveX = relX / Math.abs(relX);
+        int moveY = relY / Math.abs(relY);
+        boolean canMove = !this.getCell(locX + moveX, locY + moveY,
+                DungeonConstants.LAYER_OBJECT).isSolid();
+        if (canMove) {
+            return DirectionResolver.resolveRelativeDirection(moveX, moveY);
+        }
+        int moveX1L = DirectionResolver.rotate45LeftX(moveX, moveY);
+        int moveY1L = DirectionResolver.rotate45LeftY(moveX, moveY);
+        boolean canMove1L = !this.getCell(locX + moveX1L, locY + moveY1L,
+                DungeonConstants.LAYER_OBJECT).isSolid();
+        if (canMove1L) {
+            return DirectionResolver.resolveRelativeDirection(moveX1L, moveY1L);
+        }
+        int moveX1R = DirectionResolver.rotate45RightX(moveX, moveY);
+        int moveY1R = DirectionResolver.rotate45RightY(moveX, moveY);
+        boolean canMove1R = !this.getCell(locX + moveX1R, locY + moveY1R,
+                DungeonConstants.LAYER_OBJECT).isSolid();
+        if (canMove1R) {
+            return DirectionResolver.resolveRelativeDirection(moveX1R, moveY1R);
+        }
+        int moveX2L = DirectionResolver.rotate45LeftX(moveX1L, moveY1L);
+        int moveY2L = DirectionResolver.rotate45LeftY(moveX1L, moveY1L);
+        boolean canMove2L = !this.getCell(locX + moveX2L, locY + moveY2L,
+                DungeonConstants.LAYER_OBJECT).isSolid();
+        if (canMove2L) {
+            return DirectionResolver.resolveRelativeDirection(moveX2L, moveY2L);
+        }
+        int moveX2R = DirectionResolver.rotate45RightX(moveX1R, moveY1R);
+        int moveY2R = DirectionResolver.rotate45RightY(moveX1R, moveY1R);
+        boolean canMove2R = !this.getCell(locX + moveX2R, locY + moveY2R,
+                DungeonConstants.LAYER_OBJECT).isSolid();
+        if (canMove2R) {
+            return DirectionResolver.resolveRelativeDirection(moveX2R, moveY2R);
+        }
+        int moveX3L = DirectionResolver.rotate45LeftX(moveX2L, moveY2L);
+        int moveY3L = DirectionResolver.rotate45LeftY(moveX2L, moveY2L);
+        boolean canMove3L = !this.getCell(locX + moveX3L, locY + moveY3L,
+                DungeonConstants.LAYER_OBJECT).isSolid();
+        if (canMove3L) {
+            return DirectionResolver.resolveRelativeDirection(moveX3L, moveY3L);
+        }
+        int moveX3R = DirectionResolver.rotate45RightX(moveX2R, moveY2R);
+        int moveY3R = DirectionResolver.rotate45RightY(moveX2R, moveY2R);
+        boolean canMove3R = !this.getCell(locX + moveX3R, locY + moveY3R,
+                DungeonConstants.LAYER_OBJECT).isSolid();
+        if (canMove3R) {
+            return DirectionResolver.resolveRelativeDirection(moveX3R, moveY3R);
+        }
+        int moveX4 = DirectionResolver.rotate45LeftX(moveX3L, moveY3L);
+        int moveY4 = DirectionResolver.rotate45LeftY(moveX3L, moveY3L);
+        return DirectionResolver.resolveRelativeDirection(moveX4, moveY4);
+    }
+
     public void updateMonsterPosition(final int move, final int xLoc,
             final int yLoc, final AbstractMovingObject monster) {
         this.mazeData.updateMonsterPosition(move, xLoc, yLoc, monster);
@@ -154,6 +214,10 @@ public class Dungeon {
     public boolean doesLevelExistOffset(final int level) {
         return this.activeLevel + level < this.levelCount
                 && this.activeLevel + level >= 0;
+    }
+
+    public int getActiveLevel() {
+        return this.activeLevel;
     }
 
     public boolean addLevel(final int rows, final int cols) {

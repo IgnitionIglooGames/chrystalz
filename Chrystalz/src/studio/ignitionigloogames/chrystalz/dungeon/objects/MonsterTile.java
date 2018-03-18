@@ -7,7 +7,9 @@ package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
+import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractMovingObject;
+import studio.ignitionigloogames.chrystalz.dungeon.utilities.RandomGenerationRule;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
 import studio.ignitionigloogames.common.random.RandomRange;
 
@@ -57,5 +59,44 @@ public class MonsterTile extends AbstractMovingObject {
     @Override
     public String getDescription() {
         return "Monsters are dangerous. Encountering one starts a battle.";
+    }
+
+    @Override
+    public boolean shouldGenerateObject(final Dungeon dungeon, final int row,
+            final int col, final int level, final int layer) {
+        if (dungeon.getActiveLevel() == Dungeon.getMaxLevels() - 1) {
+            return false;
+        } else {
+            return super.shouldGenerateObject(dungeon, row, col, level, layer);
+        }
+    }
+
+    @Override
+    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
+        if (dungeon.getActiveLevel() == Dungeon.getMaxLevels() - 1) {
+            return RandomGenerationRule.NO_LIMIT;
+        } else {
+            return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(),
+                    1.0 / 2.2);
+        }
+    }
+
+    @Override
+    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
+        if (dungeon.getActiveLevel() == Dungeon.getMaxLevels() - 1) {
+            return RandomGenerationRule.NO_LIMIT;
+        } else {
+            return (int) Math.pow(dungeon.getRows() * dungeon.getColumns(),
+                    1.0 / 1.8);
+        }
+    }
+
+    @Override
+    public boolean isRequired(final Dungeon dungeon) {
+        if (dungeon.getActiveLevel() == Dungeon.getMaxLevels() - 1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

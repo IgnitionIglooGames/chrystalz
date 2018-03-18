@@ -37,17 +37,17 @@ public class Player extends AbstractCharacter {
 
     // Random Generation Rules
     @Override
-    public boolean isRequired() {
+    public boolean isRequired(final Dungeon dungeon) {
         return true;
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final Dungeon maze) {
+    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
         return 1;
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final Dungeon maze) {
+    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
         return 1;
     }
 }

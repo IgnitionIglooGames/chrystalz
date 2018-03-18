@@ -330,13 +330,13 @@ public abstract class AbstractGameObject extends CloneableObject
     }
 
     @Override
-    public boolean shouldGenerateObject(final Dungeon maze, final int row,
+    public boolean shouldGenerateObject(final Dungeon dungeon, final int row,
             final int col, final int level, final int layer) {
         if (layer == DungeonConstants.LAYER_OBJECT) {
             // Handle object layer
             if (!this.isOfType(TypeConstants.TYPE_PASS_THROUGH)) {
                 // Limit generation of other objects to 20%, unless required
-                if (this.isRequired()) {
+                if (this.isRequired(dungeon)) {
                     return true;
                 } else {
                     final RandomRange r = new RandomRange(1, 100);
@@ -368,17 +368,17 @@ public abstract class AbstractGameObject extends CloneableObject
     }
 
     @Override
-    public int getMinimumRequiredQuantity(final Dungeon maze) {
+    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
         return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public int getMaximumRequiredQuantity(final Dungeon maze) {
+    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
         return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public boolean isRequired() {
+    public boolean isRequired(final Dungeon dungeon) {
         return false;
     }
 

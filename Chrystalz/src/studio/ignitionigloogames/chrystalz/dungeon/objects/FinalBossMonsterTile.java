@@ -7,9 +7,10 @@ package studio.ignitionigloogames.chrystalz.dungeon.objects;
 
 import studio.ignitionigloogames.chrystalz.Application;
 import studio.ignitionigloogames.chrystalz.Chrystalz;
+import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractMovingObject;
+import studio.ignitionigloogames.chrystalz.dungeon.utilities.RandomGenerationRule;
 import studio.ignitionigloogames.chrystalz.manager.asset.ObjectImageConstants;
-import studio.ignitionigloogames.common.random.RandomRange;
 
 public class FinalBossMonsterTile extends AbstractMovingObject {
     // Constructors
@@ -28,12 +29,12 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     }
 
     @Override
-    public void timerExpiredAction(final int dirX, final int dirY) {
+    public void timerExpiredAction(final int locX, final int locY) {
         // Move the monster
-        final RandomRange r = new RandomRange(0, 7);
-        final int move = r.generate();
-        Chrystalz.getApplication().getDungeonManager().getDungeon()
-                .updateMonsterPosition(move, dirX, dirY, this);
+        Dungeon dungeon = Chrystalz.getApplication().getDungeonManager()
+                .getDungeon();
+        final int move = dungeon.computeFinalBossMoveDirection(locX, locY);
+        dungeon.updateMonsterPosition(move, locX, locY, this);
         this.activateTimer(1);
     }
 
@@ -55,5 +56,42 @@ public class FinalBossMonsterTile extends AbstractMovingObject {
     @Override
     public String getDescription() {
         return "Final Boss Monsters are extremely dangerous. Encountering one starts a final boss battle.";
+    }
+
+    @Override
+    public boolean shouldGenerateObject(final Dungeon dungeon, final int row,
+            final int col, final int level, final int layer) {
+        if (dungeon.getActiveLevel() != Dungeon.getMaxLevels() - 1) {
+            return false;
+        } else {
+            return super.shouldGenerateObject(dungeon, row, col, level, layer);
+        }
+    }
+
+    @Override
+    public int getMinimumRequiredQuantity(final Dungeon dungeon) {
+        if (dungeon.getActiveLevel() != Dungeon.getMaxLevels() - 1) {
+            return RandomGenerationRule.NO_LIMIT;
+        } else {
+            return 1;
+        }
+    }
+
+    @Override
+    public int getMaximumRequiredQuantity(final Dungeon dungeon) {
+        if (dungeon.getActiveLevel() != Dungeon.getMaxLevels() - 1) {
+            return RandomGenerationRule.NO_LIMIT;
+        } else {
+            return 1;
+        }
+    }
+
+    @Override
+    public boolean isRequired(final Dungeon dungeon) {
+        if (dungeon.getActiveLevel() != Dungeon.getMaxLevels() - 1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

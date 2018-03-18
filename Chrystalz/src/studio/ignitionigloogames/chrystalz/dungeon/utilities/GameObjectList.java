@@ -8,6 +8,7 @@ package studio.ignitionigloogames.chrystalz.dungeon.utilities;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import studio.ignitionigloogames.chrystalz.dungeon.Dungeon;
 import studio.ignitionigloogames.chrystalz.dungeon.abc.AbstractGameObject;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.ArmorShop;
 import studio.ignitionigloogames.chrystalz.dungeon.objects.BossMonsterTile;
@@ -59,13 +60,13 @@ public class GameObjectList {
         return allDescriptions;
     }
 
-    public final AbstractGameObject[] getAllRequired(final int layer) {
+    public final AbstractGameObject[] getAllRequired(final Dungeon dungeon, final int layer) {
         final AbstractGameObject[] objects = this.getAllObjects();
         final AbstractGameObject[] tempAllRequired = new AbstractGameObject[objects.length];
         int x;
         int count = 0;
         for (x = 0; x < objects.length; x++) {
-            if (objects[x].getLayer() == layer && objects[x].isRequired()) {
+            if (objects[x].getLayer() == layer && objects[x].isRequired(dungeon)) {
                 tempAllRequired[count] = objects[x];
                 count++;
             }
@@ -82,13 +83,13 @@ public class GameObjectList {
     }
 
     public final AbstractGameObject[] getAllWithoutPrerequisiteAndNotRequired(
-            final int layer) {
+            final Dungeon dungeon, final int layer) {
         final AbstractGameObject[] objects = this.getAllObjects();
         final AbstractGameObject[] tempAllWithoutPrereq = new AbstractGameObject[objects.length];
         int x;
         int count = 0;
         for (x = 0; x < objects.length; x++) {
-            if (objects[x].getLayer() == layer && !objects[x].isRequired()) {
+            if (objects[x].getLayer() == layer && !objects[x].isRequired(dungeon)) {
                 tempAllWithoutPrereq[count] = objects[x];
                 count++;
             }

@@ -6,6 +6,118 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 package studio.ignitionigloogames.chrystalz.dungeon.utilities;
 
 public class DirectionResolver {
+    public static final int rotate45LeftX(final int dirX, final int dirY) {
+        if (dirX > 0) {
+            if (dirY > 0) {
+                return 1;
+            } else if (dirY < 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else if (dirX < 0) {
+            if (dirY > 0) {
+                return 0;
+            } else if (dirY < 0) {
+                return -1;
+            } else {
+                return -1;
+            }
+        } else {
+            if (dirY > 0) {
+                return -1;
+            } else if (dirY < 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    public static final int rotate45LeftY(final int dirX, final int dirY) {
+        if (dirX > 0) {
+            if (dirY > 0) {
+                return 0;
+            } else if (dirY < 0) {
+                return -1;
+            } else {
+                return -1;
+            }
+        } else if (dirX < 0) {
+            if (dirY > 0) {
+                return 1;
+            } else if (dirY < 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            if (dirY > 0) {
+                return 1;
+            } else if (dirY < 0) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    public static final int rotate45RightX(final int dirX, final int dirY) {
+        if (dirX > 0) {
+            if (dirY > 0) {
+                return 0;
+            } else if (dirY < 0) {
+                return 1;
+            } else {
+                return 1;
+            }
+        } else if (dirX < 0) {
+            if (dirY > 0) {
+                return -1;
+            } else if (dirY < 0) {
+                return 0;
+            } else {
+                return -1;
+            }
+        } else {
+            if (dirY > 0) {
+                return 1;
+            } else if (dirY < 0) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    public static final int rotate45RightY(final int dirX, final int dirY) {
+        if (dirX > 0) {
+            if (dirY > 0) {
+                return 1;
+            } else if (dirY < 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else if (dirX < 0) {
+            if (dirY > 0) {
+                return 0;
+            } else if (dirY < 0) {
+                return -1;
+            } else {
+                return -1;
+            }
+        } else {
+            if (dirY > 0) {
+                return 1;
+            } else if (dirY < 0) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
+
     public static final int resolveRelativeDirection(final int dirX,
             final int dirY) {
         final int fdX = (int) Math.signum(dirX);

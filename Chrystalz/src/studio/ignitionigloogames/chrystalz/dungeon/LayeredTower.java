@@ -466,7 +466,7 @@ final class LayeredTower implements Cloneable {
         }
     }
 
-    public void fillRandomly(final Dungeon maze, final int w) {
+    public void fillRandomly(final Dungeon dungeon, final int w) {
         // Pre-Pass
         final GameObjectList objects = Chrystalz.getApplication().getObjects();
         final AbstractGameObject pass1FillBottom = new Tile();
@@ -480,15 +480,15 @@ final class LayeredTower implements Cloneable {
         final int rows = this.getRows();
         for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
             final AbstractGameObject[] objectsWithoutPrerequisites = objects
-                    .getAllWithoutPrerequisiteAndNotRequired(e);
+                    .getAllWithoutPrerequisiteAndNotRequired(dungeon, e);
             if (objectsWithoutPrerequisites != null) {
                 r = new RandomRange(0, objectsWithoutPrerequisites.length - 1);
                 for (x = 0; x < columns; x++) {
                     for (y = 0; y < rows; y++) {
                         final AbstractGameObject placeObj = objectsWithoutPrerequisites[r
                                 .generate()];
-                        final boolean okay = placeObj.shouldGenerateObject(maze,
-                                x, y, w, e);
+                        final boolean okay = placeObj
+                                .shouldGenerateObject(dungeon, x, y, w, e);
                         if (okay) {
                             this.setCell(objects.getNewInstanceByName(
                                     placeObj.getName()), y, x, e);
@@ -501,7 +501,7 @@ final class LayeredTower implements Cloneable {
         // Pass 3
         for (int layer = 0; layer < DungeonConstants.LAYER_COUNT; layer++) {
             final AbstractGameObject[] requiredObjects = objects
-                    .getAllRequired(layer);
+                    .getAllRequired(dungeon, layer);
             if (requiredObjects != null) {
                 final RandomRange row = new RandomRange(0, this.getRows() - 1);
                 final RandomRange column = new RandomRange(0,
@@ -509,10 +509,11 @@ final class LayeredTower implements Cloneable {
                 int randomColumn, randomRow;
                 for (x = 0; x < requiredObjects.length; x++) {
                     final AbstractGameObject currObj = requiredObjects[x];
-                    final int min = currObj.getMinimumRequiredQuantity(maze);
-                    int max = currObj.getMaximumRequiredQuantity(maze);
+                    final int min = currObj.getMinimumRequiredQuantity(dungeon);
+                    int max = currObj.getMaximumRequiredQuantity(dungeon);
                     if (max == RandomGenerationRule.NO_LIMIT) {
-                        // Maximum undefined, so define it relative to this maze
+                        // Maximum undefined, so define it relative to this
+                        // dungeon
                         max = this.getRows() * this.getColumns() / 10;
                         // Make sure max is valid
                         if (max < min) {
@@ -524,7 +525,7 @@ final class LayeredTower implements Cloneable {
                     for (y = 0; y < generateHowMany; y++) {
                         randomRow = row.generate();
                         randomColumn = column.generate();
-                        if (currObj.shouldGenerateObject(maze, randomRow,
+                        if (currObj.shouldGenerateObject(dungeon, randomRow,
                                 randomColumn, w, layer)) {
                             this.setCell(
                                     objects.getNewInstanceByName(
@@ -532,7 +533,7 @@ final class LayeredTower implements Cloneable {
                                     randomColumn, randomRow, layer);
                             currObj.editorGenerateHook(y, x);
                         } else {
-                            while (!currObj.shouldGenerateObject(maze,
+                            while (!currObj.shouldGenerateObject(dungeon,
                                     randomColumn, randomRow, w, layer)) {
                                 randomRow = row.generate();
                                 randomColumn = column.generate();
@@ -664,10 +665,10 @@ final class LayeredTower implements Cloneable {
 
     public static LayeredTower readLayeredTowerV1(final FileIOReader reader)
             throws IOException {
-        int y, x, e, mazeSizeX, mazeSizeY;
-        mazeSizeX = reader.readInt();
-        mazeSizeY = reader.readInt();
-        final LayeredTower lt = new LayeredTower(mazeSizeX, mazeSizeY);
+        int y, x, e, dungeonSizeX, dungeonSizeY;
+        dungeonSizeX = reader.readInt();
+        dungeonSizeY = reader.readInt();
+        final LayeredTower lt = new LayeredTower(dungeonSizeX, dungeonSizeY);
         for (x = 0; x < lt.getColumns(); x++) {
             for (y = 0; y < lt.getRows(); y++) {
                 for (e = 0; e < DungeonConstants.LAYER_COUNT; e++) {
