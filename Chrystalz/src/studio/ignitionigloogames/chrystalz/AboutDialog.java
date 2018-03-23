@@ -10,6 +10,8 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.desktop.AboutEvent;
+import java.awt.desktop.AboutHandler;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,7 +23,7 @@ import javax.swing.WindowConstants;
 
 import studio.ignitionigloogames.chrystalz.manager.asset.LogoManager;
 
-public class AboutDialog {
+public class AboutDialog implements AboutHandler {
     // Fields
     private JFrame aboutFrame;
 
@@ -31,6 +33,11 @@ public class AboutDialog {
     }
 
     // Methods
+    @Override
+    public void handleAbout(final AboutEvent ae) {
+        this.showAboutDialog();
+    }
+    
     public void showAboutDialog() {
         this.aboutFrame.setVisible(true);
     }

@@ -33,8 +33,8 @@ public final class Application {
     private MapBattleLogic mapTurnBattle;
     private int currentMode;
     private int formerMode;
-    private static final int VERSION_MAJOR = 1;
-    private static final int VERSION_MINOR = 0;
+    private static final int VERSION_MAJOR = 0;
+    private static final int VERSION_MINOR = 3;
     private static final int VERSION_BUGFIX = 0;
     public static final int STATUS_GUI = 0;
     public static final int STATUS_GAME = 1;
