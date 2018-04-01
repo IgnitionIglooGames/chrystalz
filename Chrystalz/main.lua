@@ -7,13 +7,13 @@ All support is handled via the GitHub repository: https://github.com/IgnitionIgl
 
 local zone_id = 0
 
-function battlefield_size()
+local function battlefield_size()
   local base = 12
   local increment = 1
   return base + (zone_id * increment)
 end
 
-function dungeon_size()
+local function dungeon_size()
   local base = 24
   local increment = 2
   return base + (zone_id * increment)
