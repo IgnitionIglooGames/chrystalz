@@ -1,0 +1,6 @@
+axe
+dagger
+hammer
+staff
+sword
+wand

@@ -1,0 +1,6 @@
+amulet
+boots
+bracer
+cap
+gloves
+suit
