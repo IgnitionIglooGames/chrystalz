@@ -10,7 +10,7 @@ function love.conf(t)
     t.version = "0.10.1"
     t.accelerometerjoystick = true
     t.window.title = "Chrystalz"
-    t.window.icon = "assets/images/logo/iconlogo.png"
+    t.window.icon = "assets/images/logo/icon.png"
     t.window.width = 800
     t.window.height = 600
     t.window.borderless = false

@@ -1,10 +1,3 @@
---[[
-Chrystalz: A dungeon-crawling, roguelike game
-Licensed under MIT. See the LICENSE file for details.
-
-All support is handled via the GitHub repository: https://github.com/IgnitionIglooGames/chrystalz
-]]
-
 local zone_id = 0
 
 local function battlefield_size()
