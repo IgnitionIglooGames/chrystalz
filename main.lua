@@ -1,7 +1,6 @@
 -- Set up internationalization support
 local langdata = "assets/lang/"
-local i18n = require("lib/i18n/i18n")
-local lang = i18n()
+local lang = require("lib/i18n/i18n")()
 local zone_id = 0
 
 local function battlefield_size()
