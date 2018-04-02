@@ -1,9 +1,7 @@
 -- Set up internationalization support
-local language_data = "assets/lang/"
-local languages = require("lib/i18n/i18n")
-languages.set_fallback(language_data + "en")
-languages.set_locale(language_data + "en")
-
+local langdata = "assets/lang/"
+local i18n = require("lib/i18n/i18n")
+local lang = i18n()
 local zone_id = 0
 
 local function battlefield_size()
@@ -18,10 +16,13 @@ local function dungeon_size()
   return base + (zone_id * increment)
 end
 
---function love.load()
+function love.load()
+  lang:load(langdata.."en.lua")
+  lang:set_fallback("en")
+  lang:set_locale("en")
   --TODO: Need to compute the action cap here
---end
+end
 
 function love.draw()
-  love.graphics.print(languages.get("main/crash"), 400, 300)
+  love.graphics.print(lang "main/crash", 400, 300)
 end
